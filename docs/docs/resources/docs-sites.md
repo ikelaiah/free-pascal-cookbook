@@ -5,11 +5,13 @@
 - [Gitlab `lazarus/examples`](https://gitlab.com/freepascal.org/lazarus/lazarus/-/tree/main/examples?ref_type=heads). There are more snippets (gems) in the example folder of Lazarus installation. You can access them online too.
 - [Github gcarreno/TestThreading](https://github.com/gcarreno/TestThreading). Example of how to use the Class TThread and all of the threading tools available with Free Pascal.
 
-## Articles for beginners
+## Articles and eBooks - suitable for beginners
 
+- `#fpc` `#lazarus` [Free Pascal and Lazarus - A textbook on programming by Alekseev E.R., Chesnokova O.V., Kucher T.V](http://www.freepascal.ru/download/book/tutorial_fpc&lazarus.pdf), 2021.
+- `#fpc` `#lazarus` [Introduction to the Lazarus IDE](https://lazarus.bg-lazarus.com/en/categories/books/book3.html) by Lazar Hristov, 2024.
+- `#fpc` [Free Pascal From Square One](http://www.copperwood.com/pub/FreePascalFromSquareOne.pdf) by [Jeff Duntemann](https://www.contrapositivediary.com), 2024.
 - `#lazarus` [Laz Planet Tutorials](https://lazplanet.blogspot.com/search/label/Tutorials)
-- `#fpc` [Free Pascal from Square One](./FreePascalFromSquareOne.pdf) by Jeff Duntemann.
-- `#fpc` [Tao Yue's Pascal Tutorial](https://www.taoyue.com/tutorials/pascal), which also available on [Free Pascal's wiki](https://wiki.freepascal.org/Basic_Pascal_Tutorial).
+- `#fpc` [Tao Yue's Pascal Tutorial](https://www.taoyue.com/tutorials/pascal), also available on [Free Pascal's wiki](https://wiki.freepascal.org/Basic_Pascal_Tutorial).
 - `#fpc` [Tutorials Point's Pascal Tutorial](https://www.tutorialspoint.com/pascal/index.htm)
 
 ## Articles for experienced

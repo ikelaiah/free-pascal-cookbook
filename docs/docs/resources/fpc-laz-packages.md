@@ -55,11 +55,14 @@ A Generics library with tons of goodies by [A.Koverdyaev(avk)](https://github.co
 
 Delphi class helper for TArray with functions like Add, Delete, IndexOf, Map, etc. Includes examples and testing. Extends TArray with functions similar to TList or TStrings for easier memory management. Introduces TArrayRecord to use dynamic arrays like objects without the need for a final Free call.
 
-### Currency type
+### [ezthreads](https://github.com/mr-highball/ezthreads)
 
-`#finance`
+a simple and safe way to work with threads
 
-Actually, [`Currency` is a data type](https://wiki.freepascal.org/Currency) in Free Pascal. 
+To request features or report a bug, open a github issue with details/steps to reproduce.
+
+General questions can be asked in Discussions
+
 
 ### [Indy](https://github.com/IndySockets/Indy)
 
