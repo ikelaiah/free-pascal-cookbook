@@ -13,14 +13,6 @@ Here are chats, mailing lists, conferences and events that relate to Free Pascal
 - [Unofficial Free Pascal](https://discord.com/invite/GPFyAc2UJ2)
 - [Delphi Community](https://delphi-community.com)
 
-!!! Note
-
-    I have not been able to join the `irc.libera.chat`
-
-    The `irc.libera.chat` is for off-topic discussions.
-
-    The FPC core team has no control over either of these channels.
-
 ## Email Lists
 
 - [Free Pascal Mailing Lists](https://lists.freepascal.org/mailman/listinfo)
