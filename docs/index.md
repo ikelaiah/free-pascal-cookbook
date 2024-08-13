@@ -1,10 +1,10 @@
-# Free Pascal & Lazarus Cookbook
+# Free Pascal Cookbook
 
 ![Cooking](assets/home-min.png)
 
-Welcome to my Free Pascal and Lazarus IDE Cookbook!
+Welcome to my Free Pascal Cookbook!
 
-Inside, you'll discover a collection of handy recipes (snippets) and study notes for Object Pascal using the [Free Pascal programming language](https://www.freepascal.org) and [Lazarus IDE](https://www.lazarus-ide.org). Discover time-saving recipes and streamline your work in Free Pascal!
+Inside, you'll discover a collection of handy snippets and study notes for Object Pascal using the [Free Pascal programming language](https://www.freepascal.org) with [Lazarus IDE](https://www.lazarus-ide.org). Discover time-saving recipes and streamline your work in Free Pascal!
 
 If you're seeking tutorials and in-depth technical discussions, don't miss [Resources](docs/resources/docs-sites.md).
 
@@ -24,9 +24,6 @@ If you're seeking tutorials and in-depth technical discussions, don't miss [Reso
 | [PDF](http://downloads.freepascal.org/fpc/docs-pdf/fpdoc.pdf) | [HTML](https://www.freepascal.org/docs-html/current/fpdoc/fpdoc.html) | fpdoc documentation tool reference manual |
 | [PDF](http://downloads.freepascal.org/fpc/docs-pdf/chart.pdf) | NA | Reference chart with all compiler options and switches (PDF only) |
 
-**Others**
-
-- [Unofficial reference chart with all compiler options and switches](docs/advanced/fpc-switches.md#fpc-switches) in Markdown format.
 
 ## Code Repos
 

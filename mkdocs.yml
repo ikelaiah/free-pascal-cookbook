@@ -1,5 +1,5 @@
-site_name: Free Pascal & Lazarus Cookbook
-site_url: https://learn-pascal-lang.org
+site_name: Free Pascal Cookbook
+site_url: https://ikelaiah.github.io/free-pascal-cookbook/
 nav:
   - Home: 
     - Overview: index.md

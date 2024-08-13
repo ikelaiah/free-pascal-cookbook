@@ -4,19 +4,19 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/ikelaiah/free-pascal-and-lazarus-cookbook">
+  <a href="https://github.com/ikelaiah/free-pascal-cookbook">
     <img src="docs/assets/logo-new-rounded-min.png" alt="Logo" width="256" height="256">
   </a>
 
-<h3 align="center">Free Pascal and Lazarus Cookbook | Source Files</h3>
+<h3 align="center">Free Pascal Cookbook | Source Files</h3>
 
   <p align="center">
-    This is the source files of my Free Pascal and Lazarus Cookbook, a mkdocs-material-based site.
+    This is the source files of my Free Pascal Cookbook, a mkdocs-material-based site.
     <br />
-    <a href="https://github.com/ikelaiah/free-pascal-and-lazarus-cookbook"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/ikelaiah/free-pascal-cookbook"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://ikelaiah.github.io/free-pascal-and-lazarus-cookbook">Visit Site</a>
+    <a href="https://ikelaiah.github.io/free-pascal-cookbook">Visit Site</a>
     ·
     <a href="https://github.com/ikelaiah/free-pascal-snippets">View Snippets Repo</a>
   </p>
@@ -34,7 +34,7 @@ This cook book is a collection of handy recipes and study notes for the  [Free P
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Head to [https://ikelaiah.github.io/free-pascal-and-lazarus-cookbook](https://ikelaiah.github.io/free-pascal-and-lazarus-cookbook) to see my study notes.
+Head to [https://ikelaiah.github.io/free-pascal-cookbook](https://ikelaiah.github.io/free-pascal-cookbook) to see my study notes.
 
 Else, you may browse the `.md` files in this repo.
 
@@ -64,7 +64,7 @@ Distributed under the MIT License. See `LICENSE.md` for more information.
 
 Iwan Kelaiah - iwan.kelaiah@gmail.com
 
-Project Link: [https://github.com/ikelaiah/free-pascal-and-lazarus-cookbook](https://github.com/ikelaiah/free-pascal-and-lazarus-cookbook)
+Project Link: [https://github.com/ikelaiah/free-pascal-cookbook](https://github.com/ikelaiah/free-pascal-cookbook)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
