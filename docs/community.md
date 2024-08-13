@@ -13,13 +13,6 @@ Here are chats, mailing lists, conferences and events that relate to Free Pascal
 - [Unofficial Free Pascal](https://discord.com/invite/GPFyAc2UJ2)
 - [Delphi Community](https://delphi-community.com)
 
-### IRC
-
-- `#lazarus` at `web.libera.chat`. 
-    - You can access it via [Free Pascal & Lazarus forum](https://forum.lazarus.freepascal.org/index.php/page,9.html)
-- `#fpc` and `#fpc-alt` on `irc.libera.chat`
-
-
 !!! Note
 
     I have not been able to join the `irc.libera.chat`
