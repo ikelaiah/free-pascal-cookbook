@@ -1,0 +1,145 @@
+site_name: Free Pascal & Lazarus Cookbook
+site_url: https://learn-pascal-lang.org
+nav:
+  - Home: 
+    - Overview: index.md
+    - About: about.md
+    - License: LICENSE.md
+  - Basics:
+    - Overview: docs/basics/overview.md
+    - Installation: docs/basics/install.md
+    - Hello, World!: docs/basics/basic-hello-world.md
+    - Intro to Free Pascal: docs/basics/basics-fpc.md
+    - Common Data Types: docs/basics/common-data-types.md
+  - Core Tasks:
+    - Overview: docs/core-tasks/overview.md
+    - Lazarus IDE: docs/core-tasks/lazarus-ide.md
+    - Code Structure: docs/core-tasks/code-structure.md
+    - Command Line Parameters: docs/core-tasks/cmd-line-params.md
+    - Functions & Procedures: docs/core-tasks/funcs-procs.md
+    - Immutability: docs/core-tasks/immutability.md
+    - Loops: docs/core-tasks/loops.md
+    - Arrays: docs/core-tasks/arrays.md
+    - Lists: docs/core-tasks/lists.md 
+    - Strings: docs/core-tasks/strings.md
+    - Numbers: docs/core-tasks/numbers.md
+    - Dates & Times: docs/core-tasks/dates.md
+    - Regular Expressions: docs/core-tasks/regex.md
+    - Directories, Paths and Files: docs/core-tasks/dir-path-filename.md
+    - Exceptions: docs/core-tasks/exception-try-blocks.md
+    - File Handling I: docs/core-tasks/file-handling.md
+    - File Handling II: docs/core-tasks/file-handling-ii.md
+  - Advanced Topics:
+    - Overview: docs/advanced/overview.md
+    - Conditional Compilation: docs/advanced/conditional-compilation.md
+    - Debugging: docs/advanced/debugging.md
+    - Multi-threading - Basics: docs/advanced/multi-threading-basics.md
+    - TThread - Pt 1. Intro: docs/advanced/multi-threading-tthread-i-intro.md
+    - TThread - Pt 2. Critical Section: docs/advanced/multi-threading-tthread-ii-cs.md
+    - TThread - Pt 3. Snippets: docs/advanced/multi-threading-tthread-iii-snippets.md
+    - Using ezthreads: docs/advanced/ezthreads.md
+    - FPC Switches: docs/advanced/fpc-switches.md
+  - External Systems:
+    - Overview: docs/external-systems/overview.md
+    - Parsing JSON: docs/external-systems/parsing-json.md
+    - Web Server: docs/external-systems/webserver.md
+  - Community: community.md
+  - Resources:
+    - Documents & Sites: docs/resources/docs-sites.md
+    - FPC & Lazarus Packages: docs/resources/fpc-laz-packages.md
+    - Videos: docs/resources/videos.md
+
+theme:
+  name: material
+  logo: assets/logo-new-rounded-min.png
+  favicon: assets/logo-new-rounded-min.png
+  font: 
+    text: Roboto
+    code: Roboto Mono
+  palette:
+        # Palette toggle for light mode
+    - scheme: default
+      primary: blue
+      accent: orange
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: blue
+      accent: orange
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.path
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+extra_css:
+  - assets/extra.css
+
+plugins:
+  - search
+  - open-in-new-tab
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      slide_effect: slide
+      width: auto
+      height: auto
+      zoomable: true
+      draggable: true
+
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      use_pygments: true
+      pygments_lang_class: true
+      anchor_linenums: true
+      line_spans: __span
+  - admonition
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.smartsymbols
+  - pymdownx.betterem
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.keys
+  - pymdownx.critic
+  - sane_lists
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
