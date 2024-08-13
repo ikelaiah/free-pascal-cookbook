@@ -1095,53 +1095,7 @@ end.
 
 ## 14. Processing Text Files
 
-### Read a Text File - Classic
-
-Here's an example to read a file line by line using the classic approach:
-
-**Example**
-
-```pascal linenums="1"
-program BasicReadTextFile;
-
-{$mode objfpc}{$H+}{$J-}
-
-uses
-  {$IFDEF UNIX}
-  cthreads,
-  {$ENDIF}
-  Classes, SysUtils;
-
-var
-  filename: string;                // File to read
-  textFile: System.TextFile;       // File handle
-  buffer: array[0..65535] of byte; // Buffer for file operation
-  line: string;                    // Stores each line read
-
-begin
-  filename:='input-file.txt';      // File to read
-
-  AssignFile(textFile, filename);  // Associate file with handle
-  try
-    Reset(textFile);               // Open file for reading
-    SetTextBuf (textFile,buffer);  // Assign a buffer for reading
-
-    while not EOF(textFile) do     // Read until end of file
-    begin
-      ReadLn(textFile, line);      // Read a line
-      WriteLn(line);               // Print the line
-    end;
-
-    CloseFile(textFile);           // Close the file
-  except
-    on E: Exception do
-      WriteLn('File error: ', E.Message);
-  end;
-
-end.
-```
-
-### Read a Text File - Object Style
+### Read a Text File
 
 Here's an example to read a file line by line using `TFileStream` and `TStreamReader`:
 
@@ -1197,48 +1151,8 @@ end.
 - Substitute `your-file.txt` with the name of your file.
 - The `try...except` block handles any exceptions that arise during file operations and outputs an appropriate error message.
 
-### Write a Text File - Classic
 
-**Example**
-
-```pascal linenums="1"
-program BasicWriteTextFile;
-
-{$mode objfpc}{$H+}{$J-}
-
-uses
-  {$IFDEF UNIX}
-  cthreads,
-  {$ENDIF}
-  Classes,
-  SysUtils;
-
-var
-  filename: string;                // File to create
-  textFile: System.TextFile;       // File handle
-  buffer: array[0..65535] of byte; // Buffer for file operation
-
-begin
-  filename := 'new-file.txt';      // File to create
-
-  AssignFile(textFile, filename);  // Associate file with handle
-  try
-    Rewrite(textFile);             // Create a file for writing
-    SetTextBuf(textFile, buffer);  // Assign a buffer for writing
-
-    WriteLn(textFile, 'Hello 1!'); // Write a line
-    WriteLn(textFile, 'Hello 2!'); // Write another line
-
-    CloseFile(textFile);           // Close the file
-  except
-    on E: Exception do
-      WriteLn('File error: ', E.Message);
-  end;
-
-end.
-```
-
-### Write a Text File - Object Style
+### Write a Text File
 
 **Example**
 
