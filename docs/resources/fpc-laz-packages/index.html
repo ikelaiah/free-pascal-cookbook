@@ -1,0 +1,2058 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ikelaiah.github.io/free-pascal-cookbook/docs/resources/fpc-laz-packages/">
+      
+      
+        <link rel="prev" href="../docs-sites/">
+      
+      
+        <link rel="next" href="../videos/">
+      
+      
+      <link rel="icon" href="../../../assets/logo-new-rounded-min.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.14">
+    
+    
+      
+        <title>FPC & Lazarus Packages - Free Pascal Cookbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.fad675c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="orange">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#packages" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Free Pascal Cookbook" class="md-header__button md-logo" aria-label="Free Pascal Cookbook" data-md-component="logo">
+      
+  <img src="../../../assets/logo-new-rounded-min.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Free Pascal Cookbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              FPC & Lazarus Packages
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../basics/overview/" class="md-tabs__link">
+          
+  
+  Basics
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../core-tasks/overview/" class="md-tabs__link">
+          
+  
+  Core Tasks
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../advanced/overview/" class="md-tabs__link">
+          
+  
+  Advanced Topics
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../external-systems/overview/" class="md-tabs__link">
+          
+  
+  External Systems
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../community/" class="md-tabs__link">
+        
+  
+    
+  
+  Community
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../docs-sites/" class="md-tabs__link">
+          
+  
+  Resources
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Free Pascal Cookbook" class="md-nav__button md-logo" aria-label="Free Pascal Cookbook" data-md-component="logo">
+      
+  <img src="../../../assets/logo-new-rounded-min.png" alt="logo">
+
+    </a>
+    Free Pascal Cookbook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Home
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LICENSE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Basics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Basics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basics/overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basics/install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basics/basic-hello-world/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hello, World!
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basics/basics-fpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intro to Free Pascal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basics/common-data-types/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Common Data Types
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Core Tasks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Core Tasks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-tasks/overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-tasks/lazarus-ide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lazarus IDE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-tasks/code-structure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code Structure
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-tasks/cmd-line-params/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Command Line Parameters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-tasks/funcs-procs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functions & Procedures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-tasks/immutability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Immutability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-tasks/loops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Loops
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-tasks/arrays/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Arrays
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-tasks/lists/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lists
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-tasks/strings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Strings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-tasks/numbers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-tasks/dates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dates & Times
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-tasks/regex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Regular Expressions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-tasks/dir-path-filename/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Directories, Paths and Files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-tasks/exception-try-blocks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Exceptions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-tasks/file-handling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Handling I
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-tasks/file-handling-ii/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Handling II
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Advanced Topics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced Topics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/conditional-compilation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conditional Compilation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/debugging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debugging
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/multi-threading-basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multi-threading - Basics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/multi-threading-tthread-i-intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TThread - Pt 1. Intro
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/multi-threading-tthread-ii-cs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TThread - Pt 2. Critical Section
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/multi-threading-tthread-iii-snippets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TThread - Pt 3. Snippets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/ezthreads/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using ezthreads
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/fpc-switches/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FPC Switches
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    External Systems
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            External Systems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../external-systems/overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../external-systems/parsing-json/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parsing JSON
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../external-systems/webserver/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../community/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Community
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Resources
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Resources
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs-sites/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Documents & Sites
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    FPC & Lazarus Packages
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    FPC & Lazarus Packages
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      What are Packages?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#package-managers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package Managers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-lib-i-need-is-not-in-my-fav-package-manager-what-can-i-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      A lib I need is not in my fav package manager, what can I do?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fpc-lazarus-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      FPC &amp; Lazarus Packages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FPC & Lazarus Packages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lgenerics-by-avk" class="md-nav__link">
+    <span class="md-ellipsis">
+      LGenerics by avk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arrayhelper-by-willi-commer" class="md-nav__link">
+    <span class="md-ellipsis">
+      ArrayHelper by Willi Commer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ezthreads" class="md-nav__link">
+    <span class="md-ellipsis">
+      ezthreads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Indy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zeoslib" class="md-nav__link">
+    <span class="md-ellipsis">
+      ZeosLib
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mormot2" class="md-nav__link">
+    <span class="md-ellipsis">
+      mORMot2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fundamentals-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fundamentals 5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atsynedit" class="md-nav__link">
+    <span class="md-ellipsis">
+      ATSynEdit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libraries-by-benjamin-rosseaux-bero1985" class="md-nav__link">
+    <span class="md-ellipsis">
+      Libraries by Benjamin Rosseaux (Bero1985)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libraries-by-benito-van-der-zander-benibella" class="md-nav__link">
+    <span class="md-ellipsis">
+      Libraries by Benito van der Zander (benibella)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../videos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Videos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      What are Packages?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#package-managers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package Managers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-lib-i-need-is-not-in-my-fav-package-manager-what-can-i-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      A lib I need is not in my fav package manager, what can I do?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fpc-lazarus-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      FPC &amp; Lazarus Packages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FPC & Lazarus Packages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lgenerics-by-avk" class="md-nav__link">
+    <span class="md-ellipsis">
+      LGenerics by avk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arrayhelper-by-willi-commer" class="md-nav__link">
+    <span class="md-ellipsis">
+      ArrayHelper by Willi Commer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ezthreads" class="md-nav__link">
+    <span class="md-ellipsis">
+      ezthreads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Indy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zeoslib" class="md-nav__link">
+    <span class="md-ellipsis">
+      ZeosLib
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mormot2" class="md-nav__link">
+    <span class="md-ellipsis">
+      mORMot2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fundamentals-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fundamentals 5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atsynedit" class="md-nav__link">
+    <span class="md-ellipsis">
+      ATSynEdit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libraries-by-benjamin-rosseaux-bero1985" class="md-nav__link">
+    <span class="md-ellipsis">
+      Libraries by Benjamin Rosseaux (Bero1985)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libraries-by-benito-van-der-zander-benibella" class="md-nav__link">
+    <span class="md-ellipsis">
+      Libraries by Benito van der Zander (benibella)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="packages">Packages<a class="headerlink" href="#packages" title="Permanent link">&para;</a></h1>
+<h2 id="what-are-packages">What are Packages?<a class="headerlink" href="#what-are-packages" title="Permanent link">&para;</a></h2>
+<p>Basically, packages are add-ons you can install to add or modify functionalities of your programs or the Lazarus IDE.</p>
+<p>There are various kinds of packages for Free Pascal &amp; Lazarus IDE. The following is a summary from <a href="https://wiki.freepascal.org/packages(disambiguation)">https://wiki.freepascal.org/packages(disambiguation)</a></p>
+<blockquote>
+<p><strong><em>Packages</em></strong> have different meanings FPC &amp; Lazarus projects.</p>
+<p>Types of packages:</p>
+<ul>
+<li><a href="https://wiki.freepascal.org/Lazarus_Packages">Lazarus Runtime Packages</a> adds a dependency on a <strong>runtime package</strong> and Lazarus adds the files to the search path.</li>
+<li><a href="https://wiki.freepascal.org/Lazarus_IDE_Packages">Lazarus (IDE)Packages</a> is bundled with IDE and can be installed via main menu: <code>Package -&gt; Install/Uninstall Packages..</code>.</li>
+<li><a href="https://wiki.freepascal.org/Lazarus_Packages">Lazarus Designtime Packages</a> register themselves in the IDE, e.g. <strong>designtime</strong> editor components for the object inspector. These may contain runtime-only units.</li>
+</ul>
+</blockquote>
+<h2 id="package-managers">Package Managers<a class="headerlink" href="#package-managers" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Online Package Manager</strong>(GUI) - <a href="https://wiki.freepascal.org/Online_Package_Manager">https://wiki.freepascal.org/Online_Package_Manager</a></li>
+<li><strong>fpcupdeluxe</strong>(GUI) - <a href="https://github.com/LongDirtyAnimAlf/fpcupdeluxe/releases">https://github.com/LongDirtyAnimAlf/fpcupdeluxe/releases</a></li>
+<li><strong>LazarusPackageManager</strong>(CLI) - <a href="https://github.com/Warfley/LazarusPackageManager">https://github.com/Warfley/LazarusPackageManager</a></li>
+</ul>
+<h2 id="a-lib-i-need-is-not-in-my-fav-package-manager-what-can-i-do">A lib I need is not in my fav package manager, what can I do?<a class="headerlink" href="#a-lib-i-need-is-not-in-my-fav-package-manager-what-can-i-do" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Contact the package manager maintaners to add, or</li>
+<li>Download the lib and get FPC (via Lazarus GUI) to include the location of your downloaded lib.</li>
+</ol>
+<h2 id="fpc-lazarus-packages">FPC &amp; Lazarus Packages<a class="headerlink" href="#fpc-lazarus-packages" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I only listed packages that are relevant for my projects and works with Free Pascal and Lazarus IDE. </p>
+<p>There are more packages (and visual components) out there than listed here. </p>
+<ul>
+<li><a href="https://github.com/Fr0sT-Brutal/awesome-pascal">https://github.com/Fr0sT-Brutal/awesome-pascal</a></li>
+<li><a href="https://wiki.freepascal.org/Components_and_Code_examples#Default_components_provided_by_Lazarus">https://wiki.freepascal.org/Components_and_Code_examples#Default_components_provided_by_Lazarus</a></li>
+<li><a href="https://wiki.freepascal.org/Package_List">https://wiki.freepascal.org/Package_List</a></li>
+<li><a href="https://wiki.freepascal.org/Category:Libraries">https://wiki.freepascal.org/Category:Libraries</a></li>
+<li><a href="https://packages.lazarus-ide.org">https://packages.lazarus-ide.org</a></li>
+<li>BeniBella's collection - <a href="https://www.benibela.de/sources_en.html#top">https://www.benibela.de/sources_en.html#top</a></li>
+<li>Check the forums and discord channel too.</li>
+</ul>
+</div>
+<h3 id="lgenerics-by-avk"><a href="https://github.com/avk959/LGenerics">LGenerics by avk</a><a class="headerlink" href="#lgenerics-by-avk" title="Permanent link">&para;</a></h3>
+<p><code>#generics</code></p>
+<p>A Generics library with tons of goodies by <a href="https://github.com/avk959">A.Koverdyaev(avk)</a>.</p>
+<h3 id="arrayhelper-by-willi-commer"><a href="https://github.com/WilliCommer/ArrayHelper">ArrayHelper by Willi Commer</a><a class="headerlink" href="#arrayhelper-by-willi-commer" title="Permanent link">&para;</a></h3>
+<p><code>#array-helper</code></p>
+<p>Delphi class helper for TArray with functions like Add, Delete, IndexOf, Map, etc. Includes examples and testing. Extends TArray with functions similar to TList or TStrings for easier memory management. Introduces TArrayRecord to use dynamic arrays like objects without the need for a final Free call.</p>
+<h3 id="ezthreads"><a href="https://github.com/mr-highball/ezthreads">ezthreads</a><a class="headerlink" href="#ezthreads" title="Permanent link">&para;</a></h3>
+<p>a simple and safe way to work with threads</p>
+<p>To request features or report a bug, open a github issue with details/steps to reproduce.</p>
+<p>General questions can be asked in Discussions</p>
+<h3 id="indy"><a href="https://github.com/IndySockets/Indy">Indy</a><a class="headerlink" href="#indy" title="Permanent link">&para;</a></h3>
+<p><code>#network</code></p>
+<p>Indy -- Internet Direct -- is a well-known internet component suite for Delphi, C++Builder, and Free Pascal providing both low-level support (TCP, UDP, raw sockets) and over a 120 higher level protocols (SMTP, POP3, NNT, HTTP, FTP) for building both client and server applications.</p>
+<h3 id="zeoslib"><a href="https://sourceforge.net/projects/zeoslib/">ZeosLib</a><a class="headerlink" href="#zeoslib" title="Permanent link">&para;</a></h3>
+<p><code>#lazarus</code> <code>#database</code></p>
+<p>The ZeosLib is a set of database components for MySQL, MariaDB, PostgreSQL, Interbase, Firebird, MS SQL Server, SAP Adaptive Server Enterprise and Adaptive Server Anywhere (previously Sybase), Oracle and SQLite for Delphi, FreePascal/Lazarus and C++ Builder.</p>
+<h3 id="mormot2"><a href="https://github.com/synopse/mORMot2">mORMot2</a><a class="headerlink" href="#mormot2" title="Permanent link">&para;</a></h3>
+<p><code>#database</code></p>
+<p>Synopse mORMot 2 is an Open Source Client-Server ORM SOA MVC framework for Delphi 7 up to Delphi 11 Alexandria and FPC 3.2/trunk, targeting Windows/Linux/BSD/MacOS for servers, and any platform for clients (including mobile or AJAX).</p>
+<h3 id="fundamentals-5"><a href="https://github.com/fundamentalslib/fundamentals5">Fundamentals 5</a><a class="headerlink" href="#fundamentals-5" title="Permanent link">&para;</a></h3>
+<p><code>#utils</code></p>
+<p>Fundamentals 5 is a library for Delphi and Free Pascal. This library can help with the following tasks.</p>
+<ul>
+<li>String, DateTime and dynamic array routines</li>
+<li>Unicode routines</li>
+<li>Hash (e.g. SHA256, SHA512, SHA1, SHA256, MD5)</li>
+<li>Integer (e.g. Word128, Word256, Int128, Int256)</li>
+<li>Huge Word, Huge Integer</li>
+<li>Decimal (Decimal32, Decimal64, Decimal128, HugeDecimal and signed decimals)</li>
+<li>Random number generators</li>
+<li>Cryptographic (Symmetric: AES, DES, RC2, RC4; Asymmetric: RSA, Diffie-Hellman, Elliptic Curve)</li>
+<li>Data structures (array, dictionary and map classes)</li>
+<li>Mathematics (Rational number, complex number, vector, matrix, statistics)</li>
+<li>JSON parser</li>
+<li>Google protocol buffer parser, utilities and Pascal code generator</li>
+<li>Socket library (cross platform - Windows, Linux, OSX, iOS, Android)</li>
+<li>TLS Client</li>
+<li>TLS Server</li>
+<li>TCP Client</li>
+<li>TCP Server</li>
+<li>HTTP Client</li>
+<li>HTTP Server</li>
+<li>HTML Parser</li>
+<li>XML Parser</li>
+</ul>
+<h3 id="atsynedit"><a href="https://github.com/Alexey-T/ATSynEdit">ATSynEdit</a><a class="headerlink" href="#atsynedit" title="Permanent link">&para;</a></h3>
+<p><code>#lazarus</code> <code>#visual-component</code></p>
+<p><strong>ATSynEdit</strong> is Multi-line editor control for Lazarus, which was made by Alexey Torgashin as an alternative to SynEdit. It is not based on SynEdit, it has totally different structure.</p>
+<h3 id="libraries-by-benjamin-rosseaux-bero1985"><a href="https://github.com/BeRo1985">Libraries by Benjamin Rosseaux (Bero1985)</a><a class="headerlink" href="#libraries-by-benjamin-rosseaux-bero1985" title="Permanent link">&para;</a></h3>
+<p>A collection of useful libraries in Object Pascal by <a href="https://www.rosseaux.net">Benjamin Rosseaux</a>.</p>
+<ul>
+<li><strong><a href="https://github.com/BeRo1985/pasmp">PasMP</a></strong>: A parallel-processing library to enhance performance in multi-core processor environments.</li>
+<li><strong><a href="https://github.com/BeRo1985/flre">FLRE</a></strong>: FLRE (Fast Light Regular Expressions), a fast and efficient regular expression library implemented in Object Pascal, focusing on core features and optimized for speed.</li>
+<li><strong><a href="https://github.com/BeRo1985/pasjson">PasJSON</a></strong>: A JSON parser and writer for Pascal, vital for modern data interchange and web development.</li>
+<li><strong><a href="https://github.com/BeRo1985/pucu">PUCU</a></strong>: The Pascal UniCode Utils Library, enhancing Unicode support within Pascal projects.</li>
+<li>And others.</li>
+</ul>
+<p>See the full list on <a href="https://github.com/BeRo1985?tab=repositories">BeRo1985's Github page</a>.</p>
+<h3 id="libraries-by-benito-van-der-zander-benibella">Libraries by <a href="https://github.com/benibela?tab=repositories">Benito van der Zander (benibella)</a><a class="headerlink" href="#libraries-by-benito-van-der-zander-benibella" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong><a href="https://github.com/benibela/internettools">Internet Tools</a></strong>: This package provides standard conformant XPath 2.0, XQuery 1.0 and XPath/XQuery 3.0 interpreters with extensions for - among others - JSONiq, pattern matching, CSS and HTML; as well as functions to perform HTTP/S requests on Windows/Linux/MacOSX/Android, an XSLT-inspired webscraping language, and an auto update class. See the <a href="http://www.benibela.de/documentation/internettools/">internettools documentation</a> or a <a href="http://www.benibela.de/sources_en.html#internettools">short overview</a>.</p>
+</li>
+<li>
+<p><strong><a href="https://github.com/benibela/bbutils">BBUtils</a></strong>: These units consist of important low-level functions missing in FreePascal. For example:</p>
+<ul>
+<li>String and array view for efficient processing of slices of a string or array.</li>
+<li>Various array functions (add, delete, search, prealloc, ...) and array lists.</li>
+<li>Various string functions (pchar/ansistring, compare, split, search, convert html entities, ...). string builder for fast construction of strings.</li>
+<li>Various date/time parsing/formatting functions, supporting years before 0 and after 65535, and timezones</li>
+<li>Mathematical functions (gcd, primes, Bernoulli statistics, prime/euler-phi sieve...)</li>
+<li>Stable sorting function for arbitrary sized data arrays</li>
+<li>Automatical translation of with tr['marked strings'] and components</li>
+<li>A Pascal template language which is "compiled" to Pascal (similar to the C preprocessor)</li>
+<li>...</li>
+<li>Read the docs: <a href="https://www.benibela.de/documentation/bbutils/bbutils.html">bbutils documentation</a></li>
+</ul>
+</li>
+<li>
+<p><strong><a href="https://github.com/benibela/bigdecimalmath">Big Decimal math</a></strong>: Big Decimal Math
+This unit provides an arbitrary precision BCD float number type. The usecase is performing a few arithmetic operations with the maximal possible accuracy and precision, e.g. calculating the sum of numbers from a text files, where the conversion from decimal input to binary floats would take more time than the calculation. It can be used like any numeric type and supports:</p>
+<ul>
+<li>At least numbers between 10^-2147483647 to 10^2147483647 with 2147483647 decimal digit precision</li>
+<li>All standard arithmetic and comparison operators</li>
+<li>Rounding functions (floor, ceil, to-even, ..)</li>
+<li>Some more advanced operations, e.g. power and sqrt</li>
+<li>Accurate and precise binary float (single/double/extended) to BCD float and string conversion</li>
+<li>..</li>
+<li>Read the docs: <a href="http://www.benibela.de/sources_en.html#bigdecimalmath">bigdecimalmath documentation</a></li>
+<li></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.path", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.cd18aaf1.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../js/open_in_new_tab.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

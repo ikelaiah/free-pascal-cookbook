@@ -1,0 +1,8 @@
+
+.md-typeset {
+    font-size: 16px;
+}
+
+.admonition.tip > p {
+    font-size: .75rem ;
+}
