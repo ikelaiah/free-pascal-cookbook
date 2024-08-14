@@ -55,7 +55,7 @@ theme:
   favicon: assets/logo-new-rounded-min.png
   font: 
     text: Roboto
-    code: Roboto Mono
+    code: Fira Code
   palette:
         # Palette toggle for light mode
     - scheme: default
