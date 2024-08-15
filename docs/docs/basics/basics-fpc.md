@@ -750,7 +750,182 @@ begin
 end.
 ```
 
-## 11. String Operations
+
+## 11.Math Operations
+
+| Operator/Function     | Description                                                       |
+|-----------------------|-------------------------------------------------------------------|
+| `+`  (Addition)       | Adds numbers together.                                            |
+| `-`  (Subtraction)    | Subtracts one number from another.                                |
+| `*`  (Multiplication) | Multiplies numbers.                                               |
+| `Power`               | Require unit `Math`. Raises one number to the power of another.   |
+| `div` (Division)      | Divides numbers and returns the whole number part of the result.  |
+| `/`   (Real Division) | Divides numbers and includes the decimal part of the result.      |
+| `LogN(n, a)`          | Require unit `Math`. Calculates the logarithm base n of a number. |
+| `mod` (Modulus)       | Returns the remainder when one number is divided by another.      |
+
+**Example**
+
+```pascal linenums="1"
+program BasicMathOperations;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  Math; // Include the Math unit for Power and Logarithm functions
+
+var
+  a, b, intResult: integer;
+  realResult: real;
+
+begin
+  // Assign values to variables
+  a := 10;
+  b := 3;
+
+  // Addition
+  intResult := a + b;
+  WriteLn('Addition: ', a, ' + ', b, ' = ', intResult);
+
+  // Subtraction
+  intResult := a - b;
+  WriteLn('Subtraction: ', a, ' - ', b, ' = ', intResult);
+
+  // Multiplication
+  intResult := a * b;
+  WriteLn('Multiplication: ', a, ' * ', b, ' = ', intResult);
+
+  // Power
+  realResult := Power(a, b); // 'Power' is used to calculate a^b
+  WriteLn('Power: ', a, ' ^ ', b, ' = ', realResult: 0: 0);
+
+  // Division
+  intResult := a div b; // 'div' is used for integer division
+  WriteLn('Division: ', a, ' div ', b, ' = ', intResult);
+
+  // Real (Float) Division
+  realResult := a / b; // '/' is used for real division
+  WriteLn('Real (Float) Division: ', a, ' / ', b, ' = ', realResult: 0: 6);
+
+  // Logarithm with Arbitrary Base (LogN)
+  realResult := LogN(b, a); // 'LogN' is used to calculate logarithm base b
+  WriteLn('Logarithm Base ', b, ': LogN(', b, ', ', a, ') = ', realResult: 0: 6);
+
+  // Modulus
+  intResult := a mod b; // 'mod' is used to find the remainder
+  WriteLn('Modulus: ', a, ' mod ', b, ' = ', intResult);
+
+  // Pause console
+  WriteLn('Press enter key to exit');
+  ReadLn;
+end.
+```
+
+## 12. Round Floats 
+
+### To Nearest Integers
+
+You can use the following functions.
+
+- [`Round`](https://www.freepascal.org/docs-html/rtl/system/round.html): Rounds a floating-point number to the nearest integer uses banker's rounding.
+- [`Ceil`](https://www.freepascal.org/docs-html/rtl/math/ceil.html): Rounds a floating-point number up to the nearest integer.
+- [`Floor`](https://www.freepascal.org/docs-html/rtl/math/floor.html): Rounds a floating-point number down to the nearest integer.
+
+!!! Note
+
+    For `Round`, in the case of .5 (equidistant from two numbers), the algorithm uses "banker's rounding": .5 values are always rounded towards the even number.
+
+    Source: [https://www.freepascal.org/docs-html/rtl/system/round.html](https://www.freepascal.org/docs-html/rtl/system/round.html)
+
+!!! Note
+    Remember to add `Math` in the `uses` section `Ceil` and `Floor` functions.
+
+**Examples**
+
+```pascal linenums="1"
+program RoundingExamples;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  Math;  // Include the Math unit for Ceil and Floor
+
+var
+  num: real;
+  rounded: integer;
+
+  // Main block
+begin
+  num := 123.4567;
+
+  // Using Round
+  rounded := Round(num);  // Nearest integer, Banker's Rounding
+  WriteLn('Rounded value (Round): ', rounded);
+
+  // Using Ceil
+  rounded := Ceil(num);   // Always rounds up
+  WriteLn('Ceiling value (Ceil): ', rounded);
+
+  // Using Floor
+  rounded := Floor(num);  // Always rounds down
+  WriteLn('Floor value (Floor): ', rounded);
+
+  // Examples of Banker's Rounding
+  num := 2.5;
+  rounded := Round(num);  // Banker's Rounding
+  WriteLn('Rounded value for 2.5 (Banker''s Rounding): ', rounded);
+
+  num := 3.5;
+  rounded := Round(num);  // Banker's Rounding
+  WriteLn('Rounded value for 3.5 (Banker''s Rounding): ', rounded);
+
+  // Pause console
+  WriteLn('Press enter key to exit');
+  ReadLn;
+end.
+```
+
+### To `n` Decimal Places
+
+Use the [RoundTo](https://www.freepascal.org/docs-html/rtl/math/roundto.html) function.
+
+!!! Note
+
+    `RoundTo` uses the standard `Round` function for this. Hence, in the case of .5 (equidistant from two numbers), the algorithm uses "banker's rounding": .5 values are always rounded towards the even number.
+    
+    Source: [https://www.freepascal.org/docs-html/rtl/math/roundto.html](https://www.freepascal.org/docs-html/rtl/math/roundto.html)
+
+**Example**
+
+```pascal linenums="1"
+program NDecimalRoundingExample;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  Math;
+
+var
+  num: real;
+  rounded: real;
+  n: integer;
+
+  // Main block
+begin
+  num := 12345.678875;
+  n := 4;  // Number of decimal places you want
+
+  rounded := RoundTo(num, -n);
+
+  WriteLn('Rounded Number: ', rounded: 0: 4);  // Format to 4 decimal places
+
+  // Pause console
+  WriteLn('Press enter key to exit');
+  ReadLn;
+end.
+```
+
+## 13. String Operations
 
 ### Length of a String
 
@@ -912,7 +1087,7 @@ begin
 end.
 ```
 
-## 12. Format Strings
+## 14. Format Strings
 
 ### Format Numbers with Commas
 
@@ -989,111 +1164,9 @@ end.
     - `2`: The number of decimal places.
 
 
-## 13. Round Floats 
 
-### To Nearest Integers
 
-You can use the following functions.
-
-- [`Round`](https://www.freepascal.org/docs-html/rtl/system/round.html): Rounds a floating-point number to the nearest integer uses banker's rounding.
-- [`Ceil`](https://www.freepascal.org/docs-html/rtl/math/ceil.html): Rounds a floating-point number up to the nearest integer.
-- [`Floor`](https://www.freepascal.org/docs-html/rtl/math/floor.html): Rounds a floating-point number down to the nearest integer.
-
-!!! Note
-
-    For `Round`, in the case of .5 (equidistant from two numbers), the algorithm uses "banker's rounding": .5 values are always rounded towards the even number.
-
-    Source: [https://www.freepascal.org/docs-html/rtl/system/round.html](https://www.freepascal.org/docs-html/rtl/system/round.html)
-
-!!! Note
-    Remember to add `Math` in the `uses` section `Ceil` and `Floor` functions.
-
-**Examples**
-
-```pascal linenums="1"
-program RoundingExamples;
-
-{$mode objfpc}{$H+}{$J-}
-
-uses
-  Math;  // Include the Math unit for Ceil and Floor
-
-var
-  num: real;
-  rounded: integer;
-
-  // Main block
-begin
-  num := 123.4567;
-
-  // Using Round
-  rounded := Round(num);  // Nearest integer, Banker's Rounding
-  WriteLn('Rounded value (Round): ', rounded);
-
-  // Using Ceil
-  rounded := Ceil(num);   // Always rounds up
-  WriteLn('Ceiling value (Ceil): ', rounded);
-
-  // Using Floor
-  rounded := Floor(num);  // Always rounds down
-  WriteLn('Floor value (Floor): ', rounded);
-
-  // Examples of Banker's Rounding
-  num := 2.5;
-  rounded := Round(num);  // Banker's Rounding
-  WriteLn('Rounded value for 2.5 (Banker''s Rounding): ', rounded);
-
-  num := 3.5;
-  rounded := Round(num);  // Banker's Rounding
-  WriteLn('Rounded value for 3.5 (Banker''s Rounding): ', rounded);
-
-  // Pause console
-  WriteLn('Press enter key to exit');
-  ReadLn;
-end.
-```
-
-### To `n` Decimal Places
-
-Use the [RoundTo](https://www.freepascal.org/docs-html/rtl/math/roundto.html) function.
-
-!!! Note
-
-    `RoundTo` uses the standard `Round` function for this. Hence, in the case of .5 (equidistant from two numbers), the algorithm uses "banker's rounding": .5 values are always rounded towards the even number.
-    
-    Source: [https://www.freepascal.org/docs-html/rtl/math/roundto.html](https://www.freepascal.org/docs-html/rtl/math/roundto.html)
-
-**Example**
-
-```pascal linenums="1"
-program NDecimalRoundingExample;
-
-{$mode objfpc}{$H+}{$J-}
-
-uses
-  Math;
-
-var
-  num: real;
-  rounded: real;
-  n: integer;
-
-  // Main block
-begin
-  num := 12345.678875;
-  n := 4;  // Number of decimal places you want
-
-  rounded := RoundTo(num, -n);
-
-  WriteLn('Rounded Number: ', rounded: 0: 4);  // Format to 4 decimal places
-
-  // Pause console
-  WriteLn('Press enter key to exit');
-  ReadLn;
-end.
-```
-
-## 14. Processing Text Files
+## 15. Processing Text Files
 
 ### Read a Text File
 
@@ -1206,7 +1279,7 @@ end.
 - The `try...except` block captures any exceptions that might occur during file operations and displays an appropriate error message.
 
 
-## 15. Enum Types
+## 16. Enum Types
 
 In Free Pascal, enumerated ordinal types are user-defined types that consist of a set of named values. These values are called enumeration constants, and each constant has an associated integer value, starting from 0 by default. 
 
@@ -1268,7 +1341,7 @@ begin
 end.
 ```
 
-## 16. Subrange Types
+## 17. Subrange Types
 
 A subrange is a subset of values within a specific range. In Free Pascal, subranges allow you to limit the values a variable can hold, which can help catch errors and make your code more robust and readable.
 
@@ -1318,7 +1391,7 @@ end.
     
     This (1) helps prevent errors and makes your code more robust and (2) readable. For example, if you accidentally try to assign a value outside the range, the compiler will catch the error.
 
-## 17. Arrays
+## 18. Arrays
 
 Arrays are useful when you need to handle multiple values of the same type. For example, if you have grades for students, you can use an array to store all these grades and easily access each one by its position.
 
@@ -1548,7 +1621,7 @@ end.
 ```
 
 
-## 18. Records Types
+## 19. Records Types
 
 Just for the `Record`, a `record` is a data structure that allows you to group different types of data together. This feature in Free Pascal allow you to create complex data structures and manage related data efficiently.
 
@@ -1603,7 +1676,7 @@ begin
 end.
 ```
 
-## 19. Advanced Records
+## 20. Advanced Records
 
 In Free Pascal, an advanced record is a type of record that can do more than just store data. It can also have methods (which are like functions or procedures) and properties (ways to get or set values) attached to it.
 
@@ -1782,7 +1855,7 @@ begin
 end.
 ```
 
-## 20. Classes
+## 21. Classes
 
 Here is a simple example of creating a class. For mroe info, visit the official documentation; [Classes](https://www.freepascal.org/docs-html/ref/refch6.html#x69-930006). 
 
@@ -1860,7 +1933,7 @@ begin
 end.
 ```
 
-## 21. Generics
+## 22. Generics
 
 Generics allow you to write code that can work with different data types without having to rewrite the same code for each type.
 
@@ -2055,7 +2128,7 @@ end.
 ```
 
 
-## 22. Function References
+## 23. Function References
 
 !!! Note
     Function References is available for FPC versions >= 3.3.1. 
@@ -2245,7 +2318,7 @@ begin
 end.
 ```
 
-## 23. Anonymous Functions
+## 24. Anonymous Functions
 
 !!! Note
     Anonymous Functions is available for FPC versions >= 3.3.1.
@@ -2444,7 +2517,7 @@ begin
 end.
 ```
 
-## 24. Interfaces
+## 25. Interfaces
 
 Refer to the official doc [Interfaces](https://www.freepascal.org/docs-html/ref/refch7.html#x96-1200007) for more info.
 
@@ -2538,7 +2611,7 @@ end.
 - The GUID `['{12345678-1234-1234-1234-1234567890AB}']` is required for COM compatibility but can be a unique identifier in your application.
 - `TInterfacedObject` is a base class that implements `IUnknown`, which is the ancestor of all interfaces. This ensures proper reference counting for memory management.
 
-## 25. More on Interfaces
+## 26. More on Interfaces
 
 ### What is a GUID?
 
@@ -2613,7 +2686,7 @@ end.
 - Think of a GUID as a unique fingerprint for an interface, ensuring it’s always identified correctly and uniquely in a program.
 
 
-## 26. Even More on Interfaces
+## 27. Even More on Interfaces
 
 
 ### What is a Function?
@@ -2699,7 +2772,7 @@ In this example, `IDriveable` has a unique `GUID`, so even if you have many diff
 
 The GUID is like a special label that makes sure you’re talking to the exact right set of instructions (interface) among many possibilities.
 
-## 27. Pointers
+## 28. Pointers
 
 > ... Avoid pointer whenever alternatives exist. If you want to learn, though, there's no silver bullet apart from: There has to be as many `Dispose` as `New`, period. 
 > 
