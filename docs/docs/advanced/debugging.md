@@ -39,4 +39,4 @@ When you run a code first time using the default build mode, you will see the fo
 
 ![Run-with-debugger](../../assets/run-app-with-debugger.png)
 
-Hit the **Ok** button for now, but remember to [setup your build profiles](#setup-debug-and-release-build-profiles)
+Hit the **Ok** button for now, but remember to [setup your build profiles](#setup-debug-and-release-build-profiles) later.
