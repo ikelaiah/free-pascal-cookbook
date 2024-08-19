@@ -32,7 +32,8 @@ nav:
   - Advanced Topics:
     - Overview: docs/advanced/overview.md
     - Conditional Compilation: docs/advanced/conditional-compilation.md
-    - Debugging: docs/advanced/debugging.md
+    - Debugging with Lazarus IDE: docs/advanced/debugging.md
+    - Find Heap Memory Leaks: docs/advanced/find-heap-memory-leaks.md
     - Multi-threading - Basics: docs/advanced/multi-threading-basics.md
     - TThread - Pt 1. Intro: docs/advanced/multi-threading-tthread-i-intro.md
     - TThread - Pt 2. Critical Section: docs/advanced/multi-threading-tthread-ii-cs.md
