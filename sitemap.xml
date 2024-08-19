@@ -36,6 +36,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/advanced/find-heap-memory-leaks/</loc>
+         <lastmod>2024-08-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/advanced/fpc-switches/</loc>
          <lastmod>2024-08-19</lastmod>
          <changefreq>daily</changefreq>
