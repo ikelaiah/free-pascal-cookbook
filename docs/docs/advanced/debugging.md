@@ -1,10 +1,12 @@
 # Debugging
 
-## Official docs on debugging Free Pascal programs
+!!! Note 
 
-Here is the official docs by Michaël Van Canneyt and Florian Klämpfl; [Debugging your Program](https://www.freepascal.org/docs-html/user/userch10.html).
+    The official docs by Michaël Van Canneyt and Florian Klämpfl on debugging; [Debugging your Program](https://www.freepascal.org/docs-html/user/userch10.html).
 
-## Create Debug and Release profiles in Lazarus
+## 1. Create Debug and Release profiles in Lazarus
+
+### 1.1 Using the default configuration
 
 1. Open a new project in Lazarus IDE
 2. Go to **Project | Options | Compiler Options**
@@ -13,11 +15,13 @@ Here is the official docs by Michaël Van Canneyt and Florian Klämpfl; [Debuggi
 
 Once you've done that, you will see two new profiles; `Debug` and `Release`.
 
-Use the `Debug` profile if you need to detect heap memory leaks.
+!!! Important
 
-Use `Release` for production.
+    Use the `Debug` profile for debugging and detecting heap memory leaks.
 
-## Debugger to use in Lazarus IDE
+    Use `Release` for production.
+
+### 1.2. Manual config
 
 ![Run-with-debugger](../../assets/run-app-with-debugger.png)
 
@@ -31,27 +35,20 @@ Citing from [https://wiki.lazarus.freepascal.org/DWARF](https://wiki.lazarus.fre
 > 
 > DWARF 2 (the one **without** "with sets") does not display sets "type TMySet = set of (v1,v2,v3)" correctly.
 
-## Detecting heap memory leaks
+## 2. Detecting heap memory leaks
 
 Consider using the pre-defined Debug mode from [Create Debug and Release profiles in Lazarus](#create-debug-and-release-profiles-in-lazarus) before customising your own debugging environment.
 
-### Official docs on using Heaptrc
+!!! Note "Official docs on Heaptrc"
 
-- [HeapTrc Usage](https://www.freepascal.org/docs-html/rtl/heaptrc/usage.html)
-- [RTL - `heaptrc`](https://www.freepascal.org/docs-html/rtl/heaptrc/index.html)
-- [RTL - `SetHeapTraceOutput`](https://www.freepascal.org/docs-html/rtl/heaptrc/setheaptraceoutput.html)
-- [Controlling HeapTrc with environment variables](https://www.freepascal.org/docs-html/rtl/heaptrc/environment.html)
-- [Wiki - Using Heaptrc in FPC](https://wiki.freepascal.org/heaptrc)
-- [Wiki - Using LeakView in Lazarus](https://wiki.freepascal.org/leakview)
+    - [HeapTrc Usage](https://www.freepascal.org/docs-html/rtl/heaptrc/usage.html)
+    - [RTL - `heaptrc`](https://www.freepascal.org/docs-html/rtl/heaptrc/index.html)
+    - [RTL - `SetHeapTraceOutput`](https://www.freepascal.org/docs-html/rtl/heaptrc/setheaptraceoutput.html)
+    - [Controlling HeapTrc with environment variables](https://www.freepascal.org/docs-html/rtl/heaptrc/environment.html)
+    - [Wiki - Using Heaptrc in FPC](https://wiki.freepascal.org/heaptrc)
+    - [Wiki - Using LeakView in Lazarus](https://wiki.freepascal.org/leakview)
 
-### Detecting heap memory leaks in Lazarus
-
-There two ways of accomplishing this;
-
-- use the default Debug mode or
-- enable the HeapTrc manually.
-
-#### Enable the default Debug mode
+### 2.1. Enable the default Debug mode
 
 Once you've created the default Debug and Release profiles in Lazarus, switch to Debug Mode to see heap memopry leaks.
 
@@ -59,10 +56,10 @@ Steps:
 
 - Press ++ctrl+shift+f11++ to open the **Project Options** window.
 - Go to **Compilation and Linking**.
-- Set **Build modes** to **Release**.
+- Set **Build modes** to **Debug**.
 - Re-compile your program.
 
-#### Manually enable HeapTrc
+### 2.2 Or manually enable `HeapTrc`.
 
 First, go to `Project | Project Options ...` 
 
@@ -75,15 +72,19 @@ Click the image below to expand the view.
 
 ![Project options window](../../assets/use-heaptrc-unit-check-mem-leaks.png)
 
-Now, save leaks report to a file use [`SetHeapTraceOutput`](https://www.freepascal.org/docs-html/rtl/heaptrc/setheaptraceoutput.html) to redirect heap trace report to a file.
+## 3. (Optional) Save leaks report to a file
 
-Here is an example.
+Use [`SetHeapTraceOutput`](https://www.freepascal.org/docs-html/rtl/heaptrc/setheaptraceoutput.html) to redirect heap trace report to a file.
 
-1. Define a `DEBUG` symbol. We contain the heap trace report only for debug builds. Line 7.
+
+## 4. Example - Redirect leaks report to a file
+
+1. Enable Debug mode for compilation.
+2. Define a `DEBUG` symbol. We contain the heap trace report only for debug builds. Line 7.
 
       - FYI, the `{$DEFINE}` directive has a command-line equivalent, `-d`.  For example, `-dNAME`
 
-2. Create a conditional compilation block for `DEBUG` builds, `{$IFDEF DEBUG}...{$ENDIF DEBUG}`, for redirecting heap trace to a file. Line 23-31.
+3. Create a conditional compilation block for `DEBUG` builds, `{$IFDEF DEBUG}...{$ENDIF DEBUG}`, for redirecting heap trace to a file. Line 23-31.
 
       - Remove existing heap trace file. Line 28, 29.
       - Set a file for reporting heap memory leaks. Line 30.
@@ -139,7 +140,7 @@ begin
     // If you don't free, the -gh will give report of memory leaks
     // If Leak and Traces window is set to a heap trace file, this will appear in the Leak and Traces windoww.
     // Otherwise, Heaptrc will print heap memory reports on CLI.
-    stringList.Free;
+    // stringList.Free;
   end;
 
   // Pause Console
@@ -148,9 +149,136 @@ begin
 end.
 ```
 
-After you run the program, you will get a heap trace report file.
+The program prints the following on the screen.
 
-**3. View Leaks & Traces**
+```bash
+$ ./HeapMemoryLeak.exe
+Adding items
+--------------------
+Counting 0
+Counting 1
+Counting 2
+Counting 3
+$
+```
+
+You will get a heap trace report file containing a report similar to the one below; showing 6 unfreed memory blocks - 348 bytes. 
+
+```bash
+$ cat heap.trc
+/a-long-path/HeapMemoryLeak.exe
+Heap dump by heaptrc unit of /a-long-path/HeapMemoryLeak.exe
+134 memory blocks allocated : 5089/5480
+128 memory blocks freed     : 4741/5112
+6 unfreed memory blocks : 348
+True heap size : 229376 (192 used in System startup)
+True free heap : 227520
+Should be : 227664
+Call trace for block $00000000000B12C0 size 35
+  $000000010000BA32
+  $00000001000051C3
+  $00000001000060AB
+  $00000001000055ED
+  $000000010000197F  $main,  line 41 of HeapMemoryLeak.lpr
+  $0000000100001B16  $main,  line 53 of HeapMemoryLeak.lpr
+  $00000001000111C0
+  $00000001000017A0
+  $00007FFA4CC0257D
+  $00007FFA4DF6AF28
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+Call trace for block $00000000000B11C0 size 35
+  $000000010000BA32
+  $00000001000051C3
+  $00000001000060AB
+  $00000001000055ED
+  $000000010000197F  $main,  line 41 of HeapMemoryLeak.lpr
+  $0000000100001B16  $main,  line 53 of HeapMemoryLeak.lpr
+  $00000001000111C0
+  $00000001000017A0
+  $00007FFA4CC0257D
+  $00007FFA4DF6AF28
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+Call trace for block $00000000000B10C0 size 35
+  $000000010000BA32
+  $00000001000051C3
+  $00000001000060AB
+  $00000001000055ED
+  $000000010000197F  $main,  line 41 of HeapMemoryLeak.lpr
+  $0000000100001B16  $main,  line 53 of HeapMemoryLeak.lpr
+  $00000001000111C0
+  $00000001000017A0
+  $00007FFA4CC0257D
+  $00007FFA4DF6AF28
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+Call trace for block $00000000000B5BB0 size 64
+  $000000010000BA32
+  $000000010001C18E
+  $000000010001BBEC
+  $000000010001BEC4
+  $000000010001BE84
+  $000000010001C456
+  $00000001000019BA
+  $0000000100001B16  $main,  line 53 of HeapMemoryLeak.lpr
+  $00000001000111C0
+  $00000001000017A0
+  $00007FFA4CC0257D
+  $00007FFA4DF6AF28
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+Call trace for block $00000000000B0FC0 size 35
+  $000000010000BA32
+  $00000001000051C3
+  $00000001000060AB
+  $00000001000055ED
+  $000000010000197F  $main,  line 41 of HeapMemoryLeak.lpr
+  $0000000100001B16  $main,  line 53 of HeapMemoryLeak.lpr
+  $00000001000111C0
+  $00000001000017A0
+  $00007FFA4CC0257D
+  $00007FFA4DF6AF28
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+Call trace for block $00000000000D5910 size 144
+  $000000010000BA32
+  $00000001000090BA
+  $000000010001C2F5
+  $000000010000188D
+  $0000000100001B16  $main,  line 53 of HeapMemoryLeak.lpr
+  $00000001000111C0
+  $00000001000017A0
+  $00007FFA4CC0257D
+  $00007FFA4DF6AF28
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+  $BAADF00DBAADF00D
+```
+
+## 5. (Optional) View Leaks & Traces in Lazarus IDE
 
 1. Click `View` form the top menu bar of Lazarus IDE.
 2. Select `Leaks and Traces`
