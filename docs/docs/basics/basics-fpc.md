@@ -2642,7 +2642,7 @@ end.
 - The GUID `['{12345678-1234-1234-1234-1234567890AB}']` is required for COM compatibility but can be a unique identifier in your application.
 - `TInterfacedObject` is a base class that implements `IUnknown`, which is the ancestor of all interfaces. This ensures proper reference counting for memory management.
 
-## 26. More on COM Interfaces
+## 26. More on Interfaces
 
 ### What is a GUID?
 
@@ -2717,7 +2717,7 @@ end.
 - Think of a GUID as a unique fingerprint for an interface, ensuring it’s always identified correctly and uniquely in a program.
 
 
-## 27. Even More on COM Interfaces
+## 27. Even More on Interfaces
 
 
 ### What is a Function?
