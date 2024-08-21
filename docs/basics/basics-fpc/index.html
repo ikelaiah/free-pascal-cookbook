@@ -1241,30 +1241,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="25. Interfaces">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#com-interface" class="md-nav__link">
-    <span class="md-ellipsis">
-      COM Interface
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#corba-interface" class="md-nav__link">
-    <span class="md-ellipsis">
-      CORBA Interface
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -2993,30 +2969,6 @@
       25. Interfaces
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="25. Interfaces">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#com-interface" class="md-nav__link">
-    <span class="md-ellipsis">
-      COM Interface
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#corba-interface" class="md-nav__link">
-    <span class="md-ellipsis">
-      CORBA Interface
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -6934,6 +6886,11 @@
 </span><span id="__span-96-78"><a id="__codelineno-96-78" name="__codelineno-96-78"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></table></div>
 <h2 id="25-interfaces">25. Interfaces<a class="headerlink" href="#25-interfaces" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, Free Pascal uses the Windows COM <code>IUnknown</code> interface type.</p>
+<p>Ref: <a href="https://www.freepascal.org/docs-html/current/prog/progsu37.html#x44-430001.2.37">$INTERFACES : Specify Interface type.</a></p>
+</div>
 <p>Think of an interface as a plan that outlines what actions a class should perform, without specifying how to do them. In Free Pascal, interfaces serve as an alternative to multiple inheritance, which is used in languages like C++.</p>
 <ul>
 <li>Interfaces can only be used in <code>delphi</code> or <code>objfpc</code> modes. </li>
@@ -6956,26 +6913,14 @@
 <p>Use the <code>class</code> keyword to define a class that implements the interface. The class <strong>must provide concrete implementations</strong> for all the methods and properties declared in the interface.</p>
 </li>
 </ol>
-<h3 id="com-interface">COM Interface<a class="headerlink" href="#com-interface" title="Permanent link">&para;</a></h3>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>All COM interfaces use reference counting. This means that whenever an interface is assigned to a variable, its reference count is updated. Whenever the variable goes out of scope, the reference count is automatically decreased. </p>
-<p>When the reference count reaches zero, usually the instance of the class that implements the interface, is freed.</p>
-<p>Source: <a href="https://www.freepascal.org/docs-html/current/ref/refse51.html#x104-1280007.8">Interfaces - Reference counting</a></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>... COM interfaces are by default reference counted, because they descend from <code>IUnknown</code>.</p>
-<p>Source: <a href="https://www.freepascal.org/docs-html/ref/refse50.html">Interfaces - CORBA and other interfaces</a></p>
-</div>
+<p><strong>Example</strong></p>
+<p>This example defines a simple interface <code>IMyInterface</code> with one method <code>DoSomething</code>, and then implement this interface in a class <code>TMyClass</code>.</p>
+<p><strong>1. Define the Interface</strong></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Especially on Windows systems, the GUID of an interface can and <strong>must be used</strong> when using COM.</p>
 <p>Source: <a href="https://www.freepascal.org/docs-html/ref/refse44.html#x97-1210007.1">Interfaces - Definition</a></p>
 </div>
-<p><strong>Example</strong></p>
-<p>This example defines a simple interface <code>IMyInterface</code> with one method <code>DoSomething</code>, and then implement this interface in a class <code>TMyClass</code>.</p>
-<p><strong>1. Define the Interface</strong></p>
 <div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-97-1">1</a></span>
 <span class="normal"><a href="#__codelineno-97-2">2</a></span>
 <span class="normal"><a href="#__codelineno-97-3">3</a></span>
@@ -7020,6 +6965,18 @@
 </span><span id="__span-99-5"><a id="__codelineno-99-5" name="__codelineno-99-5"></a><span class="w">  </span><span class="n">MyObject</span><span class="o">.</span><span class="n">DoSomething</span><span class="o">;</span>
 </span><span id="__span-99-6"><a id="__codelineno-99-6" name="__codelineno-99-6"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></table></div>
+<p>You don’t need to call <code>MyObject.Free</code> because COM interfaces automatically handle memory management. When no more references to the COM interface exist (when the reference count reaches zero), the object that implements the interface is automatically freed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All COM interfaces use reference counting. This means that whenever an interface is assigned to a variable, its reference count is updated. Whenever the variable goes out of scope, the reference count is automatically decreased. </p>
+<p>When the reference count reaches zero, usually the instance of the class that implements the interface, is freed.</p>
+<p>Source: <a href="https://www.freepascal.org/docs-html/current/ref/refse51.html#x104-1280007.8">Interfaces - Reference counting</a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>... COM interfaces are by default reference counted, because they descend from <code>IUnknown</code>.</p>
+<p>Source: <a href="https://www.freepascal.org/docs-html/ref/refse50.html">Interfaces - CORBA and other interfaces</a></p>
+</div>
 <p><strong>Complete Example</strong></p>
 <div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-100-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-100-2"> 2</a></span>
@@ -7091,21 +7048,6 @@
 <li>The GUID <code>['{12345678-1234-1234-1234-1234567890AB}']</code> is required for COM compatibility but can be a unique identifier in your application.</li>
 <li><code>TInterfacedObject</code> is a base class that implements <code>IUnknown</code>, which is the ancestor of all interfaces. This ensures proper reference counting for memory management.</li>
 </ul>
-<h3 id="corba-interface">CORBA Interface<a class="headerlink" href="#corba-interface" title="Permanent link">&para;</a></h3>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Corba interfaces are identified by a simple string so they are assignment compatible with strings and not with TGUID. The compiler does not do any automatic reference counting for the CORBA interfaces, so the programmer is responsible for any reference bookkeeping.</p>
-<p>Source: <a href="https://www.freepascal.org/docs-html/ref/refse50.html">Interfaces - CORBA and other interfaces</a></p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>... if you're not doing COM, I recommend using <code>{$INTERFACES CORBA}</code> and then you can use an arbitrary string instead of a GUID (and don't need to worry about <code>addref</code>/<code>release</code>).</p>
-<p>You do need the string though if you ever want to use <code>as</code>. </p>
-<p>If you omit the string, or have multiple interfaces implemented by an object with the same <code>['...']</code> string, the compiler will not complain, but <code>as</code> will cast to the wrong interface which can be extremely confusing to debug</p>
-<p>-Hixie (<a href="https://discord.com/channels/570025060312547359/570025355717509147/1264787898348077088">Discord message</a>, 2024-07-22)</p>
-</div>
-<p><strong>Example</strong></p>
-<p>...</p>
 <h2 id="26-more-on-com-interfaces">26. More on COM Interfaces<a class="headerlink" href="#26-more-on-com-interfaces" title="Permanent link">&para;</a></h2>
 <h3 id="what-is-a-guid">What is a GUID?<a class="headerlink" href="#what-is-a-guid" title="Permanent link">&para;</a></h3>
 <p>A GUID is like a super-unique name tag. Imagine you're at a huge event with thousands of people, and everyone needs to wear a name tag to avoid confusion. Each name tag has to be unique so that when someone calls out a name, only one person responds. That's what a GUID does for interfaces in programming.</p>
