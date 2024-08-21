@@ -1241,16 +1241,40 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#26-more-on-interfaces" class="md-nav__link">
+    <nav class="md-nav" aria-label="25. Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#com-interface" class="md-nav__link">
     <span class="md-ellipsis">
-      26. More on Interfaces
+      COM Interface
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="26. More on Interfaces">
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corba-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      CORBA Interface
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-more-on-com-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      26. More on COM Interfaces
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="26. More on COM Interfaces">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1313,13 +1337,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#27-even-more-on-interfaces" class="md-nav__link">
+  <a href="#27-even-more-on-com-interfaces" class="md-nav__link">
     <span class="md-ellipsis">
-      27. Even More on Interfaces
+      27. Even More on COM Interfaces
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="27. Even More on Interfaces">
+    <nav class="md-nav" aria-label="27. Even More on COM Interfaces">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2970,16 +2994,40 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#26-more-on-interfaces" class="md-nav__link">
+    <nav class="md-nav" aria-label="25. Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#com-interface" class="md-nav__link">
     <span class="md-ellipsis">
-      26. More on Interfaces
+      COM Interface
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="26. More on Interfaces">
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corba-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      CORBA Interface
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-more-on-com-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      26. More on COM Interfaces
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="26. More on COM Interfaces">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3042,13 +3090,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#27-even-more-on-interfaces" class="md-nav__link">
+  <a href="#27-even-more-on-com-interfaces" class="md-nav__link">
     <span class="md-ellipsis">
-      27. Even More on Interfaces
+      27. Even More on COM Interfaces
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="27. Even More on Interfaces">
+    <nav class="md-nav" aria-label="27. Even More on COM Interfaces">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -6886,23 +6934,45 @@
 </span><span id="__span-96-78"><a id="__codelineno-96-78" name="__codelineno-96-78"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></table></div>
 <h2 id="25-interfaces">25. Interfaces<a class="headerlink" href="#25-interfaces" title="Permanent link">&para;</a></h2>
-<p>Refer to the official doc <a href="https://www.freepascal.org/docs-html/ref/refch7.html#x96-1200007">Interfaces</a> for more info.</p>
+<p>Think of an interface as a plan that outlines what actions a class should perform, without specifying how to do them. In Free Pascal, interfaces serve as an alternative to multiple inheritance, which is used in languages like C++.</p>
 <ul>
 <li>Interfaces can only be used in <code>delphi</code> or <code>objfpc</code> modes. </li>
 <li>All parts of an <code>interface</code> are always <code>public</code>, so you can't hide them.</li>
 <li>Properties can only have methods to get or set their values. </li>
 <li>You can't create interfaces directly. Instead, you need a <code>class</code> that uses the <code>interface</code>.</li>
+<li>It is not possible for a class to implement only part of the interface: it is all or nothing.</li>
 <li>You can only use calling convention modifiers in methods within an interface. You can't use special modifiers like <code>virtual</code>, <code>abstract</code>, <code>dynamic</code>, or <code>override</code> in an <code>interface</code>.</li>
 </ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Refer to the official doc <a href="https://www.freepascal.org/docs-html/ref/refch7.html#x96-1200007">Interfaces</a> for more info.</p>
+</div>
 <p><strong>Syntax</strong></p>
 <ol>
 <li>
-<p>Define the Interface: Use the <code>interface</code> keyword to define an interface, specifying the methods (and properties, if any) that any implementing class must provide.</p>
+<p>Use the <code>interface</code> keyword to define an interface, specifying the methods (and properties, if any) that any implementing class must provide.</p>
 </li>
 <li>
-<p>Implement the Interface in a Class: Use the <code>class</code> keyword to define a class that implements the interface. The class <strong>must provide concrete implementations</strong> for all the methods and properties declared in the interface.</p>
+<p>Use the <code>class</code> keyword to define a class that implements the interface. The class <strong>must provide concrete implementations</strong> for all the methods and properties declared in the interface.</p>
 </li>
 </ol>
+<h3 id="com-interface">COM Interface<a class="headerlink" href="#com-interface" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All COM interfaces use reference counting. This means that whenever an interface is assigned to a variable, its reference count is updated. Whenever the variable goes out of scope, the reference count is automatically decreased. </p>
+<p>When the reference count reaches zero, usually the instance of the class that implements the interface, is freed.</p>
+<p>Source: <a href="https://www.freepascal.org/docs-html/current/ref/refse51.html#x104-1280007.8">Interfaces - Reference counting</a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>... COM interfaces are by default reference counted, because they descend from <code>IUnknown</code>.</p>
+<p>Source: <a href="https://www.freepascal.org/docs-html/ref/refse50.html">Interfaces - CORBA and other interfaces</a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Especially on Windows systems, the GUID of an interface can and <strong>must be used</strong> when using COM.</p>
+<p>Source: <a href="https://www.freepascal.org/docs-html/ref/refse44.html#x97-1210007.1">Interfaces - Definition</a></p>
+</div>
 <p><strong>Example</strong></p>
 <p>This example defines a simple interface <code>IMyInterface</code> with one method <code>DoSomething</code>, and then implement this interface in a class <code>TMyClass</code>.</p>
 <p><strong>1. Define the Interface</strong></p>
@@ -6979,7 +7049,11 @@
 <span class="normal"><a href="#__codelineno-100-26">26</a></span>
 <span class="normal"><a href="#__codelineno-100-27">27</a></span>
 <span class="normal"><a href="#__codelineno-100-28">28</a></span>
-<span class="normal"><a href="#__codelineno-100-29">29</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-100-1"><a id="__codelineno-100-1" name="__codelineno-100-1"></a><span class="k">program</span><span class="w"> </span><span class="n">InterfaceExample</span><span class="o">;</span>
+<span class="normal"><a href="#__codelineno-100-29">29</a></span>
+<span class="normal"><a href="#__codelineno-100-30">30</a></span>
+<span class="normal"><a href="#__codelineno-100-31">31</a></span>
+<span class="normal"><a href="#__codelineno-100-32">32</a></span>
+<span class="normal"><a href="#__codelineno-100-33">33</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-100-1"><a id="__codelineno-100-1" name="__codelineno-100-1"></a><span class="k">program</span><span class="w"> </span><span class="n">COMInterfaceExample</span><span class="o">;</span>
 </span><span id="__span-100-2"><a id="__codelineno-100-2" name="__codelineno-100-2"></a>
 </span><span id="__span-100-3"><a id="__codelineno-100-3" name="__codelineno-100-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
 </span><span id="__span-100-4"><a id="__codelineno-100-4" name="__codelineno-100-4"></a>
@@ -7007,13 +7081,32 @@
 </span><span id="__span-100-26"><a id="__codelineno-100-26" name="__codelineno-100-26"></a><span class="w">  </span><span class="c1">// Step 3: Use the Interface and Class</span>
 </span><span id="__span-100-27"><a id="__codelineno-100-27" name="__codelineno-100-27"></a><span class="w">  </span><span class="n">MyObject</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">TMyClass</span><span class="o">.</span><span class="n">Create</span><span class="o">;</span>
 </span><span id="__span-100-28"><a id="__codelineno-100-28" name="__codelineno-100-28"></a><span class="w">  </span><span class="n">MyObject</span><span class="o">.</span><span class="n">DoSomething</span><span class="o">;</span>
-</span><span id="__span-100-29"><a id="__codelineno-100-29" name="__codelineno-100-29"></a><span class="k">end</span><span class="o">.</span>
+</span><span id="__span-100-29"><a id="__codelineno-100-29" name="__codelineno-100-29"></a>
+</span><span id="__span-100-30"><a id="__codelineno-100-30" name="__codelineno-100-30"></a><span class="w">  </span><span class="c1">// Pause console</span>
+</span><span id="__span-100-31"><a id="__codelineno-100-31" name="__codelineno-100-31"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Press enter to quit&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-100-32"><a id="__codelineno-100-32" name="__codelineno-100-32"></a><span class="w">  </span><span class="nb">ReadLn</span><span class="o">;</span>
+</span><span id="__span-100-33"><a id="__codelineno-100-33" name="__codelineno-100-33"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></table></div>
 <ul>
 <li>The GUID <code>['{12345678-1234-1234-1234-1234567890AB}']</code> is required for COM compatibility but can be a unique identifier in your application.</li>
 <li><code>TInterfacedObject</code> is a base class that implements <code>IUnknown</code>, which is the ancestor of all interfaces. This ensures proper reference counting for memory management.</li>
 </ul>
-<h2 id="26-more-on-interfaces">26. More on Interfaces<a class="headerlink" href="#26-more-on-interfaces" title="Permanent link">&para;</a></h2>
+<h3 id="corba-interface">CORBA Interface<a class="headerlink" href="#corba-interface" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Corba interfaces are identified by a simple string so they are assignment compatible with strings and not with TGUID. The compiler does not do any automatic reference counting for the CORBA interfaces, so the programmer is responsible for any reference bookkeeping.</p>
+<p>Source: <a href="https://www.freepascal.org/docs-html/ref/refse50.html">Interfaces - CORBA and other interfaces</a></p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>... if you're not doing COM, I recommend using <code>{$INTERFACES CORBA}</code> and then you can use an arbitrary string instead of a GUID (and don't need to worry about <code>addref</code>/<code>release</code>).</p>
+<p>You do need the string though if you ever want to use <code>as</code>. </p>
+<p>If you omit the string, or have multiple interfaces implemented by an object with the same <code>['...']</code> string, the compiler will not complain, but <code>as</code> will cast to the wrong interface which can be extremely confusing to debug</p>
+<p>-Hixie (<a href="https://discord.com/channels/570025060312547359/570025355717509147/1264787898348077088">Discord message</a>, 2024-07-22)</p>
+</div>
+<p><strong>Example</strong></p>
+<p>...</p>
+<h2 id="26-more-on-com-interfaces">26. More on COM Interfaces<a class="headerlink" href="#26-more-on-com-interfaces" title="Permanent link">&para;</a></h2>
 <h3 id="what-is-a-guid">What is a GUID?<a class="headerlink" href="#what-is-a-guid" title="Permanent link">&para;</a></h3>
 <p>A GUID is like a super-unique name tag. Imagine you're at a huge event with thousands of people, and everyone needs to wear a name tag to avoid confusion. Each name tag has to be unique so that when someone calls out a name, only one person responds. That's what a GUID does for interfaces in programming.</p>
 <h3 id="why-do-we-need-a-guid-for-interfaces">Why do we need a GUID for interfaces?<a class="headerlink" href="#why-do-we-need-a-guid-for-interfaces" title="Permanent link">&para;</a></h3>
@@ -7098,7 +7191,7 @@
 <li>They allow programs to check if objects follow specific rules (interfaces) correctly.</li>
 <li>Think of a GUID as a unique fingerprint for an interface, ensuring it’s always identified correctly and uniquely in a program.</li>
 </ul>
-<h2 id="27-even-more-on-interfaces">27. Even More on Interfaces<a class="headerlink" href="#27-even-more-on-interfaces" title="Permanent link">&para;</a></h2>
+<h2 id="27-even-more-on-com-interfaces">27. Even More on COM Interfaces<a class="headerlink" href="#27-even-more-on-com-interfaces" title="Permanent link">&para;</a></h2>
 <h3 id="what-is-a-function">What is a Function?<a class="headerlink" href="#what-is-a-function" title="Permanent link">&para;</a></h3>
 <p>Think of a function as a recipe. If you have a recipe for chocolate chip cookies, you follow those instructions every time you want cookies. You don’t need to worry about the recipe being mixed up with other recipes because you have the name of the recipe right there.</p>
 <h3 id="what-is-an-interface">What is an Interface?<a class="headerlink" href="#what-is-an-interface" title="Permanent link">&para;</a></h3>
