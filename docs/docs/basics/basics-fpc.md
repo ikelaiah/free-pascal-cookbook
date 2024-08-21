@@ -2519,6 +2519,11 @@ end.
 
 ## 25. Interfaces
 
+!!! Note
+    By default, Free Pascal uses the Windows COM `IUnknown` interface type.
+
+    Ref: [$INTERFACES : Specify Interface type.](https://www.freepascal.org/docs-html/current/prog/progsu37.html#x44-430001.2.37)
+
 Think of an interface as a plan that outlines what actions a class should perform, without specifying how to do them. In Free Pascal, interfaces serve as an alternative to multiple inheritance, which is used in languages like C++.
 
 - Interfaces can only be used in `delphi` or `objfpc` modes. 
@@ -2537,30 +2542,16 @@ Think of an interface as a plan that outlines what actions a class should perfor
 
 2. Use the `class` keyword to define a class that implements the interface. The class **must provide concrete implementations** for all the methods and properties declared in the interface.
 
-### COM Interface 
-
-!!! Note
-    All COM interfaces use reference counting. This means that whenever an interface is assigned to a variable, its reference count is updated. Whenever the variable goes out of scope, the reference count is automatically decreased. 
-    
-    When the reference count reaches zero, usually the instance of the class that implements the interface, is freed.
-
-    Source: [Interfaces - Reference counting](https://www.freepascal.org/docs-html/current/ref/refse51.html#x104-1280007.8)
-
-!!! Note
-    ... COM interfaces are by default reference counted, because they descend from `IUnknown`.
-
-    Source: [Interfaces - CORBA and other interfaces](https://www.freepascal.org/docs-html/ref/refse50.html)
-
-!!! Note
-    Especially on Windows systems, the GUID of an interface can and **must be used** when using COM.
-
-    Source: [Interfaces - Definition](https://www.freepascal.org/docs-html/ref/refse44.html#x97-1210007.1)
-
 **Example**
 
 This example defines a simple interface `IMyInterface` with one method `DoSomething`, and then implement this interface in a class `TMyClass`.
 
 **1. Define the Interface**
+
+!!! Note
+    Especially on Windows systems, the GUID of an interface can and **must be used** when using COM.
+
+    Source: [Interfaces - Definition](https://www.freepascal.org/docs-html/ref/refse44.html#x97-1210007.1)
 
 ```pascal linenums="1"
 type
@@ -2595,6 +2586,20 @@ begin
   MyObject.DoSomething;
 end.
 ```
+
+You don’t need to call `MyObject.Free` because COM interfaces automatically handle memory management. When no more references to the COM interface exist (when the reference count reaches zero), the object that implements the interface is automatically freed.
+
+!!! Note
+    All COM interfaces use reference counting. This means that whenever an interface is assigned to a variable, its reference count is updated. Whenever the variable goes out of scope, the reference count is automatically decreased. 
+    
+    When the reference count reaches zero, usually the instance of the class that implements the interface, is freed.
+
+    Source: [Interfaces - Reference counting](https://www.freepascal.org/docs-html/current/ref/refse51.html#x104-1280007.8)
+
+!!! Note
+    ... COM interfaces are by default reference counted, because they descend from `IUnknown`.
+
+    Source: [Interfaces - CORBA and other interfaces](https://www.freepascal.org/docs-html/ref/refse50.html)
 
 **Complete Example**
 
@@ -2632,33 +2637,10 @@ begin
   WriteLn('Press enter to quit');
   ReadLn;
 end.
-
 ```
 
 - The GUID `['{12345678-1234-1234-1234-1234567890AB}']` is required for COM compatibility but can be a unique identifier in your application.
 - `TInterfacedObject` is a base class that implements `IUnknown`, which is the ancestor of all interfaces. This ensures proper reference counting for memory management.
-
-
-### CORBA Interface
-
-!!! Note
-    Corba interfaces are identified by a simple string so they are assignment compatible with strings and not with TGUID. The compiler does not do any automatic reference counting for the CORBA interfaces, so the programmer is responsible for any reference bookkeeping.
-
-    Source: [Interfaces - CORBA and other interfaces](https://www.freepascal.org/docs-html/ref/refse50.html)
-
-!!! Tip
-    ... if you're not doing COM, I recommend using `{$INTERFACES CORBA}` and then you can use an arbitrary string instead of a GUID (and don't need to worry about `addref`/`release`).
-
-    You do need the string though if you ever want to use `as`. 
-    
-    If you omit the string, or have multiple interfaces implemented by an object with the same `['...']` string, the compiler will not complain, but `as` will cast to the wrong interface which can be extremely confusing to debug
-
-    -Hixie ([Discord message](https://discord.com/channels/570025060312547359/570025355717509147/1264787898348077088), 2024-07-22)
-
-
-**Example**
-
-...
 
 ## 26. More on COM Interfaces
 
