@@ -2519,20 +2519,42 @@ end.
 
 ## 25. Interfaces
 
-Refer to the official doc [Interfaces](https://www.freepascal.org/docs-html/ref/refch7.html#x96-1200007) for more info.
+Think of an interface as a plan that outlines what actions a class should perform, without specifying how to do them. In Free Pascal, interfaces serve as an alternative to multiple inheritance, which is used in languages like C++.
 
 - Interfaces can only be used in `delphi` or `objfpc` modes. 
 - All parts of an `interface` are always `public`, so you can't hide them.
 - Properties can only have methods to get or set their values. 
 - You can't create interfaces directly. Instead, you need a `class` that uses the `interface`.
+- It is not possible for a class to implement only part of the interface: it is all or nothing.
 - You can only use calling convention modifiers in methods within an interface. You can't use special modifiers like `virtual`, `abstract`, `dynamic`, or `override` in an `interface`.
+
+!!! Info
+    Refer to the official doc [Interfaces](https://www.freepascal.org/docs-html/ref/refch7.html#x96-1200007) for more info.
 
 **Syntax**
 
-1. Define the Interface: Use the `interface` keyword to define an interface, specifying the methods (and properties, if any) that any implementing class must provide.
+1. Use the `interface` keyword to define an interface, specifying the methods (and properties, if any) that any implementing class must provide.
 
-2. Implement the Interface in a Class: Use the `class` keyword to define a class that implements the interface. The class **must provide concrete implementations** for all the methods and properties declared in the interface.
+2. Use the `class` keyword to define a class that implements the interface. The class **must provide concrete implementations** for all the methods and properties declared in the interface.
 
+### COM Interface 
+
+!!! Note
+    All COM interfaces use reference counting. This means that whenever an interface is assigned to a variable, its reference count is updated. Whenever the variable goes out of scope, the reference count is automatically decreased. 
+    
+    When the reference count reaches zero, usually the instance of the class that implements the interface, is freed.
+
+    Source: [Interfaces - Reference counting](https://www.freepascal.org/docs-html/current/ref/refse51.html#x104-1280007.8)
+
+!!! Note
+    ... COM interfaces are by default reference counted, because they descend from `IUnknown`.
+
+    Source: [Interfaces - CORBA and other interfaces](https://www.freepascal.org/docs-html/ref/refse50.html)
+
+!!! Note
+    Especially on Windows systems, the GUID of an interface can and **must be used** when using COM.
+
+    Source: [Interfaces - Definition](https://www.freepascal.org/docs-html/ref/refse44.html#x97-1210007.1)
 
 **Example**
 
@@ -2577,7 +2599,7 @@ end.
 **Complete Example**
 
 ```pascal linenums="1"
-program InterfaceExample;
+program COMInterfaceExample;
 
 {$mode objfpc}{$H+}{$J-}
 
@@ -2605,13 +2627,40 @@ begin
   // Step 3: Use the Interface and Class
   MyObject := TMyClass.Create;
   MyObject.DoSomething;
+
+  // Pause console
+  WriteLn('Press enter to quit');
+  ReadLn;
 end.
+
 ```
 
 - The GUID `['{12345678-1234-1234-1234-1234567890AB}']` is required for COM compatibility but can be a unique identifier in your application.
 - `TInterfacedObject` is a base class that implements `IUnknown`, which is the ancestor of all interfaces. This ensures proper reference counting for memory management.
 
-## 26. More on Interfaces
+
+### CORBA Interface
+
+!!! Note
+    Corba interfaces are identified by a simple string so they are assignment compatible with strings and not with TGUID. The compiler does not do any automatic reference counting for the CORBA interfaces, so the programmer is responsible for any reference bookkeeping.
+
+    Source: [Interfaces - CORBA and other interfaces](https://www.freepascal.org/docs-html/ref/refse50.html)
+
+!!! Tip
+    ... if you're not doing COM, I recommend using `{$INTERFACES CORBA}` and then you can use an arbitrary string instead of a GUID (and don't need to worry about `addref`/`release`).
+
+    You do need the string though if you ever want to use `as`. 
+    
+    If you omit the string, or have multiple interfaces implemented by an object with the same `['...']` string, the compiler will not complain, but `as` will cast to the wrong interface which can be extremely confusing to debug
+
+    -Hixie ([Discord message](https://discord.com/channels/570025060312547359/570025355717509147/1264787898348077088), 2024-07-22)
+
+
+**Example**
+
+...
+
+## 26. More on COM Interfaces
 
 ### What is a GUID?
 
@@ -2686,7 +2735,7 @@ end.
 - Think of a GUID as a unique fingerprint for an interface, ensuring it’s always identified correctly and uniquely in a program.
 
 
-## 27. Even More on Interfaces
+## 27. Even More on COM Interfaces
 
 
 ### What is a Function?
