@@ -2549,7 +2549,7 @@ This example defines a simple interface `IMyInterface` with one method `DoSometh
 **1. Define the Interface**
 
 !!! Note
-    Especially on Windows systems, the GUID of an interface can and **must be used** when using COM.
+    Especially **on Windows systems**, the GUID of an interface can and **must be used** when using COM.
 
     Source: [Interfaces - Definition](https://www.freepascal.org/docs-html/ref/refse44.html#x97-1210007.1)
 
