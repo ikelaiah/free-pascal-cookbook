@@ -4,11 +4,11 @@
 
 This page is my go-to guide to the key basics of Object Pascal with the [Free Pascal Compiler](https://www.freepascal.org). It's not a complete guide, but it’s got all the essentials to help you dive in and discover just how powerful Free Pascal can be!
 
-Hope you find it super helpful! 🚀
+Hope you find it helpful! 🚀
 
 !!! Note
 
-    This section assumes you have correctly set up the Free Pascal Compiler and the Lazarus IDE for your OS.
+    Set up the Lazarus IDE (which includes the Free Pascal Compiler) for your OS to run the snippets on this page.
 
 ## 1. Hello, World! 
 
