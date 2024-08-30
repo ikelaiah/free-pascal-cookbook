@@ -925,169 +925,251 @@ begin
 end.
 ```
 
-## 13. String Operations
 
-### Length of a String
 
-Use `Length(str)` to find the length of a string.
+## 13. Bitwise Operations
 
-**Example**
+| Operator | Description              | Example              | Binary Notation           | Result  |
+|----------|--------------------------|----------------------|---------------------------|---------|
+| `AND`    | Bitwise AND              | `5 and 3`            | `0101 and 0011`           | `0001`  |
+| `OR`     | Bitwise OR               | `5 or 3`             | `0101 or 0011`            | `0111`  |
+| `XOR`    | Bitwise XOR              | `5 xor 3`            | `0101 xor 0011`           | `0110`  |
+| `NOT`    | Bitwise NOT (unary)      | `not 5`              | `not 0101`                | `...1010` (in 2's complement) |
+| `SHL`    | Shift left               | `5 shl 1`            | `0101 shl 1`              | `1010`  |
+| `<<`     | Shift left (equivalent)  | `5 << 1`             | `0101 << 1`               | `1010`  |
+| `SHR`    | Shift right              | `5 shr 1`            | `0101 shr 1`              | `0010`  |
+| `>>`     | Shift right (equivalent) | `5 >> 1`             | `0101 >> 1`               | `0010`  |
 
-```pascal linenums="1" hl_lines="12"
-  {$mode objfpc}{$H+}{$J-}
+**Examples**
 
-var
-  str:string;
-  len:integer;
-
-  // Main block
-begin
-  str := 'Hello, World!';
-  
-  // Get length of a string
-  len:=Length(str);
-  
-  WriteLn('Length of ', str, ' is ', len); // Output: Length of Hello, World! is 12
-end.
-```
-
-### Finding Character at n-th Index
-
-**Syntax**
 
 ```pascal linenums="1"
-stringVar[index];
-```
-
-**Example**
-
-```pascal linenums="1" hl_lines="12"
-  {$mode objfpc}{$H+}{$J-}
+program BitwiseOperatorsDemos;
 
 var
-  str: string;
-  ch: char;
-  index: integer;
+  a, b, result: integer;
 
-  // Main block
 begin
-  str := 'Hello, World!';
-  index := 1; // Change this value to test different indices
+  a := 5;  // 0101 in binary
+  b := 3;  // 0011 in binary
 
-  ch := str[index];
-  WriteLn('Character at index ', index, ' is: ', ch);
+  // Bitwise AND
+  result := a and b;  // 0101 and 0011 = 0001 (1 in decimal)
+  writeln('AND: 5 and 3 = ', result, ' (', BinStr(result, 4), ')');
+
+  // Bitwise OR
+  result := a or b;  // 0101 or 0011 = 0111 (7 in decimal)
+  writeln('OR: 5 or 3 = ', result, ' (', BinStr(result, 4), ')');
+
+  // Bitwise XOR
+  result := a xor b;  // 0101 xor 0011 = 0110 (6 in decimal)
+  writeln('XOR: 5 xor 3 = ', result, ' (', BinStr(result, 4), ')');
+
+  // Bitwise NOT
+  result := not a;  // not 0101 = 1010 (in a 4-bit system, this is -6 in two's complement)
+  writeln('NOT: not 5 = ', result, ' (', BinStr(result, 4), ')');
+
+  // Shift left (SHL)
+  result := a shl 1;  // 0101 shl 1 = 1010 (10 in decimal)
+  writeln('SHL: 5 shl 1 = ', result, ' (', BinStr(result, 4), ')');
+
+  // Shift left (<<) - same as SHL
+  result := a << 1;  // 0101 << 1 = 1010 (10 in decimal)
+  writeln('<< : 5 << 1 = ', result, ' (', BinStr(result, 4), ')');
+
+  // Shift right (SHR)
+  result := a shr 1;  // 0101 shr 1 = 0010 (2 in decimal)
+  writeln('SHR: 5 shr 1 = ', result, ' (', BinStr(result, 4), ')');
+
+  // Shift right (>>) - same as SHR
+  result := a >> 1;  // 0101 >> 1 = 0010 (2 in decimal)
+  writeln('>> : 5 >> 1 = ', result, ' (', BinStr(result, 4), ')');
+  
+  readln;
 end.
 ```
 
-### Concat Strings
+Outputs
 
-You can concat string using the `+` operator or `Concat(str1,str2)`.
+```bash linenums="1"
+AND: 5 and 3 = 1 (0001)
+OR: 5 or 3 = 7 (0111)
+XOR: 5 xor 3 = 6 (0110)
+NOT: not 5 = -6 (1010)
+SHL: 5 shl 1 = 10 (1010)
+<< : 5 << 1 = 10 (1010)
+SHR: 5 shr 1 = 2 (0010)
+>> : 5 >> 1 = 2 (0010)
+```
 
-**Example**
 
-```pascal linenums="1" hl_lines="11 16"
-  {$mode objfpc}{$H+}{$J-}
+## 14. Boolean Operations
 
+| Operator | Operation          | Description                                                            |
+|----------|--------------------|------------------------------------------------------------------------|
+| `not`    | Logical negation    | Inverts the boolean value: `True` becomes `False`, and `False` becomes `True`. |
+| `and`    | Logical conjunction | Returns `True` only if both operands are `True`.                       |
+| `or`     | Logical disjunction | Returns `True` if at least one operand is `True`.                      |
+| `xor`    | Exclusive OR        | Returns `True` if exactly one of the operands is `True`.               |
+
+!!! Note
+
+    By default, boolean expressions are evaluated with short-circuit evaluation.
+
+    This means that from the moment the result of the complete expression is known, evaluation is stopped and the result is returned. 
+    
+    For instance, in the following expression:
+
+    ```pascal
+    B := True or MaybeTrue;
+    ```
+    
+    The compiler will never look at the value of `MaybeTrue`, since it is obvious that the expression will always be `True`. 
+    
+    As a result of this strategy, if `MaybeTrue` is a function, ==it will not get called!== (This can have surprising effects when used in conjunction with properties).
+
+    Adapted from: [https://www.freepascal.org/docs-html/current/ref/refsu46.html#x153-17700012.8.3](https://www.freepascal.org/docs-html/current/ref/refsu46.html#x153-17700012.8.3)
+
+**Examples**
+
+```pascal linenums="1"
 var
-  str1, str2, result: string;
-
-  // Main block
+  a, b: boolean;
 begin
-  str1 := 'Hello, ';
-  str2 := 'world!';
-  
-  // Using + operator
-  result := str1 + str2;
-  WriteLn(result); // Output: Hello, world!
-  
-  // Using Concat function
-  result := Concat(str1, str2);
-  WriteLn(result); // Output: Hello, world!
+  a := True;
+  b := False;
+
+  Writeln('not a: ', not a);           // Outputs: False
+  Writeln('a and b: ', a and b);       // Outputs: False
+  Writeln('a or b: ', a or b);         // Outputs: True
+  Writeln('a xor b: ', a xor b);       // Outputs: True
 end.
 ```
 
-### Replace Substring
+## 15. String Operations
 
-1. Include `SysUtils` in the `uses` section.
-2. Use `StringReplace(...)`.
+Useful strings operators and functions.
 
-**Example**
+| Operator/Function  | Description                                                                 |
+|--------------------|-----------------------------------------------------------------------------|
+| `+`                | Concatenates two strings.                                                   |
+| `CompareStr`       | Case-sensitive string comparison. Returns 0 if strings are the same.        |
+| `CompareText`      | Case-insensitive string comparison. Returns 0 if strings are the same.      |
+| `Length`           | Returns the string length.                                                  |
+| `Pos`              | Finds the position of a substring.                                          |
+| `Copy`             | Extracts a substring from a string.                                         |
+| `Delete`           | Removes part of a string.                                                   |
+| `Insert`           | Inserts a substring at a specific position.                                 |
+| `StringReplace`    | Replaces a substring with options for case sensitivity and all occurrences. |
+| `str[n]`           | Accesses the character at the nth position.                                 |
+| `UpperCase`        | Converts a string to uppercase.                                             |
+| `LowerCase`        | Converts a string to lowercase.                                             |
 
-```pascal linenums="1" hl_lines="14"
-  {$mode objfpc}{$H+}{$J-}
+**Examples**
+
+
+```pascal linenums="1"
+program StringOperationsExample;
+
+{$mode objfpc}{$H+}{$J-}
 
 uses
   SysUtils;
 
 var
-  str, result: string;
+  str1, str2, str3, result: string;
+  position: integer;
+  comparisonResult: integer;
 
-  // Main block
 begin
-  str := 'Hello, Pascal!';
-  
-  // Replacing 'Pascal' with 'world'
-  result := StringReplace(str, 'Pascal', 'world', [rfReplaceAll, rfIgnoreCase]);
-  WriteLn(result); // Output: Hello, world!
+  str1 := 'Hello World';
+  str2 := 'Welcome to Pascal';
+  str3 := 'This is not easy!';
+
+  // Concatenation
+  result := str1 + ', ' + str2;
+  Writeln('Concatenated string: ', result);
+  // Outputs: Hello World, Welcome to Pascal
+
+  // CompareStr (case-sensitive)
+  comparisonResult := CompareStr(str1, 'hello world');
+  Writeln('CompareStr result: ', comparisonResult);
+  // Outputs: < 0 , since orc('H') < ord('h')
+
+  // CompareText (case-insensitive)
+  comparisonResult := CompareText(str1, 'hello world');
+  Writeln('CompareText result: ', comparisonResult);
+  // Outputs: 0,  since 'Hello World' = 'hello world' ignoring case
+
+  // Length
+  Writeln('Length of str1: ', Length(str1));
+  // Outputs: 11
+
+  // Pos
+  position := Pos('World', str1);
+  Writeln('Position of ''World'' in str1: ', position);
+  // Outputs: 7
+
+  // Copy
+  result := Copy(str1, Pos('World', str1), Length('World'));
+  Writeln('Copy ''World'' from str1: ', result);
+  // Outputs: World
+
+  // Delete
+  Delete(str3, Pos('not ', str3), Length('not '));
+  Writeln('After deleting ''NOT '' from str3: ', str3);
+  // Outputs: This is easy
+
+  // Insert
+  Insert('really ', str3, pos('easy', str3));
+  Writeln('After inserting ''really '' into str3: ', str3);
+  // Outputs: This is really easy
+
+  // StringReplace
+  result := StringReplace(str1, 'Hello', 'Hello Free Pascal', [rfReplaceAll, rfIgnoreCase]);
+  Writeln('After StringReplace to str1: ', result);
+  // Outputs: Hello Free Pascal
+
+  // Access character at position n
+  Writeln('Character at pos 7 in str2: ', str2[7]);
+  // Outputs: e
+
+  // UpperCase
+  result := UpperCase(str2);
+  Writeln('UpperCase of str2: ', result);
+  // Outputs: WELCOME TO FREE PASCAL
+
+  // LowerCase
+  result := LowerCase(str2);
+  Writeln('LowerCase of str2: ', result);
+  // Outputs: welcome to free pascal
+
+  //Pause console
+  WriteLn('Press enter key to quit');
+  ReadLn;
 end.
 ```
 
+**Outputs**
 
-### Changing Case
 
-1. Include `SysUtils` in the `uses` section.
-2. Use `LowerCase(str)` or `UpperCase(str)`.
-
-**Example**
-
-```pascal linenums="1" hl_lines="4 14 18"
-  {$mode objfpc}{$H+}{$J-}
-
-uses
-  SysUtils;
-
-var
-  str, lowerStr, upperStr: string;
-
-  // Main block
-begin
-  str := 'Hello, Pascal!';
-  
-  // Convert to lowercase
-  lowerStr := LowerCase(str);
-  WriteLn(lowerStr); // Output: hello, pascal!
-  
-  // Convert to uppercase
-  upperStr := UpperCase(str);
-  WriteLn(upperStr); // Output: HELLO, PASCAL!
-end.
+```bash
+Concatenated string: Hello World, Welcome to Pascal
+CompareStr result: -32
+CompareText result: 0
+Length of str1: 11
+Position of 'World' in str1: 7
+Copy 'World' from str1: World
+After deleting 'NOT ' from str3: This is easy!
+After inserting 'really ' into str3: This is really easy!
+After StringReplace to str1: Hello Free Pascal World
+Character at pos 7 in str2: e
+UpperCase of str2: WELCOME TO PASCAL
+LowerCase of str2: welcome to pascal
+Press enter key to quit
 ```
 
-### Searching for a Substring
-
-You can use `Pos(substr, str)` to find a position of a substring in a string.
-
-**Example**
-
-```pascal linenums="1" hl_lines="13"
-  {$mode objfpc}{$H+}{$J-}
-
-var
-  str, substr: string;
-  index: integer;
-
-  // Main block
-begin
-  str := 'Hello, Pascal!';
-  substr := 'Pascal';
-  
-  // Find position of 'Pascal' in str
-  index := Pos(substr, str);
-  WriteLn('Position of "', substr, '" in "', str, '" is: ', index); // Output: 8
-end.
-```
-
-## 14. Format Strings
+## 16. Format Strings
 
 ### Format Numbers with Commas
 
@@ -1166,7 +1248,7 @@ end.
 
 
 
-## 15. Processing Text Files
+## 17. Processing Text Files
 
 ### Read a Text File
 
@@ -1279,7 +1361,7 @@ end.
 - The `try...except` block captures any exceptions that might occur during file operations and displays an appropriate error message.
 
 
-## 16. Enum Types
+## 18. Enum Types
 
 In Free Pascal, enumerated ordinal types are user-defined types that consist of a set of named values. These values are called enumeration constants, and each constant has an associated integer value, starting from 0 by default. 
 
@@ -1341,7 +1423,7 @@ begin
 end.
 ```
 
-## 17. Subrange Types
+## 19. Subrange Types
 
 A subrange is a subset of values within a specific range. In Free Pascal, subranges allow you to limit the values a variable can hold, which can help catch errors and make your code more robust and readable.
 
@@ -1391,7 +1473,7 @@ end.
     
     This (1) helps prevent errors and makes your code more robust and (2) readable. For example, if you accidentally try to assign a value outside the range, the compiler will catch the error.
 
-## 18. Arrays
+## 20. Arrays
 
 Arrays are useful when you need to handle multiple values of the same type. For example, if you have grades for students, you can use an array to store all these grades and easily access each one by its position.
 
@@ -1621,7 +1703,7 @@ end.
 ```
 
 
-## 19. Records Types
+## 21. Records Types
 
 Just for the `Record`, a `record` is a data structure that allows you to group different types of data together. This feature in Free Pascal allow you to create complex data structures and manage related data efficiently.
 
@@ -1676,7 +1758,7 @@ begin
 end.
 ```
 
-## 20. Advanced Records
+## 22. Advanced Records
 
 In Free Pascal, an advanced record is a type of record that can do more than just store data. It can also have methods (which are like functions or procedures) and properties (ways to get or set values) attached to it.
 
@@ -1855,7 +1937,7 @@ begin
 end.
 ```
 
-## 21. Classes
+## 23. Classes
 
 Here is a simple example of creating a class. For mroe info, visit the official documentation; [Classes](https://www.freepascal.org/docs-html/ref/refch6.html#x69-930006). 
 
@@ -1933,7 +2015,7 @@ begin
 end.
 ```
 
-## 22. Generics
+## 24. Generics
 
 Generics allow you to write code that can work with different data types without having to rewrite the same code for each type.
 
@@ -2128,7 +2210,7 @@ end.
 ```
 
 
-## 23. Function References
+## 25. Function References
 
 !!! Note
     Function References is available for FPC versions >= 3.3.1. 
@@ -2318,7 +2400,7 @@ begin
 end.
 ```
 
-## 24. Anonymous Functions
+## 26. Anonymous Functions
 
 !!! Note
     Anonymous Functions is available for FPC versions >= 3.3.1.
@@ -2517,7 +2599,7 @@ begin
 end.
 ```
 
-## 25. Interfaces
+## 27. Interfaces
 
 !!! Note
     By default, Free Pascal uses the Windows COM `IUnknown` interface type.
@@ -2717,7 +2799,7 @@ end.
 - Think of a GUID as a unique fingerprint for an interface, ensuring it’s always identified correctly and uniquely in a program.
 
 
-## 27. Even More on Interfaces
+## 28. Even More on Interfaces
 
 
 ### What is a Function?
@@ -2803,7 +2885,7 @@ In this example, `IDriveable` has a unique `GUID`, so even if you have many diff
 
 The GUID is like a special label that makes sure you’re talking to the exact right set of instructions (interface) among many possibilities.
 
-## 28. Pointers
+## 29. Pointers
 
 > ... Avoid pointer whenever alternatives exist. If you want to learn, though, there's no silver bullet apart from: There has to be as many `Dispose` as `New`, period. 
 > 
