@@ -8,7 +8,7 @@ Hope you find it helpful! 🚀
 
 !!! Note
 
-    Set up the Lazarus IDE (which includes the Free Pascal Compiler) for your OS to run the snippets on this page.
+    Setup the Lazarus IDE (which includes the Free Pascal Compiler) for your OS to run the snippets on this page.
 
 ## 1. Hello, World! 
 
