@@ -9,7 +9,7 @@ nav:
     - Overview: docs/basics/overview.md
     - Setup FPC & Lazarus IDE: docs/basics/install.md
     - Running a 'Hello, World!': docs/basics/basic-hello-world.md
-    - Intro to Free Pascal: docs/basics/basics-fpc.md
+    - Intro to Free Pascal: docs/basics/intro-objpas-fpc.md
     - Common Data Types: docs/basics/common-data-types.md
   - Core Tasks:
     - Overview: docs/core-tasks/overview.md
