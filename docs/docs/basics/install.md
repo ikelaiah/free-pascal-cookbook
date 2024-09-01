@@ -1,19 +1,31 @@
-# Installation of FPC and Lazarus IDE
+# Setup Lazarus IDE and FPC
 
-What is your OS?
+Here are two easy ways to set up Lazarus IDE and Free Pascal Compiler (FPC) on your system.
 
-- [Windows](#install-on-windows)
-- [Linux or macOS](#install-on-linux-or-macos)
+- [Use Lazarus IDE's Installer (easiest)](#use-lazarus-ides-installer-easiest)
+- [Use `fpcupdeluxe` (more options)](#use-fpcupdeluxe-more-options)
 
-## Install on Windows
+## Use Lazarus IDE's Installer (easiest)
 
-### Get the installer
+1. Head to [https://www.lazarus-ide.org](https://www.lazarus-ide.org).
+
+2. Click the **Download** button to get an installer for your OS
+
+![install-lazarus](../../assets/install-lazarus-fpc.png)
+
+
+## Use `fpcupdeluxe` (more options)
+
+
+### Install on Windows
+
+#### Get the installer
 
 1. Head to [https://github.com/LongDirtyAnimAlf/fpcupdeluxe/releases](https://github.com/LongDirtyAnimAlf/fpcupdeluxe/releases)
 2. Download the latest `fpcupdeluxe` for your OS and architecture, and save it in a new folder.
 3. Run `fpcupdeluxe`.
 
-### Get latest fixes
+#### Get latest fixes
 
 Steps.
 
@@ -37,7 +49,7 @@ Lazarus by fpcupdeluxe MUST be started with this shortcut !!
 
 ![Step1-end](../../assets/fcpupdeluxe-step-01-end.png)
 
-### Add recommended modules
+#### Add recommended modules
 
 There are two more recommended modules to install.
 
@@ -54,7 +66,7 @@ Steps.
 
 Once the installation is completed succesfully, close `fcpupdeluxe`.
 
-### Launch Lazarus IDE
+#### Launch Lazarus IDE
 
 At the end of the installation, you will find `Lazarus_fcpupdeluxe` on your desktop.
 
@@ -63,6 +75,8 @@ Double click to run it. You will see Lazarus IDE as shown below.
 ![LazarusIDE](../../assets/lazarus-ide-start-01.png)
 
 
-## Install on Linux or macOS
+### Install on Linux or macOS
 
 Consult the [`fpcupdeluxe` github page](https://github.com/LongDirtyAnimAlf/fpcupdeluxe).
+
+
