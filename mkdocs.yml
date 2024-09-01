@@ -7,8 +7,8 @@ nav:
     - License: LICENSE.md
   - Basics:
     - Overview: docs/basics/overview.md
-    - Installation: docs/basics/install.md
-    - Hello, World!: docs/basics/basic-hello-world.md
+    - Setup FPC & Lazarus IDE: docs/basics/install.md
+    - Running a 'Hello, World!': docs/basics/basic-hello-world.md
     - Intro to Free Pascal: docs/basics/basics-fpc.md
     - Common Data Types: docs/basics/common-data-types.md
   - Core Tasks:

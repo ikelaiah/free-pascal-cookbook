@@ -365,10 +365,10 @@ var
 begin
   SetLength(arr, 5);
 
-  for i := 0 .. High(arr) do
+  for i := 0 to High(arr) do
     arr[i] := i * 10;
 
-  for i := 0 .. High(arr) do
+  for i := 0 to High(arr) do
     WriteLn(arr[i]);
 end.
 ```        

@@ -86,7 +86,7 @@ Press the ++enter++ key to exit the progam, which also closes the console.
 !!! Note
     This section assumes you have correctly set up the Free Pascal Compiler and the `fpc` is in your `PATH`. 
 
-### Create a `.pas` File
+### Create a `.pas` File & Add Code
 
 1. Launch your favourite text editor
 2. Create a new file and put the following snippet in it.

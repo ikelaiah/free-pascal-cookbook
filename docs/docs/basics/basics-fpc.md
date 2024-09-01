@@ -1,4 +1,4 @@
-# Basics of Object Pascal using FPC
+# Intro to Object Pascal using FPC
 
 ## Greetings!
 
