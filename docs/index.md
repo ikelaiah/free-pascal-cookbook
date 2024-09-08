@@ -48,7 +48,7 @@ The repo of the snippets: [https://github.com/ikelaiah/free-pascal-snippets](htt
 
 !!! note
 
-    Code snippets on this site work with `FPC 3.2.3` and `Lazarus 3.5` on Win 11.
+    Code snippets on this site work with `FPC 3.2.2` and `Lazarus 3.4` on Win 11.
 
 !!! warning
 
