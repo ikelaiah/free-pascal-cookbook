@@ -30,12 +30,17 @@ The notes on this page is based on [Free Pascal NumLib official doc](https://wik
 | `inv` | `invgen`, `invgsy`, `invgpd` | Inverse of a matrix  | |
 | `sle` | `slegen`, `slegsy`, `slegpd` | Solve linear equations - Square matrices | |
 | `sle` | `slegba` | Solve linear equations - Band matrix | |
-| `sle` | `slegpb` | Solve linear equations - symmetric positive definite band matrix | |
+| `sle` | `slegpb` | Solve linear equations - symmetric positive definite band matrix | Optimised approach for a [symmetric positive band matrix](https://wiki.freepascal.org/NumLib_Documentation#Symmetric_positive_definite_band_matrix) |
 | `sle` | `sledtr`, `slegtr` | Solve linear equations - Tridiagonal matrix | |
-| `sle` | `slegls` | Solve linear equations - Least squares | |
+| `sle` | `slegls` | Solve linear equations - Least squares | Solves linear systems of a rectangular matrix (has more equations than unknowns). |
 | `eig` | `...` | ... | |
 | `roo` | `...` | ... | |
+| `roo` | `...` | ... | |
+| `roo` | `...` | ... | |
+| `roo` | `...` | ... | |
+| `roo` | `...` | ... | |
 | `int` | `...` | ... | |
+| `ode` | `...` | ... | |
 | `ode` | `...` | ... | |
 | `ipf` | `...` | ... | |
 | `spe` | `...` | ... | |
