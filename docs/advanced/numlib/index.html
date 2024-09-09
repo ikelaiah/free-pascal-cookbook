@@ -1155,6 +1155,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#operations-with-matrices-and-vectors" class="md-nav__link">
     <span class="md-ellipsis">
       Operations with matrices and vectors
@@ -1674,6 +1683,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#operations-with-matrices-and-vectors" class="md-nav__link">
     <span class="md-ellipsis">
       Operations with matrices and vectors
@@ -1743,6 +1761,175 @@
 <p>Thanks to Kees van Ginneken, Wil Kortsmit and Loek van Reij of the Computational centre of the Eindhoven University of Technology for making it available for the Free Pascal project.</p>
 <p>Thanks to Marco van de Voort (<a href="mailto:marco@freepascal.org">marco@freepascal.org</a>) and Michael van Canneyt (<a href="mailto:michael@freepascal.org">michael@freepascal.org</a>) for porting to FPC and documenting NumLib.</p>
 </div>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Unit</th>
+<th>Routine</th>
+<th>Operation</th>
+<th>Expression / Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>omv</code></td>
+<td><code>omvinp</code></td>
+<td>Dot product</td>
+<td><span class="arithmatex">\(\mathbf{a} \cdot \mathbf{b} = \sum_{i=1}^n a_i b_i = a_1 b_1 + a_2 b_2 + \dots + a_n b_n\)</span></td>
+</tr>
+<tr>
+<td><code>omv</code></td>
+<td><code>omvmmm</code></td>
+<td>Product of two matrices</td>
+<td><span class="arithmatex">\(C_{ij} = \sum_{k=0}^n A_{ik} B_{kj}\)</span></td>
+</tr>
+<tr>
+<td><code>omv</code></td>
+<td><code>omvmmv</code></td>
+<td>Product of a matrix and a vector</td>
+<td><span class="arithmatex">\(\mathbf{c} = A\ \mathbf{b} = \left[ \begin{array}{cccc} a_{11} &amp; a_{12} &amp; a_{13} &amp; \ldots &amp; a_{1n} \\ a_{21} &amp; a_{22} &amp; a_{23} &amp; \ldots &amp; a_{2n} \\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{m1} &amp; a_{m2} &amp; a_{m3} &amp; \ldots &amp; a_{mn} \end{array} \right] \left[ \begin{array}{c} b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n \end{array} \right] = \left[ \begin{array}{c} a_{11}b_1 + a_{12}b_2 + a_{13}b_3 + \cdots + a_{1n}b_n \\ a_{21}b_1 + a_{22}b_2 + a_{23}b_3 + \cdots + a_{2n}b_n \\ \vdots \\ a_{m1}b_1 + a_{m2}b_2 + a_{m3}b_3 + \cdots + a_{mn}b_n \end{array} \right]\)</span></td>
+</tr>
+<tr>
+<td><code>omv</code></td>
+<td>omvtrm</td>
+<td>Transpose matrix</td>
+<td><span class="arithmatex">\(A = \left[ \begin{array}{cccc} a_{11} &amp; a_{12} &amp; a_{13} &amp; \ldots &amp; a_{1n} \\ a_{21} &amp; a_{22} &amp; a_{23} &amp; \ldots &amp; a_{2n} \\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{m1} &amp; a_{m2} &amp; a_{m3} &amp; \ldots &amp; a_{mn} \end{array} \right] \quad A^T = \left[ \begin{array}{cccc} a_{11} &amp; a_{21} &amp; \ldots &amp; a_{m1} \\ a_{12} &amp; a_{22} &amp; \ldots &amp; a_{m2} \\ a_{13} &amp; a_{23} &amp; \ldots &amp; a_{m3} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{1n} &amp; a_{2n} &amp; \ldots &amp; a_{mn} \end{array} \right]\)</span></td>
+</tr>
+<tr>
+<td><code>omv</code></td>
+<td><code>omvn1v</code></td>
+<td>1-norm of a vector</td>
+<td><span class="arithmatex">\(\|a\|_1 = \sum_{i=1}^n &#124;{a_i}&#124;\)</span></td>
+</tr>
+<tr>
+<td><code>omv</code></td>
+<td><code>omvn2v</code></td>
+<td>2-norm of a vector</td>
+<td><span class="arithmatex">\(\|a\|_2 = \sqrt{\sum_{i=1}^n {a_i}^2}\)</span></td>
+</tr>
+<tr>
+<td><code>omv</code></td>
+<td><code>omvnmv</code></td>
+<td>Maximum infinite norm of a vector</td>
+<td><span class="arithmatex">\(\|a\|_\infty = \max({a_1}, {a_2}, ... {a_n})\)</span></td>
+</tr>
+<tr>
+<td><code>omv</code></td>
+<td><code>omvn1m</code></td>
+<td>1-norm of a matrix</td>
+<td><span class="arithmatex">\(\|M\|_1 = \max_{1 \le j \le {n}} \sum_{i=1}^m&#124;M_{ij}&#124;\)</span></td>
+</tr>
+<tr>
+<td><code>omv</code></td>
+<td><code>omvnmm</code></td>
+<td>Maximum infinite norm of a matrix</td>
+<td><span class="arithmatex">\(\|M\|_\infty = \max_{1 \le i \le\ m} \sum_{j=1}^n &#124;M_{ij}&#124;\)</span></td>
+</tr>
+<tr>
+<td><code>omv</code></td>
+<td><code>omvnfm</code></td>
+<td>Frobenius norm of a matrix</td>
+<td><span class="arithmatex">\(\|M\|_F = \sqrt{\sum_{i=1}^m \sum_{j=1}^n {M_{ij}}^2}\)</span></td>
+</tr>
+<tr>
+<td><code>det</code></td>
+<td><code>detgen</code>, <code>detgsy</code>, <code>detgpd</code></td>
+<td>Determinant of a standard matrix</td>
+<td></td>
+</tr>
+<tr>
+<td><code>det</code></td>
+<td><code>detgba</code></td>
+<td>Determinant of a band matrix</td>
+<td></td>
+</tr>
+<tr>
+<td><code>det</code></td>
+<td><code>detgpb</code></td>
+<td>Determinant of a symmetric positive definite band matrix</td>
+<td></td>
+</tr>
+<tr>
+<td><code>det</code></td>
+<td><code>detgtr</code></td>
+<td>Determinant of a tridiagonal matrix</td>
+<td></td>
+</tr>
+<tr>
+<td><code>inv</code></td>
+<td><code>invgen</code>, <code>invgsy</code>, <code>invgpd</code></td>
+<td>Inverse of a matrix</td>
+<td></td>
+</tr>
+<tr>
+<td><code>sle</code></td>
+<td><code>slegen</code>, <code>slegsy</code>, <code>slegpd</code></td>
+<td>Solve linear equations - Square matrices</td>
+<td></td>
+</tr>
+<tr>
+<td><code>sle</code></td>
+<td><code>slegba</code></td>
+<td>Solve linear equations - Band matrix</td>
+<td></td>
+</tr>
+<tr>
+<td><code>sle</code></td>
+<td><code>slegpb</code></td>
+<td>Solve linear equations - symmetric positive definite band matrix</td>
+<td></td>
+</tr>
+<tr>
+<td><code>sle</code></td>
+<td><code>sledtr</code>, <code>slegtr</code></td>
+<td>Solve linear equations - Tridiagonal matrix</td>
+<td></td>
+</tr>
+<tr>
+<td><code>sle</code></td>
+<td><code>slegls</code></td>
+<td>Solve linear equations - Least squares</td>
+<td></td>
+</tr>
+<tr>
+<td><code>eig</code></td>
+<td><code>...</code></td>
+<td>...</td>
+<td></td>
+</tr>
+<tr>
+<td><code>roo</code></td>
+<td><code>...</code></td>
+<td>...</td>
+<td></td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>...</code></td>
+<td>...</td>
+<td></td>
+</tr>
+<tr>
+<td><code>ode</code></td>
+<td><code>...</code></td>
+<td>...</td>
+<td></td>
+</tr>
+<tr>
+<td><code>ipf</code></td>
+<td><code>...</code></td>
+<td>...</td>
+<td></td>
+</tr>
+<tr>
+<td><code>spe</code></td>
+<td><code>...</code></td>
+<td>...</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <h2 id="operations-with-matrices-and-vectors">Operations with matrices and vectors<a class="headerlink" href="#operations-with-matrices-and-vectors" title="Permanent link">&para;</a></h2>
 <h3 id="inner-product-of-two-vectors">Inner product of two vectors<a class="headerlink" href="#inner-product-of-two-vectors" title="Permanent link">&para;</a></h3>
 <div class="arithmatex">\[
