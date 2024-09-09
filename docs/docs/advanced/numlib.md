@@ -9,6 +9,37 @@ The notes on this page is based on [Free Pascal NumLib official doc](https://wik
     Thanks to Marco van de Voort ([marco@freepascal.org](mailto:marco@freepascal.org)) and Michael van Canneyt ([michael@freepascal.org](mailto:michael@freepascal.org)) for porting to FPC and documenting NumLib.
 
 
+## Summary
+
+| Unit  | Routine  | Operation      | Expression / Note                                    |
+|-------| ---------| -------------- | ---------------------------------------------------- |
+| `omv` | `omvinp`  | Dot product    | $\mathbf{a} \cdot \mathbf{b} = \sum_{i=1}^n a_i b_i = a_1 b_1 + a_2 b_2 + \dots + a_n b_n$ |
+| `omv` | `omvmmm` | Product of two matrices | $C_{ij} = \sum_{k=0}^n A_{ik} B_{kj}$       |
+| `omv` | `omvmmv` | Product of a matrix and a vector | \(\mathbf{c} = A\ \mathbf{b} = \left[ \begin{array}{cccc} a_{11} & a_{12} & a_{13} & \ldots & a_{1n} \\ a_{21} & a_{22} & a_{23} & \ldots & a_{2n} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & a_{m3} & \ldots & a_{mn} \end{array} \right] \left[ \begin{array}{c} b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n \end{array} \right] = \left[ \begin{array}{c} a_{11}b_1 + a_{12}b_2 + a_{13}b_3 + \cdots + a_{1n}b_n \\ a_{21}b_1 + a_{22}b_2 + a_{23}b_3 + \cdots + a_{2n}b_n \\ \vdots \\ a_{m1}b_1 + a_{m2}b_2 + a_{m3}b_3 + \cdots + a_{mn}b_n \end{array} \right]\) | `omvmmv` | `omv` |
+| `omv` | omvtrm| Transpose matrix | $A = \left[ \begin{array}{cccc} a_{11} & a_{12} & a_{13} & \ldots & a_{1n} \\ a_{21} & a_{22} & a_{23} & \ldots & a_{2n} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & a_{m3} & \ldots & a_{mn} \end{array} \right] \quad A^T = \left[ \begin{array}{cccc} a_{11} & a_{21} & \ldots & a_{m1} \\ a_{12} & a_{22} & \ldots & a_{m2} \\ a_{13} & a_{23} & \ldots & a_{m3} \\ \vdots & \vdots & \ddots & \vdots \\ a_{1n} & a_{2n} & \ldots & a_{mn} \end{array} \right]$ |
+| `omv` | `omvn1v` | 1-norm of a vector | $\|a\|_1 = \sum_{i=1}^n &#124;{a_i}&#124;$ |
+| `omv` | `omvn2v` | 2-norm of a vector | $\|a\|_2 = \sqrt{\sum_{i=1}^n {a_i}^2}$ |
+| `omv` | `omvnmv` | Maximum infinite norm of a vector| $\|a\|_\infty = \max({a_1}, {a_2}, ... {a_n})$ |
+| `omv` | `omvn1m` | 1-norm of a matrix | $\|M\|_1 = \max_{1 \le j \le {n}} \sum_{i=1}^m&#124;M_{ij}&#124;$ |
+| `omv` | `omvnmm` | Maximum infinite norm of a matrix | $\|M\|_\infty = \max_{1 \le i \le\ m} \sum_{j=1}^n &#124;M_{ij}&#124;$ |
+| `omv` | `omvnfm` | Frobenius norm of a matrix | $\|M\|_F = \sqrt{\sum_{i=1}^m \sum_{j=1}^n {M_{ij}}^2}$ |
+| `det` | `detgen`, `detgsy`, `detgpd` | Determinant of a standard matrix | |
+| `det` | `detgba` | Determinant of a band matrix     | |
+| `det` | `detgpb` | Determinant of a symmetric positive definite band matrix | |
+| `det` | `detgtr` | Determinant of a tridiagonal matrix | | 
+| `inv` | `invgen`, `invgsy`, `invgpd` | Inverse of a matrix  | |
+| `sle` | `slegen`, `slegsy`, `slegpd` | Solve linear equations - Square matrices | |
+| `sle` | `slegba` | Solve linear equations - Band matrix | |
+| `sle` | `slegpb` | Solve linear equations - symmetric positive definite band matrix | |
+| `sle` | `sledtr`, `slegtr` | Solve linear equations - Tridiagonal matrix | |
+| `sle` | `slegls` | Solve linear equations - Least squares | |
+| `eig` | `...` | ... | |
+| `roo` | `...` | ... | |
+| `int` | `...` | ... | |
+| `ode` | `...` | ... | |
+| `ipf` | `...` | ... | |
+| `spe` | `...` | ... | |
+
 ## Operations with matrices and vectors
 
 ### Inner product of two vectors
