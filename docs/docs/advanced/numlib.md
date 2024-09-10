@@ -45,8 +45,17 @@ The notes on this page is based on [Free Pascal NumLib official doc](https://wik
 | `int` | `int1fr` |  calculates the integral of a given function between limits $a$ and $b$ with a specified absolute accuracy. | |
 | `ode` | `odeiv1` | Solves a single first-order differential equation. | |
 | `ode` | `odeiv2` | Solves a system of first-order differential equations. | |
-| `ipf` | `ipfpol` | Fits a set of data points with a polynomial | |
+| `ipf` | `ipfpol` | Fits a set of data points with a polynomial. | |
 | `ipf` | `ipfisn`, `ipfspn` | The `ipfisn` routine helps calculate the parameters of a spline. After determining these parameters, you can use the `ipfspn` procedure to find the value of the spline at any point. | |
+| `spe` | `spepol` | An efficient method for evaluating a polynomial at a specific x value using Horner's scheme. | $\displaystyle{  \begin{align}\operatorname{p}(x) &= a_0 + a_1 x + a_2 x^2 + ... + a_n x^n \\ \operatorname{p}(x) &= a_0 + x (a_1 + x (a_2 + \dots + x (a_{n-1} + x a_n))) \end{align}}$ |
+| `spe` | `speerf`, `speefc` | Calculates error function $erf(x)$ and its complementary error function $erfc(x)$. | The error function, $erf(x)$, and its complement, $erfc(x)$, represent the two parts (lower and upper) of the area under the curve of the bell-shaped Gaussian function. These areas are scaled so that together they add up to 1 (or 100%). |
+| `spe` | `normaldist`, `invnormaldist` | Normal and inverse normal distribution. | |
+| `spe` | `spemgam` - Direct calculation, `spelga` - computes the natural logarithm of the Gamma function. | Factorials to non-integer (and even complex) numbers. | $\displaystyle{ \Gamma({x}) = \int_0^{\infty}t^{x-1} e^{-t} dt }$ |
+| `spe` | `gammap`, `gammaq` | Incomplete gamma function. | $\displaystyle{ \begin{align} \operatorname{P}({s},{x}) &= \frac{1}{\Gamma({s})} \int_0^{x}t^{s-1} e^{-t} dt \\ \operatorname{Q}({s},{x}) &= \frac{1}{\Gamma({s})} \int_{x}^{\infty}t^{s-1} e^{-t} dt = 1 - \operatorname{P}({s}, {x}) \end{align}}$ |
+| `spe` | `beta` | Beta function. | $\displaystyle{ \operatorname{B}(a, b) = \frac{{\Gamma(a)}{\Gamma(b)}}{\Gamma(a+b)} = \int_0^1{t^{x-1} (1-t)^{y-1} dt} }$ |
+| `spe` | `betai` | Incomplete beta function. | $\displaystyle{ \operatorname{I}_x(a,b) = \frac {1}{\operatorname{B}(ab)} \int_0^x{t^{x-1} (1-t)^{y-1} dt} }$ |
+| `spe` | `spebj0`, `spebj1`, `speby0`, `speby1`, `spebi0`, `spebi1`, `spebk0`, `spebk1` | Bessel functions of the first kind ($J_\alpha$), of the second kind ($Y_\alpha$), and modified first ($I_\alpha$) and second kind ($K_\alpha$). <br> <br> NumLib implements only the solutions for the parameters $α = 0$ and $α = 1$.| The Bessel functions are solutions of the Bessel differential equation: <br> $\displaystyle{ {x}^2 y'' + x y' + ({x}^2 - \alpha^2) {y} = 0 }$  <br> `spebj0` - Bessel function $J_0$ (α = 0). <br> `spebj1` - Bessel function $J_1$ (α = 1). <br> `speby0` - Bessel function $Y_0$ (α = 0). <br> `speby1` - Bessel function $Y_1$ (α = 1). <br> `spebi0` - modified Bessel function $I_0$ (α = 0). <br> `spebi1` - modified Bessel function $I_1$ (α = 1). <br> `spebk0` - modified Bessel function $K_0$ (α= 0). <br> `spebk1` - modified Bessel function $K_1$ (α = 1).|
+| `spe` | `...` | ... | |
 | `spe` | `...` | ... | |
 
 ## Operations with matrices and vectors
