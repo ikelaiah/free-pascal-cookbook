@@ -32,7 +32,11 @@ The notes on this page is based on [Free Pascal NumLib official doc](https://wik
 | `sle` | `slegpb` | Solve linear equations - symmetric positive definite band matrix | Optimised approach for a [symmetric positive band matrix](https://wiki.freepascal.org/NumLib_Documentation#Symmetric_positive_definite_band_matrix) |
 | `sle` | `sledtr`, `slegtr` | Solve linear equations - Tridiagonal matrix | |
 | `sle` | `slegls` | Solve linear equations - Least squares | Solves linear systems of a rectangular matrix (has more equations than unknowns). |
-| `eig` | `...` | ... | |
+| `eig` | `eigge1`, `eigge3` |  calculates eigenvectors and eigenvalues of **generic** matrix. | `eigge1` calculates all eigenvalues. <br> `eigge3` calculates all eigenvalues and eigenvectors. |
+| `eig` |`eiggs1`, `eiggs2`, `eiggs3`, `eiggs4`  | calculates eigenvectors and eigenvalues of **generic symmetric** matrix. | `eiggs1` finds all eigenvalues <br> `eiggs2` finds some eigenvalues (index k1..k2) <br> `eiggs3` finds all eigenvalues and eigenvectors <br> `eiggs4` finds some eigenvalues and eigenvectors (index k1..k2). |
+| `eig` |`eiggg1`, `eiggg2`, `eiggg3`, `eiggg4`  | calculates eigenvectors and eigenvalues of **generic symmetric positive definite** matrix. | `eiggg1` finds all eigenvalues <br> `eiggg2` finds some eigenvalues (index k1..k2) <br> `eiggg3` finds all eigenvalues and eigenvectors <br> `eiggg4` finds some eigenvalues and eigenvectors (index k1..k2). |
+| `eig` | `eigbs1`, `eigbs2`, `eigbs3`, `eigbs4` | Calculates eigenvalues and eigenvectors of **symmetric band** matrices | eigbs1 finds all eigenvalues <br> eigbs2 finds some eigenvalues (index k1..k2) <br> eigbs3 finds all eigenvalues and eigenvectors <br> eigbs4 finds some eigenvalues and eigenvectors (index k1..k2). |
+| `eig` | `eigts1`, `eigts2`, `eigts3`, `eigts4` | Calculates eigenvalues and eigenvectors of **symmetric tridiagonal** matrices | eigts1 finds all eigenvalues <br> eigts2 finds some eigenvalues (index k1..k2) <br> eigts3 finds all eigenvalues and eigenvectors <br> eigts4 finds some eigenvalues and eigenvectors (index k1..k2). |
 | `roo` | `roopol` | Polynomial of degree $n$. | $\displaystyle{  z^n + a_1 z^{n-1} + a_2 z^{n-2} + ... + a_{n-1} z + a_n = 0 }$ |
 | `roo` | `rooqua` | Special polynomal of degree 2 | $\displaystyle{ {z}^2 + {p} {z} + {q} = 0}$ |
 | `roo` | `roobin` | Solves polynomial that has exactly two terms | $\displaystyle{ z^n = a }$ |
