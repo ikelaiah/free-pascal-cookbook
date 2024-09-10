@@ -1776,7 +1776,7 @@
 <td><code>omv</code></td>
 <td><code>omvinp</code></td>
 <td>Dot product</td>
-<td><span class="arithmatex">\(\mathbf{a} \cdot \mathbf{b} = \sum_{i=1}^n a_i b_i = a_1 b_1 + a_2 b_2 + \dots + a_n b_n\)</span></td>
+<td><span class="arithmatex">\(\begin{align}\mathbf{a} \cdot \mathbf{b} &amp;= \sum_{i=1}^n a_i b_i \\ &amp;= a_1 b_1 + a_2 b_2 + \dots + a_n b_n\end{align}\)</span></td>
 </tr>
 <tr>
 <td><code>omv</code></td>
@@ -1788,13 +1788,13 @@
 <td><code>omv</code></td>
 <td><code>omvmmv</code></td>
 <td>Product of a matrix and a vector</td>
-<td><span class="arithmatex">\(\mathbf{c} = A\ \mathbf{b} = \left[ \begin{array}{cccc} a_{11} &amp; a_{12} &amp; a_{13} &amp; \ldots &amp; a_{1n} \\ a_{21} &amp; a_{22} &amp; a_{23} &amp; \ldots &amp; a_{2n} \\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{m1} &amp; a_{m2} &amp; a_{m3} &amp; \ldots &amp; a_{mn} \end{array} \right] \left[ \begin{array}{c} b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n \end{array} \right] = \left[ \begin{array}{c} a_{11}b_1 + a_{12}b_2 + a_{13}b_3 + \cdots + a_{1n}b_n \\ a_{21}b_1 + a_{22}b_2 + a_{23}b_3 + \cdots + a_{2n}b_n \\ \vdots \\ a_{m1}b_1 + a_{m2}b_2 + a_{m3}b_3 + \cdots + a_{mn}b_n \end{array} \right]\)</span></td>
+<td><span class="arithmatex">\(\begin{align}\mathbf{c} &amp;= A\ \mathbf{b} \\ &amp;= \left[ \begin{array}{cccc} a_{11} &amp; a_{12} &amp; a_{13} &amp; \ldots &amp; a_{1n} \\ a_{21} &amp; a_{22} &amp; a_{23} &amp; \ldots &amp; a_{2n} \\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{m1} &amp; a_{m2} &amp; a_{m3} &amp; \ldots &amp; a_{mn} \end{array} \right] \left[ \begin{array}{c} b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n \end{array} \right] \\ &amp;= \left[ \begin{array}{c} a_{11}b_1 + a_{12}b_2 + a_{13}b_3 + \cdots + a_{1n}b_n \\ a_{21}b_1 + a_{22}b_2 + a_{23}b_3 + \cdots + a_{2n}b_n \\ \vdots \\ a_{m1}b_1 + a_{m2}b_2 + a_{m3}b_3 + \cdots + a_{mn}b_n \end{array} \right]\end{align}\)</span></td>
 </tr>
 <tr>
 <td><code>omv</code></td>
 <td>omvtrm</td>
 <td>Transpose matrix</td>
-<td><span class="arithmatex">\(A = \left[ \begin{array}{cccc} a_{11} &amp; a_{12} &amp; a_{13} &amp; \ldots &amp; a_{1n} \\ a_{21} &amp; a_{22} &amp; a_{23} &amp; \ldots &amp; a_{2n} \\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{m1} &amp; a_{m2} &amp; a_{m3} &amp; \ldots &amp; a_{mn} \end{array} \right] \quad A^T = \left[ \begin{array}{cccc} a_{11} &amp; a_{21} &amp; \ldots &amp; a_{m1} \\ a_{12} &amp; a_{22} &amp; \ldots &amp; a_{m2} \\ a_{13} &amp; a_{23} &amp; \ldots &amp; a_{m3} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{1n} &amp; a_{2n} &amp; \ldots &amp; a_{mn} \end{array} \right]\)</span></td>
+<td><span class="arithmatex">\(\begin{align}A &amp;= \left[ \begin{array}{cccc} a_{11} &amp; a_{12} &amp; a_{13} &amp; \ldots &amp; a_{1n} \\ a_{21} &amp; a_{22} &amp; a_{23} &amp; \ldots &amp; a_{2n} \\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{m1} &amp; a_{m2} &amp; a_{m3} &amp; \ldots &amp; a_{mn} \end{array} \right] \quad \\ A^T &amp;= \left[ \begin{array}{cccc} a_{11} &amp; a_{21} &amp; \ldots &amp; a_{m1} \\ a_{12} &amp; a_{22} &amp; \ldots &amp; a_{m2} \\ a_{13} &amp; a_{23} &amp; \ldots &amp; a_{m3} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{1n} &amp; a_{2n} &amp; \ldots &amp; a_{mn} \end{array} \right]\end{align}\)</span></td>
 </tr>
 <tr>
 <td><code>omv</code></td>
@@ -1894,62 +1894,92 @@
 </tr>
 <tr>
 <td><code>eig</code></td>
-<td><code>...</code></td>
-<td>...</td>
+<td><code>eigge1</code>, <code>eigge3</code></td>
+<td>calculates eigenvectors and eigenvalues of <strong>generic</strong> matrix.</td>
+<td><code>eigge1</code> calculates all eigenvalues. <br> <code>eigge3</code> calculates all eigenvalues and eigenvectors.</td>
+</tr>
+<tr>
+<td><code>eig</code></td>
+<td><code>eiggs1</code>, <code>eiggs2</code>, <code>eiggs3</code>, <code>eiggs4</code></td>
+<td>calculates eigenvectors and eigenvalues of <strong>generic symmetric</strong> matrix.</td>
+<td><code>eiggs1</code> finds all eigenvalues <br> <code>eiggs2</code> finds some eigenvalues (index k1..k2) <br> <code>eiggs3</code> finds all eigenvalues and eigenvectors <br> <code>eiggs4</code> finds some eigenvalues and eigenvectors (index k1..k2).</td>
+</tr>
+<tr>
+<td><code>eig</code></td>
+<td><code>eiggg1</code>, <code>eiggg2</code>, <code>eiggg3</code>, <code>eiggg4</code></td>
+<td>calculates eigenvectors and eigenvalues of <strong>generic symmetric positive definite</strong> matrix.</td>
+<td><code>eiggg1</code> finds all eigenvalues <br> <code>eiggg2</code> finds some eigenvalues (index k1..k2) <br> <code>eiggg3</code> finds all eigenvalues and eigenvectors <br> <code>eiggg4</code> finds some eigenvalues and eigenvectors (index k1..k2).</td>
+</tr>
+<tr>
+<td><code>eig</code></td>
+<td><code>eigbs1</code>, <code>eigbs2</code>, <code>eigbs3</code>, <code>eigbs4</code></td>
+<td>Calculates eigenvalues and eigenvectors of <strong>symmetric band</strong> matrices</td>
+<td>eigbs1 finds all eigenvalues <br> eigbs2 finds some eigenvalues (index k1..k2) <br> eigbs3 finds all eigenvalues and eigenvectors <br> eigbs4 finds some eigenvalues and eigenvectors (index k1..k2).</td>
+</tr>
+<tr>
+<td><code>eig</code></td>
+<td><code>eigts1</code>, <code>eigts2</code>, <code>eigts3</code>, <code>eigts4</code></td>
+<td>Calculates eigenvalues and eigenvectors of <strong>symmetric tridiagonal</strong> matrices</td>
+<td>eigts1 finds all eigenvalues <br> eigts2 finds some eigenvalues (index k1..k2) <br> eigts3 finds all eigenvalues and eigenvectors <br> eigts4 finds some eigenvalues and eigenvectors (index k1..k2).</td>
+</tr>
+<tr>
+<td><code>roo</code></td>
+<td><code>roopol</code></td>
+<td>Polynomial of degree <span class="arithmatex">\(n\)</span>.</td>
+<td><span class="arithmatex">\(\displaystyle{  z^n + a_1 z^{n-1} + a_2 z^{n-2} + ... + a_{n-1} z + a_n = 0 }\)</span></td>
+</tr>
+<tr>
+<td><code>roo</code></td>
+<td><code>rooqua</code></td>
+<td>Special polynomal of degree 2</td>
+<td><span class="arithmatex">\(\displaystyle{ {z}^2 + {p} {z} + {q} = 0}\)</span></td>
+</tr>
+<tr>
+<td><code>roo</code></td>
+<td><code>roobin</code></td>
+<td>Solves polynomial that has exactly two terms</td>
+<td><span class="arithmatex">\(\displaystyle{ z^n = a }\)</span></td>
+</tr>
+<tr>
+<td><code>roo</code></td>
+<td><code>roof1r</code></td>
+<td>Bisection method for finding the root of a function.</td>
 <td></td>
 </tr>
 <tr>
 <td><code>roo</code></td>
-<td><code>...</code></td>
-<td>...</td>
-<td></td>
-</tr>
-<tr>
-<td><code>roo</code></td>
-<td><code>...</code></td>
-<td>...</td>
-<td></td>
-</tr>
-<tr>
-<td><code>roo</code></td>
-<td><code>...</code></td>
-<td>...</td>
-<td></td>
-</tr>
-<tr>
-<td><code>roo</code></td>
-<td><code>...</code></td>
-<td>...</td>
-<td></td>
-</tr>
-<tr>
-<td><code>roo</code></td>
-<td><code>...</code></td>
-<td>...</td>
-<td></td>
+<td><code>roofnr</code></td>
+<td>Finds root of a non-linear equations.</td>
+<td><span class="arithmatex">\(\displaystyle{  f_{i}(x_1,x_2,\ldots,x_n)=0, \; i=1,2,\ldots,n }\)</span></td>
 </tr>
 <tr>
 <td><code>int</code></td>
-<td><code>...</code></td>
-<td>...</td>
+<td><code>int1fr</code></td>
+<td>calculates the integral of a given function between limits <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span> with a specified absolute accuracy.</td>
 <td></td>
 </tr>
 <tr>
 <td><code>ode</code></td>
-<td><code>...</code></td>
-<td>...</td>
+<td><code>odeiv1</code></td>
+<td>Solves a single first-order differential equation.</td>
 <td></td>
 </tr>
 <tr>
 <td><code>ode</code></td>
-<td><code>...</code></td>
-<td>...</td>
+<td><code>odeiv2</code></td>
+<td>Solves a system of first-order differential equations.</td>
 <td></td>
 </tr>
 <tr>
 <td><code>ipf</code></td>
-<td><code>...</code></td>
-<td>...</td>
+<td><code>ipfpol</code></td>
+<td>Fits a set of data points with a polynomial</td>
+<td></td>
+</tr>
+<tr>
+<td><code>ipf</code></td>
+<td><code>ipfisn</code>, <code>ipfspn</code></td>
+<td>The <code>ipfisn</code> routine helps calculate the parameters of a spline. After determining these parameters, you can use the <code>ipfspn</code> procedure to find the value of the spline at any point.</td>
 <td></td>
 </tr>
 <tr>
