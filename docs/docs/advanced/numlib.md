@@ -8,15 +8,14 @@ The notes on this page is based on [Free Pascal NumLib official doc](https://wik
 
     Thanks to Marco van de Voort ([marco@freepascal.org](mailto:marco@freepascal.org)) and Michael van Canneyt ([michael@freepascal.org](mailto:michael@freepascal.org)) for porting to FPC and documenting NumLib.
 
-
 ## Summary
 
 | Unit  | Routine  | Operation      | Expression / Note                                    |
 |-------| ---------| -------------- | ---------------------------------------------------- |
-| `omv` | `omvinp`  | Dot product    | $\mathbf{a} \cdot \mathbf{b} = \sum_{i=1}^n a_i b_i = a_1 b_1 + a_2 b_2 + \dots + a_n b_n$ |
+| `omv` | `omvinp`  | Dot product    | $\begin{align}\mathbf{a} \cdot \mathbf{b} &= \sum_{i=1}^n a_i b_i \\ &= a_1 b_1 + a_2 b_2 + \dots + a_n b_n\end{align}$ |
 | `omv` | `omvmmm` | Product of two matrices | $C_{ij} = \sum_{k=0}^n A_{ik} B_{kj}$       |
-| `omv` | `omvmmv` | Product of a matrix and a vector | \(\mathbf{c} = A\ \mathbf{b} = \left[ \begin{array}{cccc} a_{11} & a_{12} & a_{13} & \ldots & a_{1n} \\ a_{21} & a_{22} & a_{23} & \ldots & a_{2n} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & a_{m3} & \ldots & a_{mn} \end{array} \right] \left[ \begin{array}{c} b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n \end{array} \right] = \left[ \begin{array}{c} a_{11}b_1 + a_{12}b_2 + a_{13}b_3 + \cdots + a_{1n}b_n \\ a_{21}b_1 + a_{22}b_2 + a_{23}b_3 + \cdots + a_{2n}b_n \\ \vdots \\ a_{m1}b_1 + a_{m2}b_2 + a_{m3}b_3 + \cdots + a_{mn}b_n \end{array} \right]\) | `omvmmv` | `omv` |
-| `omv` | omvtrm| Transpose matrix | $A = \left[ \begin{array}{cccc} a_{11} & a_{12} & a_{13} & \ldots & a_{1n} \\ a_{21} & a_{22} & a_{23} & \ldots & a_{2n} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & a_{m3} & \ldots & a_{mn} \end{array} \right] \quad A^T = \left[ \begin{array}{cccc} a_{11} & a_{21} & \ldots & a_{m1} \\ a_{12} & a_{22} & \ldots & a_{m2} \\ a_{13} & a_{23} & \ldots & a_{m3} \\ \vdots & \vdots & \ddots & \vdots \\ a_{1n} & a_{2n} & \ldots & a_{mn} \end{array} \right]$ |
+| `omv` | `omvmmv` | Product of a matrix and a vector | $\begin{align}\mathbf{c} &= A\ \mathbf{b} \\ &= \left[ \begin{array}{cccc} a_{11} & a_{12} & a_{13} & \ldots & a_{1n} \\ a_{21} & a_{22} & a_{23} & \ldots & a_{2n} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & a_{m3} & \ldots & a_{mn} \end{array} \right] \left[ \begin{array}{c} b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n \end{array} \right] \\ &= \left[ \begin{array}{c} a_{11}b_1 + a_{12}b_2 + a_{13}b_3 + \cdots + a_{1n}b_n \\ a_{21}b_1 + a_{22}b_2 + a_{23}b_3 + \cdots + a_{2n}b_n \\ \vdots \\ a_{m1}b_1 + a_{m2}b_2 + a_{m3}b_3 + \cdots + a_{mn}b_n \end{array} \right]\end{align}$ | `omvmmv` | `omv` |
+| `omv` | omvtrm| Transpose matrix | $\begin{align}A &= \left[ \begin{array}{cccc} a_{11} & a_{12} & a_{13} & \ldots & a_{1n} \\ a_{21} & a_{22} & a_{23} & \ldots & a_{2n} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & a_{m3} & \ldots & a_{mn} \end{array} \right] \quad \\ A^T &= \left[ \begin{array}{cccc} a_{11} & a_{21} & \ldots & a_{m1} \\ a_{12} & a_{22} & \ldots & a_{m2} \\ a_{13} & a_{23} & \ldots & a_{m3} \\ \vdots & \vdots & \ddots & \vdots \\ a_{1n} & a_{2n} & \ldots & a_{mn} \end{array} \right]\end{align}$ |
 | `omv` | `omvn1v` | 1-norm of a vector | $\|a\|_1 = \sum_{i=1}^n &#124;{a_i}&#124;$ |
 | `omv` | `omvn2v` | 2-norm of a vector | $\|a\|_2 = \sqrt{\sum_{i=1}^n {a_i}^2}$ |
 | `omv` | `omvnmv` | Maximum infinite norm of a vector| $\|a\|_\infty = \max({a_1}, {a_2}, ... {a_n})$ |
@@ -34,15 +33,16 @@ The notes on this page is based on [Free Pascal NumLib official doc](https://wik
 | `sle` | `sledtr`, `slegtr` | Solve linear equations - Tridiagonal matrix | |
 | `sle` | `slegls` | Solve linear equations - Least squares | Solves linear systems of a rectangular matrix (has more equations than unknowns). |
 | `eig` | `...` | ... | |
-| `roo` | `...` | ... | |
-| `roo` | `...` | ... | |
-| `roo` | `...` | ... | |
-| `roo` | `...` | ... | |
-| `roo` | `...` | ... | |
-| `int` | `...` | ... | |
-| `ode` | `...` | ... | |
-| `ode` | `...` | ... | |
-| `ipf` | `...` | ... | |
+| `roo` | `roopol` | Polynomial of degree $n$. | $\displaystyle{  z^n + a_1 z^{n-1} + a_2 z^{n-2} + ... + a_{n-1} z + a_n = 0 }$ |
+| `roo` | `rooqua` | Special polynomal of degree 2 | $\displaystyle{ {z}^2 + {p} {z} + {q} = 0}$ |
+| `roo` | `roobin` | Solves polynomial that has exactly two terms | $\displaystyle{ z^n = a }$ |
+| `roo` | `roof1r` | Bisection method for finding the root of a function. | |
+| `roo` | `roofnr` | Finds root of a non-linear equations. | $\displaystyle{  f_{i}(x_1,x_2,\ldots,x_n)=0, \; i=1,2,\ldots,n }$ |
+| `int` | `int1fr` |  calculates the integral of a given function between limits $a$ and $b$ with a specified absolute accuracy. | |
+| `ode` | `odeiv1` | Solves a single first-order differential equation. | |
+| `ode` | `odeiv2` | Solves a system of first-order differential equations. | |
+| `ipf` | `ipfpol` | Fits a set of data points with a polynomial | |
+| `ipf` | `ipfisn`, `ipfspn` | The `ipfisn` routine helps calculate the parameters of a spline. After determining these parameters, you can use the `ipfspn` procedure to find the value of the spline at any point. | |
 | `spe` | `...` | ... | |
 
 ## Operations with matrices and vectors
