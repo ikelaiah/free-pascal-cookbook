@@ -1973,13 +1973,67 @@
 <tr>
 <td><code>ipf</code></td>
 <td><code>ipfpol</code></td>
-<td>Fits a set of data points with a polynomial</td>
+<td>Fits a set of data points with a polynomial.</td>
 <td></td>
 </tr>
 <tr>
 <td><code>ipf</code></td>
 <td><code>ipfisn</code>, <code>ipfspn</code></td>
 <td>The <code>ipfisn</code> routine helps calculate the parameters of a spline. After determining these parameters, you can use the <code>ipfspn</code> procedure to find the value of the spline at any point.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>spe</code></td>
+<td><code>spepol</code></td>
+<td>An efficient method for evaluating a polynomial at a specific x value using Horner's scheme.</td>
+<td><span class="arithmatex">\(\displaystyle{  \begin{align}\operatorname{p}(x) &amp;= a_0 + a_1 x + a_2 x^2 + ... + a_n x^n \\ \operatorname{p}(x) &amp;= a_0 + x (a_1 + x (a_2 + \dots + x (a_{n-1} + x a_n))) \end{align}}\)</span></td>
+</tr>
+<tr>
+<td><code>spe</code></td>
+<td><code>speerf</code>, <code>speefc</code></td>
+<td>Calculates error function <span class="arithmatex">\(erf(x)\)</span> and its complementary error function <span class="arithmatex">\(erfc(x)\)</span>.</td>
+<td>The error function, <span class="arithmatex">\(erf(x)\)</span>, and its complement, <span class="arithmatex">\(erfc(x)\)</span>, represent the two parts (lower and upper) of the area under the curve of the bell-shaped Gaussian function. These areas are scaled so that together they add up to 1 (or 100%).</td>
+</tr>
+<tr>
+<td><code>spe</code></td>
+<td><code>normaldist</code>, <code>invnormaldist</code></td>
+<td>Normal and inverse normal distribution.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>spe</code></td>
+<td><code>spemgam</code> - Direct calculation, <code>spelga</code> - computes the natural logarithm of the Gamma function.</td>
+<td>Factorials to non-integer (and even complex) numbers.</td>
+<td><span class="arithmatex">\(\displaystyle{ \Gamma({x}) = \int_0^{\infty}t^{x-1} e^{-t} dt }\)</span></td>
+</tr>
+<tr>
+<td><code>spe</code></td>
+<td><code>gammap</code>, <code>gammaq</code></td>
+<td>Incomplete gamma function.</td>
+<td><span class="arithmatex">\(\displaystyle{ \begin{align} \operatorname{P}({s},{x}) &amp;= \frac{1}{\Gamma({s})} \int_0^{x}t^{s-1} e^{-t} dt \\ \operatorname{Q}({s},{x}) &amp;= \frac{1}{\Gamma({s})} \int_{x}^{\infty}t^{s-1} e^{-t} dt = 1 - \operatorname{P}({s}, {x}) \end{align}}\)</span></td>
+</tr>
+<tr>
+<td><code>spe</code></td>
+<td><code>beta</code></td>
+<td>Beta function.</td>
+<td><span class="arithmatex">\(\displaystyle{ \operatorname{B}(a, b) = \frac{{\Gamma(a)}{\Gamma(b)}}{\Gamma(a+b)} = \int_0^1{t^{x-1} (1-t)^{y-1} dt} }\)</span></td>
+</tr>
+<tr>
+<td><code>spe</code></td>
+<td><code>betai</code></td>
+<td>Incomplete beta function.</td>
+<td><span class="arithmatex">\(\displaystyle{ \operatorname{I}_x(a,b) = \frac {1}{\operatorname{B}(ab)} \int_0^x{t^{x-1} (1-t)^{y-1} dt} }\)</span></td>
+</tr>
+<tr>
+<td><code>spe</code></td>
+<td><code>spebj0</code>, <code>spebj1</code>, <code>speby0</code>, <code>speby1</code>, <code>spebi0</code>, <code>spebi1</code>, <code>spebk0</code>, <code>spebk1</code></td>
+<td>Bessel functions of the first kind (<span class="arithmatex">\(J_\alpha\)</span>), of the second kind (<span class="arithmatex">\(Y_\alpha\)</span>), and modified first (<span class="arithmatex">\(I_\alpha\)</span>) and second kind (<span class="arithmatex">\(K_\alpha\)</span>). <br> <br> NumLib implements only the solutions for the parameters <span class="arithmatex">\(α = 0\)</span> and <span class="arithmatex">\(α = 1\)</span>.</td>
+<td>The Bessel functions are solutions of the Bessel differential equation: <br> <span class="arithmatex">\(\displaystyle{ {x}^2 y'' + x y' + ({x}^2 - \alpha^2) {y} = 0 }\)</span>  <br> <code>spebj0</code> - Bessel function <span class="arithmatex">\(J_0\)</span> (α = 0). <br> <code>spebj1</code> - Bessel function <span class="arithmatex">\(J_1\)</span> (α = 1). <br> <code>speby0</code> - Bessel function <span class="arithmatex">\(Y_0\)</span> (α = 0). <br> <code>speby1</code> - Bessel function <span class="arithmatex">\(Y_1\)</span> (α = 1). <br> <code>spebi0</code> - modified Bessel function <span class="arithmatex">\(I_0\)</span> (α = 0). <br> <code>spebi1</code> - modified Bessel function <span class="arithmatex">\(I_1\)</span> (α = 1). <br> <code>spebk0</code> - modified Bessel function <span class="arithmatex">\(K_0\)</span> (α= 0). <br> <code>spebk1</code> - modified Bessel function <span class="arithmatex">\(K_1\)</span> (α = 1).</td>
+</tr>
+<tr>
+<td><code>spe</code></td>
+<td><code>...</code></td>
+<td>...</td>
 <td></td>
 </tr>
 <tr>
