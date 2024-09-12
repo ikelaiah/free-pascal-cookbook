@@ -1,6 +1,6 @@
 # Numerical with NumLib
 
-The notes on this page is based on [Free Pascal NumLib official doc](https://wiki.freepascal.org/NumLib_Documentation).
+The notes on this page is based on the [Free Pascal NumLib official doc](https://wiki.freepascal.org/NumLib_Documentation).
 
 !!! Tip "Credits"
 
@@ -8,55 +8,135 @@ The notes on this page is based on [Free Pascal NumLib official doc](https://wik
 
     Thanks to Marco van de Voort ([marco@freepascal.org](mailto:marco@freepascal.org)) and Michael van Canneyt ([michael@freepascal.org](mailto:michael@freepascal.org)) for porting to FPC and documenting NumLib.
 
-## Summary
 
-| Unit  | Routine  | Operation      | Expression / Note                                    |
-|-------| ---------| -------------- | ---------------------------------------------------- |
-| `omv` | `omvinp`  | Dot product    | $\begin{align}\mathbf{a} \cdot \mathbf{b} &= \sum_{i=1}^n a_i b_i \\ &= a_1 b_1 + a_2 b_2 + \dots + a_n b_n\end{align}$ |
-| `omv` | `omvmmm` | Product of two matrices | $C_{ij} = \sum_{k=0}^n A_{ik} B_{kj}$       |
-| `omv` | `omvmmv` | Product of a matrix and a vector | $\begin{align}\mathbf{c} &= A\ \mathbf{b} \\ &= \left[ \begin{array}{cccc} a_{11} & a_{12} & a_{13} & \ldots & a_{1n} \\ a_{21} & a_{22} & a_{23} & \ldots & a_{2n} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & a_{m3} & \ldots & a_{mn} \end{array} \right] \left[ \begin{array}{c} b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n \end{array} \right] \\ &= \left[ \begin{array}{c} a_{11}b_1 + a_{12}b_2 + a_{13}b_3 + \cdots + a_{1n}b_n \\ a_{21}b_1 + a_{22}b_2 + a_{23}b_3 + \cdots + a_{2n}b_n \\ \vdots \\ a_{m1}b_1 + a_{m2}b_2 + a_{m3}b_3 + \cdots + a_{mn}b_n \end{array} \right]\end{align}$ | `omvmmv` | `omv` |
-| `omv` | omvtrm| Transpose matrix | $\begin{align}A &= \left[ \begin{array}{cccc} a_{11} & a_{12} & a_{13} & \ldots & a_{1n} \\ a_{21} & a_{22} & a_{23} & \ldots & a_{2n} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & a_{m3} & \ldots & a_{mn} \end{array} \right] \quad \\ A^T &= \left[ \begin{array}{cccc} a_{11} & a_{21} & \ldots & a_{m1} \\ a_{12} & a_{22} & \ldots & a_{m2} \\ a_{13} & a_{23} & \ldots & a_{m3} \\ \vdots & \vdots & \ddots & \vdots \\ a_{1n} & a_{2n} & \ldots & a_{mn} \end{array} \right]\end{align}$ |
-| `omv` | `omvn1v` | 1-norm of a vector | $\|a\|_1 = \sum_{i=1}^n &#124;{a_i}&#124;$ |
-| `omv` | `omvn2v` | 2-norm of a vector | $\|a\|_2 = \sqrt{\sum_{i=1}^n {a_i}^2}$ |
-| `omv` | `omvnmv` | Maximum infinite norm of a vector| $\|a\|_\infty = \max({a_1}, {a_2}, ... {a_n})$ |
-| `omv` | `omvn1m` | 1-norm of a matrix | $\|M\|_1 = \max_{1 \le j \le {n}} \sum_{i=1}^m&#124;M_{ij}&#124;$ |
-| `omv` | `omvnmm` | Maximum infinite norm of a matrix | $\|M\|_\infty = \max_{1 \le i \le\ m} \sum_{j=1}^n &#124;M_{ij}&#124;$ |
-| `omv` | `omvnfm` | Frobenius norm of a matrix | $\|M\|_F = \sqrt{\sum_{i=1}^m \sum_{j=1}^n {M_{ij}}^2}$ |
-| `det` | `detgen`, `detgsy`, `detgpd` | Determinant of a standard matrix | |
-| `det` | `detgba` | Determinant of a band matrix     | |
-| `det` | `detgpb` | Determinant of a symmetric positive definite band matrix | |
-| `det` | `detgtr` | Determinant of a tridiagonal matrix | | 
-| `inv` | `invgen`, `invgsy`, `invgpd` | Inverse of a matrix  | |
-| `sle` | `slegen`, `slegsy`, `slegpd` | Solve linear equations - Square matrices | |
-| `sle` | `slegba` | Solve linear equations - Band matrix | |
-| `sle` | `slegpb` | Solve linear equations - symmetric positive definite band matrix | Optimised approach for a [symmetric positive band matrix](https://wiki.freepascal.org/NumLib_Documentation#Symmetric_positive_definite_band_matrix) |
-| `sle` | `sledtr`, `slegtr` | Solve linear equations - Tridiagonal matrix | |
-| `sle` | `slegls` | Solve linear equations - Least squares | Solves linear systems of a rectangular matrix (has more equations than unknowns). |
-| `eig` | `eigge1`, `eigge3` |  calculates eigenvectors and eigenvalues of **generic** matrix. | `eigge1` calculates all eigenvalues. <br> `eigge3` calculates all eigenvalues and eigenvectors. |
-| `eig` |`eiggs1`, `eiggs2`, `eiggs3`, `eiggs4`  | calculates eigenvectors and eigenvalues of **generic symmetric** matrix. | `eiggs1` finds all eigenvalues <br> `eiggs2` finds some eigenvalues (index k1..k2) <br> `eiggs3` finds all eigenvalues and eigenvectors <br> `eiggs4` finds some eigenvalues and eigenvectors (index k1..k2). |
-| `eig` |`eiggg1`, `eiggg2`, `eiggg3`, `eiggg4`  | calculates eigenvectors and eigenvalues of **generic symmetric positive definite** matrix. | `eiggg1` finds all eigenvalues <br> `eiggg2` finds some eigenvalues (index k1..k2) <br> `eiggg3` finds all eigenvalues and eigenvectors <br> `eiggg4` finds some eigenvalues and eigenvectors (index k1..k2). |
-| `eig` | `eigbs1`, `eigbs2`, `eigbs3`, `eigbs4` | Calculates eigenvalues and eigenvectors of **symmetric band** matrices | `eigbs1` finds all eigenvalues <br> `eigbs2` finds some eigenvalues (index k1..k2) <br> `eigbs3` finds all eigenvalues and eigenvectors <br> `eigbs4` finds some eigenvalues and eigenvectors (index k1..k2). |
-| `eig` | `eigts1`, `eigts2`, `eigts3`, `eigts4` | Calculates eigenvalues and eigenvectors of **symmetric tridiagonal** matrices | `eigts1` finds all eigenvalues <br> `eigts2` finds some eigenvalues (index k1..k2) <br> `eigts3` finds all eigenvalues and eigenvectors <br> `eigts4` finds some eigenvalues and eigenvectors (index k1..k2). |
-| `roo` | `roopol` | Polynomial of degree $n$. | $\displaystyle{  z^n + a_1 z^{n-1} + a_2 z^{n-2} + ... + a_{n-1} z + a_n = 0 }$ |
-| `roo` | `rooqua` | Special polynomal of degree 2 | $\displaystyle{ {z}^2 + {p} {z} + {q} = 0}$ |
-| `roo` | `roobin` | Solves polynomial that has exactly two terms | $\displaystyle{ z^n = a }$ |
-| `roo` | `roof1r` | Bisection method for finding the root of a function. | |
-| `roo` | `roofnr` | Finds root of a non-linear equations. | $\displaystyle{  f_{i}(x_1,x_2,\ldots,x_n)=0, \; i=1,2,\ldots,n }$ |
-| `int` | `int1fr` |  calculates the integral of a given function between limits $a$ and $b$ with a specified absolute accuracy. | |
-| `ode` | `odeiv1` | Solves a single first-order differential equation. | |
-| `ode` | `odeiv2` | Solves a system of first-order differential equations. | |
-| `ipf` | `ipfpol` | Fits a set of data points with a polynomial. | |
-| `ipf` | `ipfisn`, `ipfspn` | The `ipfisn` routine helps calculate the parameters of a spline. After determining these parameters, you can use the `ipfspn` procedure to find the value of the spline at any point. | |
-| `spe` | `spepol` | An efficient method for evaluating a polynomial at a specific x value using Horner's scheme. | $\displaystyle{  \begin{align}\operatorname{p}(x) &= a_0 + a_1 x + a_2 x^2 + ... + a_n x^n \\ \operatorname{p}(x) &= a_0 + x (a_1 + x (a_2 + \dots + x (a_{n-1} + x a_n))) \end{align}}$ |
-| `spe` | `speerf`, `speefc` | Calculates error function $erf(x)$ and its complementary error function $erfc(x)$. | The error function, $erf(x)$, and its complement, $erfc(x)$, represent the two parts (lower and upper) of the area under the curve of the bell-shaped Gaussian function. These areas are scaled so that together they add up to 1 (or 100%). |
-| `spe` | `normaldist`, `invnormaldist` | Normal and inverse normal distribution. | |
-| `spe` | `spemgam` , `spelga` | Factorials to non-integer (and even complex) numbers. | $\displaystyle{ \Gamma({x}) = \int_0^{\infty}t^{x-1} e^{-t} dt }$ <br>  `spemgam` - Direct calculation <br> `spelga` - computes the natural logarithm of the Gamma function.|
-| `spe` | `gammap`, `gammaq` | Incomplete gamma function. | $\displaystyle{ \begin{align} \operatorname{P}({s},{x}) &= \frac{1}{\Gamma({s})} \int_0^{x}t^{s-1} e^{-t} dt \\ \operatorname{Q}({s},{x}) &= \frac{1}{\Gamma({s})} \int_{x}^{\infty}t^{s-1} e^{-t} dt = 1 - \operatorname{P}({s}, {x}) \end{align}}$ |
-| `spe` | `beta` | Beta function. | $\displaystyle{ \operatorname{B}(a, b) = \frac{{\Gamma(a)}{\Gamma(b)}}{\Gamma(a+b)} = \int_0^1{t^{x-1} (1-t)^{y-1} dt} }$ |
-| `spe` | `betai` | Incomplete beta function. | $\displaystyle{ \operatorname{I}_x(a,b) = \frac {1}{\operatorname{B}(ab)} \int_0^x{t^{x-1} (1-t)^{y-1} dt} }$ |
-| `spe` | `spebj0`, `spebj1`, `speby0`, `speby1`, `spebi0`, `spebi1`, `spebk0`, `spebk1` | Bessel functions of the first kind ($J_\alpha$), of the second kind ($Y_\alpha$), and modified first ($I_\alpha$) and second kind ($K_\alpha$). <br> <br> NumLib implements only the solutions for the parameters $α = 0$ and $α = 1$.| The Bessel functions are solutions of the Bessel differential equation: <br> $\displaystyle{ {x}^2 y'' + x y' + ({x}^2 - \alpha^2) {y} = 0 }$  <br> `spebj0` - Bessel function $J_0$ (α = 0). <br> `spebj1` - Bessel function $J_1$ (α = 1). <br> `speby0` - Bessel function $Y_0$ (α = 0). <br> `speby1` - Bessel function $Y_1$ (α = 1). <br> `spebi0` - modified Bessel function $I_0$ (α = 0). <br> `spebi1` - modified Bessel function $I_1$ (α = 1). <br> `spebk0` - modified Bessel function $K_0$ (α= 0). <br> `spebk1` - modified Bessel function $K_1$ (α = 1).|
-| `spe` | `...` | ... | |
-| `spe` | `...` | ... | |
+**Routines in NumLib**
+
+- Basic operations with matrices and vectors - unit `omv`
+- Calculation of determinants - unit `det`
+- Matrix inversion - unit `inv`
+- Solution of systems of linear equations - unit `sle`
+- Calculation of eigenvalues - unit `eig`
+- Finding roots of equations - unit `roo`
+- Calculates integrals - unit `int`
+- Oridnary differential equations - unit `ode`
+- Fitting routines - unit `ipf`
+- Calculation of special functions - unit `spe`
+
+## Unit `omv`
+
+| Routine  | Operation      | Expression / Note                                    |
+| ---------| -------------- | ---------------------------------------------------- |
+| `omvinp`  | Dot product    | $\begin{align}\mathbf{a} \cdot \mathbf{b} &= \sum_{i=1}^n a_i b_i \\ &= a_1 b_1 + a_2 b_2 + \dots + a_n b_n\end{align}$ |
+| `omvmmm` | Product of two matrices | $C_{ij} = \sum_{k=0}^n A_{ik} B_{kj}$       |
+| `omvmmv` | Product of a matrix and a vector | $\begin{align}\mathbf{c} &= A\ \mathbf{b} \\ &= \left[ \begin{array}{cccc} a_{11} & a_{12} & a_{13} & \ldots & a_{1n} \\ a_{21} & a_{22} & a_{23} & \ldots & a_{2n} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & a_{m3} & \ldots & a_{mn} \end{array} \right] \left[ \begin{array}{c} b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n \end{array} \right] \\ &= \left[ \begin{array}{c} a_{11}b_1 + a_{12}b_2 + a_{13}b_3 + \cdots + a_{1n}b_n \\ a_{21}b_1 + a_{22}b_2 + a_{23}b_3 + \cdots + a_{2n}b_n \\ \vdots \\ a_{m1}b_1 + a_{m2}b_2 + a_{m3}b_3 + \cdots + a_{mn}b_n \end{array} \right]\end{align}$ |
+| omvtrm| Transpose matrix | $\begin{align}A &= \left[ \begin{array}{cccc} a_{11} & a_{12} & a_{13} & \ldots & a_{1n} \\ a_{21} & a_{22} & a_{23} & \ldots & a_{2n} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & a_{m3} & \ldots & a_{mn} \end{array} \right] \quad \\ A^T &= \left[ \begin{array}{cccc} a_{11} & a_{21} & \ldots & a_{m1} \\ a_{12} & a_{22} & \ldots & a_{m2} \\ a_{13} & a_{23} & \ldots & a_{m3} \\ \vdots & \vdots & \ddots & \vdots \\ a_{1n} & a_{2n} & \ldots & a_{mn} \end{array} \right]\end{align}$ |
+| `omvn1v` | 1-norm of a vector | $\|a\|_1 = \sum_{i=1}^n &#124;{a_i}&#124;$ |
+| `omvn2v` | 2-norm of a vector | $\|a\|_2 = \sqrt{\sum_{i=1}^n {a_i}^2}$ |
+| `omvnmv` | Maximum infinite norm of a vector| $\|a\|_\infty = \max({a_1}, {a_2}, ... {a_n})$ |
+| `omvn1m` | 1-norm of a matrix | $\|M\|_1 = \max_{1 \le j \le {n}} \sum_{i=1}^m&#124;M_{ij}&#124;$ |
+| `omvnmm` | Maximum infinite norm of a matrix | $\|M\|_\infty = \max_{1 \le i \le\ m} \sum_{j=1}^n &#124;M_{ij}&#124;$ |
+| `omvnfm` | Frobenius norm of a matrix | $\|M\|_F = \sqrt{\sum_{i=1}^m \sum_{j=1}^n {M_{ij}}^2}$ |
+
+## Unit `det`
+
+| Routine  | Operation      | Expression / Note                                    |
+| ---------| -------------- | ---------------------------------------------------- |
+| `detgen`, `detgsy`, `detgpd` | Determinant of a standard matrix.. |  For example: <br> $\begin{align}\det(A) &= \begin{vmatrix} a & b & c \\ d & e & f \\ g & h & i \end{vmatrix} \\ &= a \begin{vmatrix} e & f \\ h & i \end{vmatrix} - b \begin{vmatrix} d & f \\ g & i \end{vmatrix} + c \begin{vmatrix} d & e \\ g & h \end{vmatrix} \\ &= a(ei - fh) - b(di - fg) + c(de - dh)\end{align}$ |
+| `detgba` | Determinant of a band matrix     | |
+| `detgpb` | Determinant of a symmetric positive definite band matrix | |
+| `detgtr` | Determinant of a tridiagonal matrix | | 
+
+## Unit `inv`
+
+| Routine  | Operation      | Expression / Note                                    |
+| ---------| -------------- | ---------------------------------------------------- |
+| `invgen`, `invgsy`, `invgpd` | Inverse of a matrix  | Suppose a square matrix $A$. Then the matrix $A^{-1}$ is the inverse of $A$ if the product $A^{-1} A$ is the identity matrix $I$.  <br> $\displaystyle{  A^{-1} A = I =  \begin{bmatrix} 1  &    & 0 \\ & \ddots  &   \\  0  &     & 1 \end{bmatrix} }$ |
+
+## Unit `sle`
+
+This unit has routines for solving linear equations with various conditions.
+
+| Operation and Routine       | Notes                                                   |
+| --------------------------- | ------------------------------------------------------- |
+| Square matrices <br> `ArbFloat; var term: ArbInt);` <br> `procedure slegsy(n, rwidth: ArbInt; var a, b, x, ca: ArbFloat; var term: ArbInt);` <br> `procedure slegpd(n, rwidth: ArbInt; var a, b, x, ca: ArbFloat; var term: ArbInt);`  | |
+| Band matrix <br> `procedure slegba(n, l, r: ArbInt; var a, b, x, ca: ArbFloat; var term:ArbInt);`  | |
+| Symmetric positive definite band matrix. <br> `procedure slegpb(n, w: ArbInt; var a, b, x, ca: ArbFloat; var term: ArbInt);`  | Optimised approach for a [symmetric positive band matrix](https://wiki.freepascal.org/NumLib_Documentation#Symmetric_positive_definite_band_matrix) |
+| Tridiagonal matrix. <br> `procedure sledtr(n: ArbInt; var l, d, u, b, x: ArbFloat; var term: ArbInt);` <br> `procedure slegtr(n: ArbInt; var l, d, u, b, x, ca: ArbFloat; var term: ArbInt);`  | `sledtr` is numerically stable if matrix $A$ fulfills one of these conditions: <br> (1.) $A$ is regular (i.e. its inverse matrix exists), and $A$ is columnar-diagonally dominant <br> (2.) $A$ is regular, and $A$ is diagonally dominant <br> (3.) $A$ is symmetric and positive-definite. <br> **However**, `sledtr` does not provide the parameter `ca` to determine the accuracy of the solution. br> If `ca` this is needed, use the (less stable) procedure `slegtr`. |
+| Least squares. <br> `procedure slegls(var a: ArbFloat; m, n, rwidtha: ArbInt; var b, x: ArbFloat; var term: ArbInt);`  | Solves linear systems of a rectangular matrix (has more equations than unknowns). |
+
+## Unit `eig`
+
+| Operation and Routine       | Notes                                                   |
+| --------------------------- | ------------------------------------------------------- |
+| Calculates eigenvectors and eigenvalues of **generic** matrix.  <br> `procedure eigge1(var a: ArbFloat; n, rwidth: ArbInt; var lam: complex; var term: ArbInt);` <br> `procedure eigge3(var a: ArbFloat; n, rwidtha: ArbInt; var lam, x: complex; rwidthx: ArbInt; var term: ArbInt);`  | `eigge1` calculates all eigenvalues. <br> `eigg3` calculates all eigenvalues and eigenvectors. |
+| Calculates eigenvectors and eigenvalues of **generic symmetric** matrix. <br> `procedure eiggs1(var a: ArbFloat; n, rwidth: ArbInt; var lam: ArbFloat; var term: ArbInt); ` <br> `procedure eiggs2(var a: ArbFloat; n, rwidth, k1, k2: ArbInt; var lam: ArbFloat; var term: ArbInt);` <br>  `procedure eiggs3(var a: ArbFloat; n, rwidtha: ArbInt; var lam, x: ArbFloat; var term: ArbInt);` <br>  `procedure eiggs4(var a: ArbFloat; n, rwidtha, k1, k2: ArbInt; var lam, x: ArbFloat; var term: ArbInt);`   | `eiggs1` finds all eigenvalues <br> `eiggs2` finds some eigenvalues (index k1..k2) <br> `eiggs3` finds all eigenvalues and eigenvectors <br> `eiggs4` finds some eigenvalues and eigenvectors (index k1..k2). |
+| Calculates eigenvectors and eigenvalues of **generic symmetric positive definite** matrix. <br> `procedure eiggg1(var a: ArbFloat; n, rwidth: ArbInt; var lam: ArbFloat; var term: ArbInt);  ` <br>  `procedure eiggg2(var a: ArbFloat; n, rwidth, k1, k2: ArbInt; var lam: ArbFloat; var term: ArbInt); ` <br>  `procedure eiggg3(var a: ArbFloat; n, rwidtha: ArbInt; var lam, x: ArbFloat; var term: ArbInt);  `  <br>  `procedure eiggg4(var a: ArbFloat; n, rwidtha, k1, k2: ArbInt; var lam, x: ArbFloat; var term: ArbInt); `   | `eiggg1` finds all eigenvalues <br> `eiggg2` finds some eigenvalues (index k1..k2) <br> `eiggg3` finds all eigenvalues and eigenvectors <br> `eiggg4` finds some eigenvalues and eigenvectors (index k1..k2). |
+| Calculates eigenvectors and eigenvalues of **symmetric band** matrices.  <br> `procedure eigbs1(var a: ArbFloat; n, w: ArbInt; var lam: ArbFloat; var term: ArbInt);` <br>  `procedure eigbs2(var a: ArbFloat; n, w, k1, k2: ArbInt; var lam: ArbFloat; var term: ArbInt);`  <br>  `procedure eigbs3(var a: ArbFloat; n, w: ArbInt; var lam, x: ArbFloat; rwidthx: ArbInt; var term: ArbInt);`  <br>  `procedure eigbs4(var a: ArbFloat; n, w, k1, k2: ArbInt; var lam, x: ArbFloat; rwidthx: ArbInt; var m2, term: ArbInt);`  | `eigbs1` finds all eigenvalues <br> `eigbs2` finds some eigenvalues (index k1..k2) <br> `eigbs3` finds all eigenvalues and eigenvectors <br> `eigbs4` finds some eigenvalues and eigenvectors (index k1..k2). |
+| Calculates eigenvectors and eigenvalues of **symmetric tridiagonal** matrices  <br> `procedure eigts1(var d, cd: ArbFloat; n: ArbInt; var lam: ArbFloat; var term: ArbInt);` <br>  `procedure eigts2(var d, cd: ArbFloat; n, k1, k2: ArbInt; var lam: ArbFloat; var term: ArbInt);`  <br>  `procedure eigts3(var d, cd: ArbFloat; n: ArbInt; var lam, x: ArbFloat; rwidth: ArbInt; var term: ArbInt);` <br> `procedure eigts4(var d, cd: ArbFloat; n, k1, k2: ArbInt; var lam, x: ArbFloat; rwidth: ArbInt; var m2, term: ArbInt);`  | `eigts1` finds all eigenvalues <br> `eigts2` finds some eigenvalues (index k1..k2) <br> `eigts3` finds all eigenvalues and eigenvectors <br> `eigts4` finds some eigenvalues and eigenvectors (index k1..k2). |
+
+
+## Unit `roo`
+
+| Operation and Routine       | Notes                                                   |
+| --------------------------- | ------------------------------------------------------- |
+| Polynomial of degree $n$. <br> `procedure roopol(var a: ArbFloat; n: ArbInt; var z: complex; var k, term: ArbInt);`  | A polynomial of degree n <br> $\displaystyle{  z^n + a_1 z^{n-1} + a_2 z^{n-2} + ... + a_{n-1} z + a_n = 0 }$ <br> always has $n$, not necessarily distinct, complex solutions. |
+| Special polynomal of degree 2. <br> `procedure rooqua(p, q: ArbFloat; var z1, z2: complex);` | The quadratic equation <br> $\displaystyle{ {z}^2 + {p} {z} + {q} = 0}$ <br>  is a special polynomal of degree 2. It always has two, not necessarily different, complex roots.  |
+| Solves polynomial that has exactly two terms. <br> `procedure roobin(n: ArbInt; a: complex; var z: complex; var term: ArbInt);` | $\displaystyle{ z^n = a }$ has $n$ complex solutions. |
+| Bisection method for finding the root of a function. <br> `procedure roof1r(f: rfunc1r; a, b, ae, re: ArbFloat; var x: ArbFloat; var term: ArbInt);`  | |
+| Finds root of a non-linear equations. <br> `procedure roofnr(f: roofnrfunc; n: ArbInt; var x, residu: ArbFloat; ra: ArbFloat; var term: ArbInt);`  | Finds the roots of a system of (nonlinear) equations: $\displaystyle{  f_{i}(x_1,x_2,\ldots,x_n)=0, \; i=1,2,\ldots,n }$ |
+
+
+## Unit `int`
+
+| Operation and Routine       | Notes                                                   |
+| --------------------------- | ------------------------------------------------------- |
+| Calculates the integral of a function between $a$ and $b$ with an absolute accuracy $ae$. <br> `procedure int1fr(f: rfunc1r; a, b, ae: ArbFloat; var integral, err: ArbFloat; var term: ArbInt);` | The function `f` must take one real number (`ArbFloat`) as an input and return a real number (`ArbFloat`). <br> See the type `rfunc1r` declared in unit `typ`. |
+
+## Unit `ode`
+
+| Operation and Routine       | Notes                                                   |
+| --------------------------- | ------------------------------------------------------- |
+| Solves a single first-order differential equation. <br> `procedure odeiv2(f: oderk1n; a: ArbFloat; var ya, b, yb: ArbFloat; n: ArbInt; ae: ArbFloat; var term: ArbInt);` | The adaptive algorithm uses a fifth-order explicit Runge-Kutta method, but it's unsuitable for stiff differential equations. <br> Accuracy is not guaranteed in all cases, and for unstable problems, small changes in $y(a)$ can lead to large errors in $y(b)$. To assess this, try different values of $ae$. <br> For solving initial value problems over multiple points (e.g., from $x=0$ to $x=1$ with step size 0.1), avoid restarting at $x=0$ with each step; instead, integrate continuously. |
+| Solves a system of first-order differential equations. <br> `procedure odeiv2(f: oderk1n; a: ArbFloat; var ya, b, yb: ArbFloat; n: ArbInt; ae: ArbFloat; var term: ArbInt);` | The algorithm is based on an explicit one-step Runge-Kutta method of order five with variable step size. |
+
+## Unit `ipf`
+
+| Operation and Routine       | Notes                                                   |
+| --------------------------- | ------------------------------------------------------- |
+| Fits a set of data points with a polynomial. <br> `procedure ipfpol(m, n: ArbInt; var x, y, b: ArbFloat; var term: ArbInt);`  | |
+| The `ipfisn` routine helps calculate the parameters of a spline. Next, use the `ipfspn` procedure to find the value of the spline at any point. <br> `procedure ipfisn(n: ArbInt; var x, y, d2s: ArbFloat; var term: ArbInt);` <br> `function  ipfspn(n: ArbInt; var x, y, d2s: ArbFloat; t: ArbFloat; var term: ArbInt): ArbFloat;` | |
+
+
+## Unit `spe`
+
+| Routine  | Operation      | Expression / Note                                    |
+| -------- | -------------- | ---------------------------------------------------- |
+| `spepol` | An efficient method for evaluating a polynomial at a specific x value using Horner's scheme. | $\displaystyle{  \begin{align}\operatorname{p}(x) &= a_0 + a_1 x + a_2 x^2 + ... + a_n x^n \\ \operatorname{p}(x) &= a_0 + x (a_1 + x (a_2 + \dots + x (a_{n-1} + x a_n))) \end{align}}$ |
+| `speerf`, `speefc` | Calculates error function $erf(x)$ and its complementary error function $erfc(x)$. | The error function, $erf(x)$, and its complement, $erfc(x)$, represent the two parts (lower and upper) of the area under the curve of the bell-shaped Gaussian function. These areas are scaled so that together they add up to 1 (or 100%). |
+| `normaldist`, `invnormaldist` | Normal and inverse normal distribution. | |
+| `spemgam` , `spelga` | Factorials to non-integer (and even complex) numbers. | $\displaystyle{ \Gamma({x}) = \int_0^{\infty}t^{x-1} e^{-t} dt }$ <br>  `spemgam` - direct calculation <br> `spelga` - computes the natural logarithm of the Gamma function.|
+| `gammap`, `gammaq` | Incomplete gamma function. | $\displaystyle{ \begin{align} \operatorname{P}({s},{x}) &= \frac{1}{\Gamma({s})} \int_0^{x}t^{s-1} e^{-t} dt \\ \operatorname{Q}({s},{x}) &= \frac{1}{\Gamma({s})} \int_{x}^{\infty}t^{s-1} e^{-t} dt = 1 - \operatorname{P}({s}, {x}) \end{align}}$ |
+| `beta` | Beta function. | $\displaystyle{ \operatorname{B}(a, b) = \frac{{\Gamma(a)}{\Gamma(b)}}{\Gamma(a+b)} = \int_0^1{t^{x-1} (1-t)^{y-1} dt} }$ |
+| `betai` | Incomplete beta function. | $\displaystyle{ \operatorname{I}_x(a,b) = \frac {1}{\operatorname{B}(ab)} \int_0^x{t^{x-1} (1-t)^{y-1} dt} }$ |
+| `spebj0`, `spebj1`, `speby0`, `speby1`, `spebi0`, `spebi1`, `spebk0`, `spebk1` | Bessel functions of the first kind ($J_\alpha$), of the second kind ($Y_\alpha$), and modified first ($I_\alpha$) and second kind ($K_\alpha$). <br> <br> NumLib implements only the solutions for the parameters $α = 0$ and $α = 1$.| The Bessel functions are solutions of the Bessel differential equation: <br> $\displaystyle{ {x}^2 y'' + x y' + ({x}^2 - \alpha^2) {y} = 0 }$  <br> `spebj0` - Bessel function $J_0$ (α = 0). <br> `spebj1` - Bessel function $J_1$ (α = 1). <br> `speby0` - Bessel function $Y_0$ (α = 0). <br> `speby1` - Bessel function $Y_1$ (α = 1). <br> `spebi0` - modified Bessel function $I_0$ (α = 0). <br> `spebi1` - modified Bessel function $I_1$ (α = 1). <br> `spebk0` - modified Bessel function $K_0$ (α= 0). <br> `spebk1` - modified Bessel function $K_1$ (α = 1).|
+
+### Other functions in unit `spe`
+
+|                  Function                  |   Equivalent function   in math |                              Description                             |
+|------------------------------------------|-------------------------------|--------------------------------------------------------------------|
+| `function speent(x: ArbFloat): LongInt;`     | `floor(x)`                        | Entier function, calculates first integer smaller than or equal to x |
+| `function spemax(a, b: Arbfloat): ArbFloat;` | `max(a, b)`                       | Maximum of two floating point values                                 |
+| `function spepow(a, b: ArbFloat): ArbFloat;` | `power(a, b)`                     | Calculates $a^b$                                                        |
+| `function spesgn(x: ArbFloat): ArbInt;`      | `sign(x)`                         | Returns the sign of x (-1 for x < 0, 0 for x = 0, +1 for x > 0)      |
+| `function spears(x: ArbFloat): ArbFloat;`    | `arcsin(x)`                       | Inverse function of sin(x)                                           |
+| `function spearc(x: ArbFloat): ArbFloat;`    | `arccos(x)`                       | Inverse function of cos(x)                                           |
+| `function spesih(x: ArbFloat): ArbFloat;`    | `sinh(x)`                         | Hyperbolic sine                                                      |
+| `function specoh(x: ArbFloat): ArbFloat;`    | `cosh(x)`                         | Hyperbolic cosine                                                    |
+| `function spetah(x: ArbFloat): ArbFloat;`    | `tanh(x)`                         | Hyperbolic tangent                                                   |
+| `function speash(x: ArbFloat): ArbFloat;`    | `arcsinh(x)`                      | Inverse of the hyperbolic sine                                       |
+| `function speach(x: ArbFloat): ArbFloat;`    | `arccosh(x)`                      | Inverse of the hyperbolic cosine                                     |
+| `function speath(x: ArbFloat): ArbFloat;`    | `arctanh(x)`                      | Inverse of the hyperbolic tangent                                    |
+
 
 ## Operations with matrices and vectors
 
