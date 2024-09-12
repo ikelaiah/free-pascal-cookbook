@@ -39,18 +39,18 @@ The notes on this page is based on the [Free Pascal NumLib official doc](https:/
 
 ## Unit `det`
 
-| Routine  | Operation      | Expression / Note                                    |
-| ---------| -------------- | ---------------------------------------------------- |
-| `detgen`, `detgsy`, `detgpd` | Determinant of a standard matrix.. |  For example: <br> $\begin{align}\det(A) &= \begin{vmatrix} a & b & c \\ d & e & f \\ g & h & i \end{vmatrix} \\ &= a \begin{vmatrix} e & f \\ h & i \end{vmatrix} - b \begin{vmatrix} d & f \\ g & i \end{vmatrix} + c \begin{vmatrix} d & e \\ g & h \end{vmatrix} \\ &= a(ei - fh) - b(di - fg) + c(de - dh)\end{align}$ |
-| `detgba` | Determinant of a band matrix     | |
-| `detgpb` | Determinant of a symmetric positive definite band matrix | |
-| `detgtr` | Determinant of a tridiagonal matrix | | 
+| Operation and Routine       | Notes                                                   |
+| --------------------------- | ------------------------------------------------------- |
+| Determinant of a standard matrix.  <br> `procedure detgen(n, rwidth: ArbInt; var a, f: ArbFloat; var k, term: ArbInt);` <br> `procedure detgsy(n, rwidth: ArbInt; var a, f: ArbFloat; var k, term: ArbInt);` <br> `procedure detgpd(n, rwidth: ArbInt; var a, f: ArbFloat; var k, term: ArbInt);`  |  For example: <br> $\begin{align}\det(A) &= \begin{vmatrix} a & b & c \\ d & e & f \\ g & h & i \end{vmatrix} \\ &= a \begin{vmatrix} e & f \\ h & i \end{vmatrix} - b \begin{vmatrix} d & f \\ g & i \end{vmatrix} + c \begin{vmatrix} d & e \\ g & h \end{vmatrix} \\ &= a(ei - fh) - b(di - fg) + c(de - dh)\end{align}$ <br> `detgen` - generic matrix <br> `detgsy` - symmetric matrix <br> `detgpd` - symmetric positive definite matrix |
+| Determinant of a band matrix.  <br> `procedure detgba(n, l, r: ArbInt; var a, f: ArbFloat; var k, term:ArbInt);`      | |
+| Determinant of a symmetric positive definite band matrix.  <br> `procedure detgpb(n, w: ArbInt; var a, f: ArbFloat; var k, term:ArbInt);`  | |
+| Determinant of a tridiagonal matrix.  <br> `procedure detgtr(n: ArbInt; var l, d, u, f: ArbFloat; var k, term:ArbInt);`  | | 
 
 ## Unit `inv`
 
-| Routine  | Operation      | Expression / Note                                    |
-| ---------| -------------- | ---------------------------------------------------- |
-| `invgen`, `invgsy`, `invgpd` | Inverse of a matrix  | Suppose a square matrix $A$. Then the matrix $A^{-1}$ is the inverse of $A$ if the product $A^{-1} A$ is the identity matrix $I$.  <br> $\displaystyle{  A^{-1} A = I =  \begin{bmatrix} 1  &    & 0 \\ & \ddots  &   \\  0  &     & 1 \end{bmatrix} }$ |
+| Operation and Routine       | Notes                                                   |
+| --------------------------- | ------------------------------------------------------- |
+| Inverse of a matrix. <br> `procedure invgen(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);` <br> `procedure invgsy(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);` <br> `procedure invgpd(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);`  | Suppose a square matrix $A$. Then the matrix $A^{-1}$ is the inverse of $A$ if the product $A^{-1} A$ is the identity matrix $I$.  <br> $\displaystyle{  A^{-1} A = I =  \begin{bmatrix} 1  &    & 0 \\ & \ddots  &   \\  0  &     & 1 \end{bmatrix} }$ |
 
 ## Unit `sle`
 
