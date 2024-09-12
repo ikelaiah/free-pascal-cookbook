@@ -2032,30 +2032,25 @@
 <table>
 <thead>
 <tr>
-<th>Routine</th>
-<th>Operation</th>
-<th>Expression / Note</th>
+<th>Operation and Routine</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>detgen</code>, <code>detgsy</code>, <code>detgpd</code></td>
-<td>Determinant of a standard matrix..</td>
-<td>For example: <br> <span class="arithmatex">\(\begin{align}\det(A) &amp;= \begin{vmatrix} a &amp; b &amp; c \\ d &amp; e &amp; f \\ g &amp; h &amp; i \end{vmatrix} \\ &amp;= a \begin{vmatrix} e &amp; f \\ h &amp; i \end{vmatrix} - b \begin{vmatrix} d &amp; f \\ g &amp; i \end{vmatrix} + c \begin{vmatrix} d &amp; e \\ g &amp; h \end{vmatrix} \\ &amp;= a(ei - fh) - b(di - fg) + c(de - dh)\end{align}\)</span></td>
+<td>Determinant of a standard matrix.  <br> <code>procedure detgen(n, rwidth: ArbInt; var a, f: ArbFloat; var k, term: ArbInt);</code> <br> <code>procedure detgsy(n, rwidth: ArbInt; var a, f: ArbFloat; var k, term: ArbInt);</code> <br> <code>procedure detgpd(n, rwidth: ArbInt; var a, f: ArbFloat; var k, term: ArbInt);</code></td>
+<td>For example: <br> <span class="arithmatex">\(\begin{align}\det(A) &amp;= \begin{vmatrix} a &amp; b &amp; c \\ d &amp; e &amp; f \\ g &amp; h &amp; i \end{vmatrix} \\ &amp;= a \begin{vmatrix} e &amp; f \\ h &amp; i \end{vmatrix} - b \begin{vmatrix} d &amp; f \\ g &amp; i \end{vmatrix} + c \begin{vmatrix} d &amp; e \\ g &amp; h \end{vmatrix} \\ &amp;= a(ei - fh) - b(di - fg) + c(de - dh)\end{align}\)</span> <br> <code>detgen</code> - generic matrix <br> <code>detgsy</code> - symmetric matrix <br> <code>detgpd</code> - symmetric positive definite matrix</td>
 </tr>
 <tr>
-<td><code>detgba</code></td>
-<td>Determinant of a band matrix</td>
+<td>Determinant of a band matrix.  <br> <code>procedure detgba(n, l, r: ArbInt; var a, f: ArbFloat; var k, term:ArbInt);</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>detgpb</code></td>
-<td>Determinant of a symmetric positive definite band matrix</td>
+<td>Determinant of a symmetric positive definite band matrix.  <br> <code>procedure detgpb(n, w: ArbInt; var a, f: ArbFloat; var k, term:ArbInt);</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>detgtr</code></td>
-<td>Determinant of a tridiagonal matrix</td>
+<td>Determinant of a tridiagonal matrix.  <br> <code>procedure detgtr(n: ArbInt; var l, d, u, f: ArbFloat; var k, term:ArbInt);</code></td>
 <td></td>
 </tr>
 </tbody>
@@ -2064,15 +2059,13 @@
 <table>
 <thead>
 <tr>
-<th>Routine</th>
-<th>Operation</th>
-<th>Expression / Note</th>
+<th>Operation and Routine</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>invgen</code>, <code>invgsy</code>, <code>invgpd</code></td>
-<td>Inverse of a matrix</td>
+<td>Inverse of a matrix. <br> <code>procedure invgen(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);</code> <br> <code>procedure invgsy(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);</code> <br> <code>procedure invgpd(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);</code></td>
 <td>Suppose a square matrix <span class="arithmatex">\(A\)</span>. Then the matrix <span class="arithmatex">\(A^{-1}\)</span> is the inverse of <span class="arithmatex">\(A\)</span> if the product <span class="arithmatex">\(A^{-1} A\)</span> is the identity matrix <span class="arithmatex">\(I\)</span>.  <br> <span class="arithmatex">\(\displaystyle{  A^{-1} A = I =  \begin{bmatrix} 1  &amp;    &amp; 0 \\ &amp; \ddots  &amp;   \\  0  &amp;     &amp; 1 \end{bmatrix} }\)</span></td>
 </tr>
 </tbody>
