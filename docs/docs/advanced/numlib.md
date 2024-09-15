@@ -24,18 +24,18 @@ The notes on this page is based on the [Free Pascal NumLib official doc](https:/
 
 ## Unit `omv`
 
-| Routine  | Operation      | Expression / Note                                    |
-| ---------| -------------- | ---------------------------------------------------- |
-| `omvinp`  | Dot product    | $\begin{align}\mathbf{a} \cdot \mathbf{b} &= \sum_{i=1}^n a_i b_i \\ &= a_1 b_1 + a_2 b_2 + \dots + a_n b_n\end{align}$ |
-| `omvmmm` | Product of two matrices | $C_{ij} = \sum_{k=0}^n A_{ik} B_{kj}$       |
-| `omvmmv` | Product of a matrix and a vector | $\begin{align}\mathbf{c} &= A\ \mathbf{b} \\ &= \left[ \begin{array}{cccc} a_{11} & a_{12} & a_{13} & \ldots & a_{1n} \\ a_{21} & a_{22} & a_{23} & \ldots & a_{2n} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & a_{m3} & \ldots & a_{mn} \end{array} \right] \left[ \begin{array}{c} b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n \end{array} \right] \\ &= \left[ \begin{array}{c} a_{11}b_1 + a_{12}b_2 + a_{13}b_3 + \cdots + a_{1n}b_n \\ a_{21}b_1 + a_{22}b_2 + a_{23}b_3 + \cdots + a_{2n}b_n \\ \vdots \\ a_{m1}b_1 + a_{m2}b_2 + a_{m3}b_3 + \cdots + a_{mn}b_n \end{array} \right]\end{align}$ |
-| omvtrm| Transpose matrix | $\begin{align}A &= \left[ \begin{array}{cccc} a_{11} & a_{12} & a_{13} & \ldots & a_{1n} \\ a_{21} & a_{22} & a_{23} & \ldots & a_{2n} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & a_{m3} & \ldots & a_{mn} \end{array} \right] \quad \\ A^T &= \left[ \begin{array}{cccc} a_{11} & a_{21} & \ldots & a_{m1} \\ a_{12} & a_{22} & \ldots & a_{m2} \\ a_{13} & a_{23} & \ldots & a_{m3} \\ \vdots & \vdots & \ddots & \vdots \\ a_{1n} & a_{2n} & \ldots & a_{mn} \end{array} \right]\end{align}$ |
-| `omvn1v` | 1-norm of a vector | $\|a\|_1 = \sum_{i=1}^n &#124;{a_i}&#124;$ |
-| `omvn2v` | 2-norm of a vector | $\|a\|_2 = \sqrt{\sum_{i=1}^n {a_i}^2}$ |
-| `omvnmv` | Maximum infinite norm of a vector| $\|a\|_\infty = \max({a_1}, {a_2}, ... {a_n})$ |
-| `omvn1m` | 1-norm of a matrix | $\|M\|_1 = \max_{1 \le j \le {n}} \sum_{i=1}^m&#124;M_{ij}&#124;$ |
-| `omvnmm` | Maximum infinite norm of a matrix | $\|M\|_\infty = \max_{1 \le i \le\ m} \sum_{j=1}^n &#124;M_{ij}&#124;$ |
-| `omvnfm` | Frobenius norm of a matrix | $\|M\|_F = \sqrt{\sum_{i=1}^m \sum_{j=1}^n {M_{ij}}^2}$ |
+| Operation and Routine       | Notes                                                   |
+| --------------------------- | ------------------------------------------------------- |
+| Dot product  <br> `function omvinp(var a, b: ArbFloat; n: ArbInt): ArbFloat;`     | $\begin{align}\mathbf{a} \cdot \mathbf{b} &= \sum_{i=1}^n a_i b_i \\ &= a_1 b_1 + a_2 b_2 + \dots + a_n b_n\end{align}$ |
+| Product of two matrices <br> `procedure omvmmm(var a: ArbFloat; m, n, rwa: ArbInt; var b: ArbFloat; p, rwb: ArbInt; var c: ArbFloat; rwc: ArbInt);`   | $C_{ij} = \sum_{k=0}^n A_{ik} B_{kj}$       |
+| Product of a matrix and a vector <br> `procedure omvmmv(var a: ArbFloat; m, n, rwidth: ArbInt; var b, c: ArbFloat);`  | $\begin{align}\mathbf{c} &= A\ \mathbf{b} \\ &= \left[ \begin{array}{cccc} a_{11} & a_{12} & a_{13} & \ldots & a_{1n} \\ a_{21} & a_{22} & a_{23} & \ldots & a_{2n} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & a_{m3} & \ldots & a_{mn} \end{array} \right] \left[ \begin{array}{c} b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n \end{array} \right] \\ &= \left[ \begin{array}{c} a_{11}b_1 + a_{12}b_2 + a_{13}b_3 + \cdots + a_{1n}b_n \\ a_{21}b_1 + a_{22}b_2 + a_{23}b_3 + \cdots + a_{2n}b_n \\ \vdots \\ a_{m1}b_1 + a_{m2}b_2 + a_{m3}b_3 + \cdots + a_{mn}b_n \end{array} \right]\end{align}$ |
+| Transpose matrix <br> `procedure omvtrm(var a: ArbFloat; m, n, rwa: ArbInt; var c: ArbFloat; rwc: ArbInt);` | $\begin{align}A &= \left[ \begin{array}{cccc} a_{11} & a_{12} & a_{13} & \ldots & a_{1n} \\ a_{21} & a_{22} & a_{23} & \ldots & a_{2n} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & a_{m3} & \ldots & a_{mn} \end{array} \right] \quad \\ A^T &= \left[ \begin{array}{cccc} a_{11} & a_{21} & \ldots & a_{m1} \\ a_{12} & a_{22} & \ldots & a_{m2} \\ a_{13} & a_{23} & \ldots & a_{m3} \\ \vdots & \vdots & \ddots & \vdots \\ a_{1n} & a_{2n} & \ldots & a_{mn} \end{array} \right]\end{align}$ |
+| 1-norm of a vector <br> `function omvn1v(var a: ArbFloat; n: ArbInt): ArbFloat; `   | $\|a\|_1 = \sum_{i=1}^n &#124;{a_i}&#124;$ |
+| 2-norm of a vector <br> `function omvn2v(var a: ArbFloat; n: ArbInt): ArbFloat; `   | $\|a\|_2 = \sqrt{\sum_{i=1}^n {a_i}^2}$ |
+| Maximum infinite norm of a vector <br> `function omvnmv(var a: ArbFloat; n: ArbInt): ArbFloat; ` | | $\|a\|_\infty = \max({a_1}, {a_2}, ... {a_n})$ |
+| 1-norm of a matrix <br> `function omvn1m(var a: ArbFloat; m, n, rwidth: ArbInt): ArbFloat;  `   | $\|M\|_1 = \max_{1 \le j \le {n}} \sum_{i=1}^m&#124;M_{ij}&#124;$ |
+| Maximum infinite norm of a matrix <br> `function omvnmm(var a: ArbFloat; m, n, rwidth: ArbInt): ArbFloat;`   | $\|M\|_\infty = \max_{1 \le i \le\ m} \sum_{j=1}^n &#124;M_{ij}&#124;$ |
+| Frobenius norm of a matrix <br> `function omvnfm(Var a: ArbFloat; m, n, rwidth: ArbInt): ArbFloat; `   | $\|M\|_F = \sqrt{\sum_{i=1}^m \sum_{j=1}^n {M_{ij}}^2}$ |
 
 ## Unit `det`
 
@@ -50,7 +50,7 @@ The notes on this page is based on the [Free Pascal NumLib official doc](https:/
 
 | Operation and Routine       | Notes                                                   |
 | --------------------------- | ------------------------------------------------------- |
-| Inverse of a matrix. <br> `procedure invgen(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);` <br> `procedure invgsy(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);` <br> `procedure invgpd(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);`  | Suppose a square matrix $A$. Then the matrix $A^{-1}$ is the inverse of $A$ if the product $A^{-1} A$ is the identity matrix $I$.  <br> $\displaystyle{  A^{-1} A = I =  \begin{bmatrix} 1  &    & 0 \\ & \ddots  &   \\  0  &     & 1 \end{bmatrix} }$ |
+| Inverse of a matrix. <br> `procedure invgen(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);` <br> `procedure invgsy(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);` <br> `procedure invgpd(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);`  | Suppose a square matrix $A$. The matrix $A^{-1}$ is the inverse of $A$ if the product $A^{-1} A$ is the identity matrix $I$. <br> $\displaystyle{  A^{-1} A = I =  \begin{bmatrix} 1  &    & 0 \\ & \ddots  &   \\  0  &     & 1 \end{bmatrix} }$ |
 
 ## Unit `sle`
 
@@ -60,7 +60,7 @@ This unit has routines for solving linear equations with various conditions.
 | --------------------------- | ------------------------------------------------------- |
 | Square matrices <br> `ArbFloat; var term: ArbInt);` <br> `procedure slegsy(n, rwidth: ArbInt; var a, b, x, ca: ArbFloat; var term: ArbInt);` <br> `procedure slegpd(n, rwidth: ArbInt; var a, b, x, ca: ArbFloat; var term: ArbInt);`  | |
 | Band matrix <br> `procedure slegba(n, l, r: ArbInt; var a, b, x, ca: ArbFloat; var term:ArbInt);`  | |
-| Symmetric positive definite band matrix. <br> `procedure slegpb(n, w: ArbInt; var a, b, x, ca: ArbFloat; var term: ArbInt);`  | Optimised approach for a [symmetric positive band matrix](https://wiki.freepascal.org/NumLib_Documentation#Symmetric_positive_definite_band_matrix) |
+| Symmetric positive definite band matrix. <br> `procedure slegpb(n, w: ArbInt; var a, b, x, ca: ArbFloat; var term: ArbInt);`  | Optimised approach for a [symmetric positive band matrix](https://wiki.freepascal.org/NumLib_Documentation#Symmetric_positive_definite_band_matrix). |
 | Tridiagonal matrix. <br> `procedure sledtr(n: ArbInt; var l, d, u, b, x: ArbFloat; var term: ArbInt);` <br> `procedure slegtr(n: ArbInt; var l, d, u, b, x, ca: ArbFloat; var term: ArbInt);`  | `sledtr` is numerically stable if matrix $A$ fulfills one of these conditions: <br> (1.) $A$ is regular (i.e. its inverse matrix exists), and $A$ is columnar-diagonally dominant <br> (2.) $A$ is regular, and $A$ is diagonally dominant <br> (3.) $A$ is symmetric and positive-definite. <br> **However**, `sledtr` does not provide the parameter `ca` to determine the accuracy of the solution. br> If `ca` this is needed, use the (less stable) procedure `slegtr`. |
 | Least squares. <br> `procedure slegls(var a: ArbFloat; m, n, rwidtha: ArbInt; var b, x: ArbFloat; var term: ArbInt);`  | Solves linear systems of a rectangular matrix (has more equations than unknowns). |
 
@@ -104,21 +104,21 @@ This unit has routines for solving linear equations with various conditions.
 | Operation and Routine       | Notes                                                   |
 | --------------------------- | ------------------------------------------------------- |
 | Fits a set of data points with a polynomial. <br> `procedure ipfpol(m, n: ArbInt; var x, y, b: ArbFloat; var term: ArbInt);`  | |
-| The `ipfisn` routine helps calculate the parameters of a spline. Next, use the `ipfspn` procedure to find the value of the spline at any point. <br> `procedure ipfisn(n: ArbInt; var x, y, d2s: ArbFloat; var term: ArbInt);` <br> `function  ipfspn(n: ArbInt; var x, y, d2s: ArbFloat; t: ArbFloat; var term: ArbInt): ArbFloat;` | |
+| Use `ipfisn` to calculate the parameters of a spline. Then use the `ipfspn` procedure to find the value of the spline at any point. <br> `procedure ipfisn(n: ArbInt; var x, y, d2s: ArbFloat; var term: ArbInt);` <br> `function  ipfspn(n: ArbInt; var x, y, d2s: ArbFloat; t: ArbFloat; var term: ArbInt): ArbFloat;` | |
 
 
 ## Unit `spe`
 
-| Routine  | Operation      | Expression / Note                                    |
-| -------- | -------------- | ---------------------------------------------------- |
-| `spepol` | An efficient method for evaluating a polynomial at a specific x value using Horner's scheme. | $\displaystyle{  \begin{align}\operatorname{p}(x) &= a_0 + a_1 x + a_2 x^2 + ... + a_n x^n \\ \operatorname{p}(x) &= a_0 + x (a_1 + x (a_2 + \dots + x (a_{n-1} + x a_n))) \end{align}}$ |
-| `speerf`, `speefc` | Calculates error function $erf(x)$ and its complementary error function $erfc(x)$. | The error function, $erf(x)$, and its complement, $erfc(x)$, represent the two parts (lower and upper) of the area under the curve of the bell-shaped Gaussian function. These areas are scaled so that together they add up to 1 (or 100%). |
-| `normaldist`, `invnormaldist` | Normal and inverse normal distribution. | |
-| `spemgam` , `spelga` | Factorials to non-integer (and even complex) numbers. | $\displaystyle{ \Gamma({x}) = \int_0^{\infty}t^{x-1} e^{-t} dt }$ <br>  `spemgam` - direct calculation <br> `spelga` - computes the natural logarithm of the Gamma function.|
-| `gammap`, `gammaq` | Incomplete gamma function. | $\displaystyle{ \begin{align} \operatorname{P}({s},{x}) &= \frac{1}{\Gamma({s})} \int_0^{x}t^{s-1} e^{-t} dt \\ \operatorname{Q}({s},{x}) &= \frac{1}{\Gamma({s})} \int_{x}^{\infty}t^{s-1} e^{-t} dt = 1 - \operatorname{P}({s}, {x}) \end{align}}$ |
-| `beta` | Beta function. | $\displaystyle{ \operatorname{B}(a, b) = \frac{{\Gamma(a)}{\Gamma(b)}}{\Gamma(a+b)} = \int_0^1{t^{x-1} (1-t)^{y-1} dt} }$ |
-| `betai` | Incomplete beta function. | $\displaystyle{ \operatorname{I}_x(a,b) = \frac {1}{\operatorname{B}(ab)} \int_0^x{t^{x-1} (1-t)^{y-1} dt} }$ |
-| `spebj0`, `spebj1`, `speby0`, `speby1`, `spebi0`, `spebi1`, `spebk0`, `spebk1` | Bessel functions of the first kind ($J_\alpha$), of the second kind ($Y_\alpha$), and modified first ($I_\alpha$) and second kind ($K_\alpha$). <br> <br> NumLib implements only the solutions for the parameters $α = 0$ and $α = 1$.| The Bessel functions are solutions of the Bessel differential equation: <br> $\displaystyle{ {x}^2 y'' + x y' + ({x}^2 - \alpha^2) {y} = 0 }$  <br> `spebj0` - Bessel function $J_0$ (α = 0). <br> `spebj1` - Bessel function $J_1$ (α = 1). <br> `speby0` - Bessel function $Y_0$ (α = 0). <br> `speby1` - Bessel function $Y_1$ (α = 1). <br> `spebi0` - modified Bessel function $I_0$ (α = 0). <br> `spebi1` - modified Bessel function $I_1$ (α = 1). <br> `spebk0` - modified Bessel function $K_0$ (α= 0). <br> `spebk1` - modified Bessel function $K_1$ (α = 1).|
+| Operation and Routine       | Notes                                                   |
+| --------------------------- | ------------------------------------------------------- |
+| An efficient method for evaluating a polynomial at a specific x value using Horner's scheme. <br> `function spepol(x: ArbFloat; var a: ArbFloat; n: ArbInt): ArbFloat;`  | $\displaystyle{  \begin{align}\operatorname{p}(x) &= a_0 + a_1 x + a_2 x^2 + ... + a_n x^n \\ \operatorname{p}(x) &= a_0 + x (a_1 + x (a_2 + \dots + x (a_{n-1} + x a_n))) \end{align}}$ |
+| Calculates error function $erf(x)$ and its complementary error function $erfc(x)$. <br>`function speerf(x: ArbFloat): ArbFloat; ` <br> `speefc`  | The error function, $erf(x)$, and its complement, $erfc(x)$, represent the two parts (lower and upper) of the area under the curve of the bell-shaped Gaussian function. These areas are scaled so that together they add up to 1 (or 100%). |
+| Normal and inverse normal distribution. <br>`function normaldist(x: ArbFloat): ArbFloat;` <br> `function invnormaldist(y: ArbFloat): ArbFloat;`  | |
+| Factorials to non-integer (and even complex) numbers. <br>`function spegam(x: ArbFloat): ArbFloat;` <br> `function spelga(x: ArbFloat): ArbFloat;`  | $\displaystyle{ \Gamma({x}) = \int_0^{\infty}t^{x-1} e^{-t} dt }$ <br>  `spemgam` - direct calculation <br> `spelga` - computes the natural logarithm of the Gamma function.|
+| Incomplete gamma function. <br>`function gammap(s, x: ArbFloat): ArbFloat;` <br> `function gammaq(s, x: ArbFloat): ArbFloat;`  | $\displaystyle{ \begin{align} \operatorname{P}({s},{x}) &= \frac{1}{\Gamma({s})} \int_0^{x}t^{s-1} e^{-t} dt \\ \operatorname{Q}({s},{x}) &= \frac{1}{\Gamma({s})} \int_{x}^{\infty}t^{s-1} e^{-t} dt = 1 - \operatorname{P}({s}, {x}) \end{align}}$ |
+| Beta function. <br>`function beta(a, b: ArbFloat): ArbFloat;`  | $\displaystyle{ \operatorname{B}(a, b) = \frac{{\Gamma(a)}{\Gamma(b)}}{\Gamma(a+b)} = \int_0^1{t^{x-1} (1-t)^{y-1} dt} }$ |
+| Incomplete beta function (and the inverse). <br>`function betai(a, b, x: ArbFloat): ArbFloat;` <br> `function invbetai(a, b, y: ArbFloat): ArbFloat;`  | $\displaystyle{ \operatorname{I}_x(a,b) = \frac {1}{\operatorname{B}(ab)} \int_0^x{t^{x-1} (1-t)^{y-1} dt} }$ |
+| Bessel functions of the first kind ($J_\alpha$), of the second kind ($Y_\alpha$), and modified first ($I_\alpha$) and second kind ($K_\alpha$). <br> <br> NumLib implements only the solutions for the parameters $α = 0$ and $α = 1$. <br>`function spebj0(x: ArbFloat): ArbFloat; ` <br> `function spebj1(x: ArbFloat): ArbFloat; ` <br> `function speby0(x: ArbFloat): ArbFloat;` <br> `function speby1(x: ArbFloat): ArbFloat; ` <br> `function spebi0(x: ArbFloat): ArbFloat;` <br> `function spebi1(x: ArbFloat): ArbFloat; ` <br> `function spebk0(x: ArbFloat): ArbFloat;` <br> `function spebk1(x: ArbFloat): ArbFloat; `  | The Bessel functions are solutions of the Bessel differential equation: <br> $\displaystyle{ {x}^2 y'' + x y' + ({x}^2 - \alpha^2) {y} = 0 }$  <br> `spebj0` - Bessel function $J_0$ (α = 0). <br> `spebj1` - Bessel function $J_1$ (α = 1). <br> `speby0` - Bessel function $Y_0$ (α = 0). <br> `speby1` - Bessel function $Y_1$ (α = 1). <br> `spebi0` - modified Bessel function $I_0$ (α = 0). <br> `spebi1` - modified Bessel function $I_1$ (α = 1). <br> `spebk0` - modified Bessel function $K_0$ (α= 0). <br> `spebk1` - modified Bessel function $K_1$ (α = 1).|
 
 ### Other functions in unit `spe`
 
