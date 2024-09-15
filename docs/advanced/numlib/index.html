@@ -1970,60 +1970,49 @@
 <table>
 <thead>
 <tr>
-<th>Routine</th>
-<th>Operation</th>
-<th>Expression / Note</th>
+<th>Operation and Routine</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>omvinp</code></td>
-<td>Dot product</td>
+<td>Dot product  <br> <code>function omvinp(var a, b: ArbFloat; n: ArbInt): ArbFloat;</code></td>
 <td><span class="arithmatex">\(\begin{align}\mathbf{a} \cdot \mathbf{b} &amp;= \sum_{i=1}^n a_i b_i \\ &amp;= a_1 b_1 + a_2 b_2 + \dots + a_n b_n\end{align}\)</span></td>
 </tr>
 <tr>
-<td><code>omvmmm</code></td>
-<td>Product of two matrices</td>
+<td>Product of two matrices <br> <code>procedure omvmmm(var a: ArbFloat; m, n, rwa: ArbInt; var b: ArbFloat; p, rwb: ArbInt; var c: ArbFloat; rwc: ArbInt);</code></td>
 <td><span class="arithmatex">\(C_{ij} = \sum_{k=0}^n A_{ik} B_{kj}\)</span></td>
 </tr>
 <tr>
-<td><code>omvmmv</code></td>
-<td>Product of a matrix and a vector</td>
+<td>Product of a matrix and a vector <br> <code>procedure omvmmv(var a: ArbFloat; m, n, rwidth: ArbInt; var b, c: ArbFloat);</code></td>
 <td><span class="arithmatex">\(\begin{align}\mathbf{c} &amp;= A\ \mathbf{b} \\ &amp;= \left[ \begin{array}{cccc} a_{11} &amp; a_{12} &amp; a_{13} &amp; \ldots &amp; a_{1n} \\ a_{21} &amp; a_{22} &amp; a_{23} &amp; \ldots &amp; a_{2n} \\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{m1} &amp; a_{m2} &amp; a_{m3} &amp; \ldots &amp; a_{mn} \end{array} \right] \left[ \begin{array}{c} b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n \end{array} \right] \\ &amp;= \left[ \begin{array}{c} a_{11}b_1 + a_{12}b_2 + a_{13}b_3 + \cdots + a_{1n}b_n \\ a_{21}b_1 + a_{22}b_2 + a_{23}b_3 + \cdots + a_{2n}b_n \\ \vdots \\ a_{m1}b_1 + a_{m2}b_2 + a_{m3}b_3 + \cdots + a_{mn}b_n \end{array} \right]\end{align}\)</span></td>
 </tr>
 <tr>
-<td>omvtrm</td>
-<td>Transpose matrix</td>
+<td>Transpose matrix <br> <code>procedure omvtrm(var a: ArbFloat; m, n, rwa: ArbInt; var c: ArbFloat; rwc: ArbInt);</code></td>
 <td><span class="arithmatex">\(\begin{align}A &amp;= \left[ \begin{array}{cccc} a_{11} &amp; a_{12} &amp; a_{13} &amp; \ldots &amp; a_{1n} \\ a_{21} &amp; a_{22} &amp; a_{23} &amp; \ldots &amp; a_{2n} \\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{m1} &amp; a_{m2} &amp; a_{m3} &amp; \ldots &amp; a_{mn} \end{array} \right] \quad \\ A^T &amp;= \left[ \begin{array}{cccc} a_{11} &amp; a_{21} &amp; \ldots &amp; a_{m1} \\ a_{12} &amp; a_{22} &amp; \ldots &amp; a_{m2} \\ a_{13} &amp; a_{23} &amp; \ldots &amp; a_{m3} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{1n} &amp; a_{2n} &amp; \ldots &amp; a_{mn} \end{array} \right]\end{align}\)</span></td>
 </tr>
 <tr>
-<td><code>omvn1v</code></td>
-<td>1-norm of a vector</td>
+<td>1-norm of a vector <br> <code>function omvn1v(var a: ArbFloat; n: ArbInt): ArbFloat;</code></td>
 <td><span class="arithmatex">\(\|a\|_1 = \sum_{i=1}^n &#124;{a_i}&#124;\)</span></td>
 </tr>
 <tr>
-<td><code>omvn2v</code></td>
-<td>2-norm of a vector</td>
+<td>2-norm of a vector <br> <code>function omvn2v(var a: ArbFloat; n: ArbInt): ArbFloat;</code></td>
 <td><span class="arithmatex">\(\|a\|_2 = \sqrt{\sum_{i=1}^n {a_i}^2}\)</span></td>
 </tr>
 <tr>
-<td><code>omvnmv</code></td>
-<td>Maximum infinite norm of a vector</td>
-<td><span class="arithmatex">\(\|a\|_\infty = \max({a_1}, {a_2}, ... {a_n})\)</span></td>
+<td>Maximum infinite norm of a vector <br> <code>function omvnmv(var a: ArbFloat; n: ArbInt): ArbFloat;</code></td>
+<td></td>
 </tr>
 <tr>
-<td><code>omvn1m</code></td>
-<td>1-norm of a matrix</td>
+<td>1-norm of a matrix <br> <code>function omvn1m(var a: ArbFloat; m, n, rwidth: ArbInt): ArbFloat;</code></td>
 <td><span class="arithmatex">\(\|M\|_1 = \max_{1 \le j \le {n}} \sum_{i=1}^m&#124;M_{ij}&#124;\)</span></td>
 </tr>
 <tr>
-<td><code>omvnmm</code></td>
-<td>Maximum infinite norm of a matrix</td>
+<td>Maximum infinite norm of a matrix <br> <code>function omvnmm(var a: ArbFloat; m, n, rwidth: ArbInt): ArbFloat;</code></td>
 <td><span class="arithmatex">\(\|M\|_\infty = \max_{1 \le i \le\ m} \sum_{j=1}^n &#124;M_{ij}&#124;\)</span></td>
 </tr>
 <tr>
-<td><code>omvnfm</code></td>
-<td>Frobenius norm of a matrix</td>
+<td>Frobenius norm of a matrix <br> <code>function omvnfm(Var a: ArbFloat; m, n, rwidth: ArbInt): ArbFloat;</code></td>
 <td><span class="arithmatex">\(\|M\|_F = \sqrt{\sum_{i=1}^m \sum_{j=1}^n {M_{ij}}^2}\)</span></td>
 </tr>
 </tbody>
@@ -2066,7 +2055,7 @@
 <tbody>
 <tr>
 <td>Inverse of a matrix. <br> <code>procedure invgen(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);</code> <br> <code>procedure invgsy(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);</code> <br> <code>procedure invgpd(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);</code></td>
-<td>Suppose a square matrix <span class="arithmatex">\(A\)</span>. Then the matrix <span class="arithmatex">\(A^{-1}\)</span> is the inverse of <span class="arithmatex">\(A\)</span> if the product <span class="arithmatex">\(A^{-1} A\)</span> is the identity matrix <span class="arithmatex">\(I\)</span>.  <br> <span class="arithmatex">\(\displaystyle{  A^{-1} A = I =  \begin{bmatrix} 1  &amp;    &amp; 0 \\ &amp; \ddots  &amp;   \\  0  &amp;     &amp; 1 \end{bmatrix} }\)</span></td>
+<td>Suppose a square matrix <span class="arithmatex">\(A\)</span>. The matrix <span class="arithmatex">\(A^{-1}\)</span> is the inverse of <span class="arithmatex">\(A\)</span> if the product <span class="arithmatex">\(A^{-1} A\)</span> is the identity matrix <span class="arithmatex">\(I\)</span>. <br> <span class="arithmatex">\(\displaystyle{  A^{-1} A = I =  \begin{bmatrix} 1  &amp;    &amp; 0 \\ &amp; \ddots  &amp;   \\  0  &amp;     &amp; 1 \end{bmatrix} }\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -2090,7 +2079,7 @@
 </tr>
 <tr>
 <td>Symmetric positive definite band matrix. <br> <code>procedure slegpb(n, w: ArbInt; var a, b, x, ca: ArbFloat; var term: ArbInt);</code></td>
-<td>Optimised approach for a <a href="https://wiki.freepascal.org/NumLib_Documentation#Symmetric_positive_definite_band_matrix">symmetric positive band matrix</a></td>
+<td>Optimised approach for a <a href="https://wiki.freepascal.org/NumLib_Documentation#Symmetric_positive_definite_band_matrix">symmetric positive band matrix</a>.</td>
 </tr>
 <tr>
 <td>Tridiagonal matrix. <br> <code>procedure sledtr(n: ArbInt; var l, d, u, b, x: ArbFloat; var term: ArbInt);</code> <br> <code>procedure slegtr(n: ArbInt; var l, d, u, b, x, ca: ArbFloat; var term: ArbInt);</code></td>
@@ -2212,7 +2201,7 @@
 <td></td>
 </tr>
 <tr>
-<td>The <code>ipfisn</code> routine helps calculate the parameters of a spline. Next, use the <code>ipfspn</code> procedure to find the value of the spline at any point. <br> <code>procedure ipfisn(n: ArbInt; var x, y, d2s: ArbFloat; var term: ArbInt);</code> <br> <code>function  ipfspn(n: ArbInt; var x, y, d2s: ArbFloat; t: ArbFloat; var term: ArbInt): ArbFloat;</code></td>
+<td>Use <code>ipfisn</code> to calculate the parameters of a spline. Then use the <code>ipfspn</code> procedure to find the value of the spline at any point. <br> <code>procedure ipfisn(n: ArbInt; var x, y, d2s: ArbFloat; var term: ArbInt);</code> <br> <code>function  ipfspn(n: ArbInt; var x, y, d2s: ArbFloat; t: ArbFloat; var term: ArbInt): ArbFloat;</code></td>
 <td></td>
 </tr>
 </tbody>
@@ -2221,50 +2210,41 @@
 <table>
 <thead>
 <tr>
-<th>Routine</th>
-<th>Operation</th>
-<th>Expression / Note</th>
+<th>Operation and Routine</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>spepol</code></td>
-<td>An efficient method for evaluating a polynomial at a specific x value using Horner's scheme.</td>
+<td>An efficient method for evaluating a polynomial at a specific x value using Horner's scheme. <br> <code>function spepol(x: ArbFloat; var a: ArbFloat; n: ArbInt): ArbFloat;</code></td>
 <td><span class="arithmatex">\(\displaystyle{  \begin{align}\operatorname{p}(x) &amp;= a_0 + a_1 x + a_2 x^2 + ... + a_n x^n \\ \operatorname{p}(x) &amp;= a_0 + x (a_1 + x (a_2 + \dots + x (a_{n-1} + x a_n))) \end{align}}\)</span></td>
 </tr>
 <tr>
-<td><code>speerf</code>, <code>speefc</code></td>
-<td>Calculates error function <span class="arithmatex">\(erf(x)\)</span> and its complementary error function <span class="arithmatex">\(erfc(x)\)</span>.</td>
+<td>Calculates error function <span class="arithmatex">\(erf(x)\)</span> and its complementary error function <span class="arithmatex">\(erfc(x)\)</span>. <br><code>function speerf(x: ArbFloat): ArbFloat;</code> <br> <code>speefc</code></td>
 <td>The error function, <span class="arithmatex">\(erf(x)\)</span>, and its complement, <span class="arithmatex">\(erfc(x)\)</span>, represent the two parts (lower and upper) of the area under the curve of the bell-shaped Gaussian function. These areas are scaled so that together they add up to 1 (or 100%).</td>
 </tr>
 <tr>
-<td><code>normaldist</code>, <code>invnormaldist</code></td>
-<td>Normal and inverse normal distribution.</td>
+<td>Normal and inverse normal distribution. <br><code>function normaldist(x: ArbFloat): ArbFloat;</code> <br> <code>function invnormaldist(y: ArbFloat): ArbFloat;</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>spemgam</code> , <code>spelga</code></td>
-<td>Factorials to non-integer (and even complex) numbers.</td>
+<td>Factorials to non-integer (and even complex) numbers. <br><code>function spegam(x: ArbFloat): ArbFloat;</code> <br> <code>function spelga(x: ArbFloat): ArbFloat;</code></td>
 <td><span class="arithmatex">\(\displaystyle{ \Gamma({x}) = \int_0^{\infty}t^{x-1} e^{-t} dt }\)</span> <br>  <code>spemgam</code> - direct calculation <br> <code>spelga</code> - computes the natural logarithm of the Gamma function.</td>
 </tr>
 <tr>
-<td><code>gammap</code>, <code>gammaq</code></td>
-<td>Incomplete gamma function.</td>
+<td>Incomplete gamma function. <br><code>function gammap(s, x: ArbFloat): ArbFloat;</code> <br> <code>function gammaq(s, x: ArbFloat): ArbFloat;</code></td>
 <td><span class="arithmatex">\(\displaystyle{ \begin{align} \operatorname{P}({s},{x}) &amp;= \frac{1}{\Gamma({s})} \int_0^{x}t^{s-1} e^{-t} dt \\ \operatorname{Q}({s},{x}) &amp;= \frac{1}{\Gamma({s})} \int_{x}^{\infty}t^{s-1} e^{-t} dt = 1 - \operatorname{P}({s}, {x}) \end{align}}\)</span></td>
 </tr>
 <tr>
-<td><code>beta</code></td>
-<td>Beta function.</td>
+<td>Beta function. <br><code>function beta(a, b: ArbFloat): ArbFloat;</code></td>
 <td><span class="arithmatex">\(\displaystyle{ \operatorname{B}(a, b) = \frac{{\Gamma(a)}{\Gamma(b)}}{\Gamma(a+b)} = \int_0^1{t^{x-1} (1-t)^{y-1} dt} }\)</span></td>
 </tr>
 <tr>
-<td><code>betai</code></td>
-<td>Incomplete beta function.</td>
+<td>Incomplete beta function (and the inverse). <br><code>function betai(a, b, x: ArbFloat): ArbFloat;</code> <br> <code>function invbetai(a, b, y: ArbFloat): ArbFloat;</code></td>
 <td><span class="arithmatex">\(\displaystyle{ \operatorname{I}_x(a,b) = \frac {1}{\operatorname{B}(ab)} \int_0^x{t^{x-1} (1-t)^{y-1} dt} }\)</span></td>
 </tr>
 <tr>
-<td><code>spebj0</code>, <code>spebj1</code>, <code>speby0</code>, <code>speby1</code>, <code>spebi0</code>, <code>spebi1</code>, <code>spebk0</code>, <code>spebk1</code></td>
-<td>Bessel functions of the first kind (<span class="arithmatex">\(J_\alpha\)</span>), of the second kind (<span class="arithmatex">\(Y_\alpha\)</span>), and modified first (<span class="arithmatex">\(I_\alpha\)</span>) and second kind (<span class="arithmatex">\(K_\alpha\)</span>). <br> <br> NumLib implements only the solutions for the parameters <span class="arithmatex">\(α = 0\)</span> and <span class="arithmatex">\(α = 1\)</span>.</td>
+<td>Bessel functions of the first kind (<span class="arithmatex">\(J_\alpha\)</span>), of the second kind (<span class="arithmatex">\(Y_\alpha\)</span>), and modified first (<span class="arithmatex">\(I_\alpha\)</span>) and second kind (<span class="arithmatex">\(K_\alpha\)</span>). <br> <br> NumLib implements only the solutions for the parameters <span class="arithmatex">\(α = 0\)</span> and <span class="arithmatex">\(α = 1\)</span>. <br><code>function spebj0(x: ArbFloat): ArbFloat;</code> <br> <code>function spebj1(x: ArbFloat): ArbFloat;</code> <br> <code>function speby0(x: ArbFloat): ArbFloat;</code> <br> <code>function speby1(x: ArbFloat): ArbFloat;</code> <br> <code>function spebi0(x: ArbFloat): ArbFloat;</code> <br> <code>function spebi1(x: ArbFloat): ArbFloat;</code> <br> <code>function spebk0(x: ArbFloat): ArbFloat;</code> <br> <code>function spebk1(x: ArbFloat): ArbFloat;</code></td>
 <td>The Bessel functions are solutions of the Bessel differential equation: <br> <span class="arithmatex">\(\displaystyle{ {x}^2 y'' + x y' + ({x}^2 - \alpha^2) {y} = 0 }\)</span>  <br> <code>spebj0</code> - Bessel function <span class="arithmatex">\(J_0\)</span> (α = 0). <br> <code>spebj1</code> - Bessel function <span class="arithmatex">\(J_1\)</span> (α = 1). <br> <code>speby0</code> - Bessel function <span class="arithmatex">\(Y_0\)</span> (α = 0). <br> <code>speby1</code> - Bessel function <span class="arithmatex">\(Y_1\)</span> (α = 1). <br> <code>spebi0</code> - modified Bessel function <span class="arithmatex">\(I_0\)</span> (α = 0). <br> <code>spebi1</code> - modified Bessel function <span class="arithmatex">\(I_1\)</span> (α = 1). <br> <code>spebk0</code> - modified Bessel function <span class="arithmatex">\(K_0\)</span> (α= 0). <br> <code>spebk1</code> - modified Bessel function <span class="arithmatex">\(K_1\)</span> (α = 1).</td>
 </tr>
 </tbody>
