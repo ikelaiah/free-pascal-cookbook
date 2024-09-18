@@ -168,21 +168,10 @@ a = \begin{pmatrix} 0 \\ 1  \\ 2  \\ 2 \\ -1 \end{pmatrix}, \quad
 b = \begin{pmatrix} 3 \\ -1 \\ -2 \\ 2 \\ -1 \end{pmatrix}
 $$
 
-```pascal linenums="1" hl_lines="33"
-program InnerProductVectors;
+```pascal linenums="1" hl_lines="22"
+program omvinp_demo;
 
 {$mode objfpc}{$H+}{$J-}
-
-{
- An example of inner product of two vectors using omvinp in numlib.
-
- function omvinp(var a, b: ArbFloat; n: ArbInt): ArbFloat;
-
- - `a` and `b` are the first elements of 1-dimensional arrays representing
-    the vectors a and b, respectively.
- - `n` defines the dimension of the vectors (count of array elements).
- -  Both vectors must have the same number of elements.
-}
 
 uses
   {$IFDEF UNIX}
@@ -193,31 +182,31 @@ uses
   omv;
 
 var
-  a: array[0..4] of ArbFloat = (0, 1, 2, 2, -1);
-  b: array[0..4] of Arbfloat = (3, -1, -2, 2, -1);
-  ab: ArbFloat;
+  vector_a: array[1..5] of ArbFloat = (0, 1, 2, 2, -1);
+  vector_b: array[1..5] of Arbfloat = (3, -1, -2, 2, -1);
+  product_ab: ArbFloat;
   i: integer;
 
 begin
 
   // Perform dot product
-  ab := omvinp(a[0], b[0], high(a));
+  product_ab := omvinp(vector_a[1], vector_b[1], high(vector_a));
 
-  // Print vector a
+  // Print vector vector_a
   Write('Vector a = [');
-  for i := Low(a) to High(a) do
-    Write(a[i]: 5: 0);
+  for i := Low(vector_a) to High(vector_a) do
+    Write(vector_a[i]: 4: 0);
   WriteLn('  ]');
 
-  // Print vector b
+  // Print vector vector_b
   Write('Vector b = [');
-  for i := Low(b) to High(b) do
-    Write(b[i]: 5: 0);
+  for i := Low(vector_b) to High(vector_b) do
+    Write(vector_b[i]: 4: 0);
   WriteLn('  ]');
 
-  // Print a . b
+  // Print vector_a . b
   Write('Dot product a . b = ');
-  WriteLn(ab: 4: 0);
+  WriteLn(product_ab: 4: 0);
 
   WriteLn;
   WriteLn('Press enter key to quit');
