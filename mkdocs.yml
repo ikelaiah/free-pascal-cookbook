@@ -31,7 +31,8 @@ nav:
     - File Handling II: docs/core-tasks/file-handling-ii.md
   - Advanced Topics:
     - Overview: docs/advanced/overview.md
-    - Numerical with NumLib: docs/advanced/numlib.md
+    - Numerical - NumLib | Summary: docs/advanced/numlib-summary.md
+    - Numerical - NumLib | Examples: docs/advanced/numlib.md
     - Conditional Compilation: docs/advanced/conditional-compilation.md
     - Debugging with Lazarus IDE: docs/advanced/debugging.md
     - Find Heap Memory Leaks: docs/advanced/find-heap-memory-leaks.md
