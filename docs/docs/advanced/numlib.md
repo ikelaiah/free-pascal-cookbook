@@ -186,7 +186,7 @@ end.
 
 ### Transpose matrix
 
-The transpose matrix AT of matrix A is obtained by flipping rows and columns:
+The transpose matrix $A^{T}$ of matrix $A$ is obtained by flipping rows and columns:
 
 $$
 \displaystyle{ \begin{align*}
@@ -243,7 +243,7 @@ $$
  }
 $$
 
-```pascal linenums="1"
+```pascal linenums="1" hl_lines="26-29"
 program omvtrm_demo;
 
 {$mode objfpc}{$H+}{$J-}
