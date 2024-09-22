@@ -2710,27 +2710,27 @@ b = \begin{pmatrix} 3 \\ -1 \\ -2 \\ 2 \\ -1 \end{pmatrix}
 </li>
 </ul>
 <p><strong>Example</strong></p>
-<p>Solve this system of linear equations:
-$$
+<p>Solve this system of linear equations:</p>
+<div class="arithmatex">\[
 \displaystyle{  \begin{array}{ccccccc}
-    5 x_1 &amp; - &amp; 4 x_2 &amp; + &amp;   x_3 &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp; = 0  \
-   -4 x_1 &amp; + &amp; 6 x_2 &amp; - &amp; 4 x_3 &amp; + &amp;   x_4 &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp; = 0  \
-      x_1 &amp; - &amp; 4 x_2 &amp; + &amp; 6 x_3 &amp; - &amp; 4 x_4 &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp; = 0  \
-          &amp;   &amp;   x_2 &amp; - &amp; 4 x_3 &amp; + &amp; 6 x_4 &amp; - &amp; 4 x_5 &amp;   &amp;       &amp;   &amp;       &amp; = 1  \
-          &amp;   &amp;       &amp;   &amp;   x_3 &amp; - &amp; 4 x_4 &amp; + &amp; 6 x_5 &amp; - &amp; 4 x_6 &amp; + &amp;   x_7 &amp; = 0  \
-          &amp;   &amp;       &amp;   &amp;       &amp;   &amp;   x_4 &amp; - &amp; 4 x_5 &amp; + &amp; 6 x_6 &amp; - &amp; 4 x_7 &amp; = 0  \
-          &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp;   &amp;   x_5 &amp; - &amp; 4 x_6 &amp; + &amp; 5 x_7 &amp; = 0  \
+    5 x_1 &amp; - &amp; 4 x_2 &amp; + &amp;   x_3 &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp; = 0  \\
+   -4 x_1 &amp; + &amp; 6 x_2 &amp; - &amp; 4 x_3 &amp; + &amp;   x_4 &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp; = 0  \\
+      x_1 &amp; - &amp; 4 x_2 &amp; + &amp; 6 x_3 &amp; - &amp; 4 x_4 &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp; = 0  \\
+          &amp;   &amp;   x_2 &amp; - &amp; 4 x_3 &amp; + &amp; 6 x_4 &amp; - &amp; 4 x_5 &amp;   &amp;       &amp;   &amp;       &amp; = 1  \\
+          &amp;   &amp;       &amp;   &amp;   x_3 &amp; - &amp; 4 x_4 &amp; + &amp; 6 x_5 &amp; - &amp; 4 x_6 &amp; + &amp;   x_7 &amp; = 0  \\
+          &amp;   &amp;       &amp;   &amp;       &amp;   &amp;   x_4 &amp; - &amp; 4 x_5 &amp; + &amp; 6 x_6 &amp; - &amp; 4 x_7 &amp; = 0  \\
+          &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp;   &amp;   x_5 &amp; - &amp; 4 x_6 &amp; + &amp; 5 x_7 &amp; = 0  \\
   \end{array}
   \qquad \Rightarrow \qquad
   A=
   \left[
     \begin{array}{rrrr}
-       5 &amp; -4 &amp;  1 &amp;  0 &amp;  0 &amp;  0 &amp;  0  \
-      -4 &amp;  6 &amp; -4 &amp;  1 &amp;  0 &amp;  0 &amp;  0  \
-       1 &amp; -4 &amp;  6 &amp; -4 &amp;  1 &amp;  0 &amp;  0  \
-       0 &amp;  1 &amp; -4 &amp;  6 &amp; -4 &amp;  1 &amp;  0  \
-       0 &amp;  0 &amp;  1 &amp; -4 &amp;  6 &amp; -4 &amp;  1  \
-       0 &amp;  0 &amp;  0 &amp;  1 &amp; -4 &amp;  6 &amp; -4  \
+       5 &amp; -4 &amp;  1 &amp;  0 &amp;  0 &amp;  0 &amp;  0  \\
+      -4 &amp;  6 &amp; -4 &amp;  1 &amp;  0 &amp;  0 &amp;  0  \\
+       1 &amp; -4 &amp;  6 &amp; -4 &amp;  1 &amp;  0 &amp;  0  \\
+       0 &amp;  1 &amp; -4 &amp;  6 &amp; -4 &amp;  1 &amp;  0  \\
+       0 &amp;  0 &amp;  1 &amp; -4 &amp;  6 &amp; -4 &amp;  1  \\
+       0 &amp;  0 &amp;  0 &amp;  1 &amp; -4 &amp;  6 &amp; -4  \\
        0 &amp;  0 &amp;  0 &amp;  0 &amp;  1 &amp; -4 &amp;  5
     \end{array}
   \right]
@@ -2738,17 +2738,19 @@ $$
   \mathbf{b} =
   \left[
     \begin{array}{r}
-      0 \
-      0 \
-      0 \
-      1 \
-      0 \
-      0 \
+      0 \\
+      0 \\
+      0 \\
+      1 \\
+      0 \\
+      0 \\
       0
     \end{array}
   \right]
  }
-$$</p>
+\]</div>
+<div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="hll"><span class="c1">// Coming soon</span>
+</span></span></code></pre></div></td></tr></table></div>
 
 
 
