@@ -1266,6 +1266,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#band-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Band matrix
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1807,6 +1816,15 @@
   <a href="#square-matrices" class="md-nav__link">
     <span class="md-ellipsis">
       Square matrices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#band-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Band matrix
     </span>
   </a>
   
@@ -2466,6 +2484,36 @@ b = \begin{pmatrix} 3 \\ -1 \\ -2 \\ 2 \\ -1 \end{pmatrix}
 </li>
 </ul>
 <p><strong>Example</strong></p>
+<p>Solve this system of linear equations:</p>
+<div class="arithmatex">\[
+\displaystyle{  \begin{cases}
+    5 x_1 +  7 x_2 +  6 x_3 +  5 x_4 = 57  \\
+    7 x_1 + 10 x_2 +  8 x_3 +  7 x_4 = 79  \\
+    6 x_1 +  8 x_2 + 10 x_3 +  9 x_4 = 88  \\
+    5 x_1 +  7 x_2 +  9 x_3 + 10 x_4 = 86
+  \end{cases}
+  \qquad \Rightarrow \qquad
+  A=
+  \left[
+    \begin{array}{rrrr}
+       5 &amp;  7 &amp;  6 &amp;  5    \\
+       7 &amp; 10 &amp;  8 &amp;  7 \\
+       6 &amp;  8 &amp; 10 &amp;  9 \\
+       5 &amp;  7 &amp;  9 &amp; 10
+    \end{array}
+  \right]
+  , \;
+  \mathbf{b} =
+  \left[
+    \begin{array}{r}
+      57 \\
+      79 \\
+      88 \\
+      86
+    \end{array}
+  \right]
+ }
+\]</div>
 <div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
@@ -2634,6 +2682,73 @@ b = \begin{pmatrix} 3 \\ -1 \\ -2 \\ 2 \\ -1 \end{pmatrix}
 </span><span id="__span-8-83"><a id="__codelineno-8-83" name="__codelineno-8-83"></a><span class="w">  </span><span class="nb">ReadLn</span><span class="o">;</span><span class="w"> </span><span class="c1">// Wait for user input before closing</span>
 </span><span id="__span-8-84"><a id="__codelineno-8-84" name="__codelineno-8-84"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></table></div>
+<h3 id="band-matrix">Band matrix<a class="headerlink" href="#band-matrix" title="Permanent link">&para;</a></h3>
+<p><code>slegba</code> is implemented for a band matrix, i.e. a matrix in which all elements are zero outside a band of width <code>l</code> below and of width <code>r</code> above the main diagonal.</p>
+<div class="language-pascal highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">slegba</span><span class="p">(</span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">l</span><span class="o">,</span><span class="w"> </span><span class="n">r</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">a</span><span class="o">,</span><span class="w"> </span><span class="n">b</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">ca</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">term</span><span class="o">:</span><span class="n">ArbInt</span><span class="p">)</span><span class="o">;</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Note that a 2D array cannot be used for this routine.</p>
+</div>
+<ul>
+<li><code>n</code> is the number of columns and rows of the matrix (it must be a square matrix).</li>
+<li><code>l</code> is the left bandwidth, i.e. the number of diagonals the band extends below (or to the left of) the main diagonal.</li>
+<li><code>r</code> is the right bandwidth, i.e. the number of diagonals the band extends above (or to the right of) the main diagonsl.</li>
+<li><code>a</code> is the first element of a 1D array which contains the elements of the diagonal band, see this. This array contains only the band elements and is obtained by running across the rows of the band matrix from left to right and top to bottom, starting at element <span class="arithmatex">\(A_11\)</span>. <ul>
+<li>It must be dimensioned to contain at least <code>n*(l+1+r) - (r*(r+1)+l*(l+1)) div 2</code> elements. </li>
+<li><strong>Note that a 2D array cannot be used for this routine</strong>.</li>
+</ul>
+</li>
+<li><code>b</code> is the first element of the array containing the constant vector <span class="arithmatex">\(b\)</span>. The array length at least must be equal to <span class="arithmatex">\(n\)</span>. The vector will not be changed during the calculation.</li>
+<li><code>x</code> is the first element of the array to receive the solution vector <span class="arithmatex">\(x\)</span>. It must be allocated to contain at least <span class="arithmatex">\(n\)</span> values.</li>
+<li><code>ca</code> is a parameter to describe the accuracy of the solution.</li>
+<li><code>term</code> returns an error code:<ul>
+<li>1 - successful completion, the solution vector <span class="arithmatex">\(x\)</span> is valid</li>
+<li>2 - the solution could not have been determined because the matrix is (almost) singular.</li>
+<li>3 - error in input values: n &lt; 1, l &lt; 0, l &gt;= n, r &lt; 0, or r &gt;= n</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example</strong></p>
+<p>Solve this system of linear equations:
+$$
+\displaystyle{  \begin{array}{ccccccc}
+    5 x_1 &amp; - &amp; 4 x_2 &amp; + &amp;   x_3 &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp; = 0  \
+   -4 x_1 &amp; + &amp; 6 x_2 &amp; - &amp; 4 x_3 &amp; + &amp;   x_4 &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp; = 0  \
+      x_1 &amp; - &amp; 4 x_2 &amp; + &amp; 6 x_3 &amp; - &amp; 4 x_4 &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp; = 0  \
+          &amp;   &amp;   x_2 &amp; - &amp; 4 x_3 &amp; + &amp; 6 x_4 &amp; - &amp; 4 x_5 &amp;   &amp;       &amp;   &amp;       &amp; = 1  \
+          &amp;   &amp;       &amp;   &amp;   x_3 &amp; - &amp; 4 x_4 &amp; + &amp; 6 x_5 &amp; - &amp; 4 x_6 &amp; + &amp;   x_7 &amp; = 0  \
+          &amp;   &amp;       &amp;   &amp;       &amp;   &amp;   x_4 &amp; - &amp; 4 x_5 &amp; + &amp; 6 x_6 &amp; - &amp; 4 x_7 &amp; = 0  \
+          &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp;   &amp;   x_5 &amp; - &amp; 4 x_6 &amp; + &amp; 5 x_7 &amp; = 0  \
+  \end{array}
+  \qquad \Rightarrow \qquad
+  A=
+  \left[
+    \begin{array}{rrrr}
+       5 &amp; -4 &amp;  1 &amp;  0 &amp;  0 &amp;  0 &amp;  0  \
+      -4 &amp;  6 &amp; -4 &amp;  1 &amp;  0 &amp;  0 &amp;  0  \
+       1 &amp; -4 &amp;  6 &amp; -4 &amp;  1 &amp;  0 &amp;  0  \
+       0 &amp;  1 &amp; -4 &amp;  6 &amp; -4 &amp;  1 &amp;  0  \
+       0 &amp;  0 &amp;  1 &amp; -4 &amp;  6 &amp; -4 &amp;  1  \
+       0 &amp;  0 &amp;  0 &amp;  1 &amp; -4 &amp;  6 &amp; -4  \
+       0 &amp;  0 &amp;  0 &amp;  0 &amp;  1 &amp; -4 &amp;  5
+    \end{array}
+  \right]
+  , \;
+  \mathbf{b} =
+  \left[
+    \begin{array}{r}
+      0 \
+      0 \
+      0 \
+      1 \
+      0 \
+      0 \
+      0
+    \end{array}
+  \right]
+ }
+$$</p>
 
 
 
