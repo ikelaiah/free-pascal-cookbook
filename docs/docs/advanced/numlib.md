@@ -487,6 +487,38 @@ procedure slegpd(n, rwidth: ArbInt; var a, b, x, ca: ArbFloat; var term: ArbInt)
 
 **Example**
 
+Solve this system of linear equations:
+
+$$
+\displaystyle{  \begin{cases}
+    5 x_1 +  7 x_2 +  6 x_3 +  5 x_4 = 57  \\
+    7 x_1 + 10 x_2 +  8 x_3 +  7 x_4 = 79  \\
+    6 x_1 +  8 x_2 + 10 x_3 +  9 x_4 = 88  \\
+    5 x_1 +  7 x_2 +  9 x_3 + 10 x_4 = 86
+  \end{cases}
+  \qquad \Rightarrow \qquad
+  A=
+  \left[
+    \begin{array}{rrrr}
+       5 &  7 &  6 &  5    \\
+       7 & 10 &  8 &  7 \\
+       6 &  8 & 10 &  9 \\
+       5 &  7 &  9 & 10
+    \end{array}
+  \right]
+  , \;
+  \mathbf{b} =
+  \left[
+    \begin{array}{r}
+      57 \\
+      79 \\
+      88 \\
+      86
+    \end{array}
+  \right]
+ }
+$$
+
 ```pascal linenums="1" hl_lines="60-63"
 program SolveLinearEq;
 
@@ -573,3 +605,72 @@ begin
   ReadLn; // Wait for user input before closing
 end.
 ```
+
+### Band matrix
+
+`slegba` is implemented for a band matrix, i.e. a matrix in which all elements are zero outside a band of width `l` below and of width `r` above the main diagonal.
+
+```pascal
+procedure slegba(n, l, r: ArbInt; var a, b, x, ca: ArbFloat; var term:ArbInt);
+```
+
+!!! Warning
+    Note that a 2D array cannot be used for this routine.
+
+- `n` is the number of columns and rows of the matrix (it must be a square matrix).
+- `l` is the left bandwidth, i.e. the number of diagonals the band extends below (or to the left of) the main diagonal.
+- `r` is the right bandwidth, i.e. the number of diagonals the band extends above (or to the right of) the main diagonsl.
+- `a` is the first element of a 1D array which contains the elements of the diagonal band, see this. This array contains only the band elements and is obtained by running across the rows of the band matrix from left to right and top to bottom, starting at element $A_11$. 
+    - It must be dimensioned to contain at least `n*(l+1+r) - (r*(r+1)+l*(l+1)) div 2` elements. 
+    - **Note that a 2D array cannot be used for this routine**.
+- `b` is the first element of the array containing the constant vector $b$. The array length at least must be equal to $n$. The vector will not be changed during the calculation.
+- `x` is the first element of the array to receive the solution vector $x$. It must be allocated to contain at least $n$ values.
+- `ca` is a parameter to describe the accuracy of the solution.
+- `term` returns an error code:
+    - 1 - successful completion, the solution vector $x$ is valid
+    - 2 - the solution could not have been determined because the matrix is (almost) singular.
+    - 3 - error in input values: n < 1, l < 0, l >= n, r < 0, or r >= n
+
+
+**Example**
+
+Solve this system of linear equations:
+$$
+\displaystyle{  \begin{array}{ccccccc}
+    5 x_1 & - & 4 x_2 & + &   x_3 &   &       &   &       &   &       &   &       & = 0  \\
+   -4 x_1 & + & 6 x_2 & - & 4 x_3 & + &   x_4 &   &       &   &       &   &       & = 0  \\
+      x_1 & - & 4 x_2 & + & 6 x_3 & - & 4 x_4 &   &       &   &       &   &       & = 0  \\
+          &   &   x_2 & - & 4 x_3 & + & 6 x_4 & - & 4 x_5 &   &       &   &       & = 1  \\
+          &   &       &   &   x_3 & - & 4 x_4 & + & 6 x_5 & - & 4 x_6 & + &   x_7 & = 0  \\
+          &   &       &   &       &   &   x_4 & - & 4 x_5 & + & 6 x_6 & - & 4 x_7 & = 0  \\
+          &   &       &   &       &   &       &   &   x_5 & - & 4 x_6 & + & 5 x_7 & = 0  \\
+  \end{array}
+  \qquad \Rightarrow \qquad
+  A=
+  \left[
+    \begin{array}{rrrr}
+       5 & -4 &  1 &  0 &  0 &  0 &  0  \\
+      -4 &  6 & -4 &  1 &  0 &  0 &  0  \\
+       1 & -4 &  6 & -4 &  1 &  0 &  0  \\
+       0 &  1 & -4 &  6 & -4 &  1 &  0  \\
+       0 &  0 &  1 & -4 &  6 & -4 &  1  \\
+       0 &  0 &  0 &  1 & -4 &  6 & -4  \\
+       0 &  0 &  0 &  0 &  1 & -4 &  5
+    \end{array}
+  \right]
+  , \;
+  \mathbf{b} =
+  \left[
+    \begin{array}{r}
+      0 \\
+      0 \\
+      0 \\
+      1 \\
+      0 \\
+      0 \\
+      0
+    \end{array}
+  \right]
+ }
+$$
+
