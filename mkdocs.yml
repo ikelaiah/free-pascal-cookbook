@@ -31,6 +31,7 @@ nav:
     - File Handling II: docs/core-tasks/file-handling-ii.md
   - Advanced Topics:
     - Overview: docs/advanced/overview.md
+    - Math with LMath: docs/advanced/lmath.md
     - Numerical - NumLib | Summary: docs/advanced/numlib-summary.md
     - Numerical - NumLib | Examples: docs/advanced/numlib.md
     - Conditional Compilation: docs/advanced/conditional-compilation.md
