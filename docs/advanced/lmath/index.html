@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://ikelaiah.github.io/free-pascal-cookbook/docs/external-systems/overview/">
+        <link rel="canonical" href="https://ikelaiah.github.io/free-pascal-cookbook/docs/advanced/lmath/">
       
       
-        <link rel="prev" href="../../advanced/fpc-switches/">
+        <link rel="prev" href="../overview/">
       
       
-        <link rel="next" href="../parsing-json/">
+        <link rel="next" href="../numlib-summary/">
       
       
       <link rel="icon" href="../../../assets/logo-new-rounded-min.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Overview - Free Pascal Cookbook</title>
+        <title>Math with LMath - Free Pascal Cookbook</title>
       
     
     
@@ -90,7 +90,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#external-systems" class="md-skip">
+        <a href="#math-with-lmath" class="md-skip">
           Skip to content
         </a>
       
@@ -125,7 +125,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Overview
+              Math with LMath
             
           </span>
         </div>
@@ -265,11 +265,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../advanced/overview/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
           
   
   Advanced Topics
@@ -283,13 +285,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../external-systems/overview/" class="md-tabs__link">
           
   
   External Systems
@@ -1043,8 +1043,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -1053,12 +1055,12 @@
       
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
@@ -1072,7 +1074,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Advanced Topics
@@ -1086,7 +1088,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1104,10 +1106,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../advanced/lmath/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Math with LMath
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1116,6 +1138,110 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-does-it-offer" class="md-nav__link">
+    <span class="md-ellipsis">
+      What does it offer?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-compilation-and-use-of-the-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation, Compilation and use of the library
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation, Compilation and use of the library">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-download-unpack-and-compile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option #1: Download, unpack and compile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-download-use-the-project-group-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option #2: Download, use the Project Group package
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lmcomponents" class="md-nav__link">
+    <span class="md-ellipsis">
+      LMComponents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#note-on-compilation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Note on Compilation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1128,7 +1254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/numlib-summary/" class="md-nav__link">
+      <a href="../numlib-summary/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1149,7 +1275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/numlib/" class="md-nav__link">
+      <a href="../numlib/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1170,7 +1296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/conditional-compilation/" class="md-nav__link">
+      <a href="../conditional-compilation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1191,7 +1317,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/debugging/" class="md-nav__link">
+      <a href="../debugging/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1212,7 +1338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/find-heap-memory-leaks/" class="md-nav__link">
+      <a href="../find-heap-memory-leaks/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1233,7 +1359,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/multi-threading-basics/" class="md-nav__link">
+      <a href="../multi-threading-basics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1254,7 +1380,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/multi-threading-tthread-i-intro/" class="md-nav__link">
+      <a href="../multi-threading-tthread-i-intro/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1275,7 +1401,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/multi-threading-tthread-ii-cs/" class="md-nav__link">
+      <a href="../multi-threading-tthread-ii-cs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1296,7 +1422,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/multi-threading-tthread-iii-snippets/" class="md-nav__link">
+      <a href="../multi-threading-tthread-iii-snippets/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1317,7 +1443,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/ezthreads/" class="md-nav__link">
+      <a href="../ezthreads/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1338,7 +1464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/fpc-switches/" class="md-nav__link">
+      <a href="../fpc-switches/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1363,8 +1489,6 @@
       
   
   
-    
-  
   
   
     
@@ -1375,12 +1499,12 @@
       
       
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
@@ -1394,7 +1518,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             External Systems
@@ -1405,19 +1529,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../external-systems/overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1426,7 +1541,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -1439,7 +1553,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../parsing-json/" class="md-nav__link">
+      <a href="../../external-systems/parsing-json/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1460,7 +1574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../webserver/" class="md-nav__link">
+      <a href="../../external-systems/webserver/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1631,6 +1745,98 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-does-it-offer" class="md-nav__link">
+    <span class="md-ellipsis">
+      What does it offer?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-compilation-and-use-of-the-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation, Compilation and use of the library
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation, Compilation and use of the library">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-download-unpack-and-compile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option #1: Download, unpack and compile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-download-use-the-project-group-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option #2: Download, use the Project Group package
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lmcomponents" class="md-nav__link">
+    <span class="md-ellipsis">
+      LMComponents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#note-on-compilation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Note on Compilation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1644,9 +1850,65 @@
                   
 
 
-<h1 id="external-systems">External Systems<a class="headerlink" href="#external-systems" title="Permanent link">&para;</a></h1>
-<p>This section has recipes on interacting with outside worlds using Free Pascal and Lazarus.</p>
-<p>Choose a topic from the left sidebar.</p>
+<h1 id="math-with-lmath">Math with LMath<a class="headerlink" href="#math-with-lmath" title="Permanent link">&para;</a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Credit</p>
+<p>Huge thanks to Viatcheslav Nesterov (Glorfin) for maintaining <strong>LMath</strong> package for Free Pascal and Lazarus users.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The content of this page is adapted from the official document on <a href="https://sourceforge.net/projects/lmath-library/files/DOC/LMath06/">Sourceforge</a>.</p>
+</div>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>LMath, further development of DMath library from Jean Debord, is a general purpose mathematical library for FreePascal (FPC) and Lazarus. LMath provides routines and demo programs for numerical analysis, including mathematical functions, probabilities, matrices, optimization, linear and nonlinear equations, integration, Fast Fourier Transform, random numbers, curve fitting, statistics and graphics. It is organized as a set of lazarus packages. Such organization makes it easily extensible and helps to include only really needed features in your project. </p>
+<p>DMath stands for Delphi Math, and is a continuation of an earlier work which was named TPMath, for Turbo Pascal Math. Continuing this tradition, this this
+library is called LMath: Lazarus Math.</p>
+<p>Source: <a href="https://sourceforge.net/projects/lmath-library/files/DOC/LMath06/">LMath 0.6 Official Doc</a>.</p>
+</blockquote>
+<p>Check the <a href="https://sourceforge.net/projects/lmath-library/files/DOC/LMath06/">official document</a> for what is new in LMath compared to DMath.</p>
+<p>License: LGPL 3.0</p>
+<h3 id="what-does-it-offer">What does it offer?<a class="headerlink" href="#what-does-it-offer" title="Permanent link">&para;</a></h3>
+<p>LMath has 13 relatively small packages:</p>
+<ol>
+<li><strong><code>lmGenMath</code></strong>. This package defines several important data structures, used later in the whole library, some utility functions, basic math functions and special functions. All other packages of the library depend on <code>lmGenMath</code>.</li>
+<li><strong><code>lmMathUtil</code></strong>. Various function for manipulations with arrays, sorting and formatting. Depends on <code>lmGenMath</code>.</li>
+<li><strong><code>lmLinearAlgebra</code></strong>. Operations over vectors and matrices. Depends on <code>lmMathUtil</code> and <code>lmGenMath</code>.</li>
+<li><strong><code>lmPolynoms</code></strong>. Evaluation of polynomials, polynomial roots finding, polynomial critical points finding. Depends on <code>lmGenMath</code> and <code>lmLinearAlgebra</code>.</li>
+<li><strong><code>lmIntegrals</code></strong>. Numeric integrating and solving differential equations. Depends on <code>lmGenMath</code>.</li>
+<li><strong><code>lmRandoms</code></strong>. Generation of random numbers. Depends on <code>lmGenMath</code>.</li>
+<li><strong><code>lmMathStat</code></strong> Descriptive statistics, hypothesis testing, collection of various distributions. Depends on <code>lmGenMath</code> and <code>lmLinearAlgebra</code>.</li>
+<li><strong><code>lmOptimum</code></strong>. Algorithms of function minimization. Somewhat artificially, unit <code>uEval</code> for evaluation of an expression, is included into this package. Depends on <code>lmGenMath</code>, <code>lmLinearAlgebra</code>, <code>lmRandoms</code>, <code>lmMathStat</code>.</li>
+<li><strong><code>lmNonLinEq</code></strong>. Finding of roots of non-linear equations. Depends on <code>lmGenMath</code>, <code>lmLinearAlgebra</code>, <code>lmOptimum</code>.</li>
+<li><strong><code>lmDSP</code></strong>. Functions for digital signal processing. Collection of filters and Fourier Transform procedures.</li>
+<li><strong><code>lmRegression</code></strong>. Functions for linear and non-linear regression, curve fitting. Collection of common models. Unit <code>uFFT</code> for fast Fourier Transform is located also here. Depends on <code>lmLinearAlgebra</code>, <code>lmPolynoms</code>, <code>lmOptimum</code>, <code>lmMathUtil</code>.</li>
+<li><strong><code>lmSpecRegress</code></strong>. Collection of field-specific models for data fitting. Depends on <code>lmGenMath</code> and <code>lmRegression</code>.</li>
+<li><strong><code>lmPlotter</code></strong>. Routines for data and functions plotting. Depends on <code>lmGenMath</code>, <code>lmMathUtil</code> and <code>LCL</code>.</li>
+</ol>
+<h2 id="installation-compilation-and-use-of-the-library">Installation, Compilation and use of the library<a class="headerlink" href="#installation-compilation-and-use-of-the-library" title="Permanent link">&para;</a></h2>
+<h3 id="option-1-download-unpack-and-compile">Option #1: Download, unpack and compile<a class="headerlink" href="#option-1-download-unpack-and-compile" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Download and unpack file <code>LMath and Components06.zip</code>. </li>
+<li>Open and compile packages in this order; <code>lmGenMath</code>, <code>lmMathUtil</code>, <code>lmLinearAlgebra</code>, <code>lmPolynoms</code>, <code>lmIntegrals</code>, <code>lmRandoms</code>, <code>lmMathStat</code>, <code>lmOptimum</code>, <code>lmNonLinEq</code>, <code>lmRegression</code>, <code>lmSpecRegress</code>, <code>lmDSP</code>, <code>lmPlotter</code>. </li>
+<li>After it you may compile <code>LMath.pkg</code>, which simply depends on all these packages. Therefore, if you add dependency on LMath
+to your project, it is not necessary to add every single package.</li>
+</ol>
+<h3 id="option-2-download-use-the-project-group-package">Option #2: Download, use the Project Group package<a class="headerlink" href="#option-2-download-use-the-project-group-package" title="Permanent link">&para;</a></h3>
+<p>Alternatively, if you have <code>Project Groups</code> package installed in your Lazarus IDE, you can open and compile LMath project group, select LMath target and compile it.</p>
+<h3 id="lmcomponents">LMComponents<a class="headerlink" href="#lmcomponents" title="Permanent link">&para;</a></h3>
+<p>If you are going to use <code>LMComponents</code>, open <code>LMComponents</code> package, compile and install it.</p>
+<p><code>LMComponents</code> is an object-oriented extension of <code>LMath</code>. It contains <code>TCoordSys</code> component which serves for graphical representation of functions or data, several dialogs and input controls, as well as DSP filters implemented as components.</p>
+<h3 id="note-on-compilation">Note on Compilation<a class="headerlink" href="#note-on-compilation" title="Permanent link">&para;</a></h3>
+<p>For the sake of maximally broad compatibility, rather conservative optimization options are selected in LMath packages (optimization level 2, no options for modern processors selected). Depending on your system, you may want to increase this level and use options for modern processors. </p>
+<p>For example, you may want to define the following to effectively use AVX2 registers.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>-CfAVX2
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>-CpCOREAVX2
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>-OoFASTMATH
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>-OoLOOPUNROLL
+</span></code></pre></div>
+<p><strong>Do not generate debug information</strong> is selected by default in the options of LMath packages. If you want to step into LMath procedures debugging your programs, change it. If you find a bug in LMath, please, report it at the official site at Sourseforge.</p>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>Coming soon.</p>
 
 
 
