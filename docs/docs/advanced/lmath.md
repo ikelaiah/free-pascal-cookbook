@@ -1,11 +1,11 @@
 # Math with LMath
 
 !!! Tip "Credit"
-    Huge thanks to Viatcheslav Nesterov (Glorfin) for maintaining **LMath** package for Free Pascal and Lazarus users.
+    Huge thanks to **Jean Debord** for the work in [**Dmath**](https://sourceforge.net/projects/dmath/) and also to **Viatcheslav Nesterov** (Glorfin) for the contributions to the [**LMath**](https://sourceforge.net/projects/lmath-library/), both invaluable resources for Free Pascal and Lazarus users.
 
 
 !!! Info
-    The content of this page is adapted from the official document on [Sourceforge](https://sourceforge.net/projects/lmath-library/files/DOC/LMath06/).
+    The content of this page is adapted from the official document of **LMath** on [Sourceforge](https://sourceforge.net/projects/lmath-library/files/DOC/LMath06/).
 
 ## Introduction
 
