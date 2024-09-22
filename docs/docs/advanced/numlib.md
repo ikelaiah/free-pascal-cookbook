@@ -635,6 +635,7 @@ procedure slegba(n, l, r: ArbInt; var a, b, x, ca: ArbFloat; var term:ArbInt);
 **Example**
 
 Solve this system of linear equations:
+
 $$
 \displaystyle{  \begin{array}{ccccccc}
     5 x_1 & - & 4 x_2 & + &   x_3 &   &       &   &       &   &       &   &       & = 0  \\
@@ -674,3 +675,6 @@ $$
  }
 $$
 
+```pascal linenums="1" hl_lines="1"
+// Coming soon
+```
