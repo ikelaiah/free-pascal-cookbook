@@ -615,7 +615,7 @@ procedure slegba(n, l, r: ArbInt; var a, b, x, ca: ArbFloat; var term:ArbInt);
 ```
 
 !!! Warning
-    Note that a 2D array cannot be used for this routine.
+    Note that a 2D dynamic array (`array of array of ArbFloat`) cannot be used for this routine.
 
 - `n` is the number of columns and rows of the matrix (it must be a square matrix).
 - `l` is the left bandwidth, i.e. the number of diagonals the band extends below (or to the left of) the main diagonal.
