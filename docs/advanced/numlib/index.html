@@ -1267,9 +1267,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#band-matrix" class="md-nav__link">
+  <a href="#band-matrices" class="md-nav__link">
     <span class="md-ellipsis">
-      Band matrix
+      Band matrices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symmetric-positive-definite-band-matrices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Symmetric positive definite band matrices
     </span>
   </a>
   
@@ -1822,9 +1831,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#band-matrix" class="md-nav__link">
+  <a href="#band-matrices" class="md-nav__link">
     <span class="md-ellipsis">
-      Band matrix
+      Band matrices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symmetric-positive-definite-band-matrices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Symmetric positive definite band matrices
     </span>
   </a>
   
@@ -2682,19 +2700,20 @@ b = \begin{pmatrix} 3 \\ -1 \\ -2 \\ 2 \\ -1 \end{pmatrix}
 </span><span id="__span-8-83"><a id="__codelineno-8-83" name="__codelineno-8-83"></a><span class="w">  </span><span class="nb">ReadLn</span><span class="o">;</span><span class="w"> </span><span class="c1">// Wait for user input before closing</span>
 </span><span id="__span-8-84"><a id="__codelineno-8-84" name="__codelineno-8-84"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></table></div>
-<h3 id="band-matrix">Band matrix<a class="headerlink" href="#band-matrix" title="Permanent link">&para;</a></h3>
-<p><code>slegba</code> is specially implemented for a band matrix, i.e. a matrix in which all elements are zero outside a band of width <code>l</code> below and of width <code>r</code> above the main diagonal.</p>
+<h3 id="band-matrices">Band matrices<a class="headerlink" href="#band-matrices" title="Permanent link">&para;</a></h3>
+<p><code>slegba</code> is the optimised solution for band matrices, i.e. matrices in which all elements are zero outside a band of width <code>l</code> below and of width <code>r</code> above the main diagonal.</p>
 <div class="language-pascal highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">slegba</span><span class="p">(</span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">l</span><span class="o">,</span><span class="w"> </span><span class="n">r</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">a</span><span class="o">,</span><span class="w"> </span><span class="n">b</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">ca</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">term</span><span class="o">:</span><span class="n">ArbInt</span><span class="p">)</span><span class="o">;</span>
 </span></code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Note that a 2D dynamic array (<code>array of array of ArbFloat</code>) cannot be used for this routine.</p>
+<p>Note that this routine cannot work with a 2D array.</p>
 </div>
 <ul>
 <li><code>n</code> is the number of columns and rows of the matrix (it must be a square matrix).</li>
 <li><code>l</code> is the left bandwidth, i.e. the number of diagonals the band extends below (or to the left of) the main diagonal.</li>
 <li><code>r</code> is the right bandwidth, i.e. the number of diagonals the band extends above (or to the right of) the main diagonsl.</li>
-<li><code>a</code> is the first element of a 1D array which contains the elements of the diagonal band, see this. This array contains only the band elements and is obtained by running across the rows of the band matrix from left to right and top to bottom, starting at element <span class="arithmatex">\(A_11\)</span>. <ul>
+<li><code>a</code> is the first element of a 1D array which contains the elements of the diagonal band, see this.<ul>
+<li>This array <strong>contains only the band elements and is obtained by running across the rows of the band matrix from left to right and top to bottom, starting at</strong> <span class="arithmatex">\(A_11\)</span>. </li>
 <li>It must be dimensioned to contain at least <code>n*(l+1+r) - (r*(r+1)+l*(l+1)) div 2</code> elements. </li>
 <li><strong>Note that a 2D array cannot be used for this routine</strong>.</li>
 </ul>
@@ -2982,6 +3001,286 @@ b = \begin{pmatrix} 3 \\ -1 \\ -2 \\ 2 \\ -1 \end{pmatrix}
 </span><span id="__span-10-115"><a id="__codelineno-10-115" name="__codelineno-10-115"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Press enter to quit&#39;</span><span class="p">)</span><span class="o">;</span>
 </span><span id="__span-10-116"><a id="__codelineno-10-116" name="__codelineno-10-116"></a><span class="w">  </span><span class="nb">ReadLn</span><span class="o">;</span>
 </span><span id="__span-10-117"><a id="__codelineno-10-117" name="__codelineno-10-117"></a><span class="k">end</span><span class="o">.</span>
+</span></code></pre></div></td></tr></table></div>
+<h3 id="symmetric-positive-definite-band-matrices">Symmetric positive definite band matrices<a class="headerlink" href="#symmetric-positive-definite-band-matrices" title="Permanent link">&para;</a></h3>
+<p><code>slegpb</code> is the optimised solution method for symmetric positive band matrices.</p>
+<div class="language-pascal highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">slegpb</span><span class="p">(</span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">w</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">a</span><span class="o">,</span><span class="w"> </span><span class="n">b</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">ca</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="p">)</span><span class="o">;</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Note that this routine cannot work with a 2D array.</p>
+</div>
+<ul>
+<li><code>n</code> is the number of rows and columns in the matrix (the matrix must be square).</li>
+<li><code>w</code> is the bandwidth (one-sided), which is the number of diagonals that extend below (or to the left of) the main diagonal. This value is also the number of diagonals that extend above (or to the right of) the main diagonal.</li>
+<li><code>a</code> points to the first element of a 1D array that contains the elements of the diagonal band. <ul>
+<li>This array holds only the band elements and is constructed by traversing the rows of the band matrix from top-left to bottom-right, stopping at the main diagonal. </li>
+<li>As a result, <strong>it contains only the left band and the main diagonal elements</strong>.</li>
+<li>The array must be dimensioned to hold at least <code>n*(w+1) - (w*(w+1)) div 2</code> elements. </li>
+<li><strong>Note that this routine cannot work with a 2D array</strong>.</li>
+</ul>
+</li>
+<li><code>b</code> points to the first element of the array holding the constant vector <span class="arithmatex">\(b\)</span>. The length of this array must be at least <span class="arithmatex">\(n\)</span>, and the vector remains unchanged during the computation.</li>
+<li><code>x</code> is the first element of the array where the solution vector <span class="arithmatex">\(x\)</span> will be stored. It must be large enough to hold at least <code>n</code> values. If term is not equal to 1, the solution array may contain invalid data.</li>
+<li><code>ca</code> specifies the accuracy of the solution.</li>
+<li><code>term</code> is an error code that indicates the result of the calculation:<ul>
+<li>1: The computation was successful, and the solution vector <span class="arithmatex">\(x\)</span> is valid.</li>
+<li>2: The matrix is (nearly) singular, so a solution could not be determined.</li>
+<li>3: There was an error in the input values (e.g., <code>n &lt; 1</code>, <code>w &lt; 0</code>, or <code>w &gt;= n</code>).</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example</strong></p>
+<p>Solve this system of linear equations.</p>
+<div class="arithmatex">\[
+\displaystyle{  \begin{array}{ccccccc}
+    5 x_1 &amp; - &amp; 4 x_2 &amp; + &amp;   x_3 &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp; = 0  \\
+   -4 x_1 &amp; + &amp; 6 x_2 &amp; - &amp; 4 x_3 &amp; + &amp;   x_4 &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp; = 0  \\
+      x_1 &amp; - &amp; 4 x_2 &amp; + &amp; 6 x_3 &amp; - &amp; 4 x_4 &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp; = 0  \\
+          &amp;   &amp;   x_2 &amp; - &amp; 4 x_3 &amp; + &amp; 6 x_4 &amp; - &amp; 4 x_5 &amp;   &amp;       &amp;   &amp;       &amp; = 1  \\
+          &amp;   &amp;       &amp;   &amp;   x_3 &amp; - &amp; 4 x_4 &amp; + &amp; 6 x_5 &amp; - &amp; 4 x_6 &amp; + &amp;   x_7 &amp; = 0  \\
+          &amp;   &amp;       &amp;   &amp;       &amp;   &amp;   x_4 &amp; - &amp; 4 x_5 &amp; + &amp; 6 x_6 &amp; - &amp; 4 x_7 &amp; = 0  \\
+          &amp;   &amp;       &amp;   &amp;       &amp;   &amp;       &amp;   &amp;   x_5 &amp; - &amp; 4 x_6 &amp; + &amp; 5 x_7 &amp; = 0  \\
+  \end{array}
+  \qquad \Rightarrow \qquad
+  A=
+  \left[
+    \begin{array}{rrrr}
+       5 &amp; -4 &amp;  1 &amp;  0 &amp;  0 &amp;  0 &amp;  0  \\
+      -4 &amp;  6 &amp; -4 &amp;  1 &amp;  0 &amp;  0 &amp;  0  \\
+       1 &amp; -4 &amp;  6 &amp; -4 &amp;  1 &amp;  0 &amp;  0  \\
+       0 &amp;  1 &amp; -4 &amp;  6 &amp; -4 &amp;  1 &amp;  0  \\
+       0 &amp;  0 &amp;  1 &amp; -4 &amp;  6 &amp; -4 &amp;  1  \\
+       0 &amp;  0 &amp;  0 &amp;  1 &amp; -4 &amp;  6 &amp; -4  \\
+       0 &amp;  0 &amp;  0 &amp;  0 &amp;  1 &amp; -4 &amp;  5
+    \end{array}
+  \right]
+  , \;
+  \mathbf{b} =
+  \left[
+    \begin{array}{r}
+      0 \\
+      0 \\
+      0 \\
+      1 \\
+      0 \\
+      0 \\
+      0
+    \end{array}
+  \right]
+ }
+\]</div>
+<div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">  1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">  2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">  3</a></span>
+<span class="normal"><a href="#__codelineno-12-4">  4</a></span>
+<span class="normal"><a href="#__codelineno-12-5">  5</a></span>
+<span class="normal"><a href="#__codelineno-12-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-12-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-12-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-12-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-12-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-12-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-12-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-12-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-12-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-12-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-12-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-12-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-12-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-12-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-12-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-12-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-12-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-12-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-12-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-12-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-12-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-12-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-12-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-12-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-12-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-12-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-12-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-12-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-12-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-12-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-12-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-12-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-12-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-12-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-12-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-12-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-12-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-12-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-12-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-12-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-12-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-12-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-12-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-12-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-12-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-12-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-12-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-12-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-12-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-12-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-12-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-12-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-12-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-12-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-12-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-12-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-12-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-12-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-12-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-12-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-12-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-12-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-12-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-12-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-12-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-12-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-12-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-12-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-12-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-12-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-12-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-12-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-12-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-12-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-12-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-12-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-12-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-12-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-12-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-12-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-12-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-12-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-12-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-12-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-12-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-12-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-12-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-12-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-12-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-12-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-12-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-12-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-12-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-12-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-12-100">100</a></span>
+<span class="normal"><a href="#__codelineno-12-101">101</a></span>
+<span class="normal"><a href="#__codelineno-12-102">102</a></span>
+<span class="normal"><a href="#__codelineno-12-103">103</a></span>
+<span class="normal"><a href="#__codelineno-12-104">104</a></span>
+<span class="normal"><a href="#__codelineno-12-105">105</a></span>
+<span class="normal"><a href="#__codelineno-12-106">106</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="k">program</span><span class="w"> </span><span class="n">solve_spd</span><span class="o">;</span><span class="w">    </span><span class="c1">// &quot;spd&quot; = symmetric positive definite</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="k">uses</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="w">  </span><span class="n">typ</span><span class="o">,</span><span class="w"> </span><span class="n">sle</span><span class="o">,</span><span class="w"> </span><span class="n">omv</span><span class="o">;</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="k">const</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="w">  </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="o">;</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10"></a><span class="w">  </span><span class="n">w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="o">;</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11"></a><span class="w">  </span><span class="n">n_band_elements</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">w</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="k">div</span><span class="w"> </span><span class="mi">2</span><span class="o">;</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12"></a>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13"></a><span class="k">var</span>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14"></a><span class="w">  </span><span class="c1">// Band elements arranged in rows</span>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15"></a><span class="w">  </span><span class="c1">// Elements outside of the band as well as right diagonals are omitted!</span>
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16"></a><span class="w">  </span><span class="n">mat_a</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">n_band_elements</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">Arbfloat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17"></a><span class="w">             </span><span class="mi">5</span><span class="o">,</span>
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18"></a><span class="w">            </span><span class="o">-</span><span class="mi">4</span><span class="o">,</span><span class="w"> </span><span class="mi">6</span><span class="o">,</span>
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19"></a><span class="w">             </span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="o">-</span><span class="mi">4</span><span class="o">,</span><span class="w"> </span><span class="mi">6</span><span class="o">,</span>
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20"></a><span class="w">                 </span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="o">-</span><span class="mi">4</span><span class="o">,</span><span class="w"> </span><span class="mi">6</span><span class="o">,</span>
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21"></a><span class="w">                     </span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="o">-</span><span class="mi">4</span><span class="o">,</span><span class="w"> </span><span class="mi">6</span><span class="o">,</span>
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22"></a><span class="w">                       </span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="o">-</span><span class="mi">4</span><span class="o">,</span><span class="w"> </span><span class="mi">6</span><span class="o">,</span>
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23"></a><span class="w">                          </span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="o">-</span><span class="mi">4</span><span class="o">,</span><span class="w"> </span><span class="mi">5</span>
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24"></a><span class="w">    </span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25"></a><span class="w">  </span><span class="n">vec_b</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">ArbFloat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26"></a><span class="w">    </span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27"></a><span class="w">  </span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-28"><a id="__codelineno-12-28" name="__codelineno-12-28"></a><span class="w">  </span><span class="n">soln_vec_x</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span>
+</span><span id="__span-12-29"><a id="__codelineno-12-29" name="__codelineno-12-29"></a><span class="w">  </span><span class="n">mat_a_test</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span>
+</span><span id="__span-12-30"><a id="__codelineno-12-30" name="__codelineno-12-30"></a><span class="w">  </span><span class="n">vec_b_test</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span>
+</span><span id="__span-12-31"><a id="__codelineno-12-31" name="__codelineno-12-31"></a><span class="w">  </span><span class="n">ca</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span>
+</span><span id="__span-12-32"><a id="__codelineno-12-32" name="__codelineno-12-32"></a><span class="w">  </span><span class="n">i</span><span class="o">,</span><span class="w"> </span><span class="n">j</span><span class="o">,</span><span class="w"> </span><span class="n">k</span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="o">;</span>
+</span><span id="__span-12-33"><a id="__codelineno-12-33" name="__codelineno-12-33"></a><span class="w">  </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="o">;</span>
+</span><span id="__span-12-34"><a id="__codelineno-12-34" name="__codelineno-12-34"></a>
+</span><span id="__span-12-35"><a id="__codelineno-12-35" name="__codelineno-12-35"></a><span class="k">begin</span>
+</span><span id="__span-12-36"><a id="__codelineno-12-36" name="__codelineno-12-36"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Solve matrix system A x = b where A is a symmetric positive definite band matrix&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-37"><a id="__codelineno-12-37" name="__codelineno-12-37"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-12-38"><a id="__codelineno-12-38" name="__codelineno-12-38"></a>
+</span><span id="__span-12-39"><a id="__codelineno-12-39" name="__codelineno-12-39"></a><span class="w">  </span><span class="c1">// Write diagonal elements</span>
+</span><span id="__span-12-40"><a id="__codelineno-12-40" name="__codelineno-12-40"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Matrix A:&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-41"><a id="__codelineno-12-41" name="__codelineno-12-41"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;  n = &#39;</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-42"><a id="__codelineno-12-42" name="__codelineno-12-42"></a><span class="w">  </span><span class="nb">Writeln</span><span class="p">(</span><span class="s">&#39;  (One-sided) band width w = &#39;</span><span class="o">,</span><span class="w"> </span><span class="n">w</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-43"><a id="__codelineno-12-43" name="__codelineno-12-43"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;  Diagonal elements of A = &#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-44"><a id="__codelineno-12-44" name="__codelineno-12-44"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">n_band_elements</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-12-45"><a id="__codelineno-12-45" name="__codelineno-12-45"></a><span class="w">    </span><span class="nb">Write</span><span class="p">(</span><span class="n">mat_a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">:</span><span class="mi">5</span><span class="o">:</span><span class="mi">0</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-46"><a id="__codelineno-12-46" name="__codelineno-12-46"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-12-47"><a id="__codelineno-12-47" name="__codelineno-12-47"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-12-48"><a id="__codelineno-12-48" name="__codelineno-12-48"></a>
+</span><span id="__span-12-49"><a id="__codelineno-12-49" name="__codelineno-12-49"></a><span class="w">  </span><span class="c1">// Solve</span>
+</span><span id="__span-12-50"><a id="__codelineno-12-50" name="__codelineno-12-50"></a><span class="hll"><span class="w">  </span><span class="n">slegpb</span><span class="p">(</span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">w</span><span class="o">,</span><span class="w"> </span><span class="n">mat_a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">vec_b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">soln_vec_x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">ca</span><span class="o">,</span><span class="w"> </span><span class="n">term</span><span class="p">)</span><span class="o">;</span>
+</span></span><span id="__span-12-51"><a id="__codelineno-12-51" name="__codelineno-12-51"></a>
+</span><span id="__span-12-52"><a id="__codelineno-12-52" name="__codelineno-12-52"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">term</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="k">begin</span>
+</span><span id="__span-12-53"><a id="__codelineno-12-53" name="__codelineno-12-53"></a><span class="w">    </span><span class="c1">// To test the result we multiply a with the solution vector x and check</span>
+</span><span id="__span-12-54"><a id="__codelineno-12-54" name="__codelineno-12-54"></a><span class="w">    </span><span class="c1">// whether the result is equal to b.</span>
+</span><span id="__span-12-55"><a id="__codelineno-12-55" name="__codelineno-12-55"></a><span class="w">    </span><span class="c1">// Since mutliplication of a matrix stored like a band matrix is quite</span>
+</span><span id="__span-12-56"><a id="__codelineno-12-56" name="__codelineno-12-56"></a><span class="w">    </span><span class="c1">// cumbersome we copy the band matrix into a standard matrix.</span>
+</span><span id="__span-12-57"><a id="__codelineno-12-57" name="__codelineno-12-57"></a><span class="w">    </span><span class="nb">FillChar</span><span class="p">(</span><span class="n">mat_a_test</span><span class="o">,</span><span class="w"> </span><span class="nb">SizeOf</span><span class="p">(</span><span class="n">mat_a_test</span><span class="p">)</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-58"><a id="__codelineno-12-58" name="__codelineno-12-58"></a><span class="w">    </span><span class="n">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="o">;</span>
+</span><span id="__span-12-59"><a id="__codelineno-12-59" name="__codelineno-12-59"></a><span class="w">    </span><span class="n">k</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="o">;</span>
+</span><span id="__span-12-60"><a id="__codelineno-12-60" name="__codelineno-12-60"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n_band_elements</span><span class="p">)</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="k">begin</span>
+</span><span id="__span-12-61"><a id="__codelineno-12-61" name="__codelineno-12-61"></a><span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">w</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-12-62"><a id="__codelineno-12-62" name="__codelineno-12-62"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="k">begin</span>
+</span><span id="__span-12-63"><a id="__codelineno-12-63" name="__codelineno-12-63"></a><span class="w">          </span><span class="n">mat_a_test</span><span class="p">[</span><span class="n">i</span><span class="o">,</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">mat_a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">;</span>
+</span><span id="__span-12-64"><a id="__codelineno-12-64" name="__codelineno-12-64"></a><span class="w">          </span><span class="n">mat_a_test</span><span class="p">[</span><span class="n">j</span><span class="o">,</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">mat_a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">;</span>
+</span><span id="__span-12-65"><a id="__codelineno-12-65" name="__codelineno-12-65"></a><span class="w">          </span><span class="nb">inc</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-66"><a id="__codelineno-12-66" name="__codelineno-12-66"></a><span class="w">        </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-12-67"><a id="__codelineno-12-67" name="__codelineno-12-67"></a><span class="w">      </span><span class="nb">inc</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-68"><a id="__codelineno-12-68" name="__codelineno-12-68"></a><span class="w">    </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-12-69"><a id="__codelineno-12-69" name="__codelineno-12-69"></a>
+</span><span id="__span-12-70"><a id="__codelineno-12-70" name="__codelineno-12-70"></a><span class="w">    </span><span class="c1">// Print mat_a</span>
+</span><span id="__span-12-71"><a id="__codelineno-12-71" name="__codelineno-12-71"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Matrix A =&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-72"><a id="__codelineno-12-72" name="__codelineno-12-72"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="o">:=</span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="k">begin</span>
+</span><span id="__span-12-73"><a id="__codelineno-12-73" name="__codelineno-12-73"></a><span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="o">:=</span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-12-74"><a id="__codelineno-12-74" name="__codelineno-12-74"></a><span class="w">        </span><span class="nb">Write</span><span class="p">(</span><span class="n">mat_a_test</span><span class="p">[</span><span class="n">i</span><span class="o">,</span><span class="n">j</span><span class="p">]</span><span class="o">:</span><span class="mi">5</span><span class="o">:</span><span class="mi">0</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-75"><a id="__codelineno-12-75" name="__codelineno-12-75"></a><span class="w">      </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-12-76"><a id="__codelineno-12-76" name="__codelineno-12-76"></a><span class="w">    </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-12-77"><a id="__codelineno-12-77" name="__codelineno-12-77"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-12-78"><a id="__codelineno-12-78" name="__codelineno-12-78"></a>
+</span><span id="__span-12-79"><a id="__codelineno-12-79" name="__codelineno-12-79"></a><span class="w">    </span><span class="c1">// Print vec_b</span>
+</span><span id="__span-12-80"><a id="__codelineno-12-80" name="__codelineno-12-80"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Vector b = &#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-81"><a id="__codelineno-12-81" name="__codelineno-12-81"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-12-82"><a id="__codelineno-12-82" name="__codelineno-12-82"></a><span class="w">      </span><span class="nb">Write</span><span class="p">(</span><span class="n">vec_b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="mi">0</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-83"><a id="__codelineno-12-83" name="__codelineno-12-83"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-12-84"><a id="__codelineno-12-84" name="__codelineno-12-84"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-12-85"><a id="__codelineno-12-85" name="__codelineno-12-85"></a>
+</span><span id="__span-12-86"><a id="__codelineno-12-86" name="__codelineno-12-86"></a><span class="w">    </span><span class="c1">// Print solution vec_x</span>
+</span><span id="__span-12-87"><a id="__codelineno-12-87" name="__codelineno-12-87"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Solution: vector x = &#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-88"><a id="__codelineno-12-88" name="__codelineno-12-88"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-12-89"><a id="__codelineno-12-89" name="__codelineno-12-89"></a><span class="w">      </span><span class="nb">Write</span><span class="p">(</span><span class="n">soln_vec_x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="mi">3</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-90"><a id="__codelineno-12-90" name="__codelineno-12-90"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-12-91"><a id="__codelineno-12-91" name="__codelineno-12-91"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-12-92"><a id="__codelineno-12-92" name="__codelineno-12-92"></a>
+</span><span id="__span-12-93"><a id="__codelineno-12-93" name="__codelineno-12-93"></a><span class="w">    </span><span class="n">omvmmv</span><span class="p">(</span><span class="n">mat_a_test</span><span class="p">[</span><span class="mi">1</span><span class="o">,</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">soln_vec_x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">vec_b_test</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">;</span>
+</span><span id="__span-12-94"><a id="__codelineno-12-94" name="__codelineno-12-94"></a>
+</span><span id="__span-12-95"><a id="__codelineno-12-95" name="__codelineno-12-95"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Check result: A x = (must be equal to b)&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-96"><a id="__codelineno-12-96" name="__codelineno-12-96"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-12-97"><a id="__codelineno-12-97" name="__codelineno-12-97"></a><span class="w">      </span><span class="nb">Write</span><span class="p">(</span><span class="n">vec_b_test</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="mi">3</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-98"><a id="__codelineno-12-98" name="__codelineno-12-98"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-12-99"><a id="__codelineno-12-99" name="__codelineno-12-99"></a><span class="w">  </span><span class="k">end</span>
+</span><span id="__span-12-100"><a id="__codelineno-12-100" name="__codelineno-12-100"></a><span class="w">  </span><span class="k">else</span>
+</span><span id="__span-12-101"><a id="__codelineno-12-101" name="__codelineno-12-101"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Error&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-102"><a id="__codelineno-12-102" name="__codelineno-12-102"></a>
+</span><span id="__span-12-103"><a id="__codelineno-12-103" name="__codelineno-12-103"></a><span class="w">  </span><span class="c1">// Pause Console</span>
+</span><span id="__span-12-104"><a id="__codelineno-12-104" name="__codelineno-12-104"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Press enter to quit&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-12-105"><a id="__codelineno-12-105" name="__codelineno-12-105"></a><span class="w">  </span><span class="nb">ReadLn</span><span class="o">;</span>
+</span><span id="__span-12-106"><a id="__codelineno-12-106" name="__codelineno-12-106"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></table></div>
 
 
