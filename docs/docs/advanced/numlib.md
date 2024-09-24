@@ -799,7 +799,7 @@ end.
 
 ### Symmetric positive definite band matrices
 
-`slegpb` is the optimised solution method for symmetric positive band matrices.
+`slegpb` is the optimised solution for symmetric positive band matrices.
 
 ```pascal
 procedure slegpb(n, w: ArbInt; var a, b, x, ca: ArbFloat; var term: ArbInt);
