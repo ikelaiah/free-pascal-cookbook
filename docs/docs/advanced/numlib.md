@@ -1133,7 +1133,7 @@ end.
 
 ### Overdetermined Systems (Least Squares)
 
-Unlike other routines in the sle unit that require a square matrix $A$, `slegls` can solve systems with a rectangular matrix, where there are more equations than unknowns. These systems usually can't be solved exactly, but an approximate solution can minimize the sum of squared residuals. This method is commonly used for fitting equations to data (regression analysis).
+Unlike other routines in the sle unit that require a square matrix $A$, `slegls` can solve systems with a rectangular matrix, where there are more equations than unknowns. These systems usually can't be solved exactly. However, an approximate solution can minimize the sum of squared residuals, i.e. the norm $\displaystyle{ \|\mathbf{b} - A \mathbf{x}\|_2 }$ is as small as possible. This method is commonly used for fitting equations to data (regression analysis).
 
 ```pascal
 procedure slegls(var a: ArbFloat; m, n, rwidtha: ArbInt; var b, x: ArbFloat; var term: ArbInt);
