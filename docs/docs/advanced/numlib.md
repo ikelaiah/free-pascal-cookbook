@@ -679,7 +679,7 @@ $$
 $$
 
 ```pascal linenums="1" hl_lines="51 95-100"
-program slegba_demo;
+program solve_band;
 
 {$mode objfpc}{$H+}{$J-}
 
@@ -688,8 +688,8 @@ uses
 
 const
   n = 7;  // For Square matrices, n_col = m_row
-  L = 2;
-  R = L;  // For square matrices, L = R
+  L = 2;  // Number of diagonals the band extends below (or to the left of) the main diagonal.
+  R = L;  // Number of diagonals the band extends above (or to the right of) the main diagonal.
   n_band_elements = n * (L + 1 + R) - (L * (L + 1) + R * (R + 1)) div 2;
 
 var
