@@ -1143,8 +1143,7 @@ procedure slegls(var a: ArbFloat; m, n, rwidtha: ArbInt; var b, x: ArbFloat; var
 - `m` is the number of rows in matrix $A$ (i.e., the number of equations).
 - `n` is the number of columns in matrix $A$ (i.e., the number of unknown variables). 
     - Note: $n$ must not exceed $m$.
-- `rwidth` specifies the allocated number of columns for matrix 
-$A$, which can be larger than needed, with $n≤rwidth$.
+- `rwidtha` specifies the allocated number of columns for matrix $A$, which can be larger than needed, with $n≤rwidth$.
 - `b` is the first element of vector $b$, with a lenth matching $m$, though it can be allocated larger.
 - `x` is the first element of the array for the solution vector $x$, with length matching $n$, though it can also be allocated larger.
 - `term` returns an error code:
