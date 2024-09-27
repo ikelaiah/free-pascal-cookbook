@@ -2017,7 +2017,7 @@
 </tr>
 <tr>
 <td>Tridiagonal matrix. <br><br> <code>procedure sledtr(n: ArbInt; var l, d, u, b, x: ArbFloat; var term: ArbInt);</code> <br><br> <code>procedure slegtr(n: ArbInt; var l, d, u, b, x, ca: ArbFloat; var term: ArbInt);</code></td>
-<td><code>sledtr</code> is numerically stable if matrix <span class="arithmatex">\(A\)</span> fulfills one of these conditions: <br><br> (1.) <span class="arithmatex">\(A\)</span> is regular (i.e. its inverse matrix exists), and <span class="arithmatex">\(A\)</span> is columnar-diagonally dominant <br><br> (2.) <span class="arithmatex">\(A\)</span> is regular, and <span class="arithmatex">\(A\)</span> is diagonally dominant <br><br> (3.) <span class="arithmatex">\(A\)</span> is symmetric and positive-definite. <br><br> <strong>However</strong>, <code>sledtr</code> does not provide the parameter <code>ca</code> to determine the accuracy of the solution. br&gt; If <code>ca</code> this is needed, use the (less stable) procedure <code>slegtr</code>.</td>
+<td>These are optimised procedures for solving system of linear equations based on tridiagonal matrices.</td>
 </tr>
 <tr>
 <td>Least squares. <br><br> <code>procedure slegls(var a: ArbFloat; m, n, rwidtha: ArbInt; var b, x: ArbFloat; var term: ArbInt);</code></td>
