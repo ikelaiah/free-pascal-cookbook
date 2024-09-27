@@ -1,6 +1,6 @@
 # Numerical with NumLib | Examples
 
-The notes on this page is based on the [Free Pascal NumLib official doc](https://wiki.freepascal.org/NumLib_Documentation).
+The notes and examples on this page are based on the [Free Pascal NumLib official doc](https://wiki.freepascal.org/NumLib_Documentation).
 
 !!! Tip "Credits"
 
@@ -8,6 +8,8 @@ The notes on this page is based on the [Free Pascal NumLib official doc](https:/
 
     Thanks to Marco van de Voort ([marco@freepascal.org](mailto:marco@freepascal.org)) and Michael van Canneyt ([michael@freepascal.org](mailto:michael@freepascal.org)) for porting to FPC and documenting NumLib.
 
+!!! Note
+    The code snippets are not exactly the same as the ones in the [Free Pascal NumLib official doc](https://wiki.freepascal.org/NumLib_Documentation). I modified them for my learning.
 
 **Routines in NumLib**
 
@@ -22,9 +24,9 @@ The notes on this page is based on the [Free Pascal NumLib official doc](https:/
 - Fitting routines - unit `ipf`
 - Calculation of special functions - unit `spe`
 
-## Unit `omv` - Operations with matrices and vectors
+## Unit `omv` - Operations with Matrices and Vectors
 
-### Inner product of two vectors
+### Inner Product of Two Vectors
 
 $$
 \mathbf{a} \cdot \mathbf{b} = \sum_{i=1}^n a_i b_i = a_1 b_1 + a_2 b_2 + \dots + a_n b_n
@@ -94,7 +96,7 @@ begin
 end.
 ```
 
-### Product of a matrix with a vector
+### Product of a Matrix with a Vector
 
 **Example**
 
@@ -184,7 +186,7 @@ begin
 end.
 ```
 
-### Transpose matrix
+### Transpose Matrix
 
 The transpose matrix $A^{T}$ of matrix $A$ is obtained by flipping rows and columns:
 
@@ -297,7 +299,7 @@ begin
 end.
 ```
 
-### Norm of vectors and matrices
+### Norm of Vectors and Matrices
 
 A norm assigns a positive "length" to a vector or matrix.
 
@@ -458,7 +460,7 @@ $$
 
 NumLib has several procedures to solve the matrix equation depending on the properties of the matrix.
 
-### Square matrices
+### Square Matrices
 
 Pass the matrix to the procedures in the standard NumLib way as the first element of a 2D or 1D array. The 2D array must be dimensioned to contain at least $n$ rows and $n$ columns, the 1D array must contain at least $n^2$ elements.
 
@@ -606,7 +608,7 @@ begin
 end.
 ```
 
-### Band matrices
+### Band Matrix
 
 `slegba` is the optimised solution for band matrices, i.e. matrices in which all elements are zero outside a band of width `l` below and of width `r` above the main diagonal.
 
@@ -797,7 +799,7 @@ end.
 ```
 
 
-### Symmetric positive definite band matrices
+### Symmetric Positive Definite Band Matrix
 
 `slegpb` is the optimised solution for symmetric positive band matrices.
 
@@ -974,3 +976,383 @@ begin
   ReadLn;
 end.
 ```
+
+
+### Tridiagonal Matrix
+NumLib provides two special procedures to solve linear equations based on a tridiagonal matrix. These procedures use an efficient way to store tridiagonal matrices, with slight differences in their calculation methods and handling of certain cases.
+
+```pascal
+sledtr(n: ArbInt; var l, d, u, b, x: ArbFloat; var term: ArbInt)
+slegtr(n: ArbInt; var l, d, u, b, x, ca: ArbFloat; var term: ArbInt)
+```
+
+- `n` is the number of unknown variables. It must be the same as the number of columns and rows of the coefficent matrix.
+- `l` specifies the first element in the subdiagonal of the matrix $A$. This 1D array must be dimensioned to at least `n-1` elements.
+- `d` specifies the first element along the main diagonal of the matrix $A$. This 1D array must be dimensioned to contain at least `n` elements.
+- `u` specifies the first element along the superdiagonal of the matrix $A$. The array must be dimensioned to have at least `n-1` elements.
+- `b` is the first element of the array containing the constant vector $b$. The array length at least must be equal to `n`. The vector will not be changed during the calculation.
+- `x` is the first element of the array to receive the solution vector $x$. It must be allocated to contain at least `n` values.
+- `ca` is a parameter to describe the accuracy of the solution.
+- `term` returns an error code:
+    - `1` - successful completion, the solution vector $x$ is valid
+    - `2` - the solution could not have been determined because the matrix is (almost) singular.
+    - `3` - error in input values: `n < 1`.
+
+The `sledtr` routine is numerically stable if matrix $A$ fulfills one of these conditions:
+
+- Matrix $A$ is regular (i.e. its inverse matrix exists), and $A$ is columnar-diagonally dominant, this means:
+    - |d1| ≥ |l2|,
+    - |di| ≥ |ui-1| + |li+1|, i = 2, ..., n-1,
+    - |dn| ≥ |un-1|
+- Matrix $A$ is regular, and $A$ is diagonally dominant, this means:
+    - |d1| ≥ |l2|,
+    - |di| ≥ |ui| + |li|, i = 2, ..., n-1,
+    - |dn| ≥ |un|
+- Matrix $A$ is symmetric and positive-definite.
+
+Note, the `sledtr` routine does not provide the parameter `ca` from which the accuracy of the determined solution can be evaluated. If this is needed the (less stable) procedure `slegtr` must be used.
+
+
+**Example**
+
+Solve this tridiagonal system of linear equations where $n=8$.
+
+$$
+\displaystyle{  \begin{cases}
+   188 x_1 - 100 x_2                    = 0   \\
+   -100 x_1 + 188 x_2 -100 x_3          = 0 \\
+   \vdots  \\
+   -100 x_{n-2} + 188 x_{n-1} - 100 x_n = 0 \\          
+   -100 x_{n-1} + 188 x_n               = 0 
+  \end{cases}
+  \qquad \Rightarrow \qquad
+  A=
+  \left[
+    \begin{array}{rrrrr}
+       188 & -100   &        &        & 0    \\
+      -100 &  188   & -100   &        &      \\
+           & \ddots & \ddots & \ddots &      \\
+           &        & -100   &   188  & -100 \\
+           &        &        &  -100  &  188 \\
+    \end{array}
+  \right]
+  , \;
+  \mathbf{b} =
+  \left[
+    \begin{array}{r}
+       88 \\
+      -12 \\
+      \vdots \\
+      -12 \\
+       88
+    \end{array}
+  \right]
+ }
+$$
+
+
+```pascal linenums="1" hl_lines="47"
+program solve_tridiag_matrix;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  typ, sle;
+
+const
+  n = 8;
+
+var
+  u_super_diag_items: array[1..n-1] of ArbFloat = (-100, -100, -100, -100, -100, -100, -100      );
+  d_diag_items      : array[1..n]   of ArbFloat = ( 188,  188,  188,  188,  188,  188,  188,  188);
+  l_sub_diag_items  : array[1..n-1] of ArbFloat = (      -100, -100, -100, -100, -100, -100, -100);
+  vec_b             : array[1..n]   of ArbFloat = (  88,  -12,  -12,  -12,  -12,  -12,  -12,   88);
+  soln_vec_x: array[1..n] of ArbFloat;
+  ca: ArbFloat;
+  i, term: integer;
+  vec_b_test: array[1..n] of ArbFloat;
+
+begin
+  WriteLn('Solve tridiagonal matrix system A x = b');
+  WriteLn;
+
+  Write('Superdiagonal of A:':25);
+  for i := 1 to n-1 do
+    Write(u_super_diag_items[i]:10:0);
+  WriteLn;
+
+  Write('Main diagonal of A:':25);
+  for i:= 1 to n do
+    Write(d_diag_items[i]:10:0);
+  WriteLn;
+
+  Write('Subdiagonal of A:':25);
+  Write('':10);
+  for i:=2 to n do
+    Write(l_sub_diag_items[i]:10:0);
+  WriteLn;
+
+  Write('Vector b:':25);
+  for i:=1 to n do
+    Write(vec_b[i]:10:0);
+  WriteLn;
+
+  // Solve for vector x
+  slegtr(n, l_sub_diag_items[2], d_diag_items[1], u_super_diag_items[1], vec_b[1], soln_vec_x[1], ca, term);
+  // Alternatively,
+  // sledtr(n, l_sub_diag_items[2], d_diag_items[1], u_super_diag_items[1], vec_b[1], soln_vec_x[1], term);
+
+
+  if term = 1 then begin
+    Write('Solution vector x:':25);
+    for i:= 1 to n do
+      Write(soln_vec_x[i]:10:0);
+    WriteLn;
+
+    // Multiply A with soln_vec_x to test the result
+    // NumLib does not have a routine to multiply a tridiagonal matrix with a
+    // vector... Let's do it manually.
+    vec_b_test[1] := d_diag_items[1]*soln_vec_x[1] + u_super_diag_items[1]*soln_vec_x[2];
+    for i := 2 to n-1 do
+      vec_b_test[i] := l_sub_diag_items[i]*soln_vec_x[i-1] + d_diag_items[i]*soln_vec_x[i] + u_super_diag_items[i]*soln_vec_x[i+1];
+    vec_b_test[n] := l_sub_diag_items[n]*soln_vec_x[n-1] + d_diag_items[n]*soln_vec_x[n];
+
+    Write('Check b = A x:':25);
+    for i:= 1 to n do
+      Write(vec_b_test[i]:10:0);
+    WriteLn;
+  end
+  else
+    WriteLn('Error');
+
+  // Pause Console
+  WriteLn('Press enter to quit');
+  ReadLn;
+end.
+```
+
+### Overdetermined Systems (Least Squares)
+
+Unlike other routines in the sle unit that require a square matrix $A$, `slegls` can solve systems with a rectangular matrix, where there are more equations than unknowns. These systems usually can't be solved exactly, but an approximate solution can minimize the sum of squared residuals. This method is commonly used for fitting equations to data (regression analysis).
+
+```pascal
+procedure slegls(var a: ArbFloat; m, n, rwidtha: ArbInt; var b, x: ArbFloat; var term: ArbInt);
+```
+
+- `a` is the first element of an array of matrix $A$. The array won't be modified.
+- `m` is the number of rows in matrix $A$ (i.e., the number of equations).
+- `n` is the number of columns in matrix $A$ (i.e., the number of unknown variables). 
+    - Note: $n$ must not exceed $m$.
+- `rwidth` specifies the allocated number of columns for matrix 
+$A$, which can be larger than needed, with $n≤rwidth$.
+- `b` is the first element of vector $b$, with a lenth matching $m$, though it can be allocated larger.
+- `x` is the first element of the array for the solution vector $x$, with length matching $n$, though it can also be allocated larger.
+- `term` returns an error code:
+    - 1 - Success, solution $x$ is valid
+    - 2 - No clear solution due to linearly dependent columns.
+    - 3 - Input error: `n < 1`, or `n > m`.
+
+The method uses Householder transformation to reduce $A$ to an upper triangular form.
+
+
+**Example**
+
+Find the least-squares solution for the system $A x = b$ of 4 equations and 3 unknowns.
+
+$$
+\displaystyle{  A=
+ \left(
+ \begin{array}{rrr}
+  1 & 0 & 1 \\
+  1 & 1 & 1 \\
+  0 & 1 & 0 \\
+  1 & 1 & 0
+ \end{array}
+ \right), \ \
+ b=
+ \left(
+ \begin{array}{r}
+ 21 \\ 39 \\ 21 \\ 30
+ \end{array}
+ \right).
+ }
+$$
+
+```pascal linenums="1" hl_lines="46"
+program solve_leastsquares;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  typ,
+  sle,
+  omv;
+
+const
+  m_row = 4;
+  n_col = 3;
+
+var
+  mat_A: array[1..m_row, 1..n_col] of ArbFloat = (
+     (1, 0, 1),
+     (1, 1, 1),
+     (0, 1, 0),
+     (1, 1, 0));
+  vec_b: array[1..m_row] of ArbFloat = (21, 39, 21, 30);
+  soln_vec_x: array[1..n_col] of ArbFloat;
+  term: ArbInt;
+  i, j: integer;
+  vec_b_test: array[1..m_row] of ArbFloat;
+  sum: ArbFloat;
+
+begin
+  WriteLn('Solve A x = b with the least-squares method');
+  WriteLn;
+
+  // Display input data
+  WriteLn('A = ');
+  for i := 1 to m_row do
+  begin
+    for j := 1 to n_col do
+      Write(mat_A[i, j]: 10: 0);
+    WriteLn;
+  end;
+  WriteLn;
+  WriteLn('b = ');
+  for i := 1 to m_row do
+    Write(vec_b[i]: 10: 0);
+  WriteLn;
+
+  // Calculate and show solution
+  slegls(mat_A[1, 1], m_row, n_col, n_col, vec_b[1], soln_vec_x[1], term);
+
+  WriteLn;
+  WriteLn('Solution x = ');
+  for j := 1 to n_col do
+    Write(soln_vec_x[j]: 10: 0);
+  WriteLn;
+
+  // Calculate and display residuals
+  WriteLn;
+  WriteLn('Residuals A x - b = ');
+  sum := 0;
+  omvmmv(mat_A[1, 1], m_row, n_col, n_col, soln_vec_x[1], vec_b_test[1]);
+  for i := 1 to m_row do
+  begin
+    Write((vec_b_test[i] - vec_b[i]): 10: 0);
+    sum := sum + sqr(vec_b_test[i] - vec_b[i]);
+  end;
+  WriteLn;
+
+  // Sum of squared residuals
+  WriteLn;
+  WriteLn('Sum of squared residuals');
+  WriteLn(sum: 10: 0);
+
+  WriteLn;
+  WriteLn('----------------------------------------------------------------------------');
+  WriteLn;
+
+  // Modify solution to show that the sum of squared residuals increases';
+  WriteLn('Modified solution x'' (to show that it has a larger sum of squared residuals)');
+  soln_vec_x[1] := soln_vec_x[1] + 1;
+  soln_vec_x[2] := soln_vec_x[2] - 1;
+  WriteLn;
+  for j := 1 to n_col do
+    Write(soln_vec_x[j]: 10: 0);
+  omvmmv(mat_A[1, 1], m_row, n_col, n_col, soln_vec_x[1], vec_b_test[1]);
+  sum := 0;
+  for i := 1 to m_row do
+    sum := sum + sqr(vec_b_test[i] - vec_b[i]);
+  WriteLn;
+  WriteLn;
+  WriteLn('Sum of squared residuals');
+  WriteLn(sum: 5: 0);
+  WriteLn;
+
+  // Pause Console
+  WriteLn('Press enter to quit');
+  ReadLn;
+end.
+```
+
+The output is:
+
+```bash
+Solve A x = b with the least-squares method
+
+A =
+    1    0    1
+    1    1    1
+    0    1    0
+    1    1    0
+
+b =
+   21   39   21   30
+
+Solution x =
+   10   20   10
+
+Residuals A x - b =
+   -1    1   -1   -0
+
+Sum of squared residuals
+    3
+
+----------------------------------------------------------------------------
+
+Modified solution x' (to show that it has a larger sum of squared residuals)
+
+   11   19   10
+
+Sum of squared residuals
+    5
+```
+
+#### Why Calculate the Sum of Squared Residuals and Why Modify the Solution to Increase the Sum of Squared Residuals?
+
+
+!!! Note "Why Calculate the Sum of Squared Residuals?"
+
+    The sum of squared residuals is a measure of how well the computed solution fits the data. It tells us how far off the computed values (from $A × x$) are from the actual values in $b$.
+
+    In a least-squares solution, this sum is minimised. By calculating it, the code verifies how close the solution is to the actual results. A smaller sum of squared residuals means a better fit.
+
+    $$
+    Sum\_of\_Squared\_Residuals=(-1)^{2} + (1)^{2} + (-1)^{2} + 0^{2}=3
+    $$
+
+    A smaller sum indicates a better fit. In this case, a sum of 3 is reasonable and shows that the solution is a close approximation.
+
+!!! Note "What about the residual of $(-1, 1, -1, 0)$?"
+    The residuals $A × x - b$ being $(-1, 1, -1, 0)$ indicate that the least-squares solution is a close **approximation**, but not perfect.
+
+    However, in an over-determined system (more equations than unknowns, as here with 4 equations and 3 unknowns), an exact solution is usually not possible. The least-squares method tries to find a solution $x$ that minimizes the sum of the squared residuals.
+
+    This means that, when solving the system, the predictions for some rows of $b$ are slightly off:
+
+    - The first equation is off by -1 (under-predicted).
+    - The second equation is off by 1 (over-predicted).
+    - The third equation is off by -1 (under-predicted).
+    - The fourth equation is off by 0 (almost perfect prediction).
+
+!!! Note "Why Modify the Solution to Increase the Sum of Squared Residuals?"
+
+    In the second part of the code, the solution vector $x$ is manually modified:
+
+    ```pascal
+    x[1] := x[1] + 1;
+    x[2] := x[2] - 1;
+    ```
+
+    This shows what happens if the solution is **perturbed**. By changing $x$, the code     demonstrates that the sum of squared residuals increases:
+
+    ```pascal
+    sum := sum + sqr(b_test[i] - b[i]);
+    WriteLn('Sum of squared residuals');
+    WriteLn(sum:5:0);
+    ```
+
+    The point of this modification is to highlight the importance of the least-squares solution. The original solution minimizes the residuals, but altering the solution results in a worse fit (higher residuals).
+
+    Deviating from the least-squares solution results in a higher sum of squared residuals, indicating a poorer fit.
