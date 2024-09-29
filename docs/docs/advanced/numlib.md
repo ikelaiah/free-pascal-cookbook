@@ -1498,7 +1498,104 @@ Sum of squared residuals
 
 ## Unit `eig` - Eigenvalues and eigenvectors
 
-Coming soon.
+An **eigenvector** is a special type of vector that keeps its direction even when a linear transformation (like multiplying by a matrix) is applied to it.When you multiply a square matrix $A$ by a non-zero vector $x$ and the result is the same vector multiplied by a number (called a **scalar**), then:
+  - $x$ is the eigenvector
+  - The number is called the **eigenvalue** (represented by $λ$).
+
+$$
+\displaystyle{  A \mathbf{x} = \lambda \mathbf{x}  \qquad \Rightarrow \qquad  A \mathbf{x} - \lambda \mathbf{x} = 0   }
+$$
+
+**NumLib** has tools to calculate eigenvalues and eigenvectors for different types of matrices. Each matrix type has two to four procedures with numbers 1 to 4 that indicate their complexity:
+
+- **Procedures with "1":** Calculate all eigenvalues.
+- **Procedures with "2":** Calculate specific eigenvalues in a certain range.
+- **Procedures with "3":** Calculate all eigenvalues and eigenvectors.
+- **Procedures with "4":** Calculate specific eigenvalues and eigenvectors in a certain range.
+
+### Matrices with General Storage
+
+The routines assume the $n \times n$ matrix is stored as a 2D (or 1D) array of **ArbFloat** values.
+
+**For Generic Matrices**
+
+- **eigge1:** Calculates all eigenvalues.
+- **eigge3:** Calculates all eigenvalues and eigenvectors.
+
+**For Generic Symmetric Matrices**
+
+- **eiggs1:** Calculates all eigenvalues.
+- **eiggs2:** Calculates some eigenvalues in a specific range.
+- **eiggs3:** Calculates all eigenvalues and eigenvectors.
+- **eiggs4:** Calculates some eigenvalues and eigenvectors in a specific range.
+
+**For Symmetric Positive Definite Matrices**
+
+- **eiggg1:** Calculates all eigenvalues.
+- **eiggg2:** Calculates some eigenvalues in a specific range.
+
+```pascal
+// Generic matrix (without any special symmetries)
+procedure eigge1(var a: ArbFloat; n, rwidth: ArbInt; var lam: complex; var term: ArbInt);                      // all eigenvalues
+procedure eigge3(var a: ArbFloat; n, rwidtha: ArbInt; var lam, x: complex; rwidthx: ArbInt; var term: ArbInt); // all eigenvalues and eigenvectors
+
+// Generic symmetric matrix
+procedure eiggs1(var a: ArbFloat; n, rwidth: ArbInt; var lam: ArbFloat; var term: ArbInt);                     // all eigenvalues
+procedure eiggs2(var a: ArbFloat; n, rwidth, k1, k2: ArbInt; var lam: ArbFloat; var term: ArbInt);             // some eigenvalues (index k1..k2)
+procedure eiggs3(var a: ArbFloat; n, rwidtha: ArbInt; var lam, x: ArbFloat; var term: ArbInt);                 // all eigenvalues and eigenvectors
+procedure eiggs4(var a: ArbFloat; n, rwidtha, k1, k2: ArbInt; var lam, x: ArbFloat; var term: ArbInt);         // some eigenvalues and eigenvectors (index k1..k2)
+
+// Symmetric positive definite matrix
+procedure eiggg1(var a: ArbFloat; n, rwidth: ArbInt; var lam: ArbFloat; var term: ArbInt);                     // all eigenvalues
+procedure eiggg2(var a: ArbFloat; n, rwidth, k1, k2: ArbInt; var lam: ArbFloat; var term: ArbInt);             // some eigenvalues (index k1..k2)
+procedure eiggg3(var a: ArbFloat; n, rwidtha: ArbInt; var lam, x: ArbFloat; var term: ArbInt);                 // all eigenvalues and eigenvectors
+procedure eiggg4(var a: ArbFloat; n, rwidtha, k1, k2: ArbInt; var lam, x: ArbFloat; var term: ArbInt);         // some eigenvalues and eigenvectors (index k1..k2)
+```
+
+- `n`: The number of rows or columns (since the matrix is square, they are the same).
+- `rwidth`: The length of each row in the matrix.
+- `lam`: The result where eigenvalues will be stored.
+- `x`: For some routines, the result where eigenvectors will be stored.
+- `k1`, `k2`: For routines that only find some eigenvalues, you can specify the range of indices (between \( k1 \) and \( k2 \)).
+- `term` indicates if the calculation was successful:
+    - **1**: Success, the eigenvalues (and eigenvectors, if needed) were calculated.
+    - **2**: The calculation failed.
+    - **3**: There was an error in the input data (like if \( n \) was less than 1).
+
+**Example**
+
+Calculate the eigenvalues and eigenvectors of the matrix.
+
+$$
+\displaystyle{  A=
+             \begin{bmatrix}
+                 8 & -1 & -5 \\
+                -4 &  4 & -2 \\
+                18 & -5 & -7
+             \end{bmatrix}
+   }
+   $$
+
+
+```pascal linenums="1"
+// Coming soon
+```
+
+### Symmetric Band Matrices
+
+**Example**
+
+```pascal linenums="1"
+// Coming soon
+```
+
+###	Symmetric tridiagonal matrices
+
+**Example**
+
+```pascal linenums="1"
+// Coming soon
+```
 
 ## Unit `roo` - Finding the roots of a function
 
