@@ -414,6 +414,145 @@ begin
 end.
 ```
 
+## Determinant of a Matrix
+
+Coming soon.
+
+## Inverse of a Matrix
+
+Let's say we have a square matrix \( A \). The matrix \( A^{-1} \) is called the **inverse** of \( A \) if, when you multiply \( A^{-1} \) by \( A \), you get the **identity matrix** \( I \). The identity matrix is special because it has 1s on the diagonal (from the top left to bottom right) and 0s everywhere else.
+
+$$
+\displaystyle{  A^{-1} A = I = 
+     \begin{bmatrix}
+       1  &         & 0 \\
+          & \ddots  &   \\
+       0  &         & 1
+     \end{bmatrix}
+ }
+$$
+
+The inverse of a matrix only exists if the **determinant** of \( A \) is not zero. If the determinant is zero, \( A \) doesn't have an inverse.
+
+### Using NumLib to Find the Inverse
+
+NumLib is a tool that has several ways (called routines) to calculate the inverse of a matrix. Which method it uses depends on what kind of matrix you have. All the routines expect the matrix to be stored in a common way—as a 2D array of real numbers, or a 1D array of numbers arranged in rows and columns.
+
+Here are some routines that NumLib uses:
+
+- **invgen**: This routine works for any square matrix.
+- **invgsy**: This routine works for matrices that are **symmetric** (meaning the left side mirrors the right side).
+- **invgpd**: This routine works for **symmetric positive definite** matrices (a special kind of symmetric matrix).
+
+```pascal
+procedure invgen(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);   // generic matrix
+procedure invgsy(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);   // symmetric matrix
+procedure invgpd(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);   // symmetric positive definite matrix
+```
+
+Each routine needs you to pass certain information:
+
+- \( n \): The size of the matrix.
+- \( rwidth \): The width of the rows (usually, this is the same as \( n \)).
+- \( ai \): The first element of the matrix (the top-left corner).
+- \( term \): A number that tells if the calculation was successful:
+  - 1: Success! The inverse was found.
+  - 2: The inverse couldn't be found because the matrix is too close to being singular (meaning its determinant is almost zero).
+  - 3: There was a mistake with the input data (like if \( n \) was less than 1). 
+
+**Example**
+
+Calculate the inverse of the symmetric matrix.
+
+$$
+\displaystyle{ A = 
+ \left[
+ \begin{array}{rrrr}
+   5 & 7 & 6 & 5  \\
+   7 & 10 & 8 & 7 \\
+   6 & 8 & 10 & 9 \\
+   5 & 7 & 9 & 10
+ \end{array}
+ \right]
+ }
+$$
+ 
+Note, this matrix is **symmetric** and **positive definite** (the product $b^{T} A b$ with any vector $b = [b1, b2, b3]^{T}$ cannot become zero or negative since all elements of this matrix are positive). Therefore, `invgpd` is best-suited for this task although the other routines can be used as well (uncomment their calls below).
+
+```pascal linenums="1" hl_lines="41-44"
+program inverse_matrix;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  typ, inv, omv;
+
+const
+  n_mat_size = 4;
+  decimals = 5;
+
+var
+  // a is the input matrix to be inverted
+  // Note that this is matrix must be symmetric positive definite.
+  mat_a: array[1..n_mat_size, 1..n_mat_size] of ArbFloat = (
+    (5,  7,  6,  5),
+    (7, 10,  8,  7),
+    (6,  8, 10,  9),
+    (5,  7,  9, 10)
+  );
+  mat_b: array[1..n_mat_size, 1..n_mat_size] of Arbfloat;
+  mat_c: array[1..n_mat_size, 1..n_mat_size] of ArbFloat;
+  term: integer = 0;
+  i, j: integer;
+
+begin
+  // Write input matrix
+  WriteLn('a = ');
+  for i := 1 to n_mat_size do begin
+    for j := 1 to n_mat_size do
+      Write(mat_a[i, j]:10:decimals);
+    WriteLn;
+  end;
+  WriteLn;
+
+  // Store input matrix because it will be overwritten by the inverse of mat_a
+  for i := 1 to n_mat_size do
+    for j := 1 to n_mat_size do
+      mat_b[i, j] := mat_a[i, j];
+
+  // Calculate inverse  -- uncomment the procedure to be used.
+  //invgen(n_mat_size, n_mat_size, mat_a[1, 1], term);
+  //invgsy(n_mat_size, n_mat_size, mat_a[1, 1], term);
+  invgpd(n_mat_size, n_mat_size, mat_a[1, 1], term);
+
+  // Write inverse
+  WriteLn('a^(-1) = ');
+  for i := 1 to n_mat_size do begin
+    for j := 1 to n_mat_size do
+      Write(mat_a[i, j]:10:decimals);
+    WriteLn;
+  end;
+  WriteLn;
+
+  // Check validity of result by multiplying inverse with saved input matrix
+  omvmmm(mat_a[1, 1], n_mat_size, n_mat_size, n_mat_size,
+         mat_b[1, 1], n_mat_size, n_mat_size,
+         mat_c[1, 1], n_mat_size);
+
+  // Write inverse
+  WriteLn('a^(-1) x a = ');
+  for i := 1 to n_mat_size do begin
+    for j := 1 to n_mat_size do
+      Write(mat_c[i, j]:10:decimals);
+    WriteLn;
+  end;
+
+  // Pause console
+  WriteLn('Press enter to quit');
+  ReadLn;
+end.
+```
+
 ## Unit `sle` - Solving Systems of Linear Equations
 
 A system of linear equations (or linear system) is a collection of two or more linear equations involving the same set of variables, $x_1 ... x_n$.
@@ -1355,3 +1494,28 @@ Sum of squared residuals
     The point of this modification is to highlight the importance of the least-squares solution. The original solution minimizes the residuals, but altering the solution results in a worse fit (higher residuals).
 
     Deviating from the least-squares solution results in a higher sum of squared residuals, indicating a poorer fit.
+
+
+## Unit `eig` - Eigenvalues and eigenvectors
+
+Coming soon.
+
+## Unit `roo` - Finding the roots of a function
+
+Coming soon.
+
+## Unit `int` - Numerical integration of a function
+
+Coming soon.
+
+## Unit `ode` - Ordinary differential equations
+
+Coming soon.
+
+## Unit `ipf` - Interpolation and fitting
+
+Coming soon.
+
+## Unit `spe` - Special functions
+
+Coming soon.
