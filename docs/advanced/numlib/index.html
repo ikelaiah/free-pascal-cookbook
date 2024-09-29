@@ -1362,6 +1362,39 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Unit eig - Eigenvalues and eigenvectors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#matrices-with-general-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Matrices with General Storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symmetric-band-matrices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Symmetric Band Matrices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symmetric-tridiagonal-matrices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Symmetric tridiagonal matrices
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2045,6 +2078,39 @@
       Unit eig - Eigenvalues and eigenvectors
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Unit eig - Eigenvalues and eigenvectors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#matrices-with-general-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Matrices with General Storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symmetric-band-matrices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Symmetric Band Matrices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symmetric-tridiagonal-matrices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Symmetric tridiagonal matrices
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4243,7 +4309,88 @@ Sum\_of\_Squared\_Residuals=(-1)^{2} + (1)^{2} + (-1)^{2} + 0^{2}=3
 <p>Deviating from the least-squares solution results in a higher sum of squared residuals, indicating a poorer fit.</p>
 </div>
 <h2 id="unit-eig-eigenvalues-and-eigenvectors">Unit <code>eig</code> - Eigenvalues and eigenvectors<a class="headerlink" href="#unit-eig-eigenvalues-and-eigenvectors" title="Permanent link">&para;</a></h2>
-<p>Coming soon.</p>
+<p>An <strong>eigenvector</strong> is a special type of vector that keeps its direction even when a linear transformation (like multiplying by a matrix) is applied to it.When you multiply a square matrix <span class="arithmatex">\(A\)</span> by a non-zero vector <span class="arithmatex">\(x\)</span> and the result is the same vector multiplied by a number (called a <strong>scalar</strong>), then:
+  - <span class="arithmatex">\(x\)</span> is the eigenvector
+  - The number is called the <strong>eigenvalue</strong> (represented by <span class="arithmatex">\(λ\)</span>).</p>
+<div class="arithmatex">\[
+\displaystyle{  A \mathbf{x} = \lambda \mathbf{x}  \qquad \Rightarrow \qquad  A \mathbf{x} - \lambda \mathbf{x} = 0   }
+\]</div>
+<p><strong>NumLib</strong> has tools to calculate eigenvalues and eigenvectors for different types of matrices. Each matrix type has two to four procedures with numbers 1 to 4 that indicate their complexity:</p>
+<ul>
+<li><strong>Procedures with "1":</strong> Calculate all eigenvalues.</li>
+<li><strong>Procedures with "2":</strong> Calculate specific eigenvalues in a certain range.</li>
+<li><strong>Procedures with "3":</strong> Calculate all eigenvalues and eigenvectors.</li>
+<li><strong>Procedures with "4":</strong> Calculate specific eigenvalues and eigenvectors in a certain range.</li>
+</ul>
+<h3 id="matrices-with-general-storage">Matrices with General Storage<a class="headerlink" href="#matrices-with-general-storage" title="Permanent link">&para;</a></h3>
+<p>The routines assume the <span class="arithmatex">\(n \times n\)</span> matrix is stored as a 2D (or 1D) array of <strong>ArbFloat</strong> values.</p>
+<p><strong>For Generic Matrices</strong></p>
+<ul>
+<li><strong>eigge1:</strong> Calculates all eigenvalues.</li>
+<li><strong>eigge3:</strong> Calculates all eigenvalues and eigenvectors.</li>
+</ul>
+<p><strong>For Generic Symmetric Matrices</strong></p>
+<ul>
+<li><strong>eiggs1:</strong> Calculates all eigenvalues.</li>
+<li><strong>eiggs2:</strong> Calculates some eigenvalues in a specific range.</li>
+<li><strong>eiggs3:</strong> Calculates all eigenvalues and eigenvectors.</li>
+<li><strong>eiggs4:</strong> Calculates some eigenvalues and eigenvectors in a specific range.</li>
+</ul>
+<p><strong>For Symmetric Positive Definite Matrices</strong></p>
+<ul>
+<li><strong>eiggg1:</strong> Calculates all eigenvalues.</li>
+<li><strong>eiggg2:</strong> Calculates some eigenvalues in a specific range.</li>
+</ul>
+<div class="language-pascal highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1">// Generic matrix (without any special symmetries)</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">eigge1</span><span class="p">(</span><span class="k">var</span><span class="w"> </span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">rwidth</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">lam</span><span class="o">:</span><span class="w"> </span><span class="n">complex</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="p">)</span><span class="o">;</span><span class="w">                      </span><span class="c1">// all eigenvalues</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">eigge3</span><span class="p">(</span><span class="k">var</span><span class="w"> </span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">rwidtha</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">lam</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="w"> </span><span class="n">complex</span><span class="o">;</span><span class="w"> </span><span class="n">rwidthx</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="p">)</span><span class="o">;</span><span class="w"> </span><span class="c1">// all eigenvalues and eigenvectors</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="c1">// Generic symmetric matrix</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">eiggs1</span><span class="p">(</span><span class="k">var</span><span class="w"> </span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">rwidth</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">lam</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="p">)</span><span class="o">;</span><span class="w">                     </span><span class="c1">// all eigenvalues</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">eiggs2</span><span class="p">(</span><span class="k">var</span><span class="w"> </span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">rwidth</span><span class="o">,</span><span class="w"> </span><span class="n">k1</span><span class="o">,</span><span class="w"> </span><span class="n">k2</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">lam</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="p">)</span><span class="o">;</span><span class="w">             </span><span class="c1">// some eigenvalues (index k1..k2)</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">eiggs3</span><span class="p">(</span><span class="k">var</span><span class="w"> </span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">rwidtha</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">lam</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="p">)</span><span class="o">;</span><span class="w">                 </span><span class="c1">// all eigenvalues and eigenvectors</span>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">eiggs4</span><span class="p">(</span><span class="k">var</span><span class="w"> </span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">rwidtha</span><span class="o">,</span><span class="w"> </span><span class="n">k1</span><span class="o">,</span><span class="w"> </span><span class="n">k2</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">lam</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="p">)</span><span class="o">;</span><span class="w">         </span><span class="c1">// some eigenvalues and eigenvectors (index k1..k2)</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="c1">// Symmetric positive definite matrix</span>
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">eiggg1</span><span class="p">(</span><span class="k">var</span><span class="w"> </span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">rwidth</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">lam</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="p">)</span><span class="o">;</span><span class="w">                     </span><span class="c1">// all eigenvalues</span>
+</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">eiggg2</span><span class="p">(</span><span class="k">var</span><span class="w"> </span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">rwidth</span><span class="o">,</span><span class="w"> </span><span class="n">k1</span><span class="o">,</span><span class="w"> </span><span class="n">k2</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">lam</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="p">)</span><span class="o">;</span><span class="w">             </span><span class="c1">// some eigenvalues (index k1..k2)</span>
+</span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">eiggg3</span><span class="p">(</span><span class="k">var</span><span class="w"> </span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">rwidtha</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">lam</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="p">)</span><span class="o">;</span><span class="w">                 </span><span class="c1">// all eigenvalues and eigenvectors</span>
+</span><span id="__span-22-15"><a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">eiggg4</span><span class="p">(</span><span class="k">var</span><span class="w"> </span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">rwidtha</span><span class="o">,</span><span class="w"> </span><span class="n">k1</span><span class="o">,</span><span class="w"> </span><span class="n">k2</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">lam</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="p">)</span><span class="o">;</span><span class="w">         </span><span class="c1">// some eigenvalues and eigenvectors (index k1..k2)</span>
+</span></code></pre></div>
+<ul>
+<li><code>n</code>: The number of rows or columns (since the matrix is square, they are the same).</li>
+<li><code>rwidth</code>: The length of each row in the matrix.</li>
+<li><code>lam</code>: The result where eigenvalues will be stored.</li>
+<li><code>x</code>: For some routines, the result where eigenvectors will be stored.</li>
+<li><code>k1</code>, <code>k2</code>: For routines that only find some eigenvalues, you can specify the range of indices (between <span class="arithmatex">\( k1 \)</span> and <span class="arithmatex">\( k2 \)</span>).</li>
+<li><code>term</code> indicates if the calculation was successful:<ul>
+<li><strong>1</strong>: Success, the eigenvalues (and eigenvectors, if needed) were calculated.</li>
+<li><strong>2</strong>: The calculation failed.</li>
+<li><strong>3</strong>: There was an error in the input data (like if <span class="arithmatex">\( n \)</span> was less than 1).</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example</strong></p>
+<p>Calculate the eigenvalues and eigenvectors of the matrix.</p>
+<div class="arithmatex">\[
+\displaystyle{  A=
+             \begin{bmatrix}
+                 8 &amp; -1 &amp; -5 \\
+                -4 &amp;  4 &amp; -2 \\
+                18 &amp; -5 &amp; -7
+             \end{bmatrix}
+   }
+   \]</div>
+<div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="c1">// Coming soon</span>
+</span></code></pre></div></td></tr></table></div>
+<h3 id="symmetric-band-matrices">Symmetric Band Matrices<a class="headerlink" href="#symmetric-band-matrices" title="Permanent link">&para;</a></h3>
+<p><strong>Example</strong></p>
+<div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="c1">// Coming soon</span>
+</span></code></pre></div></td></tr></table></div>
+<h3 id="symmetric-tridiagonal-matrices">Symmetric tridiagonal matrices<a class="headerlink" href="#symmetric-tridiagonal-matrices" title="Permanent link">&para;</a></h3>
+<p><strong>Example</strong></p>
+<div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="c1">// Coming soon</span>
+</span></code></pre></div></td></tr></table></div>
 <h2 id="unit-roo-finding-the-roots-of-a-function">Unit <code>roo</code> - Finding the roots of a function<a class="headerlink" href="#unit-roo-finding-the-roots-of-a-function" title="Permanent link">&para;</a></h2>
 <p>Coming soon.</p>
 <h2 id="unit-int-numerical-integration-of-a-function">Unit <code>int</code> - Numerical integration of a function<a class="headerlink" href="#unit-int-numerical-integration-of-a-function" title="Permanent link">&para;</a></h2>
