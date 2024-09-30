@@ -1552,17 +1552,31 @@ procedure eiggg3(var a: ArbFloat; n, rwidtha: ArbInt; var lam, x: ArbFloat; var 
 procedure eiggg4(var a: ArbFloat; n, rwidtha, k1, k2: ArbInt; var lam, x: ArbFloat; var term: ArbInt);         // some eigenvalues and eigenvectors (index k1..k2)
 ```
 
-- `n`: The number of rows or columns (since the matrix is square, they are the same).
-- `rwidth`: The length of each row in the matrix.
-- `lam`: The result where eigenvalues will be stored.
-- `x`: For some routines, the result where eigenvectors will be stored.
-- `k1`, `k2`: For routines that only find some eigenvalues, you can specify the range of indices (between \( k1 \) and \( k2 \)).
-- `term` indicates if the calculation was successful:
-    - **1**: Success, the eigenvalues (and eigenvectors, if needed) were calculated.
-    - **2**: The calculation failed.
-    - **3**: There was an error in the input data (like if \( n \) was less than 1).
+- `a` is the first element of an array containing the matrix $A$ for which the eigenvalue/eigenvector has to be calculated. 
+    - The array must be dimensioned to provide space for at least $n^{2}$ floating point values.
+- `n` specifies the size of the matrix $A$, i.e. the number of rows or columns. Note that the input matrix must be square, i.e. the number of rows and columns is equal.
+- `rwidth` is the allocated row length of the array a. It can be larger than n if the array is allocated larger than necessary, but normally `rwidth = n`.
+- `lam` is the first element of an array receiving the calculated eigenvalues. 
+    - In case of a generic matrix (`eigge1`, `eigge3`) the eigenvalues can be complex; therefore, the array must be dimensioned for values of type `complex` as declared in unit `typ`. 
+    - In the other cases (`eiggs1..4` or `eiggg1..4`) the eigenvalues are real, and the array must be dimensioned for datatype `ArbFloat`. 
+    - Since a $n \times n$ matrix has $n$ eigenvalues, the array must be allocated for at least `n` values, in case of the procedures with appended 2 or 4 only `k2-k1+1` values are sufficient (see below).
+- `term` returns an error code:
+    - 1 -- successful calculation
+    - 2 -- calculation failed
+    - 3 -- error in input data: n<1, k1<1, k1>k2, or k2>n.
 
-**Example**
+Additionally, in case of `eigge3`:
+
+- `x` is the first element of a matrix to receive the calculated eigenvectors. 
+    - Again, the eigenvectors of a generic matrix can have complex components. Therefore, the matrix must be declared for the datatype `complex`, and it must be large enough to hold at least $n^{2}$ values. 
+    - If the matrix is symmetric or positive definite, the eigenvectors are real, and the array must be declared for datatype `ArbFloat`. In any case, the eigenvectors are normalized to unit length and arranged in the columns of this matrix.
+- `rwidthx` denotes the allocated row length of the matrix $x$. Thus it is possible to dimension the result matrix larger than actually needed.
+
+Additionally, in case of procedures `eiggs2`, `eiggs4`, `eiggg2` and `eiggg4`:
+
+- `k1` and `k2` define the interval of indexes `k` for which the eigenvalues ($\lambda k$) and eigenvalues ($c_k$) are to be calculated. They are integers and must be ordered such that $1<=k1<=k2<=n$.
+
+#### Example
 
 Calculate the eigenvalues and eigenvectors of the matrix.
 
@@ -1577,8 +1591,88 @@ $$
    $$
 
 
-```pascal linenums="1"
-// Coming soon
+```pascal linenums="1" hl_lines="42"
+program eig_general_matrix;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  SysUtils, math, typ, eig;
+
+const
+  n = 3;         // Size of the matrix where m (row) = n (row)
+  dec_place = 3; // No of decimal place
+
+var
+  // a is the input matrix
+  mat_a: array[1..n, 1..n] of ArbFloat = (
+    ( 8, -1, -5),
+    (-4,  4, -2),
+    (18, -5, -7)
+  );
+  eig_values_lambda: array[1..n] of complex;
+  eig_vec_mat_x: array[1..n, 1..n] of complex;
+  term: integer = 0;
+  i, j: integer;
+
+  function ComplexToStr(z: complex; decimals: integer): String;
+  var
+    sgn: array[boolean] of string = ('+', '-');
+  begin
+    Result := Format('%.*f %s %.*fi', [Decimals, z.Re, sgn[z.Im < 0], Decimals, abs(z.Im)]);
+  end;
+
+begin
+  // write input matrix
+  WriteLn('Matrix a = ');
+  for i := 1 to n do begin
+    for j := 1 to n do
+      Write(mat_a[i, j]:10:dec_place);
+    WriteLn;
+  end;
+  WriteLn;
+
+  // Calculate eigenvalues/vectors
+  eigge3(mat_a[1,1], n, n, eig_values_lambda[1], eig_vec_mat_x[1,1], n, term);
+
+  // write eigenvalues
+  WriteLn('Eigenvalues: lambda = ');
+  for i := 1 to n do
+    Write(ComplexToStr(eig_values_lambda[i], dec_place):25);
+  WriteLn;
+  WriteLn;
+
+  // Write eigenvectors
+  WriteLn('Eigenvectors (as columns): x = ');
+  for i := 1 to n do begin
+    for j := 1 to n do
+      Write(ComplexToStr(eig_vec_mat_x[i, j], dec_place):25);
+    WriteLn;
+  end;
+
+  // Pause console
+  WriteLn('Press enter to quit');
+  ReadLn;
+end.
+```
+
+
+**Output**
+
+```bash
+Matrix a =
+     8.000    -1.000    -5.000
+    -4.000     4.000    -2.000
+    18.000    -5.000    -7.000
+
+Eigenvalues: lambda =
+           2.000 + 4.000i           2.000 - 4.000i           1.000 + 0.000i
+
+Eigenvectors (as columns): x =
+           0.316 + 0.316i           0.316 - 0.316i           0.408 + 0.000i
+           0.000 + 0.632i           0.000 - 0.632i           0.816 + 0.000i
+           0.632 + 0.000i           0.632 + 0.000i           0.408 + 0.000i
+Press enter to quit
 ```
 
 ### Symmetric Band Matrices
