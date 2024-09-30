@@ -1372,6 +1372,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Matrices with General Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2088,6 +2103,21 @@
       Matrices with General Storage
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Matrices with General Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -4358,19 +4388,39 @@ Sum\_of\_Squared\_Residuals=(-1)^{2} + (1)^{2} + (-1)^{2} + 0^{2}=3
 </span><span id="__span-22-15"><a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">eiggg4</span><span class="p">(</span><span class="k">var</span><span class="w"> </span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">rwidtha</span><span class="o">,</span><span class="w"> </span><span class="n">k1</span><span class="o">,</span><span class="w"> </span><span class="n">k2</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">lam</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="p">)</span><span class="o">;</span><span class="w">         </span><span class="c1">// some eigenvalues and eigenvectors (index k1..k2)</span>
 </span></code></pre></div>
 <ul>
-<li><code>n</code>: The number of rows or columns (since the matrix is square, they are the same).</li>
-<li><code>rwidth</code>: The length of each row in the matrix.</li>
-<li><code>lam</code>: The result where eigenvalues will be stored.</li>
-<li><code>x</code>: For some routines, the result where eigenvectors will be stored.</li>
-<li><code>k1</code>, <code>k2</code>: For routines that only find some eigenvalues, you can specify the range of indices (between <span class="arithmatex">\( k1 \)</span> and <span class="arithmatex">\( k2 \)</span>).</li>
-<li><code>term</code> indicates if the calculation was successful:<ul>
-<li><strong>1</strong>: Success, the eigenvalues (and eigenvectors, if needed) were calculated.</li>
-<li><strong>2</strong>: The calculation failed.</li>
-<li><strong>3</strong>: There was an error in the input data (like if <span class="arithmatex">\( n \)</span> was less than 1).</li>
+<li><code>a</code> is the first element of an array containing the matrix <span class="arithmatex">\(A\)</span> for which the eigenvalue/eigenvector has to be calculated. <ul>
+<li>The array must be dimensioned to provide space for at least <span class="arithmatex">\(n^{2}\)</span> floating point values.</li>
+</ul>
+</li>
+<li><code>n</code> specifies the size of the matrix <span class="arithmatex">\(A\)</span>, i.e. the number of rows or columns. Note that the input matrix must be square, i.e. the number of rows and columns is equal.</li>
+<li><code>rwidth</code> is the allocated row length of the array a. It can be larger than n if the array is allocated larger than necessary, but normally <code>rwidth = n</code>.</li>
+<li><code>lam</code> is the first element of an array receiving the calculated eigenvalues. <ul>
+<li>In case of a generic matrix (<code>eigge1</code>, <code>eigge3</code>) the eigenvalues can be complex; therefore, the array must be dimensioned for values of type <code>complex</code> as declared in unit <code>typ</code>. </li>
+<li>In the other cases (<code>eiggs1..4</code> or <code>eiggg1..4</code>) the eigenvalues are real, and the array must be dimensioned for datatype <code>ArbFloat</code>. </li>
+<li>Since a <span class="arithmatex">\(n \times n\)</span> matrix has <span class="arithmatex">\(n\)</span> eigenvalues, the array must be allocated for at least <code>n</code> values, in case of the procedures with appended 2 or 4 only <code>k2-k1+1</code> values are sufficient (see below).</li>
+</ul>
+</li>
+<li><code>term</code> returns an error code:<ul>
+<li>1 -- successful calculation</li>
+<li>2 -- calculation failed</li>
+<li>3 -- error in input data: n&lt;1, k1&lt;1, k1&gt;k2, or k2&gt;n.</li>
 </ul>
 </li>
 </ul>
-<p><strong>Example</strong></p>
+<p>Additionally, in case of <code>eigge3</code>:</p>
+<ul>
+<li><code>x</code> is the first element of a matrix to receive the calculated eigenvectors. <ul>
+<li>Again, the eigenvectors of a generic matrix can have complex components. Therefore, the matrix must be declared for the datatype <code>complex</code>, and it must be large enough to hold at least <span class="arithmatex">\(n^{2}\)</span> values. </li>
+<li>If the matrix is symmetric or positive definite, the eigenvectors are real, and the array must be declared for datatype <code>ArbFloat</code>. In any case, the eigenvectors are normalized to unit length and arranged in the columns of this matrix.</li>
+</ul>
+</li>
+<li><code>rwidthx</code> denotes the allocated row length of the matrix <span class="arithmatex">\(x\)</span>. Thus it is possible to dimension the result matrix larger than actually needed.</li>
+</ul>
+<p>Additionally, in case of procedures <code>eiggs2</code>, <code>eiggs4</code>, <code>eiggg2</code> and <code>eiggg4</code>:</p>
+<ul>
+<li><code>k1</code> and <code>k2</code> define the interval of indexes <code>k</code> for which the eigenvalues (<span class="arithmatex">\(\lambda k\)</span>) and eigenvalues (<span class="arithmatex">\(c_k\)</span>) are to be calculated. They are integers and must be ordered such that <span class="arithmatex">\(1&lt;=k1&lt;=k2&lt;=n\)</span>.</li>
+</ul>
+<h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
 <p>Calculate the eigenvalues and eigenvectors of the matrix.</p>
 <div class="arithmatex">\[
 \displaystyle{  A=
@@ -4381,15 +4431,152 @@ Sum\_of\_Squared\_Residuals=(-1)^{2} + (1)^{2} + (-1)^{2} + 0^{2}=3
              \end{bmatrix}
    }
    \]</div>
-<div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="c1">// Coming soon</span>
+<div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-23-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-23-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-23-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-23-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-23-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-23-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-23-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-23-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-23-10">10</a></span>
+<span class="normal"><a href="#__codelineno-23-11">11</a></span>
+<span class="normal"><a href="#__codelineno-23-12">12</a></span>
+<span class="normal"><a href="#__codelineno-23-13">13</a></span>
+<span class="normal"><a href="#__codelineno-23-14">14</a></span>
+<span class="normal"><a href="#__codelineno-23-15">15</a></span>
+<span class="normal"><a href="#__codelineno-23-16">16</a></span>
+<span class="normal"><a href="#__codelineno-23-17">17</a></span>
+<span class="normal"><a href="#__codelineno-23-18">18</a></span>
+<span class="normal"><a href="#__codelineno-23-19">19</a></span>
+<span class="normal"><a href="#__codelineno-23-20">20</a></span>
+<span class="normal"><a href="#__codelineno-23-21">21</a></span>
+<span class="normal"><a href="#__codelineno-23-22">22</a></span>
+<span class="normal"><a href="#__codelineno-23-23">23</a></span>
+<span class="normal"><a href="#__codelineno-23-24">24</a></span>
+<span class="normal"><a href="#__codelineno-23-25">25</a></span>
+<span class="normal"><a href="#__codelineno-23-26">26</a></span>
+<span class="normal"><a href="#__codelineno-23-27">27</a></span>
+<span class="normal"><a href="#__codelineno-23-28">28</a></span>
+<span class="normal"><a href="#__codelineno-23-29">29</a></span>
+<span class="normal"><a href="#__codelineno-23-30">30</a></span>
+<span class="normal"><a href="#__codelineno-23-31">31</a></span>
+<span class="normal"><a href="#__codelineno-23-32">32</a></span>
+<span class="normal"><a href="#__codelineno-23-33">33</a></span>
+<span class="normal"><a href="#__codelineno-23-34">34</a></span>
+<span class="normal"><a href="#__codelineno-23-35">35</a></span>
+<span class="normal"><a href="#__codelineno-23-36">36</a></span>
+<span class="normal"><a href="#__codelineno-23-37">37</a></span>
+<span class="normal"><a href="#__codelineno-23-38">38</a></span>
+<span class="normal"><a href="#__codelineno-23-39">39</a></span>
+<span class="normal"><a href="#__codelineno-23-40">40</a></span>
+<span class="normal"><a href="#__codelineno-23-41">41</a></span>
+<span class="normal"><a href="#__codelineno-23-42">42</a></span>
+<span class="normal"><a href="#__codelineno-23-43">43</a></span>
+<span class="normal"><a href="#__codelineno-23-44">44</a></span>
+<span class="normal"><a href="#__codelineno-23-45">45</a></span>
+<span class="normal"><a href="#__codelineno-23-46">46</a></span>
+<span class="normal"><a href="#__codelineno-23-47">47</a></span>
+<span class="normal"><a href="#__codelineno-23-48">48</a></span>
+<span class="normal"><a href="#__codelineno-23-49">49</a></span>
+<span class="normal"><a href="#__codelineno-23-50">50</a></span>
+<span class="normal"><a href="#__codelineno-23-51">51</a></span>
+<span class="normal"><a href="#__codelineno-23-52">52</a></span>
+<span class="normal"><a href="#__codelineno-23-53">53</a></span>
+<span class="normal"><a href="#__codelineno-23-54">54</a></span>
+<span class="normal"><a href="#__codelineno-23-55">55</a></span>
+<span class="normal"><a href="#__codelineno-23-56">56</a></span>
+<span class="normal"><a href="#__codelineno-23-57">57</a></span>
+<span class="normal"><a href="#__codelineno-23-58">58</a></span>
+<span class="normal"><a href="#__codelineno-23-59">59</a></span>
+<span class="normal"><a href="#__codelineno-23-60">60</a></span>
+<span class="normal"><a href="#__codelineno-23-61">61</a></span>
+<span class="normal"><a href="#__codelineno-23-62">62</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="k">program</span><span class="w"> </span><span class="n">eig_general_matrix</span><span class="o">;</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2"></a>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4"></a>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5"></a><span class="k">uses</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6"></a><span class="w">  </span><span class="n">SysUtils</span><span class="o">,</span><span class="w"> </span><span class="n">math</span><span class="o">,</span><span class="w"> </span><span class="n">typ</span><span class="o">,</span><span class="w"> </span><span class="n">eig</span><span class="o">;</span>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7"></a>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8"></a><span class="k">const</span>
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9"></a><span class="w">  </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="o">;</span><span class="w">         </span><span class="c1">// Size of the matrix where m (row) = n (row)</span>
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10"></a><span class="w">  </span><span class="n">dec_place</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="o">;</span><span class="w"> </span><span class="c1">// No of decimal place</span>
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11"></a>
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12"></a><span class="k">var</span>
+</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13"></a><span class="w">  </span><span class="c1">// a is the input matrix</span>
+</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14"></a><span class="w">  </span><span class="n">mat_a</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">ArbFloat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-23-15"><a id="__codelineno-23-15" name="__codelineno-23-15"></a><span class="w">    </span><span class="p">(</span><span class="w"> </span><span class="mi">8</span><span class="o">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="o">-</span><span class="mi">5</span><span class="p">)</span><span class="o">,</span>
+</span><span id="__span-23-16"><a id="__codelineno-23-16" name="__codelineno-23-16"></a><span class="w">    </span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="o">,</span><span class="w">  </span><span class="mi">4</span><span class="o">,</span><span class="w"> </span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">,</span>
+</span><span id="__span-23-17"><a id="__codelineno-23-17" name="__codelineno-23-17"></a><span class="w">    </span><span class="p">(</span><span class="mi">18</span><span class="o">,</span><span class="w"> </span><span class="o">-</span><span class="mi">5</span><span class="o">,</span><span class="w"> </span><span class="o">-</span><span class="mi">7</span><span class="p">)</span>
+</span><span id="__span-23-18"><a id="__codelineno-23-18" name="__codelineno-23-18"></a><span class="w">  </span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-23-19"><a id="__codelineno-23-19" name="__codelineno-23-19"></a><span class="w">  </span><span class="n">eig_values_lambda</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">complex</span><span class="o">;</span>
+</span><span id="__span-23-20"><a id="__codelineno-23-20" name="__codelineno-23-20"></a><span class="w">  </span><span class="n">eig_vec_mat_x</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">complex</span><span class="o">;</span>
+</span><span id="__span-23-21"><a id="__codelineno-23-21" name="__codelineno-23-21"></a><span class="w">  </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="o">;</span>
+</span><span id="__span-23-22"><a id="__codelineno-23-22" name="__codelineno-23-22"></a><span class="w">  </span><span class="n">i</span><span class="o">,</span><span class="w"> </span><span class="n">j</span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="o">;</span>
+</span><span id="__span-23-23"><a id="__codelineno-23-23" name="__codelineno-23-23"></a>
+</span><span id="__span-23-24"><a id="__codelineno-23-24" name="__codelineno-23-24"></a><span class="w">  </span><span class="k">function</span><span class="w"> </span><span class="nf">ComplexToStr</span><span class="p">(</span><span class="n">z</span><span class="o">:</span><span class="w"> </span><span class="n">complex</span><span class="o">;</span><span class="w"> </span><span class="n">decimals</span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="k">String</span><span class="o">;</span>
+</span><span id="__span-23-25"><a id="__codelineno-23-25" name="__codelineno-23-25"></a><span class="w">  </span><span class="k">var</span>
+</span><span id="__span-23-26"><a id="__codelineno-23-26" name="__codelineno-23-26"></a><span class="w">    </span><span class="n">sgn</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="kt">boolean</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="s">&#39;+&#39;</span><span class="o">,</span><span class="w"> </span><span class="s">&#39;-&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-23-27"><a id="__codelineno-23-27" name="__codelineno-23-27"></a><span class="w">  </span><span class="k">begin</span>
+</span><span id="__span-23-28"><a id="__codelineno-23-28" name="__codelineno-23-28"></a><span class="w">    </span><span class="bp">Result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">Format</span><span class="p">(</span><span class="s">&#39;%.*f %s %.*fi&#39;</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="n">Decimals</span><span class="o">,</span><span class="w"> </span><span class="n">z</span><span class="o">.</span><span class="n">Re</span><span class="o">,</span><span class="w"> </span><span class="n">sgn</span><span class="p">[</span><span class="n">z</span><span class="o">.</span><span class="n">Im</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">Decimals</span><span class="o">,</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">Im</span><span class="p">)])</span><span class="o">;</span>
+</span><span id="__span-23-29"><a id="__codelineno-23-29" name="__codelineno-23-29"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-23-30"><a id="__codelineno-23-30" name="__codelineno-23-30"></a>
+</span><span id="__span-23-31"><a id="__codelineno-23-31" name="__codelineno-23-31"></a><span class="k">begin</span>
+</span><span id="__span-23-32"><a id="__codelineno-23-32" name="__codelineno-23-32"></a><span class="w">  </span><span class="c1">// write input matrix</span>
+</span><span id="__span-23-33"><a id="__codelineno-23-33" name="__codelineno-23-33"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Matrix a = &#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-23-34"><a id="__codelineno-23-34" name="__codelineno-23-34"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="k">begin</span>
+</span><span id="__span-23-35"><a id="__codelineno-23-35" name="__codelineno-23-35"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-23-36"><a id="__codelineno-23-36" name="__codelineno-23-36"></a><span class="w">      </span><span class="nb">Write</span><span class="p">(</span><span class="n">mat_a</span><span class="p">[</span><span class="n">i</span><span class="o">,</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="n">dec_place</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-23-37"><a id="__codelineno-23-37" name="__codelineno-23-37"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-23-38"><a id="__codelineno-23-38" name="__codelineno-23-38"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-23-39"><a id="__codelineno-23-39" name="__codelineno-23-39"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-23-40"><a id="__codelineno-23-40" name="__codelineno-23-40"></a>
+</span><span id="__span-23-41"><a id="__codelineno-23-41" name="__codelineno-23-41"></a><span class="w">  </span><span class="c1">// Calculate eigenvalues/vectors</span>
+</span><span id="__span-23-42"><a id="__codelineno-23-42" name="__codelineno-23-42"></a><span class="hll"><span class="w">  </span><span class="n">eigge3</span><span class="p">(</span><span class="n">mat_a</span><span class="p">[</span><span class="mi">1</span><span class="o">,</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">eig_values_lambda</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">eig_vec_mat_x</span><span class="p">[</span><span class="mi">1</span><span class="o">,</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">term</span><span class="p">)</span><span class="o">;</span>
+</span></span><span id="__span-23-43"><a id="__codelineno-23-43" name="__codelineno-23-43"></a>
+</span><span id="__span-23-44"><a id="__codelineno-23-44" name="__codelineno-23-44"></a><span class="w">  </span><span class="c1">// write eigenvalues</span>
+</span><span id="__span-23-45"><a id="__codelineno-23-45" name="__codelineno-23-45"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Eigenvalues: lambda = &#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-23-46"><a id="__codelineno-23-46" name="__codelineno-23-46"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-23-47"><a id="__codelineno-23-47" name="__codelineno-23-47"></a><span class="w">    </span><span class="nb">Write</span><span class="p">(</span><span class="n">ComplexToStr</span><span class="p">(</span><span class="n">eig_values_lambda</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">dec_place</span><span class="p">)</span><span class="o">:</span><span class="mi">25</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-23-48"><a id="__codelineno-23-48" name="__codelineno-23-48"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-23-49"><a id="__codelineno-23-49" name="__codelineno-23-49"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-23-50"><a id="__codelineno-23-50" name="__codelineno-23-50"></a>
+</span><span id="__span-23-51"><a id="__codelineno-23-51" name="__codelineno-23-51"></a><span class="w">  </span><span class="c1">// Write eigenvectors</span>
+</span><span id="__span-23-52"><a id="__codelineno-23-52" name="__codelineno-23-52"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Eigenvectors (as columns): x = &#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-23-53"><a id="__codelineno-23-53" name="__codelineno-23-53"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="k">begin</span>
+</span><span id="__span-23-54"><a id="__codelineno-23-54" name="__codelineno-23-54"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-23-55"><a id="__codelineno-23-55" name="__codelineno-23-55"></a><span class="w">      </span><span class="nb">Write</span><span class="p">(</span><span class="n">ComplexToStr</span><span class="p">(</span><span class="n">eig_vec_mat_x</span><span class="p">[</span><span class="n">i</span><span class="o">,</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">dec_place</span><span class="p">)</span><span class="o">:</span><span class="mi">25</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-23-56"><a id="__codelineno-23-56" name="__codelineno-23-56"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-23-57"><a id="__codelineno-23-57" name="__codelineno-23-57"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-23-58"><a id="__codelineno-23-58" name="__codelineno-23-58"></a>
+</span><span id="__span-23-59"><a id="__codelineno-23-59" name="__codelineno-23-59"></a><span class="w">  </span><span class="c1">// Pause console</span>
+</span><span id="__span-23-60"><a id="__codelineno-23-60" name="__codelineno-23-60"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Press enter to quit&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-23-61"><a id="__codelineno-23-61" name="__codelineno-23-61"></a><span class="w">  </span><span class="nb">ReadLn</span><span class="o">;</span>
+</span><span id="__span-23-62"><a id="__codelineno-23-62" name="__codelineno-23-62"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></table></div>
+<p><strong>Output</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>Matrix<span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">     </span><span class="m">8</span>.000<span class="w">    </span>-1.000<span class="w">    </span>-5.000
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">    </span>-4.000<span class="w">     </span><span class="m">4</span>.000<span class="w">    </span>-2.000
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">    </span><span class="m">18</span>.000<span class="w">    </span>-5.000<span class="w">    </span>-7.000
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>Eigenvalues:<span class="w"> </span><span class="nv">lambda</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="w">           </span><span class="m">2</span>.000<span class="w"> </span>+<span class="w"> </span><span class="m">4</span>.000i<span class="w">           </span><span class="m">2</span>.000<span class="w"> </span>-<span class="w"> </span><span class="m">4</span>.000i<span class="w">           </span><span class="m">1</span>.000<span class="w"> </span>+<span class="w"> </span><span class="m">0</span>.000i
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>Eigenvectors<span class="w"> </span><span class="o">(</span>as<span class="w"> </span>columns<span class="o">)</span>:<span class="w"> </span><span class="nv">x</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="w">           </span><span class="m">0</span>.316<span class="w"> </span>+<span class="w"> </span><span class="m">0</span>.316i<span class="w">           </span><span class="m">0</span>.316<span class="w"> </span>-<span class="w"> </span><span class="m">0</span>.316i<span class="w">           </span><span class="m">0</span>.408<span class="w"> </span>+<span class="w"> </span><span class="m">0</span>.000i
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="w">           </span><span class="m">0</span>.000<span class="w"> </span>+<span class="w"> </span><span class="m">0</span>.632i<span class="w">           </span><span class="m">0</span>.000<span class="w"> </span>-<span class="w"> </span><span class="m">0</span>.632i<span class="w">           </span><span class="m">0</span>.816<span class="w"> </span>+<span class="w"> </span><span class="m">0</span>.000i
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a><span class="w">           </span><span class="m">0</span>.632<span class="w"> </span>+<span class="w"> </span><span class="m">0</span>.000i<span class="w">           </span><span class="m">0</span>.632<span class="w"> </span>+<span class="w"> </span><span class="m">0</span>.000i<span class="w">           </span><span class="m">0</span>.408<span class="w"> </span>+<span class="w"> </span><span class="m">0</span>.000i
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a>Press<span class="w"> </span>enter<span class="w"> </span>to<span class="w"> </span>quit
+</span></code></pre></div>
 <h3 id="symmetric-band-matrices">Symmetric Band Matrices<a class="headerlink" href="#symmetric-band-matrices" title="Permanent link">&para;</a></h3>
 <p><strong>Example</strong></p>
-<div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="c1">// Coming soon</span>
+<div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="c1">// Coming soon</span>
 </span></code></pre></div></td></tr></table></div>
 <h3 id="symmetric-tridiagonal-matrices">Symmetric tridiagonal matrices<a class="headerlink" href="#symmetric-tridiagonal-matrices" title="Permanent link">&para;</a></h3>
 <p><strong>Example</strong></p>
-<div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="c1">// Coming soon</span>
+<div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1"></a><span class="c1">// Coming soon</span>
 </span></code></pre></div></td></tr></table></div>
 <h2 id="unit-roo-finding-the-roots-of-a-function">Unit <code>roo</code> - Finding the roots of a function<a class="headerlink" href="#unit-roo-finding-the-roots-of-a-function" title="Permanent link">&para;</a></h2>
 <p>Coming soon.</p>
