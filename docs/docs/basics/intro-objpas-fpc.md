@@ -73,11 +73,35 @@ exports         is              property
 
 Comments are pieces of the source code which are completely discarded by the compiler.
 
-Use `{` and `}` or `//` for making comments in Object Pascal.
+In Free Pascal, you can create comments by using the following methods:
 
-You might use conmments as follows.
+1. `(*` and `*)`
+2. `{` and `}`
+3. `//`
+
+!!! Tip
+    
+    [𝓚𝓸𝓭𝓮𝓩𝔀𝓮𝓻𝓰 🇩🇪 — 2024-10-06 07:48](https://discord.com/channels/570025060312547359/570025060312547361/1292233646928957524)
+
+    Since `{ ... }` can be combined with directives, it may confuse the syntax checker.
+
+    You can use `(* ... *)` to prevent accidental { }
+
+    ```pascal
+    (*
+       Example of multiple lines commented.
+       And immune to accidental }
+    *)
+    ```
+
+**Examples**
 
 ```pascal linenums="1"
+(*
+ Example of multiple lines commented.
+ And immune to accidental }
+*)
+
 {  This is a single line comment. }  
 
 // This is a single line comment. All is ignored till the end of the line.
