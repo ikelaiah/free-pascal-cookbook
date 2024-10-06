@@ -81,11 +81,11 @@ In Free Pascal, you can create comments by using the following methods:
 
 !!! Tip
     
-    [𝓚𝓸𝓭𝓮𝓩𝔀𝓮𝓻𝓰 🇩🇪 — 2024-10-06 07:48](https://discord.com/channels/570025060312547359/570025060312547361/1292233646928957524)
+    [Mobius1 — 2024-10-06 at 08:15](https://discord.com/channels/570025060312547359/570025060312547361/1292233646928957524)
 
-    Since `{ ... }` can be combined with directives, it may confuse the syntax checker.
+    Suggested the addition of `(* ... *)`. Since `{ ... }` can be combined with directives, it may confuse the syntax checker.
 
-    You can use `(* ... *)` to prevent accidental { }
+    You can use `(* ... *)` to prevent accidental `{ }`.
 
     ```pascal
     (*
