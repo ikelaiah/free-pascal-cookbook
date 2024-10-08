@@ -2120,7 +2120,6 @@ begin
 end.
 ```
 
-
 **Output**
 
 ```bash
