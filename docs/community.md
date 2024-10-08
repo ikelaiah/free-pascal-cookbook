@@ -7,6 +7,7 @@ Here are chats, mailing lists, conferences and events that relate to Free Pascal
 ### Forums
 
 - [Free Pascal and Lazarus](https://forum.lazarus.freepascal.org/index.php)
+- [Begin End](https://www.beginend.net) - A blog aggregator site for all things Object Pascal; Delphi, Lazarus + Free Pascal.
 
 ### Discord Servers
 
