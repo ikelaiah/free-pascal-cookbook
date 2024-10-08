@@ -38,7 +38,7 @@ NumLib provides the function `omvinp` for calculation of the inner product:
 function omvinp(var a, b: ArbFloat; n: ArbInt): ArbFloat;
 ```
 
-**Key Parameters**
+**Parameters**
 
 - `a` and `b` are the first elements of 1-dimensional arrays representing the vectors $a$ and $b$, respectively.
 - `n` defines the dimension of the vectors (count of array elements). Both vectors must have the same number of elements.
@@ -226,7 +226,7 @@ procedure omvtrm(
 );
 ```
 
-**Key Parameters**
+**Parameters**
 
 - `a` is the first element of the input matrix $A$. The elements of this array **are not** changed by the procedure.
 - `m` is the number of rows of matrix $A$.
@@ -358,7 +358,7 @@ function omvnmv(var a: ArbFloat; n: ArbInt): ArbFloat;               // Maximum 
 function omvnmm(var a: ArbFloat; m, n, rwidth: ArbInt): ArbFloat;    // Maximum infinite norm of a matrix
 ```
 
-**Key Parameters**
+**Parameters**
 
 - `a`: First element of the vector or matrix for norm calculation.
 - `m`: Number of rows (for matrix norms).
@@ -456,7 +456,7 @@ procedure invgsy(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);   // sy
 procedure invgpd(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);   // symmetric positive definite matrix
 ```
 
-**Key Parameters**
+**Parameters**
 
 
 - \( n \): The size of the matrix.
@@ -616,7 +616,7 @@ procedure slegsy(n, rwidth: ArbInt; var a, b, x, ca: ArbFloat; var term: ArbInt)
 procedure slegpd(n, rwidth: ArbInt; var a, b, x, ca: ArbFloat; var term: ArbInt);   // symmetric positive definite matrix
 ```
 
-**Key Parameters**
+**Parameters**
 
 `slegen` is the General-purpose for any square matrix (Gaussian elimination with partial pivoting).
 
@@ -767,7 +767,7 @@ procedure slegba(n, l, r: ArbInt; var a, b, x, ca: ArbFloat; var term:ArbInt);
 !!! Warning
     Note that this routine cannot work with a 2D array.
 
-**Key Parameters**
+**Parameters**
 
 - `n` is the number of columns and rows of the matrix (it must be a square matrix).
 - `l` is the left bandwidth, i.e. the number of diagonals the band extends below (or to the left of) the main diagonal.
@@ -960,7 +960,7 @@ procedure slegpb(n, w: ArbInt; var a, b, x, ca: ArbFloat; var term: ArbInt);
 !!! Warning
     Note that this routine cannot work with a 2D array.
 
-**Key Parameters**
+**Parameters**
 
 - `n` is the number of rows and columns in the matrix (the matrix must be square).
 - `w` is the bandwidth (one-sided), which is the number of diagonals that extend below (or to the left of) the main diagonal. This value is also the number of diagonals that extend above (or to the right of) the main diagonal.
@@ -1138,7 +1138,7 @@ sledtr(n: ArbInt; var l, d, u, b, x: ArbFloat; var term: ArbInt)
 slegtr(n: ArbInt; var l, d, u, b, x, ca: ArbFloat; var term: ArbInt)
 ```
 
-**Key Parameters**
+**Parameters**
 
 - `n` is the number of unknown variables. It must be the same as the number of columns and rows of the coefficent matrix.
 - `l` specifies the first element in the subdiagonal of the matrix $A$. This 1D array must be dimensioned to at least `n-1` elements.
@@ -1293,7 +1293,7 @@ Unlike other routines in the sle unit that require a square matrix $A$, `slegls`
 procedure slegls(var a: ArbFloat; m, n, rwidtha: ArbInt; var b, x: ArbFloat; var term: ArbInt);
 ```
 
-**Key Parameters**
+**Parameters**
 
 - `a` is the first element of an array of matrix $A$. The array won't be modified.
 - `m` is the number of rows in matrix $A$ (i.e., the number of equations).
@@ -1569,7 +1569,7 @@ procedure eiggg3(var a: ArbFloat; n, rwidtha: ArbInt; var lam, x: ArbFloat; var 
 procedure eiggg4(var a: ArbFloat; n, rwidtha, k1, k2: ArbInt; var lam, x: ArbFloat; var term: ArbInt);         // some eigenvalues and eigenvectors (index k1..k2)
 ```
 
-**Key Parameters**
+**Parameters**
 
 - `a` is the first element of an array containing the matrix $A$ for which the eigenvalue/eigenvector has to be calculated. 
     - The array must be dimensioned to provide space for at least $n^{2}$ floating point values.
@@ -1718,7 +1718,7 @@ NumLib provides four routines for calculating the eigenvalues and eigenvectors o
    procedure eigbs4(var a: ArbFloat; n, w, k1, k2: ArbInt; var lam, x: ArbFloat; rwidthx: ArbInt; var m2, term: ArbInt);
    ```
 
-**Key Parameters**
+**Parameters**
 
 - **a**: This is the first element of a 1D array that contains the matrix's diagonal and left band elements. The right band is ignored because the matrix is symmetric. The array needs to be large enough to hold at least `n*(w+1) - (w*(w+1)) div 2` elements.
   
@@ -1955,13 +1955,199 @@ Eigenvectors (as columns): x =
 Press enter to quit
 ```
 
-###	Symmetric tridiagonal matrices
+### Symmetric Tridiagonal Matrices
+
+Symmetric tridiagonal matrices can be handled using the following routines: `eigts1`, `eigts2`, `eigts3`, and `eigts4`.
+
+1. **All Eigenvalues**  
+   ```pascal
+   procedure eigts1(var d, cd: ArbFloat; n: ArbInt; var lam: ArbFloat; var term: ArbInt);
+   ```
+   This procedure computes all eigenvalues of the matrix.
+
+2. **Some Eigenvalues (with indices k1..k2)**  
+   ```pascal
+   procedure eigts2(var d, cd: ArbFloat; n, k1, k2: ArbInt; var lam: ArbFloat; var term: ArbInt);
+   ```
+   This computes the eigenvalues within the index range `k1` to `k2`.
+
+3. **All Eigenvalues and Eigenvectors**  
+   ```pascal
+   procedure eigts3(var d, cd: ArbFloat; n: ArbInt; var lam, x: ArbFloat; rwidth: ArbInt; var term: ArbInt);
+   ```
+   This calculates all eigenvalues and their corresponding eigenvectors.
+
+4. **Some Eigenvalues and Eigenvectors (with indices k1..k2)**  
+   ```pascal
+   procedure eigts4(var d, cd: ArbFloat; n, k1, k2: ArbInt; var lam, x: ArbFloat; rwidth: ArbInt; var m2, term: ArbInt);
+   ```
+   This computes eigenvalues and eigenvectors within the specified index range `k1` to `k2`.
+
+---
+
+**Parameters**
+
+- **d**: A 1D array representing the main diagonal of the matrix. It must contain at least `n` elements.
+- **cd**: A 1D array representing the subdiagonal of the matrix. It must have at least `n-1` elements.
+- **n**: The size of the matrix (number of rows or columns), which must be square.
+- **k1, k2**: The index range for the eigenvalues and eigenvectors to be calculated, where `1 <= k1 <= k2 <= n`.
+- **lam**: A 1D array to store the calculated eigenvalues. For routines `eigts1` and `eigts3`, it must contain at least `n` elements. For `eigts2` and `eigts4`, it only needs to store `k2 - k1 + 1` elements.
+- **x**: A 2D array to store the calculated eigenvectors. For `eigts3`, the array must have at least `n^2` elements. For `eigts4`, it must provide space for `n * (k2 - k1 + 1)` elements. Eigenvectors are normalized to unit length and stored in columns.
+- **rwidth**: The row length of the matrix `x`. This allows the result matrix to be dimensioned larger than necessary.
+- **term**: An error code returned after calculation:
+  - `1`: Successful calculation.
+  - `2`: Calculation failed.
+  - `3`: Error in input data (e.g., `n < 1`, `k1 < 1`, `k1 > k2`, or `k2 > n`).
+
+This explanation organizes the routines, clearly defines the parameters, and explains the error codes in a structured way for easier understanding.
 
 **Example**
 
-```pascal linenums="1"
-// Coming soon
+Calculate eigenvalues and eigenvectors of the matrix:
+
+$$
+\displaystyle{  A=
+ \begin{bmatrix}
+  1 & 1 & 0 & 0 \\
+  1 & 1 & 2 & 0 \\
+  0 & 2 & 1 & 1 \\
+  0 & 0 & 1 & 1
+ \end{bmatrix}
+ }
+$$
+
+The expected eigenvalues are:
+
+$$
+\displaystyle{  -\sqrt{2},\ 2-\sqrt{2},\ \sqrt{2},\ 2+\sqrt{2} }
+$$
+
+
+```pascal linenums="1" hl_lines="1"
+program eig_symtridiag_matrix;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  typ, eig;
+
+const
+  n_mat_size = 4;
+
+var
+  // This var contains the elements of the main diagonal of the input matrix
+  diag_elements: array[1..n_mat_size] of ArbFloat = (1, 1, 1, 1);
+
+  // This var contains the elements of the subdiagonal
+  subdiag_elements: array[2..n_mat_size] of ArbFloat = (1, 2, 1);
+
+  // Array to store the calculated eigenvalues
+  eig_values_lambda: array[1..n_mat_size] of ArbFloat;
+
+  // Matrix to store the calculated eigenvectors
+  eig_vectors_mat_x: array[1..n_mat_size, 1..n_mat_size] of ArbFloat;
+
+  // Variable for capturing the result of the eigenvalue/eigenvector calculation
+  term: integer = 0;
+
+  // Variables for loops
+  i, j, k: integer;
+
+begin
+
+  // Write elements of diagonal
+  WriteLn('n = ', n_mat_size);
+  Write('Elements of main diagonal = ', diag_elements[1]:0:0);
+  for k := 2 to n_mat_size do
+    Write(diag_elements[k]:3:0);
+  WriteLn;
+
+  // Write elements of sub-diagonal
+  Write('Elements of subdiagonal   = ', ' ':3, subdiag_elements[2]:0:0);
+  for k := 3 to n_mat_size do
+    Write(subdiag_elements[k]:3:0);
+  WriteLn;
+  WriteLn;
+
+  // Write reconstructed band input matrix (not needed for calculation)
+  WriteLn('Reconstructed A = ');
+  for i := 1 to n_mat_size do begin
+    for j := 1 to n_mat_size do begin
+      if j = i then
+        Write(diag_elements[i]:3:0)
+      else if (j = i-1) then
+        Write(subdiag_elements[i]:3:0)
+      else if (j = i+1) then
+        Write(subdiag_elements[i+1]:3:0)
+      else
+        Write(0.0:3:0);
+    end;
+    WriteLn;
+  end;
+  WriteLn;
+
+  // Calculate eigenvalues/vectors
+  eigts3(diag_elements[1], subdiag_elements[2], n_mat_size, eig_values_lambda[1], eig_vectors_mat_x[1,1], n_mat_size, term);
+  if term <> 1 then begin
+    WriteLn('term = ', term, ' --> ERROR');
+    halt;
+  end;
+
+  // Write expected results of eigenvalues
+  WriteLn('Expected eigenvalues:');
+  Write(-sqrt(2):15:3, 2-sqrt(2):15:3, sqrt(2):15:3, 2+sqrt(2):15:3);
+  WriteLn;
+  WriteLn;
+
+  // write eigenvalues
+  WriteLn('Calculated eigenvalues: lambda = ');
+  for i := 1 to n_mat_size do
+    Write(eig_values_lambda[i]:15:3);
+  WriteLn;
+  WriteLn;
+
+  // Write eigenvectors
+  WriteLn('Eigenvectors (as columns): x = ');
+  for i := 1 to n_mat_size do begin
+    for j := 1 to n_mat_size do
+      Write(eig_vectors_mat_x[i, j]:15:3);
+    WriteLn;
+  end;
+
+  // Pause to allow user to see results before exiting the program
+  WriteLn('Press enter to quit');
+  ReadLn;
+end.
 ```
+
+
+**Output**
+
+```bash
+n = 4
+Elements of main diagonal = 1  1  1  1
+Elements of subdiagonal   =    1  2  1
+
+Reconstructed A =
+  1  1  0  0
+  1  1  2  0
+  0  2  1  1
+  0  0  1  1
+
+Expected eigenvalues:
+         -1.414          0.586          1.414          3.414
+
+Calculated eigenvalues: lambda =
+         -1.414          0.586          1.414          3.414
+
+Eigenvectors (as columns): x =
+         -0.271         -0.653          0.653          0.271
+          0.653          0.271          0.271          0.653
+         -0.653          0.271         -0.271          0.653
+          0.271         -0.653         -0.653          0.271
+Press enter to quit
+```
+
 
 ## Unit `roo` - Finding the roots of a function
 
