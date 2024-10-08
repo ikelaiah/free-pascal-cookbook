@@ -38,6 +38,8 @@ NumLib provides the function `omvinp` for calculation of the inner product:
 function omvinp(var a, b: ArbFloat; n: ArbInt): ArbFloat;
 ```
 
+**Key Parameters**
+
 - `a` and `b` are the first elements of 1-dimensional arrays representing the vectors $a$ and $b$, respectively.
 - `n` defines the dimension of the vectors (count of array elements). Both vectors must have the same number of elements.
 
@@ -224,6 +226,8 @@ procedure omvtrm(
 );
 ```
 
+**Key Parameters**
+
 - `a` is the first element of the input matrix $A$. The elements of this array **are not** changed by the procedure.
 - `m` is the number of rows of matrix $A$.
 - `n` is the number of columns of matrix $A$.
@@ -354,6 +358,8 @@ function omvnmv(var a: ArbFloat; n: ArbInt): ArbFloat;               // Maximum 
 function omvnmm(var a: ArbFloat; m, n, rwidth: ArbInt): ArbFloat;    // Maximum infinite norm of a matrix
 ```
 
+**Key Parameters**
+
 - `a`: First element of the vector or matrix for norm calculation.
 - `m`: Number of rows (for matrix norms).
 - `n`: Number of elements (for vector norms) or columns (for matrix norms).
@@ -450,7 +456,8 @@ procedure invgsy(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);   // sy
 procedure invgpd(n, rwidth: ArbInt; var ai: ArbFloat; var term: ArbInt);   // symmetric positive definite matrix
 ```
 
-Each routine needs you to pass certain information:
+**Key Parameters**
+
 
 - \( n \): The size of the matrix.
 - \( rwidth \): The width of the rows (usually, this is the same as \( n \)).
@@ -609,6 +616,8 @@ procedure slegsy(n, rwidth: ArbInt; var a, b, x, ca: ArbFloat; var term: ArbInt)
 procedure slegpd(n, rwidth: ArbInt; var a, b, x, ca: ArbFloat; var term: ArbInt);   // symmetric positive definite matrix
 ```
 
+**Key Parameters**
+
 `slegen` is the General-purpose for any square matrix (Gaussian elimination with partial pivoting).
 
 `slegsy` is specialised for symmetric matrices (more stable reduction to tridiagonal form).
@@ -757,6 +766,8 @@ procedure slegba(n, l, r: ArbInt; var a, b, x, ca: ArbFloat; var term:ArbInt);
 
 !!! Warning
     Note that this routine cannot work with a 2D array.
+
+**Key Parameters**
 
 - `n` is the number of columns and rows of the matrix (it must be a square matrix).
 - `l` is the left bandwidth, i.e. the number of diagonals the band extends below (or to the left of) the main diagonal.
@@ -949,6 +960,8 @@ procedure slegpb(n, w: ArbInt; var a, b, x, ca: ArbFloat; var term: ArbInt);
 !!! Warning
     Note that this routine cannot work with a 2D array.
 
+**Key Parameters**
+
 - `n` is the number of rows and columns in the matrix (the matrix must be square).
 - `w` is the bandwidth (one-sided), which is the number of diagonals that extend below (or to the left of) the main diagonal. This value is also the number of diagonals that extend above (or to the right of) the main diagonal.
 - `a` points to the first element of a 1D array that contains the elements of the diagonal band. 
@@ -1125,6 +1138,8 @@ sledtr(n: ArbInt; var l, d, u, b, x: ArbFloat; var term: ArbInt)
 slegtr(n: ArbInt; var l, d, u, b, x, ca: ArbFloat; var term: ArbInt)
 ```
 
+**Key Parameters**
+
 - `n` is the number of unknown variables. It must be the same as the number of columns and rows of the coefficent matrix.
 - `l` specifies the first element in the subdiagonal of the matrix $A$. This 1D array must be dimensioned to at least `n-1` elements.
 - `d` specifies the first element along the main diagonal of the matrix $A$. This 1D array must be dimensioned to contain at least `n` elements.
@@ -1277,6 +1292,8 @@ Unlike other routines in the sle unit that require a square matrix $A$, `slegls`
 ```pascal
 procedure slegls(var a: ArbFloat; m, n, rwidtha: ArbInt; var b, x: ArbFloat; var term: ArbInt);
 ```
+
+**Key Parameters**
 
 - `a` is the first element of an array of matrix $A$. The array won't be modified.
 - `m` is the number of rows in matrix $A$ (i.e., the number of equations).
@@ -1552,6 +1569,8 @@ procedure eiggg3(var a: ArbFloat; n, rwidtha: ArbInt; var lam, x: ArbFloat; var 
 procedure eiggg4(var a: ArbFloat; n, rwidtha, k1, k2: ArbInt; var lam, x: ArbFloat; var term: ArbInt);         // some eigenvalues and eigenvectors (index k1..k2)
 ```
 
+**Key Parameters**
+
 - `a` is the first element of an array containing the matrix $A$ for which the eigenvalue/eigenvector has to be calculated. 
     - The array must be dimensioned to provide space for at least $n^{2}$ floating point values.
 - `n` specifies the size of the matrix $A$, i.e. the number of rows or columns. Note that the input matrix must be square, i.e. the number of rows and columns is equal.
@@ -1677,10 +1696,263 @@ Press enter to quit
 
 ### Symmetric Band Matrices
 
+NumLib provides four routines for calculating the eigenvalues and eigenvectors of **symmetric band matrices** (matrices with non-zero elements in a band around the main diagonal):
+
+1. **eigbs1**: Calculates all eigenvalues.
+   ```pascal
+   procedure eigbs1(var a: ArbFloat; n, w: ArbInt; var lam: ArbFloat; var term: ArbInt);
+   ```
+
+2. **eigbs2**: Calculates some of the eigenvalues, within a specified range (from index `k1` to `k2`).
+   ```pascal
+   procedure eigbs2(var a: ArbFloat; n, w, k1, k2: ArbInt; var lam: ArbFloat; var term: ArbInt);
+   ```
+
+3. **eigbs3**: Calculates all eigenvalues and their corresponding eigenvectors.
+   ```pascal
+   procedure eigbs3(var a: ArbFloat; n, w: ArbInt; var lam, x: ArbFloat; rwidthx: ArbInt; var term: ArbInt);
+   ```
+
+4. **eigbs4**: Calculates some eigenvalues and their corresponding eigenvectors (within the range `k1` to `k2`).
+   ```pascal
+   procedure eigbs4(var a: ArbFloat; n, w, k1, k2: ArbInt; var lam, x: ArbFloat; rwidthx: ArbInt; var m2, term: ArbInt);
+   ```
+
+**Key Parameters**
+
+- **a**: This is the first element of a 1D array that contains the matrix's diagonal and left band elements. The right band is ignored because the matrix is symmetric. The array needs to be large enough to hold at least `n*(w+1) - (w*(w+1)) div 2` elements.
+  
+- **n**: The number of rows and columns in the matrix (since the matrix is square).
+
+- **w**: The **bandwidth**, or the number of diagonals the band extends on either side of the main diagonal (the left and right bandwidth must be the same since the matrix is symmetric).
+
+- **lam**: The first element of an array where the computed eigenvalues will be stored. Since a matrix of size `n x n` has `n` eigenvalues, this array should have space for at least `n` values of type `ArbFloat`.
+
+- **x**: (Used in `eigbs3` and `eigbs4`) The first element of a matrix that will store the computed eigenvectors. The matrix must be large enough to hold at least `n x n` values and will contain the eigenvectors as columns. These vectors are normalized (scaled to unit length).
+
+- **rwidthx**: (Used in `eigbs3` and `eigbs4`) The allocated row length for the eigenvector matrix `x`. This allows the matrix to be larger than needed if desired.
+
+- **k1, k2**: (Used in `eigbs2` and `eigbs4`) These define the range of eigenvalues and eigenvectors to compute. For example, setting `k1 = 1` and `k2 = 3` calculates the first three eigenvalues and their vectors. The values must satisfy `1 <= k1 <= k2 <= n`.
+
+- **m2**: (Used in `eigbs4`) The index of the largest eigenvalue for which an eigenvector has been computed.
+
+- **term**: A return code indicating the result:
+   - **1**: Calculation was successful.
+   - **2**: Calculation failed.
+   - **3**: There was an error in the input parameters, such as `n < 1`, `w < 0`, `w >= n`, `k1 < 1`, `k1 > k2`, or `k2 > n`.
+
+If the bandwidth `w` is larger than one-third of the matrix size (`n/3`), it is generally more efficient to compute all eigenvalues and eigenvectors, even if you don't need all of them.
+
+
 **Example**
 
-```pascal linenums="1"
-// Coming soon
+Calculate the eigenvalues and eigenvectors of the symmetric 7 x 7 matrix 
+
+$$
+\displaystyle{  A=
+ \begin{bmatrix}
+  5 & -4 & 1 &  &  &  & 0 \\
+ -4 & 6  & -4 & 1 &  &  &  \\
+  1 & -4 & 6  & -4 & 1 &  &  \\
+   & 1 & -4 & 6 & -4 & 1 &  \\
+   &  & 1 & -4 & 6 & -4 & 1 \\
+   &  &  & 1 & -4 & 6 & -4 \\
+ 0 &  &  &  & 1 & -4 & 5
+ \end{bmatrix}
+ }
+$$
+ 
+ The eigenvalues are 
+ 
+$$
+\displaystyle{ \lambda_k = 16\sin^{4}\frac{k\pi}{16}, \qquad k=1,2,\ldots,7 }
+$$
+
+```pascal linenums="1" hl_lines="118"
+program eig_symband_matrix;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  SysUtils, math,
+  typ, eig;
+
+const
+  n_mat_size = 7;    // Size of the matrix (n x n matrix)
+  w_band_size = 2;   // Bandwidth of the matrix (how many diagonals on either side of the main diagonal)
+
+  // Total number of elements in the 1D array representing the matrix's diagonals
+  n_diag_elements = n_mat_size * (w_band_size + 1) - (w_band_size * (w_band_size + 1)) div 2;
+
+  decimal_place = 3; // Number of decimal places for output
+
+// Converts a matrix index (i, j) into the corresponding 1D array index for a band matrix
+function MatrixIndexToArrayIndex(i, j, n, w: Integer): Integer;
+
+  // Calculates the starting index for a given diagonal element
+  function DiagElementIndex(i: Integer): Integer;
+  var
+    k: Integer;
+  begin
+    Result := 1;
+    if i = 1 then
+      exit;
+    // For diagonals truncated at the left side of the matrix
+    for k := 2 to w do begin
+      Result := Result + k;
+      if k = i then
+        exit;
+    end;
+    // For full rows and diagonals truncated on the right side
+    for k := w+1 to n do begin
+      Result := Result + w + 1;
+      if k = i then
+        exit;
+    end;
+    Result := n;
+  end;
+
+var
+  d: Integer;
+begin
+  // Ensures that we always access the upper diagonal by swapping (i, j) if necessary
+  if j > i then begin
+    Result := MatrixIndexToArrayIndex(j, i, n, w);
+    exit;
+  end;
+
+  // Get the starting index of the diagonal element in the 1D array
+  Result := DiagElementIndex(i);
+
+  // If i = j, we are on the main diagonal
+  if (i = j) then
+    exit;
+
+  // Calculate the offset for the element in the band
+  d := i - j;
+  if d > w then
+    Result := -1 // Element is outside the bandwidth, return -1 to indicate zero
+  else begin
+    dec(Result, d); // Adjust the index for the diagonal element
+    if (Result < 1) then
+      Result := -1; // Invalid index (out of bounds)
+  end;
+end;
+
+var
+  // Array to hold the elements of the banded matrix (diagonal and left band)
+  mat_a: array[1..n_diag_elements] of ArbFloat = (
+     5,   // Main diagonal element (row 1, col 1)
+    -4, 6,   // Row 2 (left band and main diagonal)
+     1, -4, 6,   // Row 3 (two left band, main diagonal)
+         1, -4, 6,   // Row 4, (two left band, main diagonal)
+             1, -4, 6,  // Row 5, the same ...
+                 1, -4, 6,
+                     1, -4, 5 );
+
+  // Array to store the calculated eigenvalues
+  eig_values_lambda: array[1..n_mat_size] of ArbFloat;
+
+  // Matrix to store the calculated eigenvectors
+  eig_vectors_mat_x: array[1..n_mat_size, 1..n_mat_size] of ArbFloat;
+
+  term: integer = 0; // Variable for capturing the result of the eigenvalue/eigenvector calculation
+  i, j, k: integer;  // Loop counters
+
+begin
+  // Display matrix information
+  WriteLn('n = ', n_mat_size);
+  Writeln('(One-sided) band width w = ', w_band_size);
+
+  // Print diagonal elements of the band matrix
+  Write('Diagonal elements of A = ', mat_a[1]:0:0);
+  for k := 2 to n_diag_elements do
+    Write(mat_a[k]:3:0);
+  WriteLn;
+  WriteLn;
+
+  // Reconstruct and display the full symmetric band matrix from the 1D array (for verification purposes)
+  WriteLn('Reconstructed A = ');
+  for i := 1 to n_mat_size do begin
+    for j := 1 to n_mat_size do begin
+      k := MatrixIndexToArrayIndex(i, j, n_mat_size, w_band_size); // Get the 1D array index for the element (i, j)
+      if k = -1 then
+        Write(0.0:3:0) // Print 0 if the element is outside the band
+      else
+        Write(mat_a[k]:3:0); // Print the matrix element
+    end;
+    WriteLn;
+  end;
+  WriteLn;
+
+  // Call NumLib to calculate all eigenvalues and eigenvectors (eigbs3)
+  eigbs3(mat_a[1], n_mat_size, w_band_size, eig_values_lambda[1], eig_vectors_mat_x[1,1], n_mat_size, term);
+
+  // Check if the calculation was successful
+  if term <> 1 then begin
+    WriteLn('term = ', term, ' --> ERROR'); // Error message in case of failure
+    halt;
+  end;
+
+  // Display expected eigenvalues for reference (example)
+  WriteLn('Expected eigenvalues:');
+  for i := 1 to n_mat_size do
+    Write(16 * intpower(sin(i*pi/16), 4):15:decimal_place); // Compute and print expected eigenvalues
+  WriteLn;
+  WriteLn;
+
+  // Print the calculated eigenvalues
+  WriteLn('Calculated eigenvalues: lambda = ');
+  for i := 1 to n_mat_size do
+    Write(eig_values_lambda[i]:15:decimal_place); // Print each eigenvalue
+  WriteLn;
+  WriteLn;
+
+  // Print the calculated eigenvectors (one per column)
+  WriteLn('Eigenvectors (as columns): x = ');
+  for i := 1 to n_mat_size do begin
+    for j := 1 to n_mat_size do
+      Write(eig_vectors_mat_x[i, j]:15:decimal_place); // Print each element of the eigenvector matrix
+    WriteLn;
+  end;
+
+  // Pause to allow user to see results before exiting the program
+  WriteLn('Press enter to quit');
+  ReadLn;
+end.
+```
+
+**Output**
+
+```bash
+n = 7
+(One-sided) band width w = 2
+Diagonal elements of A = 5 -4  6  1 -4  6  1 -4  6  1 -4  6  1 -4  6  1 -4  5
+
+Reconstructed A =
+  5 -4  1  0  0  0  0
+ -4  6 -4  1  0  0  0
+  1 -4  6 -4  1  0  0
+  0  1 -4  6 -4  1  0
+  0  0  1 -4  6 -4  1
+  0  0  0  1 -4  6 -4
+  0  0  0  0  1 -4  5
+
+Expected eigenvalues:
+          0.023          0.343          1.524          4.000          7.647         11.657         14.805
+
+Calculated eigenvalues: lambda =
+          0.023          0.343          1.524          4.000          7.647         11.657         14.805
+
+Eigenvectors (as columns): x =
+         -0.191         -0.354          0.462          0.500          0.462          0.354          0.191
+         -0.354         -0.500          0.354          0.000         -0.354         -0.500         -0.354
+         -0.462         -0.354         -0.191         -0.500         -0.191          0.354          0.462
+         -0.500         -0.000         -0.500          0.000          0.500          0.000         -0.500
+         -0.462          0.354         -0.191          0.500         -0.191         -0.354          0.462
+         -0.354          0.500          0.354         -0.000         -0.354          0.500         -0.354
+         -0.191          0.354          0.462         -0.500          0.462         -0.354          0.191
+Press enter to quit
 ```
 
 ###	Symmetric tridiagonal matrices
