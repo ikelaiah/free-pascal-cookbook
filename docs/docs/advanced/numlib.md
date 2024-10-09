@@ -3054,7 +3054,278 @@ Press enter to quit
 
 ## Unit `ipf` - Interpolation and fitting
 
-Coming soon.
+The unit `ipf` contains routines for:
+
+- **Fitting** a set of data points with a polynomial.
+- **Interpolating or fitting** a set of data points with a natural cubic spline. A spline is a piecewise function of polynomials with a high degree of smoothness at the connection points (called "knots"). In the case of a natural cubic spline, the polynomials are of degree 3, and their second derivatives are zero at the first and last knots.
+
+**Definitions**
+
+- **Fitting**: Finding an approximating smooth function such that deviations from the data points are minimized.
+- **Interpolation**: Determining a function that passes exactly through the data points.
+
+**Use of Polynomials or Splines**
+
+Polynomials or splines are recommended unless the data follows a known function but with some unknown parameters. For example, if the data is modeled by the function   \( f(x) = a + b e^{-c x} \), fitting to that form may be better.
+
+If the data contains **measurement errors**, fitting with a low-degree polynomial (e.g., degree ≤ 5) is usually a good first approach. If the data’s shape is complex, consider fitting with a spline. 
+
+If the data has **no measurement noise**, it’s often best to interpolate using a spline.
+
+
+### Fitting with a Polynomial
+
+You can fit a polynomial to your data using the `ipfpol` routine. This routine takes a set of data points \((x_i, y_i)\) and calculates a polynomial of the form:
+
+$$ p(x) = b_0 + b_1 x + \dots + b_n x^n $$
+
+The coefficients \( b_0, \dots, b_n \) are adjusted to minimize the sum of squared deviations from the data points, using the least squares fitting method:
+
+$$ \sum_{i=1}^m (p(x_i) - y_i)^2 $$
+
+
+```pascal
+procedure ipfpol(m, n: ArbInt; var x, y, b: ArbFloat; var term: ArbInt);
+```
+
+**Parameters**
+
+- `m`: Number of data points (must be \( m \geq 1 \)).
+- `n`: Degree of the polynomial (must be \( n > 0 \)).
+- `x`: Array containing the \( x \)-values of the data points.
+- `y`: Array containing the \( y \)-values of the data points.
+- `b`: Array to store the calculated polynomial coefficients.
+- `term`: Error code.
+  - `1`: Success.
+  - `3`: Input error (e.g., \( n < 0 \) or \( m < 1 \)).
+
+Once the coefficients are determined, you can calculate the value of \( p(x) \) using the `spepol` procedure from the `spe` unit.
+
+
+**Example: Fitting a Degree 2 Polynomial**
+
+Fit a polynomial of degree 2 to these data points:
+
+$$
+\displaystyle{ 
+  \begin{array}{ccc}
+    \hline
+    i & x_i & y_i \\
+    \hline
+    1 & 0.00 & 1.26 \\
+    2 & 0.08 & 1.37 \\
+    3 & 0.22 & 1.72 \\
+    4 & 0.33 & 2.08 \\
+    5 & 0.46 & 2.31 \\
+    6 & 0.52 & 2.64 \\
+    7 & 0.67 & 3.12 \\
+    8 & 0.81 & 3.48
+  \end{array}
+ }
+ $$
+
+```pascal linenums="1" hl_lines="29"
+program polynomial_fit;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  SysUtils, typ, ipf, spe;
+
+const
+  m = 8;  // Number of data points
+  n = 2;  // Polynomial degree
+
+var
+  x: array[1..m] of ArbFloat = (0.00, 0.08, 0.22, 0.33, 0.46, 0.52, 0.67, 0.81);
+  y: array[1..m] of ArbFloat = (1.26, 1.37, 1.72, 2.08, 2.31, 2.64, 3.12, 3.48);
+  b: array[0..n] of ArbFloat;
+  i: Integer;
+  term: ArbInt;
+  xint, yint: ArbFloat;
+begin
+  WriteLn('Fitting a polynomial of degree 2: p(x) = b[0] + b[1] x + b[2] x^2');
+
+  // Print data points
+  WriteLn('Data points');
+  WriteLn('i':10, 'x_i':10, 'y_i':10);
+  for i := 1 to m do
+    WriteLn(i:10, x[i]:10:2, y[i]:10:2);
+
+  // Fit polynomial
+  ipfpol(m, n, x[1], y[1], b[0], term);
+
+  // Display coefficients
+  WriteLn('Fitted coefficients b = ', b[0]:10:6, b[1]:10:6, b[2]:10:6);
+
+  // Interpolation
+  WriteLn('Interpolated values:');
+  for i := 1 to 5 do begin
+    xint := 0.2 * i;
+    yint := spepol(xint, b[0], n);
+    WriteLn(xint:10:2, yint:10:2);
+  end;
+
+  // Pause to allow user to see results before exiting the program
+  WriteLn('Press enter to quit');
+  ReadLn;
+end.
+```
+
+**Output**
+
+
+```text
+Fitting a polynomial of degree 2: p(x) = b[0] + b[1] x + b[2] x^2
+Data points
+         i       x_i       y_i
+         1      0.00      1.26
+         2      0.08      1.37
+         3      0.22      1.72
+         4      0.33      2.08
+         5      0.46      2.31
+         6      0.52      2.64
+         7      0.67      3.12
+         8      0.81      3.48
+Fitted coefficients b =   1.222195  2.224385  0.759178
+Interpolated values:
+      0.20      1.70
+      0.40      2.23
+      0.60      2.83
+      0.80      3.49
+      1.00      4.21
+Press enter to quit
+```
+
+### Interpolation with a Natural Cubic Spline
+
+To interpolate data with a cubic spline, use the `ipfisn` routine. This calculates the spline’s second derivatives. Once these are known, you can calculate the spline value at any point using the `ipfspn` procedure.
+
+
+```pascal
+procedure ipfisn(n: ArbInt; var x, y, d2s: ArbFloat; var term: ArbInt);
+```
+
+**Parameters**
+
+- `n`: Number of data points minus one.
+- `x`, `y`: Arrays containing the data points' \( x \)- and \( y \)-values.
+- `d2s`: Array to store the second derivatives at each point (except at the endpoints, where it's set to 0).
+- `term`: Error code.
+  - `1`: Success.
+  - `2`: Error in calculating second derivatives.
+  - `3`: Invalid input parameters (e.g., \( n \leq 1 \)).
+
+Once the second derivatives are determined, you can use `ipfspn` to evaluate the spline at any point.
+
+**Example: Natural Cubic Spline Interpolation**
+
+Interpolate a natural cubic spline through the following data points:
+
+$$
+\displaystyle{ 
+  \begin{array}{ccc}
+    \hline
+    i & x_i & y_i \\
+    \hline
+    0 & 0.00 & 0.980 \\
+    1 & 0.09 & 0.927 \\
+    2 & 0.22 & 0.732 \\
+    3 & 0.34 & 0.542 \\
+    4 & 0.47 & 0.385 \\
+    5 & 0.58 & 0.292 \\
+    6 & 0.65 & 0.248 \\
+    7 & 0.80 & 0.179 \\
+    8 & 0.93 & 0.139
+  \end{array}
+ }
+$$
+
+```pascal
+program spline_interpolation;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  typ,
+  ipf;
+
+const
+  n = 8;
+
+var
+  x: array[0..n] of ArbFloat = (0.00, 0.09, 0.22, 0.34, 0.47, 0.58, 0.65, 0.80, 0.93);
+  y: array[0..n] of ArbFloat = (0.990, 0.927, 0.734, 0.542, 0.388, 0.292, 0.248, 0.179, 0.139);
+  d2s: array[1..n - 1] of ArbFloat;
+  i: integer;
+  term: ArbInt;
+  xint, yint: ArbFloat;
+begin
+  WriteLn('Cubic spline interpolation');
+
+  // Print data points
+  WriteLn('Data points');
+  WriteLn('i': 10, 'x_i': 10, 'y_i': 10);
+  for i := 0 to n do
+    WriteLn(i: 10, x[i]: 10: 2, y[i]: 10: 3);
+
+  // Calculate spline parameters
+  ipfisn(n, x[0], y[0], d2s[1], term);
+
+  // Display second derivatives
+  WriteLn('Second derivatives');
+  for i := 1 to n - 1 do
+    WriteLn(d2s[i]: 10: 6);
+
+  // Interpolation
+  WriteLn('Interpolated values');
+  for i := 1 to 5 do
+  begin
+    xint := 0.2 * i;
+    yint := ipfspn(n, x[0], y[0], d2s[1], xint, term);
+    WriteLn(xint: 10: 2, yint: 10: 2);
+  end;
+
+// Pause to allow user to see results before exiting the program
+WriteLn('Press enter to quit');
+ReadLn;
+end.
+```
+
+
+**Output**
+
+
+``text
+Cubic spline interpolation
+Data points
+         i       x_i       y_i
+         0      0.00     0.990
+         1      0.09     0.927
+         2      0.22     0.734
+         3      0.34     0.542
+         4      0.47     0.388
+         5      0.58     0.292
+         6      0.65     0.248
+         7      0.80     0.179
+         8      0.93     0.139
+Second derivatives
+-10.810021
+  0.374744
+  4.380190
+  1.978794
+  3.200753
+  1.357095
+  1.268361
+Interpolated values
+      0.20      0.77
+      0.40      0.46
+      0.60      0.28
+      0.80      0.18
+      1.00      0.12
+Press enter to quit
+```
+
 
 ## Unit `spe` - Special functions
 
