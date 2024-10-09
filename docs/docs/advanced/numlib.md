@@ -2299,6 +2299,172 @@ begin
 end.
 ```
 
+### Roots of the Binomial Equation
+
+The binomial equation \( z^n = a \) is a special type of polynomial where all terms except for the highest- and lowest-order terms have zero coefficients. It has `n` complex solutions, which can be calculated using the `roobin` procedure.
+
+```pascal
+procedure roobin(n: ArbInt; a: complex; var z: complex; var term: ArbInt);
+```
+
+**Parameters**
+
+- **n**: The exponent in the binomial equation. It must be a positive integer.
+- **a**: The constant term on the right-hand side of the equation. This is expected to be a complex number (refer to the section on complex numbers).
+- **z**: An array of type `complex` that will store the calculated roots. It must have space for at least `n` complex values.
+- **term**: An error code returned by the procedure:
+  - `1`: Successful termination.
+  - `2`: Error in input data (`n < 1`).
+
+**Example**
+
+Calculate the roots of the equation:
+
+$$
+\displaystyle{ z^4 = -1 }
+$$
+
+The exact solutions are
+
+$$
+\displaystyle{ z_1 = \frac{1}{2} \sqrt{2} (1+i) ,\ z_2 = \frac{1}{2} \sqrt{2} (1-i) ,\ z_3= \frac{1}{2} \sqrt{2} (-1+i) ,\ z_4= \frac{1}{2} \sqrt{2} (-1-i) }
+$$
+
+```pascal linenums="1" hl_lines="30"
+program solve_root_binomial;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  SysUtils, typ, roo;
+
+const
+  n = 4;
+
+var
+  z: array[1..n] of complex;
+  term: ArbInt;
+  i: Integer;
+  a: complex;
+  c: complex;
+
+  function ComplexToStr(z: complex; Decimals: Integer): string;
+  const
+    SIGN: array[boolean] of string = ('+', '-');
+  begin
+    Result := Format('%.*g %s %.*g i', [Decimals, z.re, SIGN[z.im < 0], Decimals, abs(z.im)]);
+  end;
+
+begin
+  // Prepare constant term as a complex value
+  a.Init(-1, 0);
+
+  // Solve equation
+  roobin(n, a, z[1], term);
+
+  if term = 1 then begin
+    // Display results
+    WriteLn('Results of procedure roobin:');
+    for i:=1 to n do
+      WriteLn('  Solution #', i, ': ', ComplexToStr(z[i], 6):20);
+    WriteLn;
+
+    // Display expected results
+    Writeln('Expected results:');
+    c.Init(1, 1);
+    c.Scale(0.5*sqrt(2));
+    WriteLn('  Solution #1: ', complexToStr(c, 6):20);
+    c.Init(1, -1);
+    c.Scale(0.5*sqrt(2));
+    WriteLn('  Solution #2: ', complexToStr(c, 6):20);
+    c.Init(-1, 1);
+    c.Scale(0.5*sqrt(2));
+    WriteLn('  Solution #3: ', complexToStr(c, 6):20);
+    c.Init(-1, -1);
+    c.Scale(0.5*sqrt(2));
+    WriteLn('  Solution #4: ', complexToStr(c, 6):20);
+  end else
+    WriteLn('ERROR');
+
+  // Pause to allow user to see results before exiting the program
+  WriteLn('Press enter to quit');
+  ReadLn;
+end.
+```
+
+**Output**
+
+```bash
+Results of procedure roobin:
+  Solution #1: 0.707107 + 0.707107 i
+  Solution #2: 0.707107 - 0.707107 i
+  Solution #3: -0.707107 + 0.707107 i
+  Solution #4: -0.707107 - 0.707107 i
+
+Expected results:
+  Solution #1: 0.707107 + 0.707107 i
+  Solution #2: 0.707107 - 0.707107 i
+  Solution #3: -0.707107 + 0.707107 i
+  Solution #4: -0.707107 - 0.707107 i
+Press enter to quit
+```
+
+
+### Bisection Method
+
+The bisection method is used to estimate the root of a function by identifying two values, `a` and `b`, such that the function has opposite signs at those points. The midpoint of the interval is calculated, and the subinterval where the function's signs differ is selected for the next iteration. This process continues until the desired precision (i.e., interval length) is achieved.
+
+In **NumLib**, this method is implemented using the `roof1r` procedure:
+
+```pascal
+procedure roof1r(f: rfunc1r; a, b, ae, re: ArbFloat; var x: ArbFloat; var term: ArbInt);
+```
+
+**Parameters**
+
+- **f**: The function for which the root is to be determined. It must take a single floating-point argument of type `ArbFloat`. The function type `rfunc1r` is declared in the `typ` unit.
+- **a, b**: The endpoints of the interval. The root must lie between these two values, meaning the function values `f(a)` and `f(b)` should have opposite signs.
+- **ae, re**: These determine the absolute (`ae`) and relative (`re`) precision of the root. `re` is relative to the maximum of `abs(a)` and `abs(b)`. Higher accuracy is achieved by setting `ae` to `MachEps` (from the `typ` unit). Both parameters must be non-negative.
+- **x**: The variable that returns the found root.
+- **term**: An error code indicating the result of the process:
+  - `1`: Successful termination. A root has been found with the specified absolute or relative precision.
+  - `2`: The required accuracy could not be achieved, but the value of `x` is the "best achievable" approximation.
+  - `3`: Input error: `ae < 0` or `re < 0`, or the function values at `a` and `b` do not have opposite signs.
+
+**Example**
+
+The following program uses the bisection method to find the square root of 2. The root is the value of `x` where the function \( f(x) = x^2 - 2 \) equals zero. Since \( f(1) = -1 \) and \( f(2) = 2 \), the root lies between 1 and 2.
+
+```pascal linenums="1" hl_lines="16"
+program solve_root_bisection;
+
+uses
+  typ, roo;
+
+function f(x: ArbFloat): ArbFloat;
+begin
+  Result := x*x - 2;
+end;
+
+var
+  x: ArbFloat = 0.0;
+  term: ArbInt;
+
+begin
+  roof1r(@f, 1.0, 2.0, 1e-9, 0, x, term);
+  WriteLn('Bisection result: ', x);
+  WriteLn('sqrt(2):          ', sqrt(2.0));
+end.
+```
+
+**Output**
+
+```bash
+Bisection result:  1.4142135621888698E+000
+sqrt(2):           1.4142135623730951E+000
+Press enter to quit
+```
+
 ## Unit `int` - Numerical integration of a function
 
 Coming soon.
