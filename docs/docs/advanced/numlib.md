@@ -2160,13 +2160,19 @@ $$
 
 always has `n` complex solutions, though they may not all be distinct. The datatype `complex` is described in the section on complex numbers. You can calculate the roots using the `roopol` function.
 
+!!! Note
+
+    The polynomial must be normalized, meaning the coefficient of the highest-degree term should be 1.
+
 ```pascal
 procedure roopol(var a: ArbFloat; n: ArbInt; var z: complex; var k, term: ArbInt);
 ```
 
 **Parameters**
 
-- **a**: An array containing the polynomial coefficients, ordered from highest to lowest degree. The polynomial must be normalized, meaning the coefficient of the highest-degree term should be 1. This coefficient is **not** included in the array, so the array must have at least `n` elements. Since only real polynomials are handled, the array elements should be of type `ArbFloat`. Note: the data organization for this array is different from other polynomial routines in this library.
+- **a**: An array containing the polynomial coefficients, ordered from highest to lowest degree. 
+    - The polynomial must be normalized, meaning the coefficient of the highest-degree term should be 1. This coefficient is **not** included in the array, so the array must have at least `n` elements. 
+    - Since only real polynomials are handled, the array elements should be of type `ArbFloat`. Note: the data organization for this array is different from other polynomial routines in this library.
   
 - **n**: The degree of the polynomial. It must be a positive integer.
 
@@ -2181,7 +2187,7 @@ procedure roopol(var a: ArbFloat; n: ArbInt; var z: complex; var k, term: ArbInt
 
 **Example**
 
-Calculate the roots of the polynomial z5 + 3 z4 + 4 z3 - 8 z2. The expected zero points are:
+Calculate the roots of the polynomial $z^5 + 3 z^4 + 4 z^3 - 8 z^2$. The expected zero points are:
 
 $$
 \displaystyle{  z_1=0,\ z_2=0,\ z_3=1,\ z_4=-2+2i,\ z_5=-2-2i }
