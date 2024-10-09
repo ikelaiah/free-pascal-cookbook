@@ -2249,8 +2249,30 @@ begin
   WriteLn('Press enter to quit');
   ReadLn;
 end.
-
 ```
+
+### Roots of a Quadratic Equation
+
+A quadratic equation is a polynomial of degree 2. It always has two complex roots, though they may not be distinct. You can find these roots using the `rooqua` procedure.
+
+```pascal
+procedure rooqua(p, q: ArbFloat; var z1, z2: complex);
+```
+
+**Parameters**
+
+- **p**: The coefficient of the linear term in the quadratic equation.
+- **q**: The constant term of the quadratic equation.
+- **z1, z2**: Variables that will store the two complex roots of the equation. The type `complex` is declared in the unit `typ`.
+
+
+`rooqua` assumes that the quadratic term has been normalized, meaning the coefficient of the quadratic term is set to 1.
+
+
+**Example**
+
+Determine the roots of the equation $z^2 + 2 z + 5 = 0$.
+
 
 ## Unit `int` - Numerical integration of a function
 
