@@ -2181,9 +2181,9 @@ procedure roopol(var a: ArbFloat; n: ArbInt; var z: complex; var k, term: ArbInt
 - **k**: The number of roots found. This value should always equal `n`; if it doesn't, an error has occurred.
 
 - **term**: An error code returned by the function:
-  - `1`: Successful completion, and the array `z` contains valid root data.
-  - `2`: Not all roots were found (`k < n`).
-  - `3`: Error in input data (`n < 1`).
+    - `1`: Successful completion, and the array `z` contains valid root data.
+    - `2`: Not all roots were found (`k < n`).
+    - `3`: Error in input data (`n < 1`).
 
 **Example**
 
@@ -2313,8 +2313,8 @@ procedure roobin(n: ArbInt; a: complex; var z: complex; var term: ArbInt);
 - **a**: The constant term on the right-hand side of the equation. This is expected to be a complex number (refer to the section on complex numbers).
 - **z**: An array of type `complex` that will store the calculated roots. It must have space for at least `n` complex values.
 - **term**: An error code returned by the procedure:
-  - `1`: Successful termination.
-  - `2`: Error in input data (`n < 1`).
+    - `1`: Successful termination.
+    - `2`: Error in input data (`n < 1`).
 
 **Example**
 
@@ -2427,9 +2427,9 @@ procedure roof1r(f: rfunc1r; a, b, ae, re: ArbFloat; var x: ArbFloat; var term: 
 - **ae, re**: These determine the absolute (`ae`) and relative (`re`) precision of the root. `re` is relative to the maximum of `abs(a)` and `abs(b)`. Higher accuracy is achieved by setting `ae` to `MachEps` (from the `typ` unit). Both parameters must be non-negative.
 - **x**: The variable that returns the found root.
 - **term**: An error code indicating the result of the process:
-  - `1`: Successful termination. A root has been found with the specified absolute or relative precision.
-  - `2`: The required accuracy could not be achieved, but the value of `x` is the "best achievable" approximation.
-  - `3`: Input error: `ae < 0` or `re < 0`, or the function values at `a` and `b` do not have opposite signs.
+    - `1`: Successful termination. A root has been found with the specified absolute or relative precision.
+    - `2`: The required accuracy could not be achieved, but the value of `x` is the "best achievable" approximation.
+    - `3`: Input error: `ae < 0` or `re < 0`, or the function values at `a` and `b` do not have opposite signs.
 
 **Example**
 
@@ -2462,6 +2462,164 @@ end.
 ```bash
 Bisection result:  1.4142135621888698E+000
 sqrt(2):           1.4142135623730951E+000
+Press enter to quit
+```
+
+Here’s a tidied version of your text:
+
+---
+
+### Roots of a System of Nonlinear Equations
+
+We want to find the roots of a system of nonlinear equations:
+
+$$ f_{i}(x_1, x_2, \ldots, x_n) = 0, \; i=1,2,\ldots,n $$
+
+The **`roofnr`** procedure can be used to find the roots of such a system:
+
+```pascal
+procedure roofnr(f: roofnrfunc; n: ArbInt; var x, residu: ArbFloat; ra: ArbFloat; var term: ArbInt);
+```
+
+**Parameters**
+
+- **f**: The address of the procedure that calculates the function values \( f_i(x_1, x_2, \dots, x_n) \). The function type `roofnrfunc` is declared in the `typ` unit:
+  ```pascal
+  type
+    roofnrfunc = procedure(var x, fx: ArbFloat; var deff: boolean);
+  ```
+  - **x**: An array of at least `n` `ArbFloat` values, providing the \( x_j \) values at which the functions are evaluated.
+  - **fx**: An array to store the calculated values of the functions \( f_i \).
+  - **deff**: A boolean flag that can be used to stop the root-finding process based on a condition.
+  
+For example, to solve the system of equations:
+
+$$ 
+\begin{array}{l}
+f_1(x_1, x_2) = x_1^2 + x_2^2 - 2 = 0 \\
+f_2(x_1, x_2) = -(x_1 - 1)^2 + x_2 = 0
+\end{array}
+$$
+
+The function `f` can be written as:
+
+```pascal
+procedure func(var x1, f1x: real; var deff: boolean); 
+var 
+  x: array[1..2] of real absolute x1;
+  f: array[1..2] of real absolute f1x;
+begin
+  f[1] := sqr(x[1]) + sqr(x[2]) - 2;
+  f[2] := -sqr(x[1] - 1) + x[2];
+end;
+```
+
+To stop the process when \( x_1 < 1 \), set `deff` to `false`:
+
+```pascal
+procedure func(var x1, f1x: real; var deff: boolean); far;
+var 
+  x: array[1..2] of real absolute x1;
+  f: array[1..2] of real absolute f1x;
+begin
+  deff := x[1] >= 1;
+  if deff then begin
+    f[1] := sqr(x[1]) + sqr(x[2]) - 2;
+    f[2] := -sqr(x[1] - 1) + x[2];
+  end;
+end;
+```
+
+**Parameters**
+
+- **n**: The number of equations or variables ( \( x_i \) ) in the system.
+- **x**: The first element of an array (with at least `n` values) used for both input and output. Initially, it should contain estimates of the roots. After computation, it holds the found roots.
+- **residu**: The 2-norm of the vector of residuals in the solution:
+  $$ \|f\|_2 = \sqrt{\sum_{i=1}^{n} f_i^2} $$
+- **ra**: The relative accuracy for calculating the solution. Typical values are \( 10^{-3}, 10^{-5}, 10^{-8} \) depending on the precision (`single`, `real`, or `double`).
+- **term**: An error code indicating the result:
+    - `1`: Successful solution with desired accuracy.
+    - `2`: The solution accuracy could not be achieved, but the returned `x` values are the best achievable.
+    - `3`: Incorrect input data (e.g., `n < 0` or `re < 0`).
+    - `4`: The calculation process was stopped due to exceeding function call limits.
+    - `5`: Insufficient progress—no solution found or needs a different starting value.
+    - `6`: The procedure attempted to compute a value outside the range defined by `deff`.
+
+
+**Example**
+
+Solve the system of equations:
+
+$$ 
+\begin{array}{l}
+f_1(x_1, x_2) = x_1^2 + x_2^2 - 2 = 0 \\
+f_2(x_1, x_2) = -(x_1 - 1)^2 + x_2 = 0
+\end{array}
+$$
+
+```pascal linenums="1" hl_lines="35"
+program solve_root_nonlinear;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  SysUtils, typ, roo;
+
+const
+  n = 2;
+  ra = 1e-10;
+
+var
+  x: array[1..n] of ArbFloat;
+  f_check: array[1..n] of ArbFloat;
+  residu: ArbFloat;
+  i: integer;
+  term: integer;
+  deff: boolean;
+
+  procedure funcs(var x0, fx: ArbFloat; var deff: boolean);
+  var
+    xloc: array[1..n] of ArbFloat absolute x0;
+    f: array[1..n] of ArbFloat absolute fx;
+  begin
+    f[1] := sqr(xloc[1]) + sqr(xloc[2]) - 2;
+    f[2] := -sqr(xloc[1] - 1) + xloc[2];
+  end;
+
+begin
+  // Initial guess values
+  x[1] := 0;
+  x[2] := 0;
+
+  // Solve the equation system
+  roofnr(@funcs, n, x[1], residu, ra, term);
+
+  WriteLn('term = ', term);
+  WriteLn;
+
+  if term in [1, 2] then begin
+    WriteLn('Results found by procedure roofnr:');
+    for i := 1 to n do
+      WriteLn('Solution #' + IntToStr(i) + ': ', x[i]:0:6);
+    WriteLn('Norm of residuals: ', residu:0:15);
+  end else
+    WriteLn('ERROR');
+
+  // Pause to allow user to see results before exiting the program
+  WriteLn('Press enter to quit');
+  ReadLn;
+end.
+```
+
+**Output**
+
+```bash
+term = 1
+
+Results found by procedure roofnr:
+Solution #1: 1.404698
+Solution #2: 0.163780
+Norm of residuals: 0.000000000000000
 Press enter to quit
 ```
 
