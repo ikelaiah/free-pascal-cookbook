@@ -2759,7 +2759,298 @@ Press enter to quit
 
 ## Unit `ode` - Ordinary differential equations
 
-Coming soon.
+
+### Solving a Single First-Order Differential Equation
+
+The procedure `odeiv1` solves an initial value problem for a first-order differential equation of the form:
+
+\[
+\begin{cases}
+y' = f(x, y), \qquad x \in [a, b] \\
+y(a) = \alpha
+\end{cases}
+\]
+
+where `a`, `b`, `f`, and the initial condition `y(a) = α` are given.
+
+
+```pascal
+procedure odeiv1(f: rfunc2r; a, ya: ArbFloat; var b, yb: ArbFloat; ae: ArbFloat; var term: ArbInt);
+```
+
+**Parameters**
+
+- `f`: The function to be solved, depending on two real variables and returning a real value. Defined as `type rfunc2r = function(x, y: ArbFloat): ArbFloat`.
+- `a`: The starting `x` value of the interval.
+- `ya`: The initial value `α` at `x = a`.
+- `b`: The end `x` value of the interval. After the calculation, if `term = 2`, `b` contains the new endpoint with the required accuracy, `ae`.
+- `yb`: Returns the computed value `y(b)` if `term < 3`. If `term = 3`, the result is undefined.
+- `ae`: Specifies the absolute accuracy required for `y(b)`.
+- `term`: Returns the following error codes:
+    - `1`: Successful completion.
+    - `2`: The solution could not reach `b` with the required accuracy. `yb` is an approximation at the delivered `b`.
+    - `3`: Input error, `ae <= 0`.
+
+This algorithm is based on a fifth-order adaptive Runge-Kutta method. It may not be accurate for stiff differential equations, and accuracy issues can arise in unstable problems where small variations in `y(a)` cause large variations in `y(b)`.
+
+If you want to solve for multiple points, like from `x = 0` to `x = 1` with a step size of 0.1, avoid restarting at each step and "integrate" instead.
+
+**Example**
+
+Solve the equation $y'' = -10  (y - x^2)$ with initial condition $y(0) = 0$ and compare it to the exact solution $y(x) = -0.02  exp(-10  x) + x^2 - 0.2  x + 0.02$.
+
+```pascal linenums="1"  hl_lines="52"
+program solve_ode;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  typ, // This unit contains common type definitions used in the program.
+  ode; // This unit provides the ODE solver `odeiv1` used in the program.
+
+// Define the function representing the differential equation: y' = f(x, y).
+// In this case, f(x, y) = -10 * (y - x^2), a basic second-order ODE.
+function f(x, y: ArbFloat): ArbFloat;
+begin
+  Result := -10 * (y - sqr(x)); // sqr(x) calculates x^2
+end;
+
+// Define the exact analytical solution for comparison purposes.
+// The solution to the differential equation is given by y(x) = -0.02 * exp(-10 * x) + x^2 - 0.2 * x + 0.02.
+function exact(x: real): real; far;
+begin
+  Result := -0.02 * exp(-10 * x) + sqr(x) - 0.2 * x + 0.02;
+end;
+
+const
+  d = 0.5;  // The length of the interval over which to solve the ODE.
+  ae = 1e-5; // The absolute error tolerance for the ODE solver.
+  n = 10;    // The number of steps to take between the start and end of the interval.
+
+var
+  a, b, ya, yb: ArbFloat; // Variables representing the interval endpoints and function values.
+  term: ArbInt;           // Variable to hold the error code returned by the ODE solver.
+  i: ArbInt;              // Loop counter.
+
+begin
+  // Set initial conditions for the ODE solver.
+  a := 0.0;      // Start at x = 0.
+  b := a + d;    // End of the first step at x = 0.5 (the interval length).
+  ya := 0.0;     // Initial condition: y(0) = 0.
+
+  // Print table headers for output (x, y, exact solution, error code).
+  WriteLn('x':12, 'y':12, 'exact':12, 'error code':17);
+  WriteLn;
+
+  // Output the initial condition at x = 0.
+  WriteLn(a:12:5, ya:12:5, exact(a):12:5, '-':17); // Display the starting point.
+
+  // Loop to solve the ODE in steps of 0.5 (controlled by 'd') until n steps are done.
+  for i := 1 to n do
+  begin
+    // Call the ODE solver (odeiv1) to compute y(b) based on the function 'f'.
+    // a: start of the interval, ya: initial value y(a), b: end of interval,
+    // yb: result of y(b), ae: accuracy, term: error code.
+    odeiv1(@f, a, ya, b, yb, ae, term);
+
+    // Output the results after each step: x = b, y(b), exact solution, and error code.
+    WriteLn(b:12:5, yb:12:5, exact(b):12:5, term:17);
+
+    // Update for the next step: set a = b and ya = yb, and increment b by 'd' for the next interval.
+    a := b;     // Move to the next interval.
+    ya := yb;   // Use the computed value y(b) as the initial value for the next step.
+    b := b + d; // Increment b for the next step.
+  end;
+
+  // Pause to allow user to see results before exiting the program
+  WriteLn('Press enter to quit');
+  ReadLn;
+end.
+```
+
+**Output**
+
+```text
+           x           y       exact       error code
+
+     0.00000     0.00000     0.00000                -
+     0.50000     0.16986     0.16987                1
+     1.00000     0.82000     0.82000                1
+     1.50000     1.97000     1.97000                1
+     2.00000     3.62000     3.62000                1
+     2.50000     5.77000     5.77000                1
+     3.00000     8.42000     8.42000                1
+     3.50000    11.57000    11.57000                1
+     4.00000    15.22000    15.22000                1
+     4.50000    19.37000    19.37000                1
+     5.00000    24.02000    24.02000                1
+Press enter to quit
+```
+
+### Solving a System of First-Order Differential Equations
+
+To solve a system of first-order differential equations:
+
+\[
+\begin{cases}
+\mathbf{y}' = \mathbf{f}(x, \mathbf{y}), \qquad x \in [a, b] \\
+\mathbf{y}(a) = \alpha
+\end{cases}
+\]
+
+where:
+
+- `y` is a vector $[y_1(x), y_2(x), ..., y_n(x)]$,
+- `f(x, y)` is a vector function $[f_1(x, y), f_2(x, y), ..., f_n(x, y)]$,
+- The initial conditions are given as $y(a) = [y_1(a), y_2(a), ..., y_n(a)]$.
+
+This can be solved using the procedure `odeiv2`, which uses an adaptive fifth-order Runge-Kutta method with variable step size.
+
+
+```pascal
+procedure odeiv2(f: oderk1n; a: ArbFloat; var ya, b, yb: ArbFloat; n: ArbInt; ae: ArbFloat; var term: ArbInt);
+```
+
+**Parameters**
+
+- `f`: The procedure calculating $f_i(x, y_i)$ values. It is of type `oderk1n = procedure(x: ArbFloat; var y, fxy: ArbFloat)`.
+- `a`: Starting point of the calculation.
+- `ya`: Initial values for the system, stored in an array.
+- `b`: Endpoint of the interval. If `term = 2`, `b` will be updated.
+- `yb`: Stores the results.
+- `n`: Number of equations in the system.
+- `ae`: Specifies absolute accuracy.
+- `term`: Error codes:
+  - `1`: Successful completion.
+  - `2`: Solution couldn't reach `b` with desired accuracy. `yb` contains approximations.
+  - `3`: Input error, `n < 1` or `ae <= 0`.
+
+**Example**
+
+Integrate the following system of ODEs between `x = 0` and `x = 1`:
+
+\[
+\begin{cases}
+y'_1 = 2xy_1 + y_2 \\
+y'_2 = -y_1 + 2xy_2 \\
+y_1(0) = 0, \quad y_2(0) = 1
+\end{cases}
+\]
+
+The exact solutions are:
+
+\[
+\begin{cases}
+y_1(x) = \exp(x^2) \sin(x) \\
+y_2(x) = \exp(x^2) \cos(x)
+\end{cases}
+\]
+
+```pascal linenums="1" hl_lines="69"
+program solve_ode_sys;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  typ,  // Includes necessary types for operations with numlib.
+  ode;  // Provides the ODE solver used in the program.
+
+const
+  ae = 1e-5;  // Absolute error tolerance for the ODE solver.
+
+  // This procedure defines the system of differential equations to solve.
+  // It takes the independent variable 'x' and the current values 'y' and computes the derivatives 'f(x,y)'.
+  procedure f(x: ArbFloat; var y, fxy: ArbFloat);
+  var
+    // These arrays represent the system of equations.
+    _y: array[1..2] of ArbFloat absolute y;
+    // Current y values (dependent variables).
+    _fxy: array[1..2] of ArbFloat absolute fxy;    // Corresponding derivatives (dy/dx).
+  begin
+    // First equation of the system: dy1/dx = 2*x*y1 + y2
+    _fxy[1] := 2 * x * _y[1] + _y[2];
+    // Second equation of the system: dy2/dx = -y1 + 2*x*y2
+    _fxy[2] := -_y[1] + 2 * x * _y[2];
+  end;
+
+  // This function returns the exact solution for y1 at a given 'x'.
+  function exact1(x: ArbFloat): ArbFloat;
+  begin
+    Result := exp(x * x) * sin(x);  // Exact solution for y1 = exp(x^2) * sin(x)
+  end;
+
+  // This function returns the exact solution for y2 at a given 'x'.
+  function exact2(x: ArbFloat): ArbFloat;
+  begin
+    Result := exp(x * x) * cos(x);  // Exact solution for y2 = exp(x^2) * cos(x)
+  end;
+
+var
+  a, b, d: ArbFloat; // 'a' and 'b' are the interval bounds, 'd' is the step size.
+  ya, yb: array[1..2] of ArbFloat;  // Arrays to hold y values at 'a' and 'b'.
+  term, i, n: ArbInt;
+  // 'term' stores the error code, 'i' is the loop index, 'n' is the number of steps.
+
+begin
+  // Set initial values.
+  a := 0.0;        // Start point for x.
+  b := 0.1;        // Initial end point for x.
+  d := b - a;      // Step size (difference between 'a' and 'b').
+  ya[1] := 0.0;    // Initial condition for y1 (y1(0) = 0).
+  ya[2] := 1.0;    // Initial condition for y2 (y2(0) = 1).
+  n := 10;         // Number of steps.
+
+  // Print table headers for output.
+  WriteLn('x': 12, 'y[1]': 12, 'y[2]': 12, 'exact[1]': 12, 'exact[2]': 12, 'error code': 17);
+  WriteLn;
+
+  // Output the initial conditions at x = 0.
+  WriteLn(a: 12: 5, ya[1]: 12: 5, ya[2]: 12: 5, exact1(a): 12: 5, exact2(a): 12: 5, '-': 17);
+
+  // Loop through 'n' steps to solve the system over each interval.
+  for i := 1 to n do
+  begin
+    // Call the ODE solver (odeiv2) to compute yb at x = b.
+    // 'f' is the function defining the system of ODEs, 'a' is the start point,
+    // 'ya[1]' are the initial y-values, 'b' is the end point,
+    // 'yb[1]' will store the computed y-values at 'b',
+    // '2' indicates the system size (two equations), 'ae' is the accuracy, and 'term' stores the error code.
+    odeiv2(@f, a, ya[1], b, yb[1], 2, ae, term);
+
+    // Output the results at each step: x = b, y1(b), y2(b), exact solutions, and error code.
+    WriteLn(b: 12: 5, yb[1]: 12: 5, yb[2]: 12: 5, exact1(b): 12: 5, exact2(b): 12: 5, term: 17);
+
+    // Update the values for the next iteration.
+    a := b;         // Move to the next interval starting from the current 'b'.
+    ya[1] := yb[1]; // Set ya to the computed yb for the next step.
+    ya[2] := yb[2];
+    b := b + d;     // Increment 'b' by the step size 'd'.
+  end;
+
+  // Pause to allow user to see results before exiting the program
+  WriteLn('Press enter to quit');
+  ReadLn;
+end.
+```
+
+**Output**
+
+```text
+           x        y[1]        y[2]    exact[1]    exact[2]       error code
+
+     0.00000     0.00000     1.00000     0.00000     1.00000                -
+     0.10000     0.10084     1.00500     0.10084     1.00500                1
+     0.20000     0.20678     1.02006     0.20678     1.02006                1
+     0.30000     0.32335     1.04530     0.32335     1.04530                1
+     0.40000     0.45699     1.08088     0.45699     1.08088                1
+     0.50000     0.61559     1.12684     0.61559     1.12684                1
+     0.60000     0.80932     1.18298     0.80932     1.18298                1
+     0.70000     1.05157     1.24846     1.05157     1.24846                1
+     0.80000     1.36045     1.32129     1.36045     1.32129                1
+     0.90000     1.76085     1.39732     1.76085     1.39732                1
+     1.00000     2.28736     1.46869     2.28736     1.46869                1
+Press enter to quit
+```
 
 ## Unit `ipf` - Interpolation and fitting
 
