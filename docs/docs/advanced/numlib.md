@@ -2150,7 +2150,101 @@ Press enter to quit
 
 ## Unit `roo` - Finding the roots of a function
 
-Coming soon.
+### Roots of a Polynomial
+
+A polynomial of degree `n` 
+
+$$
+\displaystyle{  z^n + a_1 z^{n-1} + a_2 z^{n-2} + ... + a_{n-1} z + a_n = 0 }
+$$
+
+always has `n` complex solutions, though they may not all be distinct. The datatype `complex` is described in the section on complex numbers. You can calculate the roots using the `roopol` function.
+
+```pascal
+procedure roopol(var a: ArbFloat; n: ArbInt; var z: complex; var k, term: ArbInt);
+```
+
+**Parameters**
+
+- **a**: An array containing the polynomial coefficients, ordered from highest to lowest degree. The polynomial must be normalized, meaning the coefficient of the highest-degree term should be 1. This coefficient is **not** included in the array, so the array must have at least `n` elements. Since only real polynomials are handled, the array elements should be of type `ArbFloat`. Note: the data organization for this array is different from other polynomial routines in this library.
+  
+- **n**: The degree of the polynomial. It must be a positive integer.
+
+- **z**: An array of complex values that will store the roots of the polynomial. The array must have at least `n` elements. The values returned are undefined if an error occurs (i.e., if `term <> 1`).
+
+- **k**: The number of roots found. This value should always equal `n`; if it doesn't, an error has occurred.
+
+- **term**: An error code returned by the function:
+  - `1`: Successful completion, and the array `z` contains valid root data.
+  - `2`: Not all roots were found (`k < n`).
+  - `3`: Error in input data (`n < 1`).
+
+**Example**
+
+Calculate the roots of the polynomial z5 + 3 z4 + 4 z3 - 8 z2. The expected zero points are:
+
+$$
+\displaystyle{  z_1=0,\ z_2=0,\ z_3=1,\ z_4=-2+2i,\ z_5=-2-2i }
+$$
+
+```pascal linenums="1" hl_lines="28"
+program solve_root_polynomials;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  SysUtils, typ, roo;
+
+const
+  n = 5;
+
+var
+  a: array[1..n] of ArbFloat = (3, 4, -8, 0, 0);
+  z: array[1..n] of complex;
+  k: ArbInt;
+  term: ArbInt;
+  i: integer;
+  c: complex;
+
+  function ComplexToStr(z: complex; Decimals: integer): string;
+  const
+    SIGN: array[boolean] of string = ('+', '-');
+  begin
+    Result := Format('%.*f %s %.*f i', [Decimals, z.re, SIGN[z.im <0], Decimals, abs(z.im)]);
+  end;
+
+begin
+  // Solve equation
+  roopol(a[1], n, z[1], k, term);
+
+  if term = 1 then begin
+    // Display results
+    WriteLn('Results of procedure roopol:');
+    for i:=1 to n do
+      WriteLn('  Solution #', i, ': ', ComplexToStr(z[i], 6):20);
+    WriteLn;
+
+    // Display expected results
+    Writeln('Expected results:');
+    c.Init(0, 0);  // z1 = 0
+    WriteLn('  Solution #1: ', complexToStr(c, 6):20);
+    c.Init(0, 0);  // z2 = 0
+    WriteLn('  Solution #2: ', complexToStr(c, 6):20);
+    c.Init(1, 0);  // z3 = 1
+    WriteLn('  Solution #3: ', complexToStr(c, 6):20);
+    c.Init(-2, +2);  // z4 = -2 + 2 i
+    WriteLn('  Solution #4: ', complexToStr(c, 6):20);
+    c.Init(-2, -2);  // z4 = -2 - 2 i
+    WriteLn('  Solution #5: ', complexToStr(c, 6):20);
+  end else
+    WriteLn('ERROR');
+
+  // Pause to allow user to see results before exiting the program
+  WriteLn('Press enter to quit');
+  ReadLn;
+end.
+
+```
 
 ## Unit `int` - Numerical integration of a function
 
