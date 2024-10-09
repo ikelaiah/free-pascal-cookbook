@@ -1419,6 +1419,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Unit roo - Finding the roots of a function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roots-of-a-polynomial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roots of a Polynomial
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2150,6 +2165,21 @@
       Unit roo - Finding the roots of a function
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Unit roo - Finding the roots of a function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roots-of-a-polynomial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roots of a Polynomial
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5261,7 +5291,150 @@ Sum\_of\_Squared\_Residuals=(-1)^{2} + (1)^{2} + (-1)^{2} + 0^{2}=3
 </span><span id="__span-36-22"><a id="__codelineno-36-22" name="__codelineno-36-22" href="#__codelineno-36-22"></a>Press<span class="w"> </span>enter<span class="w"> </span>to<span class="w"> </span>quit
 </span></code></pre></div>
 <h2 id="unit-roo-finding-the-roots-of-a-function">Unit <code>roo</code> - Finding the roots of a function<a class="headerlink" href="#unit-roo-finding-the-roots-of-a-function" title="Permanent link">&para;</a></h2>
-<p>Coming soon.</p>
+<h3 id="roots-of-a-polynomial">Roots of a Polynomial<a class="headerlink" href="#roots-of-a-polynomial" title="Permanent link">&para;</a></h3>
+<p>A polynomial of degree <code>n</code> </p>
+<div class="arithmatex">\[
+\displaystyle{  z^n + a_1 z^{n-1} + a_2 z^{n-2} + ... + a_{n-1} z + a_n = 0 }
+\]</div>
+<p>always has <code>n</code> complex solutions, though they may not all be distinct. The datatype <code>complex</code> is described in the section on complex numbers. You can calculate the roots using the <code>roopol</code> function.</p>
+<div class="language-pascal highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">roopol</span><span class="p">(</span><span class="k">var</span><span class="w"> </span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="n">n</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">z</span><span class="o">:</span><span class="w"> </span><span class="n">complex</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">k</span><span class="o">,</span><span class="w"> </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="p">)</span><span class="o">;</span>
+</span></code></pre></div>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>
+<p><strong>a</strong>: An array containing the polynomial coefficients, ordered from highest to lowest degree. The polynomial must be normalized, meaning the coefficient of the highest-degree term should be 1. This coefficient is <strong>not</strong> included in the array, so the array must have at least <code>n</code> elements. Since only real polynomials are handled, the array elements should be of type <code>ArbFloat</code>. Note: the data organization for this array is different from other polynomial routines in this library.</p>
+</li>
+<li>
+<p><strong>n</strong>: The degree of the polynomial. It must be a positive integer.</p>
+</li>
+<li>
+<p><strong>z</strong>: An array of complex values that will store the roots of the polynomial. The array must have at least <code>n</code> elements. The values returned are undefined if an error occurs (i.e., if <code>term &lt;&gt; 1</code>).</p>
+</li>
+<li>
+<p><strong>k</strong>: The number of roots found. This value should always equal <code>n</code>; if it doesn't, an error has occurred.</p>
+</li>
+<li>
+<p><strong>term</strong>: An error code returned by the function:</p>
+</li>
+<li><code>1</code>: Successful completion, and the array <code>z</code> contains valid root data.</li>
+<li><code>2</code>: Not all roots were found (<code>k &lt; n</code>).</li>
+<li><code>3</code>: Error in input data (<code>n &lt; 1</code>).</li>
+</ul>
+<p><strong>Example</strong></p>
+<p>Calculate the roots of the polynomial z5 + 3 z4 + 4 z3 - 8 z2. The expected zero points are:</p>
+<div class="arithmatex">\[
+\displaystyle{  z_1=0,\ z_2=0,\ z_3=1,\ z_4=-2+2i,\ z_5=-2-2i }
+\]</div>
+<div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-38-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-38-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-38-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-38-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-38-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-38-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-38-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-38-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-38-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-38-10">10</a></span>
+<span class="normal"><a href="#__codelineno-38-11">11</a></span>
+<span class="normal"><a href="#__codelineno-38-12">12</a></span>
+<span class="normal"><a href="#__codelineno-38-13">13</a></span>
+<span class="normal"><a href="#__codelineno-38-14">14</a></span>
+<span class="normal"><a href="#__codelineno-38-15">15</a></span>
+<span class="normal"><a href="#__codelineno-38-16">16</a></span>
+<span class="normal"><a href="#__codelineno-38-17">17</a></span>
+<span class="normal"><a href="#__codelineno-38-18">18</a></span>
+<span class="normal"><a href="#__codelineno-38-19">19</a></span>
+<span class="normal"><a href="#__codelineno-38-20">20</a></span>
+<span class="normal"><a href="#__codelineno-38-21">21</a></span>
+<span class="normal"><a href="#__codelineno-38-22">22</a></span>
+<span class="normal"><a href="#__codelineno-38-23">23</a></span>
+<span class="normal"><a href="#__codelineno-38-24">24</a></span>
+<span class="normal"><a href="#__codelineno-38-25">25</a></span>
+<span class="normal"><a href="#__codelineno-38-26">26</a></span>
+<span class="normal"><a href="#__codelineno-38-27">27</a></span>
+<span class="normal"><a href="#__codelineno-38-28">28</a></span>
+<span class="normal"><a href="#__codelineno-38-29">29</a></span>
+<span class="normal"><a href="#__codelineno-38-30">30</a></span>
+<span class="normal"><a href="#__codelineno-38-31">31</a></span>
+<span class="normal"><a href="#__codelineno-38-32">32</a></span>
+<span class="normal"><a href="#__codelineno-38-33">33</a></span>
+<span class="normal"><a href="#__codelineno-38-34">34</a></span>
+<span class="normal"><a href="#__codelineno-38-35">35</a></span>
+<span class="normal"><a href="#__codelineno-38-36">36</a></span>
+<span class="normal"><a href="#__codelineno-38-37">37</a></span>
+<span class="normal"><a href="#__codelineno-38-38">38</a></span>
+<span class="normal"><a href="#__codelineno-38-39">39</a></span>
+<span class="normal"><a href="#__codelineno-38-40">40</a></span>
+<span class="normal"><a href="#__codelineno-38-41">41</a></span>
+<span class="normal"><a href="#__codelineno-38-42">42</a></span>
+<span class="normal"><a href="#__codelineno-38-43">43</a></span>
+<span class="normal"><a href="#__codelineno-38-44">44</a></span>
+<span class="normal"><a href="#__codelineno-38-45">45</a></span>
+<span class="normal"><a href="#__codelineno-38-46">46</a></span>
+<span class="normal"><a href="#__codelineno-38-47">47</a></span>
+<span class="normal"><a href="#__codelineno-38-48">48</a></span>
+<span class="normal"><a href="#__codelineno-38-49">49</a></span>
+<span class="normal"><a href="#__codelineno-38-50">50</a></span>
+<span class="normal"><a href="#__codelineno-38-51">51</a></span>
+<span class="normal"><a href="#__codelineno-38-52">52</a></span>
+<span class="normal"><a href="#__codelineno-38-53">53</a></span>
+<span class="normal"><a href="#__codelineno-38-54">54</a></span>
+<span class="normal"><a href="#__codelineno-38-55">55</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1"></a><span class="k">program</span><span class="w"> </span><span class="n">solve_root_polynomials</span><span class="o">;</span>
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2"></a>
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4"></a>
+</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5"></a><span class="k">uses</span>
+</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6"></a><span class="w">  </span><span class="n">SysUtils</span><span class="o">,</span><span class="w"> </span><span class="n">typ</span><span class="o">,</span><span class="w"> </span><span class="n">roo</span><span class="o">;</span>
+</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7"></a>
+</span><span id="__span-38-8"><a id="__codelineno-38-8" name="__codelineno-38-8"></a><span class="k">const</span>
+</span><span id="__span-38-9"><a id="__codelineno-38-9" name="__codelineno-38-9"></a><span class="w">  </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="o">;</span>
+</span><span id="__span-38-10"><a id="__codelineno-38-10" name="__codelineno-38-10"></a>
+</span><span id="__span-38-11"><a id="__codelineno-38-11" name="__codelineno-38-11"></a><span class="k">var</span>
+</span><span id="__span-38-12"><a id="__codelineno-38-12" name="__codelineno-38-12"></a><span class="w">  </span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">ArbFloat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="o">,</span><span class="w"> </span><span class="mi">4</span><span class="o">,</span><span class="w"> </span><span class="o">-</span><span class="mi">8</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-38-13"><a id="__codelineno-38-13" name="__codelineno-38-13"></a><span class="w">  </span><span class="n">z</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">complex</span><span class="o">;</span>
+</span><span id="__span-38-14"><a id="__codelineno-38-14" name="__codelineno-38-14"></a><span class="w">  </span><span class="n">k</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span>
+</span><span id="__span-38-15"><a id="__codelineno-38-15" name="__codelineno-38-15"></a><span class="w">  </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span>
+</span><span id="__span-38-16"><a id="__codelineno-38-16" name="__codelineno-38-16"></a><span class="w">  </span><span class="n">i</span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="o">;</span>
+</span><span id="__span-38-17"><a id="__codelineno-38-17" name="__codelineno-38-17"></a><span class="w">  </span><span class="n">c</span><span class="o">:</span><span class="w"> </span><span class="n">complex</span><span class="o">;</span>
+</span><span id="__span-38-18"><a id="__codelineno-38-18" name="__codelineno-38-18"></a>
+</span><span id="__span-38-19"><a id="__codelineno-38-19" name="__codelineno-38-19"></a><span class="w">  </span><span class="k">function</span><span class="w"> </span><span class="nf">ComplexToStr</span><span class="p">(</span><span class="n">z</span><span class="o">:</span><span class="w"> </span><span class="n">complex</span><span class="o">;</span><span class="w"> </span><span class="n">Decimals</span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="k">string</span><span class="o">;</span>
+</span><span id="__span-38-20"><a id="__codelineno-38-20" name="__codelineno-38-20"></a><span class="w">  </span><span class="k">const</span>
+</span><span id="__span-38-21"><a id="__codelineno-38-21" name="__codelineno-38-21"></a><span class="w">    </span><span class="nb">SIGN</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="kt">boolean</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="s">&#39;+&#39;</span><span class="o">,</span><span class="w"> </span><span class="s">&#39;-&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-38-22"><a id="__codelineno-38-22" name="__codelineno-38-22"></a><span class="w">  </span><span class="k">begin</span>
+</span><span id="__span-38-23"><a id="__codelineno-38-23" name="__codelineno-38-23"></a><span class="w">    </span><span class="bp">Result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">Format</span><span class="p">(</span><span class="s">&#39;%.*f %s %.*f i&#39;</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="n">Decimals</span><span class="o">,</span><span class="w"> </span><span class="n">z</span><span class="o">.</span><span class="n">re</span><span class="o">,</span><span class="w"> </span><span class="nb">SIGN</span><span class="p">[</span><span class="n">z</span><span class="o">.</span><span class="n">im</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">Decimals</span><span class="o">,</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">im</span><span class="p">)])</span><span class="o">;</span>
+</span><span id="__span-38-24"><a id="__codelineno-38-24" name="__codelineno-38-24"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-38-25"><a id="__codelineno-38-25" name="__codelineno-38-25"></a>
+</span><span id="__span-38-26"><a id="__codelineno-38-26" name="__codelineno-38-26"></a><span class="k">begin</span>
+</span><span id="__span-38-27"><a id="__codelineno-38-27" name="__codelineno-38-27"></a><span class="w">  </span><span class="c1">// Solve equation</span>
+</span><span id="__span-38-28"><a id="__codelineno-38-28" name="__codelineno-38-28"></a><span class="hll"><span class="w">  </span><span class="n">roopol</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">k</span><span class="o">,</span><span class="w"> </span><span class="n">term</span><span class="p">)</span><span class="o">;</span>
+</span></span><span id="__span-38-29"><a id="__codelineno-38-29" name="__codelineno-38-29"></a>
+</span><span id="__span-38-30"><a id="__codelineno-38-30" name="__codelineno-38-30"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">term</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="k">begin</span>
+</span><span id="__span-38-31"><a id="__codelineno-38-31" name="__codelineno-38-31"></a><span class="w">    </span><span class="c1">// Display results</span>
+</span><span id="__span-38-32"><a id="__codelineno-38-32" name="__codelineno-38-32"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Results of procedure roopol:&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-38-33"><a id="__codelineno-38-33" name="__codelineno-38-33"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="o">:=</span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-38-34"><a id="__codelineno-38-34" name="__codelineno-38-34"></a><span class="w">      </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;  Solution #&#39;</span><span class="o">,</span><span class="w"> </span><span class="n">i</span><span class="o">,</span><span class="w"> </span><span class="s">&#39;: &#39;</span><span class="o">,</span><span class="w"> </span><span class="n">ComplexToStr</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="o">:</span><span class="mi">20</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-38-35"><a id="__codelineno-38-35" name="__codelineno-38-35"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-38-36"><a id="__codelineno-38-36" name="__codelineno-38-36"></a>
+</span><span id="__span-38-37"><a id="__codelineno-38-37" name="__codelineno-38-37"></a><span class="w">    </span><span class="c1">// Display expected results</span>
+</span><span id="__span-38-38"><a id="__codelineno-38-38" name="__codelineno-38-38"></a><span class="w">    </span><span class="nb">Writeln</span><span class="p">(</span><span class="s">&#39;Expected results:&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-38-39"><a id="__codelineno-38-39" name="__codelineno-38-39"></a><span class="w">    </span><span class="n">c</span><span class="o">.</span><span class="n">Init</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">;</span><span class="w">  </span><span class="c1">// z1 = 0</span>
+</span><span id="__span-38-40"><a id="__codelineno-38-40" name="__codelineno-38-40"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;  Solution #1: &#39;</span><span class="o">,</span><span class="w"> </span><span class="n">complexToStr</span><span class="p">(</span><span class="n">c</span><span class="o">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="o">:</span><span class="mi">20</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-38-41"><a id="__codelineno-38-41" name="__codelineno-38-41"></a><span class="w">    </span><span class="n">c</span><span class="o">.</span><span class="n">Init</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">;</span><span class="w">  </span><span class="c1">// z2 = 0</span>
+</span><span id="__span-38-42"><a id="__codelineno-38-42" name="__codelineno-38-42"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;  Solution #2: &#39;</span><span class="o">,</span><span class="w"> </span><span class="n">complexToStr</span><span class="p">(</span><span class="n">c</span><span class="o">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="o">:</span><span class="mi">20</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-38-43"><a id="__codelineno-38-43" name="__codelineno-38-43"></a><span class="w">    </span><span class="n">c</span><span class="o">.</span><span class="n">Init</span><span class="p">(</span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">;</span><span class="w">  </span><span class="c1">// z3 = 1</span>
+</span><span id="__span-38-44"><a id="__codelineno-38-44" name="__codelineno-38-44"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;  Solution #3: &#39;</span><span class="o">,</span><span class="w"> </span><span class="n">complexToStr</span><span class="p">(</span><span class="n">c</span><span class="o">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="o">:</span><span class="mi">20</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-38-45"><a id="__codelineno-38-45" name="__codelineno-38-45"></a><span class="w">    </span><span class="n">c</span><span class="o">.</span><span class="n">Init</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">;</span><span class="w">  </span><span class="c1">// z4 = -2 + 2 i</span>
+</span><span id="__span-38-46"><a id="__codelineno-38-46" name="__codelineno-38-46"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;  Solution #4: &#39;</span><span class="o">,</span><span class="w"> </span><span class="n">complexToStr</span><span class="p">(</span><span class="n">c</span><span class="o">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="o">:</span><span class="mi">20</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-38-47"><a id="__codelineno-38-47" name="__codelineno-38-47"></a><span class="w">    </span><span class="n">c</span><span class="o">.</span><span class="n">Init</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">;</span><span class="w">  </span><span class="c1">// z4 = -2 - 2 i</span>
+</span><span id="__span-38-48"><a id="__codelineno-38-48" name="__codelineno-38-48"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;  Solution #5: &#39;</span><span class="o">,</span><span class="w"> </span><span class="n">complexToStr</span><span class="p">(</span><span class="n">c</span><span class="o">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="o">:</span><span class="mi">20</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-38-49"><a id="__codelineno-38-49" name="__codelineno-38-49"></a><span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">else</span>
+</span><span id="__span-38-50"><a id="__codelineno-38-50" name="__codelineno-38-50"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;ERROR&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-38-51"><a id="__codelineno-38-51" name="__codelineno-38-51"></a>
+</span><span id="__span-38-52"><a id="__codelineno-38-52" name="__codelineno-38-52"></a><span class="w">  </span><span class="c1">// Pause to allow user to see results before exiting the program</span>
+</span><span id="__span-38-53"><a id="__codelineno-38-53" name="__codelineno-38-53"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Press enter to quit&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-38-54"><a id="__codelineno-38-54" name="__codelineno-38-54"></a><span class="w">  </span><span class="nb">ReadLn</span><span class="o">;</span>
+</span><span id="__span-38-55"><a id="__codelineno-38-55" name="__codelineno-38-55"></a><span class="k">end</span><span class="o">.</span>
+</span></code></pre></div></td></tr></table></div>
 <h2 id="unit-int-numerical-integration-of-a-function">Unit <code>int</code> - Numerical integration of a function<a class="headerlink" href="#unit-int-numerical-integration-of-a-function" title="Permanent link">&para;</a></h2>
 <p>Coming soon.</p>
 <h2 id="unit-ode-ordinary-differential-equations">Unit <code>ode</code> - Ordinary differential equations<a class="headerlink" href="#unit-ode-ordinary-differential-equations" title="Permanent link">&para;</a></h2>
