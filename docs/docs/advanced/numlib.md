@@ -1433,7 +1433,7 @@ end.
 
 The output is:
 
-```bash
+```text
 Solve A x = b with the least-squares method
 
 A =
@@ -1595,7 +1595,7 @@ Additionally, in case of procedures `eiggs2`, `eiggs4`, `eiggg2` and `eiggg4`:
 
 - `k1` and `k2` define the interval of indexes `k` for which the eigenvalues ($\lambda k$) and eigenvalues ($c_k$) are to be calculated. They are integers and must be ordered such that $1<=k1<=k2<=n$.
 
-#### Example
+**Example**
 
 Calculate the eigenvalues and eigenvectors of the matrix.
 
@@ -1678,7 +1678,7 @@ end.
 
 **Output**
 
-```bash
+```text
 Matrix a =
      8.000    -1.000    -5.000
     -4.000     4.000    -2.000
@@ -1924,7 +1924,7 @@ end.
 
 **Output**
 
-```bash
+```text
 n = 7
 (One-sided) band width w = 2
 Diagonal elements of A = 5 -4  6  1 -4  6  1 -4  6  1 -4  6  1 -4  6  1 -4  5
@@ -2122,7 +2122,7 @@ end.
 
 **Output**
 
-```bash
+```text
 n = 4
 Elements of main diagonal = 1  1  1  1
 Elements of subdiagonal   =    1  2  1
@@ -2394,7 +2394,7 @@ end.
 
 **Output**
 
-```bash
+```text
 Results of procedure roobin:
   Solution #1: 0.707107 + 0.707107 i
   Solution #2: 0.707107 - 0.707107 i
@@ -2459,7 +2459,7 @@ end.
 
 **Output**
 
-```bash
+```text
 Bisection result:  1.4142135621888698E+000
 sqrt(2):           1.4142135623730951E+000
 Press enter to quit
@@ -2613,7 +2613,7 @@ end.
 
 **Output**
 
-```bash
+```text
 term = 1
 
 Results found by procedure roofnr:
@@ -2625,7 +2625,137 @@ Press enter to quit
 
 ## Unit `int` - Numerical integration of a function
 
-Coming soon.
+
+The `int1fr` function in the `NumLib` library calculates the integral of a given function between limits `a` and `b`, with a specified absolute accuracy `ae`:
+
+```pascal
+procedure int1fr(f: rfunc1r; a, b, ae: ArbFloat; var integral, err: ArbFloat; var term: ArbInt);
+```
+
+**Parameters**
+
+- **`f`**: A pointer to the function to be integrated. The function must take a single real variable of type `ArbFloat` and return a value of type `ArbFloat`. The function type is declared as `rfunc1r` in the `typ` unit.
+  
+- **`a, b`**: The integration limits. These can also be set to `+/-Infinity` to allow integration over infinite intervals. The order of `a` and `b` follows correct mathematical conventions.
+
+- **`ae`**: The required absolute accuracy for the result.
+
+- **`integral`**: The result of the integration. It is valid only if `term = 1`.
+
+- **`err`**: The error in accuracy if the requested precision could not be achieved. In this case, `term = 2`.
+
+- **`term`**: The termination status code:
+    - `1`: Integration successful with absolute accuracy `ae`.
+    - `2`: Requested accuracy not reached, but the result is approximated with error `err`.
+    - `3`: Invalid input (e.g., `ae < 0`, or both `a` and `b` are infinite).
+    - `4`: Integration failed due to divergence or slow convergence.
+
+
+
+**Example**
+
+This example demonstrates calculating the integral:
+
+\[
+\int_a^b \frac{1}{x^2} \, dx
+\]
+
+for various integration limits `a` and `b`. Since the function diverges at `x = 0`, the integration interval must not include this point. The expected analytic result is provided for comparison.
+
+```pascal linenums="1" hl_lines="40"
+program integrate;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  SysUtils, Math, typ, int;
+
+// Function representing 1/x^2
+function recipx2(x: ArbFloat): ArbFloat;
+begin
+  Result := 1.0 / sqr(x);
+end;
+
+// Analytic result of the integral
+function integral_recipx2(a, b: ArbFloat): Arbfloat;
+begin
+  if a = 0 then
+    a := Infinity
+  else if a = Infinity then
+    a := 0.0
+  else
+    a := -1 / a;
+
+  if b = 0 then
+    b := Infinity
+  else if b = Infinity then
+    b := 0.0
+  else
+    b := -1 / b;
+
+  Result := b - a;
+end;
+
+// Execute the integration and handle the result
+procedure Execute(a, b: ArbFloat);
+var
+  err: ArbFloat = 0.0;
+  term: ArbInt = 0;
+  integral: ArbFloat = 0.0;
+begin
+  try
+    int1fr(@recipx2, a, b, 1e-9, integral, err, term);
+  except
+    term := 4;
+  end;
+
+  Write('  The integral from ' + FloatToStr(a) + ' to ' + FloatToStr(b));
+
+  case term of
+    1: WriteLn(' is ', integral:0:9, ', expected: ', integral_recipx2(a, b):0:9);
+    2: WriteLn(' is ', integral:0:9, ', error: ', err:0:9, ', expected: ', integral_recipx2(a, b):0:9);
+    3: WriteLn(' cannot be calculated: Invalid input.');
+    4: WriteLn(' cannot be calculated: Divergence or slow convergence.');
+  end;
+end;
+
+begin
+  WriteLn('Integral of f(x) = 1/x^2');
+  Execute(1.0, 2.0);
+  Execute(1.0, 1.0);
+  Execute(2.0, 1.0);
+  Execute(1.0, Infinity);
+  Execute(-Infinity, -1.0);
+  Execute(0.0, Infinity);
+  // Note: The following case will raise an exception in some environments, but works outside the IDE.
+  // Execute(-1.0, Infinity);
+
+  // Pause to allow user to see results before exiting the program
+  WriteLn('Press enter to quit');
+  ReadLn;
+end.
+```
+
+**Notes**
+
+- **`recipx2`**: This function returns \( \frac{1}{x^2} \), which is the integrand.
+  
+- **`integral_recipx2`**: Computes the expected analytic result for the given integration limits.
+
+- **`Execute`**: Runs the integration for the specified limits `a` and `b`, handles potential errors, and prints the result.
+
+**Output**
+
+```text
+Integral of f(x) = 1/x^2
+  The integral from 1 to 2 is 0.500000000, expected: 0.500000000
+  The integral from 1 to 1 is 0.000000000, expected: 0.000000000
+  The integral from 2 to 1 is -0.500000000, expected: -0.500000000
+  The integral from 1 to +Inf is 1.000000000, expected: 1.000000000
+  The integral from -Inf to -1 is 1.000000000, expected: 1.000000000
+  The integral from 0 to +Inf cannot be calculated: Divergence or slow convergence.
+Press enter to quit
+```
 
 ## Unit `ode` - Ordinary differential equations
 
