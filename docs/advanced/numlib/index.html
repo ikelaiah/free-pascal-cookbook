@@ -1506,6 +1506,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Unit ipf - Interpolation and fitting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fitting-with-a-polynomial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fitting with a Polynomial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpolation-with-a-natural-cubic-spline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interpolation with a Natural Cubic Spline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2297,6 +2321,30 @@
       Unit ipf - Interpolation and fitting
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Unit ipf - Interpolation and fitting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fitting-with-a-polynomial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fitting with a Polynomial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpolation-with-a-natural-cubic-spline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interpolation with a Natural Cubic Spline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -6609,7 +6657,283 @@ y_2(x) = \exp(x^2) \cos(x)
 </span><span id="__span-61-14"><a id="__codelineno-61-14" name="__codelineno-61-14" href="#__codelineno-61-14"></a>Press enter to quit
 </span></code></pre></div>
 <h2 id="unit-ipf-interpolation-and-fitting">Unit <code>ipf</code> - Interpolation and fitting<a class="headerlink" href="#unit-ipf-interpolation-and-fitting" title="Permanent link">&para;</a></h2>
-<p>Coming soon.</p>
+<p>The unit <code>ipf</code> contains routines for:</p>
+<ul>
+<li><strong>Fitting</strong> a set of data points with a polynomial.</li>
+<li><strong>Interpolating or fitting</strong> a set of data points with a natural cubic spline. A spline is a piecewise function of polynomials with a high degree of smoothness at the connection points (called "knots"). In the case of a natural cubic spline, the polynomials are of degree 3, and their second derivatives are zero at the first and last knots.</li>
+</ul>
+<p><strong>Definitions</strong></p>
+<ul>
+<li><strong>Fitting</strong>: Finding an approximating smooth function such that deviations from the data points are minimized.</li>
+<li><strong>Interpolation</strong>: Determining a function that passes exactly through the data points.</li>
+</ul>
+<p><strong>Use of Polynomials or Splines</strong></p>
+<p>Polynomials or splines are recommended unless the data follows a known function but with some unknown parameters. For example, if the data is modeled by the function   <span class="arithmatex">\( f(x) = a + b e^{-c x} \)</span>, fitting to that form may be better.</p>
+<p>If the data contains <strong>measurement errors</strong>, fitting with a low-degree polynomial (e.g., degree ≤ 5) is usually a good first approach. If the data’s shape is complex, consider fitting with a spline. </p>
+<p>If the data has <strong>no measurement noise</strong>, it’s often best to interpolate using a spline.</p>
+<h3 id="fitting-with-a-polynomial">Fitting with a Polynomial<a class="headerlink" href="#fitting-with-a-polynomial" title="Permanent link">&para;</a></h3>
+<p>You can fit a polynomial to your data using the <code>ipfpol</code> routine. This routine takes a set of data points <span class="arithmatex">\((x_i, y_i)\)</span> and calculates a polynomial of the form:</p>
+<div class="arithmatex">\[ p(x) = b_0 + b_1 x + \dots + b_n x^n \]</div>
+<p>The coefficients <span class="arithmatex">\( b_0, \dots, b_n \)</span> are adjusted to minimize the sum of squared deviations from the data points, using the least squares fitting method:</p>
+<div class="arithmatex">\[ \sum_{i=1}^m (p(x_i) - y_i)^2 \]</div>
+<div class="language-pascal highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">ipfpol</span><span class="p">(</span><span class="n">m</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">y</span><span class="o">,</span><span class="w"> </span><span class="n">b</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="p">)</span><span class="o">;</span>
+</span></code></pre></div>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>m</code>: Number of data points (must be <span class="arithmatex">\( m \geq 1 \)</span>).</li>
+<li><code>n</code>: Degree of the polynomial (must be <span class="arithmatex">\( n &gt; 0 \)</span>).</li>
+<li><code>x</code>: Array containing the <span class="arithmatex">\( x \)</span>-values of the data points.</li>
+<li><code>y</code>: Array containing the <span class="arithmatex">\( y \)</span>-values of the data points.</li>
+<li><code>b</code>: Array to store the calculated polynomial coefficients.</li>
+<li><code>term</code>: Error code.</li>
+<li><code>1</code>: Success.</li>
+<li><code>3</code>: Input error (e.g., <span class="arithmatex">\( n &lt; 0 \)</span> or <span class="arithmatex">\( m &lt; 1 \)</span>).</li>
+</ul>
+<p>Once the coefficients are determined, you can calculate the value of <span class="arithmatex">\( p(x) \)</span> using the <code>spepol</code> procedure from the <code>spe</code> unit.</p>
+<p><strong>Example: Fitting a Degree 2 Polynomial</strong></p>
+<p>Fit a polynomial of degree 2 to these data points:</p>
+<div class="arithmatex">\[
+\displaystyle{ 
+  \begin{array}{ccc}
+    \hline
+    i &amp; x_i &amp; y_i \\
+    \hline
+    1 &amp; 0.00 &amp; 1.26 \\
+    2 &amp; 0.08 &amp; 1.37 \\
+    3 &amp; 0.22 &amp; 1.72 \\
+    4 &amp; 0.33 &amp; 2.08 \\
+    5 &amp; 0.46 &amp; 2.31 \\
+    6 &amp; 0.52 &amp; 2.64 \\
+    7 &amp; 0.67 &amp; 3.12 \\
+    8 &amp; 0.81 &amp; 3.48
+  \end{array}
+ }
+ \]</div>
+<div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-63-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-63-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-63-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-63-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-63-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-63-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-63-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-63-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-63-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-63-10">10</a></span>
+<span class="normal"><a href="#__codelineno-63-11">11</a></span>
+<span class="normal"><a href="#__codelineno-63-12">12</a></span>
+<span class="normal"><a href="#__codelineno-63-13">13</a></span>
+<span class="normal"><a href="#__codelineno-63-14">14</a></span>
+<span class="normal"><a href="#__codelineno-63-15">15</a></span>
+<span class="normal"><a href="#__codelineno-63-16">16</a></span>
+<span class="normal"><a href="#__codelineno-63-17">17</a></span>
+<span class="normal"><a href="#__codelineno-63-18">18</a></span>
+<span class="normal"><a href="#__codelineno-63-19">19</a></span>
+<span class="normal"><a href="#__codelineno-63-20">20</a></span>
+<span class="normal"><a href="#__codelineno-63-21">21</a></span>
+<span class="normal"><a href="#__codelineno-63-22">22</a></span>
+<span class="normal"><a href="#__codelineno-63-23">23</a></span>
+<span class="normal"><a href="#__codelineno-63-24">24</a></span>
+<span class="normal"><a href="#__codelineno-63-25">25</a></span>
+<span class="normal"><a href="#__codelineno-63-26">26</a></span>
+<span class="normal"><a href="#__codelineno-63-27">27</a></span>
+<span class="normal"><a href="#__codelineno-63-28">28</a></span>
+<span class="normal"><a href="#__codelineno-63-29">29</a></span>
+<span class="normal"><a href="#__codelineno-63-30">30</a></span>
+<span class="normal"><a href="#__codelineno-63-31">31</a></span>
+<span class="normal"><a href="#__codelineno-63-32">32</a></span>
+<span class="normal"><a href="#__codelineno-63-33">33</a></span>
+<span class="normal"><a href="#__codelineno-63-34">34</a></span>
+<span class="normal"><a href="#__codelineno-63-35">35</a></span>
+<span class="normal"><a href="#__codelineno-63-36">36</a></span>
+<span class="normal"><a href="#__codelineno-63-37">37</a></span>
+<span class="normal"><a href="#__codelineno-63-38">38</a></span>
+<span class="normal"><a href="#__codelineno-63-39">39</a></span>
+<span class="normal"><a href="#__codelineno-63-40">40</a></span>
+<span class="normal"><a href="#__codelineno-63-41">41</a></span>
+<span class="normal"><a href="#__codelineno-63-42">42</a></span>
+<span class="normal"><a href="#__codelineno-63-43">43</a></span>
+<span class="normal"><a href="#__codelineno-63-44">44</a></span>
+<span class="normal"><a href="#__codelineno-63-45">45</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1"></a><span class="k">program</span><span class="w"> </span><span class="n">polynomial_fit</span><span class="o">;</span>
+</span><span id="__span-63-2"><a id="__codelineno-63-2" name="__codelineno-63-2"></a>
+</span><span id="__span-63-3"><a id="__codelineno-63-3" name="__codelineno-63-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
+</span><span id="__span-63-4"><a id="__codelineno-63-4" name="__codelineno-63-4"></a>
+</span><span id="__span-63-5"><a id="__codelineno-63-5" name="__codelineno-63-5"></a><span class="k">uses</span>
+</span><span id="__span-63-6"><a id="__codelineno-63-6" name="__codelineno-63-6"></a><span class="w">  </span><span class="n">SysUtils</span><span class="o">,</span><span class="w"> </span><span class="n">typ</span><span class="o">,</span><span class="w"> </span><span class="n">ipf</span><span class="o">,</span><span class="w"> </span><span class="n">spe</span><span class="o">;</span>
+</span><span id="__span-63-7"><a id="__codelineno-63-7" name="__codelineno-63-7"></a>
+</span><span id="__span-63-8"><a id="__codelineno-63-8" name="__codelineno-63-8"></a><span class="k">const</span>
+</span><span id="__span-63-9"><a id="__codelineno-63-9" name="__codelineno-63-9"></a><span class="w">  </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="o">;</span><span class="w">  </span><span class="c1">// Number of data points</span>
+</span><span id="__span-63-10"><a id="__codelineno-63-10" name="__codelineno-63-10"></a><span class="w">  </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="o">;</span><span class="w">  </span><span class="c1">// Polynomial degree</span>
+</span><span id="__span-63-11"><a id="__codelineno-63-11" name="__codelineno-63-11"></a>
+</span><span id="__span-63-12"><a id="__codelineno-63-12" name="__codelineno-63-12"></a><span class="k">var</span>
+</span><span id="__span-63-13"><a id="__codelineno-63-13" name="__codelineno-63-13"></a><span class="w">  </span><span class="n">x</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">m</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">ArbFloat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">0.00</span><span class="o">,</span><span class="w"> </span><span class="mf">0.08</span><span class="o">,</span><span class="w"> </span><span class="mf">0.22</span><span class="o">,</span><span class="w"> </span><span class="mf">0.33</span><span class="o">,</span><span class="w"> </span><span class="mf">0.46</span><span class="o">,</span><span class="w"> </span><span class="mf">0.52</span><span class="o">,</span><span class="w"> </span><span class="mf">0.67</span><span class="o">,</span><span class="w"> </span><span class="mf">0.81</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-63-14"><a id="__codelineno-63-14" name="__codelineno-63-14"></a><span class="w">  </span><span class="n">y</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">m</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">ArbFloat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">1.26</span><span class="o">,</span><span class="w"> </span><span class="mf">1.37</span><span class="o">,</span><span class="w"> </span><span class="mf">1.72</span><span class="o">,</span><span class="w"> </span><span class="mf">2.08</span><span class="o">,</span><span class="w"> </span><span class="mf">2.31</span><span class="o">,</span><span class="w"> </span><span class="mf">2.64</span><span class="o">,</span><span class="w"> </span><span class="mf">3.12</span><span class="o">,</span><span class="w"> </span><span class="mf">3.48</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-63-15"><a id="__codelineno-63-15" name="__codelineno-63-15"></a><span class="w">  </span><span class="n">b</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span>
+</span><span id="__span-63-16"><a id="__codelineno-63-16" name="__codelineno-63-16"></a><span class="w">  </span><span class="n">i</span><span class="o">:</span><span class="w"> </span><span class="kt">Integer</span><span class="o">;</span>
+</span><span id="__span-63-17"><a id="__codelineno-63-17" name="__codelineno-63-17"></a><span class="w">  </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span>
+</span><span id="__span-63-18"><a id="__codelineno-63-18" name="__codelineno-63-18"></a><span class="w">  </span><span class="n">xint</span><span class="o">,</span><span class="w"> </span><span class="n">yint</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span>
+</span><span id="__span-63-19"><a id="__codelineno-63-19" name="__codelineno-63-19"></a><span class="k">begin</span>
+</span><span id="__span-63-20"><a id="__codelineno-63-20" name="__codelineno-63-20"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Fitting a polynomial of degree 2: p(x) = b[0] + b[1] x + b[2] x^2&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-63-21"><a id="__codelineno-63-21" name="__codelineno-63-21"></a>
+</span><span id="__span-63-22"><a id="__codelineno-63-22" name="__codelineno-63-22"></a><span class="w">  </span><span class="c1">// Print data points</span>
+</span><span id="__span-63-23"><a id="__codelineno-63-23" name="__codelineno-63-23"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Data points&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-63-24"><a id="__codelineno-63-24" name="__codelineno-63-24"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span><span class="w"> </span><span class="s">&#39;x_i&#39;</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span><span class="w"> </span><span class="s">&#39;y_i&#39;</span><span class="o">:</span><span class="mi">10</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-63-25"><a id="__codelineno-63-25" name="__codelineno-63-25"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-63-26"><a id="__codelineno-63-26" name="__codelineno-63-26"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="n">i</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="mi">2</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-63-27"><a id="__codelineno-63-27" name="__codelineno-63-27"></a>
+</span><span id="__span-63-28"><a id="__codelineno-63-28" name="__codelineno-63-28"></a><span class="w">  </span><span class="c1">// Fit polynomial</span>
+</span><span id="__span-63-29"><a id="__codelineno-63-29" name="__codelineno-63-29"></a><span class="hll"><span class="w">  </span><span class="n">ipfpol</span><span class="p">(</span><span class="n">m</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">term</span><span class="p">)</span><span class="o">;</span>
+</span></span><span id="__span-63-30"><a id="__codelineno-63-30" name="__codelineno-63-30"></a>
+</span><span id="__span-63-31"><a id="__codelineno-63-31" name="__codelineno-63-31"></a><span class="w">  </span><span class="c1">// Display coefficients</span>
+</span><span id="__span-63-32"><a id="__codelineno-63-32" name="__codelineno-63-32"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Fitted coefficients b = &#39;</span><span class="o">,</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="mi">6</span><span class="o">,</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="mi">6</span><span class="o">,</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="mi">6</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-63-33"><a id="__codelineno-63-33" name="__codelineno-63-33"></a>
+</span><span id="__span-63-34"><a id="__codelineno-63-34" name="__codelineno-63-34"></a><span class="w">  </span><span class="c1">// Interpolation</span>
+</span><span id="__span-63-35"><a id="__codelineno-63-35" name="__codelineno-63-35"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Interpolated values:&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-63-36"><a id="__codelineno-63-36" name="__codelineno-63-36"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="k">begin</span>
+</span><span id="__span-63-37"><a id="__codelineno-63-37" name="__codelineno-63-37"></a><span class="w">    </span><span class="n">xint</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mf">0.2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="o">;</span>
+</span><span id="__span-63-38"><a id="__codelineno-63-38" name="__codelineno-63-38"></a><span class="w">    </span><span class="n">yint</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">spepol</span><span class="p">(</span><span class="n">xint</span><span class="o">,</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-63-39"><a id="__codelineno-63-39" name="__codelineno-63-39"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="n">xint</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="n">yint</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="mi">2</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-63-40"><a id="__codelineno-63-40" name="__codelineno-63-40"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-63-41"><a id="__codelineno-63-41" name="__codelineno-63-41"></a>
+</span><span id="__span-63-42"><a id="__codelineno-63-42" name="__codelineno-63-42"></a><span class="w">  </span><span class="c1">// Pause to allow user to see results before exiting the program</span>
+</span><span id="__span-63-43"><a id="__codelineno-63-43" name="__codelineno-63-43"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Press enter to quit&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-63-44"><a id="__codelineno-63-44" name="__codelineno-63-44"></a><span class="w">  </span><span class="nb">ReadLn</span><span class="o">;</span>
+</span><span id="__span-63-45"><a id="__codelineno-63-45" name="__codelineno-63-45"></a><span class="k">end</span><span class="o">.</span>
+</span></code></pre></div></td></tr></table></div>
+<p><strong>Output</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>Fitting a polynomial of degree 2: p(x) = b[0] + b[1] x + b[2] x^2
+</span><span id="__span-64-2"><a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a>Data points
+</span><span id="__span-64-3"><a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a>         i       x_i       y_i
+</span><span id="__span-64-4"><a id="__codelineno-64-4" name="__codelineno-64-4" href="#__codelineno-64-4"></a>         1      0.00      1.26
+</span><span id="__span-64-5"><a id="__codelineno-64-5" name="__codelineno-64-5" href="#__codelineno-64-5"></a>         2      0.08      1.37
+</span><span id="__span-64-6"><a id="__codelineno-64-6" name="__codelineno-64-6" href="#__codelineno-64-6"></a>         3      0.22      1.72
+</span><span id="__span-64-7"><a id="__codelineno-64-7" name="__codelineno-64-7" href="#__codelineno-64-7"></a>         4      0.33      2.08
+</span><span id="__span-64-8"><a id="__codelineno-64-8" name="__codelineno-64-8" href="#__codelineno-64-8"></a>         5      0.46      2.31
+</span><span id="__span-64-9"><a id="__codelineno-64-9" name="__codelineno-64-9" href="#__codelineno-64-9"></a>         6      0.52      2.64
+</span><span id="__span-64-10"><a id="__codelineno-64-10" name="__codelineno-64-10" href="#__codelineno-64-10"></a>         7      0.67      3.12
+</span><span id="__span-64-11"><a id="__codelineno-64-11" name="__codelineno-64-11" href="#__codelineno-64-11"></a>         8      0.81      3.48
+</span><span id="__span-64-12"><a id="__codelineno-64-12" name="__codelineno-64-12" href="#__codelineno-64-12"></a>Fitted coefficients b =   1.222195  2.224385  0.759178
+</span><span id="__span-64-13"><a id="__codelineno-64-13" name="__codelineno-64-13" href="#__codelineno-64-13"></a>Interpolated values:
+</span><span id="__span-64-14"><a id="__codelineno-64-14" name="__codelineno-64-14" href="#__codelineno-64-14"></a>      0.20      1.70
+</span><span id="__span-64-15"><a id="__codelineno-64-15" name="__codelineno-64-15" href="#__codelineno-64-15"></a>      0.40      2.23
+</span><span id="__span-64-16"><a id="__codelineno-64-16" name="__codelineno-64-16" href="#__codelineno-64-16"></a>      0.60      2.83
+</span><span id="__span-64-17"><a id="__codelineno-64-17" name="__codelineno-64-17" href="#__codelineno-64-17"></a>      0.80      3.49
+</span><span id="__span-64-18"><a id="__codelineno-64-18" name="__codelineno-64-18" href="#__codelineno-64-18"></a>      1.00      4.21
+</span><span id="__span-64-19"><a id="__codelineno-64-19" name="__codelineno-64-19" href="#__codelineno-64-19"></a>Press enter to quit
+</span></code></pre></div>
+<h3 id="interpolation-with-a-natural-cubic-spline">Interpolation with a Natural Cubic Spline<a class="headerlink" href="#interpolation-with-a-natural-cubic-spline" title="Permanent link">&para;</a></h3>
+<p>To interpolate data with a cubic spline, use the <code>ipfisn</code> routine. This calculates the spline’s second derivatives. Once these are known, you can calculate the spline value at any point using the <code>ipfspn</code> procedure.</p>
+<div class="language-pascal highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">ipfisn</span><span class="p">(</span><span class="n">n</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">y</span><span class="o">,</span><span class="w"> </span><span class="n">d2s</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="p">)</span><span class="o">;</span>
+</span></code></pre></div>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>n</code>: Number of data points minus one.</li>
+<li><code>x</code>, <code>y</code>: Arrays containing the data points' <span class="arithmatex">\( x \)</span>- and <span class="arithmatex">\( y \)</span>-values.</li>
+<li><code>d2s</code>: Array to store the second derivatives at each point (except at the endpoints, where it's set to 0).</li>
+<li><code>term</code>: Error code.</li>
+<li><code>1</code>: Success.</li>
+<li><code>2</code>: Error in calculating second derivatives.</li>
+<li><code>3</code>: Invalid input parameters (e.g., <span class="arithmatex">\( n \leq 1 \)</span>).</li>
+</ul>
+<p>Once the second derivatives are determined, you can use <code>ipfspn</code> to evaluate the spline at any point.</p>
+<p><strong>Example: Natural Cubic Spline Interpolation</strong></p>
+<p>Interpolate a natural cubic spline through the following data points:</p>
+<div class="arithmatex">\[
+\displaystyle{ 
+  \begin{array}{ccc}
+    \hline
+    i &amp; x_i &amp; y_i \\
+    \hline
+    0 &amp; 0.00 &amp; 0.980 \\
+    1 &amp; 0.09 &amp; 0.927 \\
+    2 &amp; 0.22 &amp; 0.732 \\
+    3 &amp; 0.34 &amp; 0.542 \\
+    4 &amp; 0.47 &amp; 0.385 \\
+    5 &amp; 0.58 &amp; 0.292 \\
+    6 &amp; 0.65 &amp; 0.248 \\
+    7 &amp; 0.80 &amp; 0.179 \\
+    8 &amp; 0.93 &amp; 0.139
+  \end{array}
+ }
+\]</div>
+<div class="language-pascal highlight"><pre><span></span><code><span id="__span-66-1"><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a><span class="k">program</span><span class="w"> </span><span class="n">spline_interpolation</span><span class="o">;</span>
+</span><span id="__span-66-2"><a id="__codelineno-66-2" name="__codelineno-66-2" href="#__codelineno-66-2"></a>
+</span><span id="__span-66-3"><a id="__codelineno-66-3" name="__codelineno-66-3" href="#__codelineno-66-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
+</span><span id="__span-66-4"><a id="__codelineno-66-4" name="__codelineno-66-4" href="#__codelineno-66-4"></a>
+</span><span id="__span-66-5"><a id="__codelineno-66-5" name="__codelineno-66-5" href="#__codelineno-66-5"></a><span class="k">uses</span>
+</span><span id="__span-66-6"><a id="__codelineno-66-6" name="__codelineno-66-6" href="#__codelineno-66-6"></a><span class="w">  </span><span class="n">typ</span><span class="o">,</span>
+</span><span id="__span-66-7"><a id="__codelineno-66-7" name="__codelineno-66-7" href="#__codelineno-66-7"></a><span class="w">  </span><span class="n">ipf</span><span class="o">;</span>
+</span><span id="__span-66-8"><a id="__codelineno-66-8" name="__codelineno-66-8" href="#__codelineno-66-8"></a>
+</span><span id="__span-66-9"><a id="__codelineno-66-9" name="__codelineno-66-9" href="#__codelineno-66-9"></a><span class="k">const</span>
+</span><span id="__span-66-10"><a id="__codelineno-66-10" name="__codelineno-66-10" href="#__codelineno-66-10"></a><span class="w">  </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="o">;</span>
+</span><span id="__span-66-11"><a id="__codelineno-66-11" name="__codelineno-66-11" href="#__codelineno-66-11"></a>
+</span><span id="__span-66-12"><a id="__codelineno-66-12" name="__codelineno-66-12" href="#__codelineno-66-12"></a><span class="k">var</span>
+</span><span id="__span-66-13"><a id="__codelineno-66-13" name="__codelineno-66-13" href="#__codelineno-66-13"></a><span class="w">  </span><span class="n">x</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">ArbFloat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">0.00</span><span class="o">,</span><span class="w"> </span><span class="mf">0.09</span><span class="o">,</span><span class="w"> </span><span class="mf">0.22</span><span class="o">,</span><span class="w"> </span><span class="mf">0.34</span><span class="o">,</span><span class="w"> </span><span class="mf">0.47</span><span class="o">,</span><span class="w"> </span><span class="mf">0.58</span><span class="o">,</span><span class="w"> </span><span class="mf">0.65</span><span class="o">,</span><span class="w"> </span><span class="mf">0.80</span><span class="o">,</span><span class="w"> </span><span class="mf">0.93</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-66-14"><a id="__codelineno-66-14" name="__codelineno-66-14" href="#__codelineno-66-14"></a><span class="w">  </span><span class="n">y</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">ArbFloat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">0.990</span><span class="o">,</span><span class="w"> </span><span class="mf">0.927</span><span class="o">,</span><span class="w"> </span><span class="mf">0.734</span><span class="o">,</span><span class="w"> </span><span class="mf">0.542</span><span class="o">,</span><span class="w"> </span><span class="mf">0.388</span><span class="o">,</span><span class="w"> </span><span class="mf">0.292</span><span class="o">,</span><span class="w"> </span><span class="mf">0.248</span><span class="o">,</span><span class="w"> </span><span class="mf">0.179</span><span class="o">,</span><span class="w"> </span><span class="mf">0.139</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-66-15"><a id="__codelineno-66-15" name="__codelineno-66-15" href="#__codelineno-66-15"></a><span class="w">  </span><span class="n">d2s</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span>
+</span><span id="__span-66-16"><a id="__codelineno-66-16" name="__codelineno-66-16" href="#__codelineno-66-16"></a><span class="w">  </span><span class="n">i</span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="o">;</span>
+</span><span id="__span-66-17"><a id="__codelineno-66-17" name="__codelineno-66-17" href="#__codelineno-66-17"></a><span class="w">  </span><span class="n">term</span><span class="o">:</span><span class="w"> </span><span class="n">ArbInt</span><span class="o">;</span>
+</span><span id="__span-66-18"><a id="__codelineno-66-18" name="__codelineno-66-18" href="#__codelineno-66-18"></a><span class="w">  </span><span class="n">xint</span><span class="o">,</span><span class="w"> </span><span class="n">yint</span><span class="o">:</span><span class="w"> </span><span class="n">ArbFloat</span><span class="o">;</span>
+</span><span id="__span-66-19"><a id="__codelineno-66-19" name="__codelineno-66-19" href="#__codelineno-66-19"></a><span class="k">begin</span>
+</span><span id="__span-66-20"><a id="__codelineno-66-20" name="__codelineno-66-20" href="#__codelineno-66-20"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Cubic spline interpolation&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-66-21"><a id="__codelineno-66-21" name="__codelineno-66-21" href="#__codelineno-66-21"></a>
+</span><span id="__span-66-22"><a id="__codelineno-66-22" name="__codelineno-66-22" href="#__codelineno-66-22"></a><span class="w">  </span><span class="c1">// Print data points</span>
+</span><span id="__span-66-23"><a id="__codelineno-66-23" name="__codelineno-66-23" href="#__codelineno-66-23"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Data points&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-66-24"><a id="__codelineno-66-24" name="__codelineno-66-24" href="#__codelineno-66-24"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="o">,</span><span class="w"> </span><span class="s">&#39;x_i&#39;</span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="o">,</span><span class="w"> </span><span class="s">&#39;y_i&#39;</span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-66-25"><a id="__codelineno-66-25" name="__codelineno-66-25" href="#__codelineno-66-25"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-66-26"><a id="__codelineno-66-26" name="__codelineno-66-26" href="#__codelineno-66-26"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="n">i</span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="o">:</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-66-27"><a id="__codelineno-66-27" name="__codelineno-66-27" href="#__codelineno-66-27"></a>
+</span><span id="__span-66-28"><a id="__codelineno-66-28" name="__codelineno-66-28" href="#__codelineno-66-28"></a><span class="w">  </span><span class="c1">// Calculate spline parameters</span>
+</span><span id="__span-66-29"><a id="__codelineno-66-29" name="__codelineno-66-29" href="#__codelineno-66-29"></a><span class="w">  </span><span class="n">ipfisn</span><span class="p">(</span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">d2s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">term</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-66-30"><a id="__codelineno-66-30" name="__codelineno-66-30" href="#__codelineno-66-30"></a>
+</span><span id="__span-66-31"><a id="__codelineno-66-31" name="__codelineno-66-31" href="#__codelineno-66-31"></a><span class="w">  </span><span class="c1">// Display second derivatives</span>
+</span><span id="__span-66-32"><a id="__codelineno-66-32" name="__codelineno-66-32" href="#__codelineno-66-32"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Second derivatives&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-66-33"><a id="__codelineno-66-33" name="__codelineno-66-33" href="#__codelineno-66-33"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-66-34"><a id="__codelineno-66-34" name="__codelineno-66-34" href="#__codelineno-66-34"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="n">d2s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="o">:</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-66-35"><a id="__codelineno-66-35" name="__codelineno-66-35" href="#__codelineno-66-35"></a>
+</span><span id="__span-66-36"><a id="__codelineno-66-36" name="__codelineno-66-36" href="#__codelineno-66-36"></a><span class="w">  </span><span class="c1">// Interpolation</span>
+</span><span id="__span-66-37"><a id="__codelineno-66-37" name="__codelineno-66-37" href="#__codelineno-66-37"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Interpolated values&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-66-38"><a id="__codelineno-66-38" name="__codelineno-66-38" href="#__codelineno-66-38"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-66-39"><a id="__codelineno-66-39" name="__codelineno-66-39" href="#__codelineno-66-39"></a><span class="w">  </span><span class="k">begin</span>
+</span><span id="__span-66-40"><a id="__codelineno-66-40" name="__codelineno-66-40" href="#__codelineno-66-40"></a><span class="w">    </span><span class="n">xint</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mf">0.2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="o">;</span>
+</span><span id="__span-66-41"><a id="__codelineno-66-41" name="__codelineno-66-41" href="#__codelineno-66-41"></a><span class="w">    </span><span class="n">yint</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">ipfspn</span><span class="p">(</span><span class="n">n</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">d2s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">xint</span><span class="o">,</span><span class="w"> </span><span class="n">term</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-66-42"><a id="__codelineno-66-42" name="__codelineno-66-42" href="#__codelineno-66-42"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="n">xint</span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="n">yint</span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-66-43"><a id="__codelineno-66-43" name="__codelineno-66-43" href="#__codelineno-66-43"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-66-44"><a id="__codelineno-66-44" name="__codelineno-66-44" href="#__codelineno-66-44"></a>
+</span><span id="__span-66-45"><a id="__codelineno-66-45" name="__codelineno-66-45" href="#__codelineno-66-45"></a><span class="c1">// Pause to allow user to see results before exiting the program</span>
+</span><span id="__span-66-46"><a id="__codelineno-66-46" name="__codelineno-66-46" href="#__codelineno-66-46"></a><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Press enter to quit&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-66-47"><a id="__codelineno-66-47" name="__codelineno-66-47" href="#__codelineno-66-47"></a><span class="nb">ReadLn</span><span class="o">;</span>
+</span><span id="__span-66-48"><a id="__codelineno-66-48" name="__codelineno-66-48" href="#__codelineno-66-48"></a><span class="k">end</span><span class="o">.</span>
+</span></code></pre></div>
+<p><strong>Output</strong></p>
+<p>``text
+Cubic spline interpolation
+Data points
+         i       x_i       y_i
+         0      0.00     0.990
+         1      0.09     0.927
+         2      0.22     0.734
+         3      0.34     0.542
+         4      0.47     0.388
+         5      0.58     0.292
+         6      0.65     0.248
+         7      0.80     0.179
+         8      0.93     0.139
+Second derivatives
+-10.810021
+  0.374744
+  4.380190
+  1.978794
+  3.200753
+  1.357095
+  1.268361
+Interpolated values
+      0.20      0.77
+      0.40      0.46
+      0.60      0.28
+      0.80      0.18
+      1.00      0.12
+Press enter to quit
+```</p>
 <h2 id="unit-spe-special-functions">Unit <code>spe</code> - Special functions<a class="headerlink" href="#unit-spe-special-functions" title="Permanent link">&para;</a></h2>
 <p>Coming soon.</p>
 
