@@ -3241,7 +3241,7 @@ $$
  }
 $$
 
-```pascal
+```pascal linenums="1" hl_lines="29"
 program spline_interpolation;
 
 {$mode objfpc}{$H+}{$J-}
@@ -3296,7 +3296,7 @@ end.
 **Output**
 
 
-``text
+```text
 Cubic spline interpolation
 Data points
          i       x_i       y_i
