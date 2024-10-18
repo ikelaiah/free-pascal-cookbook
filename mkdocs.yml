@@ -28,6 +28,7 @@ nav:
     - Exceptions: docs/core-tasks/exception-try-blocks.md
     - File Handling I: docs/core-tasks/file-handling.md
     - File Handling II: docs/core-tasks/file-handling-ii.md
+    - Zip and Unzip: docs/core-tasks/zip-and-unzip.md
   - Advanced Topics:
     - Overview: docs/advanced/overview.md
     - Math with LMath: docs/advanced/lmath.md
