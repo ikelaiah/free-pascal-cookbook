@@ -2,227 +2,232 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/LICENSE/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/about/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/community/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/advanced/conditional-compilation/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/advanced/debugging/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/advanced/ezthreads/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/advanced/find-heap-memory-leaks/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/advanced/fpc-switches/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/advanced/lmath/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/advanced/multi-threading-basics/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/advanced/multi-threading-tthread-i-intro/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/advanced/multi-threading-tthread-ii-cs/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/advanced/multi-threading-tthread-iii-snippets/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/advanced/numlib-summary/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/advanced/numlib/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/advanced/overview/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/basics/basic-hello-world/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/basics/common-data-types/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/basics/install/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/basics/intro-objpas-fpc/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/basics/overview/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/arrays/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/cmd-line-params/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/code-structure/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/dates/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/dir-path-filename/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/exception-try-blocks/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/file-handling-ii/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/file-handling/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/funcs-procs/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/immutability/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/lazarus-ide/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/lists/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/loops/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/numbers/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/overview/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/regex/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/strings/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/zip-and-unzip/</loc>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/external-systems/overview/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/external-systems/parsing-json/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/external-systems/webserver/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/resources/docs-sites/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/resources/fpc-laz-packages/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ikelaiah.github.io/free-pascal-cookbook/docs/resources/videos/</loc>
-         <lastmod>2024-10-17</lastmod>
+         <lastmod>2024-10-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

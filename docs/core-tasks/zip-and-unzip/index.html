@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/cmd-line-params/">
+        <link rel="canonical" href="https://ikelaiah.github.io/free-pascal-cookbook/docs/core-tasks/zip-and-unzip/">
       
       
-        <link rel="prev" href="../code-structure/">
+        <link rel="prev" href="../file-handling-ii/">
       
       
-        <link rel="next" href="../funcs-procs/">
+        <link rel="next" href="../../advanced/overview/">
       
       
       <link rel="icon" href="../../../assets/logo-new-rounded-min.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Command Line Parameters - Free Pascal Cookbook</title>
+        <title>Zip and Unzip - Free Pascal Cookbook</title>
       
     
     
@@ -90,7 +90,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#command-line-parameters" class="md-skip">
+        <a href="#zip-and-unzip-files" class="md-skip">
           Skip to content
         </a>
       
@@ -125,7 +125,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Command Line Parameters
+              Zip and Unzip
             
           </span>
         </div>
@@ -723,30 +723,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Command Line Parameters
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../cmd-line-params/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -755,44 +735,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#how-do-i-capture-command-line-arguments" class="md-nav__link">
-    <span class="md-ellipsis">
-      How do I capture command line arguments?
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-can-i-capture-short-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      How can I capture short options?
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1075,10 +1017,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../zip-and-unzip/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Zip and Unzip
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1087,6 +1049,53 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#zip-files-simple" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zip Files - Simple
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zip-files-command-line-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zip Files - Command Line Input
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unzip-a-zip-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unzip a Zip File
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1686,18 +1695,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-do-i-capture-command-line-arguments" class="md-nav__link">
+  <a href="#zip-files-simple" class="md-nav__link">
     <span class="md-ellipsis">
-      How do I capture command line arguments?
+      Zip Files - Simple
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-can-i-capture-short-options" class="md-nav__link">
+  <a href="#zip-files-command-line-input" class="md-nav__link">
     <span class="md-ellipsis">
-      How can I capture short options?
+      Zip Files - Command Line Input
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unzip-a-zip-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unzip a Zip File
     </span>
   </a>
   
@@ -1718,190 +1736,170 @@
                   
 
 
-<h1 id="command-line-parameters">Command Line Parameters<a class="headerlink" href="#command-line-parameters" title="Permanent link">&para;</a></h1>
-<h2 id="how-do-i-capture-command-line-arguments">How do I capture command line arguments?<a class="headerlink" href="#how-do-i-capture-command-line-arguments" title="Permanent link">&para;</a></h2>
-<p>Use <a href="https://www.freepascal.org/docs-html/rtl/system/paramstr.html"><code>ParamStr(n)</code></a> to get the n-th arguments.</p>
-<p>Note, <code>ParamStr(0)</code> gives you the name of the program or location where the program is invoked.</p>
-<p>While <a href="https://www.freepascal.org/docs-html/rtl/system/paramcount.html"><code>ParamCount</code></a> give you the number of arguments.</p>
-<p>Here is an example.</p>
-<div class="language-pascal highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">program</span><span class="w"> </span><span class="n">CLSimple</span><span class="o">;</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">var</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="n">i</span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="o">;</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">begin</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Number of command line arguments: &#39;</span><span class="o">,</span><span class="w"> </span><span class="nb">ParamCount</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="c1">// Display all command line arguments</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nb">ParamCount</span><span class="w"> </span><span class="k">do</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Argument &#39;</span><span class="o">,</span><span class="w"> </span><span class="n">i</span><span class="o">,</span><span class="w"> </span><span class="s">&#39;: &#39;</span><span class="o">,</span><span class="w"> </span><span class="nb">ParamStr</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">;</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="k">end</span><span class="o">.</span>
-</span></code></pre></div>
-<p>When you compile and run the snippet above on a CLI followed by <code>a b c</code>, you will see the list of arguments given.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$<span class="w"> </span>./CLSimple.exe<span class="w"> </span>a<span class="w"> </span>b<span class="w"> </span>c
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Number<span class="w"> </span>of<span class="w"> </span><span class="nb">command</span><span class="w"> </span>line<span class="w"> </span>arguments:<span class="w"> </span><span class="m">3</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Argument<span class="w"> </span><span class="m">0</span>:<span class="w"> </span>path-to-your-program/CLSimple.exe
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Argument<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>a
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Argument<span class="w"> </span><span class="m">2</span>:<span class="w"> </span>b
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>Argument<span class="w"> </span><span class="m">3</span>:<span class="w"> </span>c
-</span></code></pre></div>
-<h2 id="how-can-i-capture-short-options">How can I capture short options?<a class="headerlink" href="#how-can-i-capture-short-options" title="Permanent link">&para;</a></h2>
-<p>Use <a href="https://www.freepascal.org/daily/doc/rtl/getopts/getopt.html"><code>getopt</code></a>. See an example below.</p>
-<ol>
-<li>In <code>uses</code> section add <code>getopt</code>. Line 17.</li>
-<li>Create a short option string, in our example, <code>a:bcd</code>. Line 24.</li>
-<li>Call <code>getopt(shortOpts)</code> in a loop<ul>
-<li>capture and action each option</li>
-<li>deal with <code>?</code> and <code>:</code> (for invalid option and missing argument)</li>
-<li>until it returns <code>EndOfOptions</code>. Line 36-55.</li>
+<h1 id="zip-and-unzip-files">Zip and Unzip Files<a class="headerlink" href="#zip-and-unzip-files" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Visit the official docs for more info.</p>
+<ul>
+<li><a href="https://wiki.lazarus.freepascal.org/paszlib">https://wiki.lazarus.freepascal.org/paszlib</a></li>
+<li><a href="https://www.freepascal.org/docs-html/fcl/zipper/index.html">https://www.freepascal.org/docs-html/fcl/zipper/index.html</a></li>
 </ul>
-</li>
-</ol>
-<div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-2-10">10</a></span>
-<span class="normal"><a href="#__codelineno-2-11">11</a></span>
-<span class="normal"><a href="#__codelineno-2-12">12</a></span>
-<span class="normal"><a href="#__codelineno-2-13">13</a></span>
-<span class="normal"><a href="#__codelineno-2-14">14</a></span>
-<span class="normal"><a href="#__codelineno-2-15">15</a></span>
-<span class="normal"><a href="#__codelineno-2-16">16</a></span>
-<span class="normal"><a href="#__codelineno-2-17">17</a></span>
-<span class="normal"><a href="#__codelineno-2-18">18</a></span>
-<span class="normal"><a href="#__codelineno-2-19">19</a></span>
-<span class="normal"><a href="#__codelineno-2-20">20</a></span>
-<span class="normal"><a href="#__codelineno-2-21">21</a></span>
-<span class="normal"><a href="#__codelineno-2-22">22</a></span>
-<span class="normal"><a href="#__codelineno-2-23">23</a></span>
-<span class="normal"><a href="#__codelineno-2-24">24</a></span>
-<span class="normal"><a href="#__codelineno-2-25">25</a></span>
-<span class="normal"><a href="#__codelineno-2-26">26</a></span>
-<span class="normal"><a href="#__codelineno-2-27">27</a></span>
-<span class="normal"><a href="#__codelineno-2-28">28</a></span>
-<span class="normal"><a href="#__codelineno-2-29">29</a></span>
-<span class="normal"><a href="#__codelineno-2-30">30</a></span>
-<span class="normal"><a href="#__codelineno-2-31">31</a></span>
-<span class="normal"><a href="#__codelineno-2-32">32</a></span>
-<span class="normal"><a href="#__codelineno-2-33">33</a></span>
-<span class="normal"><a href="#__codelineno-2-34">34</a></span>
-<span class="normal"><a href="#__codelineno-2-35">35</a></span>
-<span class="normal"><a href="#__codelineno-2-36">36</a></span>
-<span class="normal"><a href="#__codelineno-2-37">37</a></span>
-<span class="normal"><a href="#__codelineno-2-38">38</a></span>
-<span class="normal"><a href="#__codelineno-2-39">39</a></span>
-<span class="normal"><a href="#__codelineno-2-40">40</a></span>
-<span class="normal"><a href="#__codelineno-2-41">41</a></span>
-<span class="normal"><a href="#__codelineno-2-42">42</a></span>
-<span class="normal"><a href="#__codelineno-2-43">43</a></span>
-<span class="normal"><a href="#__codelineno-2-44">44</a></span>
-<span class="normal"><a href="#__codelineno-2-45">45</a></span>
-<span class="normal"><a href="#__codelineno-2-46">46</a></span>
-<span class="normal"><a href="#__codelineno-2-47">47</a></span>
-<span class="normal"><a href="#__codelineno-2-48">48</a></span>
-<span class="normal"><a href="#__codelineno-2-49">49</a></span>
-<span class="normal"><a href="#__codelineno-2-50">50</a></span>
-<span class="normal"><a href="#__codelineno-2-51">51</a></span>
-<span class="normal"><a href="#__codelineno-2-52">52</a></span>
-<span class="normal"><a href="#__codelineno-2-53">53</a></span>
-<span class="normal"><a href="#__codelineno-2-54">54</a></span>
-<span class="normal"><a href="#__codelineno-2-55">55</a></span>
-<span class="normal"><a href="#__codelineno-2-56">56</a></span>
-<span class="normal"><a href="#__codelineno-2-57">57</a></span>
-<span class="normal"><a href="#__codelineno-2-58">58</a></span>
-<span class="normal"><a href="#__codelineno-2-59">59</a></span>
-<span class="normal"><a href="#__codelineno-2-60">60</a></span>
-<span class="normal"><a href="#__codelineno-2-61">61</a></span>
-<span class="normal"><a href="#__codelineno-2-62">62</a></span>
-<span class="normal"><a href="#__codelineno-2-63">63</a></span>
-<span class="normal"><a href="#__codelineno-2-64">64</a></span>
-<span class="normal"><a href="#__codelineno-2-65">65</a></span>
-<span class="normal"><a href="#__codelineno-2-66">66</a></span>
-<span class="normal"><a href="#__codelineno-2-67">67</a></span>
-<span class="normal"><a href="#__codelineno-2-68">68</a></span>
-<span class="normal"><a href="#__codelineno-2-69">69</a></span>
-<span class="normal"><a href="#__codelineno-2-70">70</a></span>
-<span class="normal"><a href="#__codelineno-2-71">71</a></span>
-<span class="normal"><a href="#__codelineno-2-72">72</a></span>
-<span class="normal"><a href="#__codelineno-2-73">73</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="k">program</span><span class="w"> </span><span class="n">GetOptSimple</span><span class="o">;</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="c1">// Example usage (git bash):</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="c1">// $ ./GetOptSimple -a &quot;Hello&quot; -b -c -d</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="c1">// $ ./GetOptSimple -a &quot;Hello&quot; -bc -d</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="c1">// $ ./GetOptSimple -a &quot;Hello&quot; -bcd</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="c1">// $ ./GetOptSimple -dcb -a &quot;Hello&quot;</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="k">uses</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="w">  </span><span class="cm">{$IFDEF UNIX}</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="w">  </span><span class="n">cmem</span><span class="o">,</span><span class="w"> </span><span class="n">cthreads</span><span class="o">,</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="w">  </span><span class="cm">{$ENDIF}</span>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="w">  </span><span class="n">Classes</span><span class="o">,</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="hll"><span class="w">  </span><span class="n">getopts</span><span class="o">;</span>
-</span></span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18"></a>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="k">var</span>
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="w">  </span><span class="n">c</span><span class="o">:</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kp">DEFAULT</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="w">  </span><span class="n">shortOpts</span><span class="o">:</span><span class="w"> </span><span class="k">string</span><span class="o">;</span>
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22"></a>
-</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="k">begin</span>
-</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24"></a>
-</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25"></a><span class="w">  </span><span class="c1">// If the external variable opterr is True (which is the default),</span>
-</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="w">  </span><span class="c1">// getopt prints an error message.</span>
-</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27"></a><span class="w">  </span><span class="c1">// Ref: https://www.gnu.org/software/libc/manual/html_node/Using-Getopt.html</span>
-</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28"></a><span class="w">  </span><span class="c1">//      https://www.freepascal.org/daily/doc/rtl/getopts/getopt.html</span>
-</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29"></a><span class="w">  </span><span class="n">OptErr</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">False</span><span class="o">;</span>
-</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30"></a>
-</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31"></a><span class="w">  </span><span class="c1">// Defining valid short options</span>
-</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32"></a><span class="w">  </span><span class="c1">// For example; -a requires an argument,</span>
-</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33"></a><span class="w">  </span><span class="c1">//              -b, -c and -d don&#39;t.</span>
-</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34"></a><span class="hll"><span class="w">  </span><span class="n">shortOpts</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&#39;a:bcd&#39;</span><span class="o">;</span>
-</span></span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35"></a>
-</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36"></a><span class="hll"><span class="w">  </span><span class="k">repeat</span>
-</span></span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37"></a><span class="hll"><span class="w">    </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">getopt</span><span class="p">(</span><span class="n">shortOpts</span><span class="p">)</span><span class="o">;</span>
-</span></span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38"></a><span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="k">of</span>
-</span></span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39"></a><span class="hll"><span class="w">      </span><span class="s">&#39;a&#39;</span><span class="o">:</span><span class="w"> </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Option a was set with value &#39;</span><span class="o">,</span><span class="w"> </span><span class="n">optarg</span><span class="p">)</span><span class="o">;</span>
-</span></span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40"></a><span class="hll"><span class="w">      </span><span class="s">&#39;b&#39;</span><span class="o">:</span><span class="w"> </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Option b was set&#39;</span><span class="p">)</span><span class="o">;</span>
-</span></span><span id="__span-2-41"><a id="__codelineno-2-41" name="__codelineno-2-41"></a><span class="hll"><span class="w">      </span><span class="s">&#39;c&#39;</span><span class="o">:</span><span class="w"> </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Option c was set&#39;</span><span class="p">)</span><span class="o">;</span>
-</span></span><span id="__span-2-42"><a id="__codelineno-2-42" name="__codelineno-2-42"></a><span class="hll"><span class="w">      </span><span class="s">&#39;d&#39;</span><span class="o">:</span><span class="w"> </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Option d was set&#39;</span><span class="p">)</span><span class="o">;</span>
-</span></span><span id="__span-2-43"><a id="__codelineno-2-43" name="__codelineno-2-43"></a><span class="hll"><span class="w">      </span><span class="s">&#39;?&#39;</span><span class="o">,</span><span class="w"> </span><span class="s">&#39;:&#39;</span><span class="o">:</span><span class="w"> </span><span class="k">begin</span>
-</span></span><span id="__span-2-44"><a id="__codelineno-2-44" name="__codelineno-2-44"></a><span class="hll"><span class="w">        </span><span class="c1">// If getopt finds an option character in argv that was not included</span>
-</span></span><span id="__span-2-45"><a id="__codelineno-2-45" name="__codelineno-2-45"></a><span class="hll"><span class="w">        </span><span class="c1">// in options, or a missing option argument,</span>
-</span></span><span id="__span-2-46"><a id="__codelineno-2-46" name="__codelineno-2-46"></a><span class="hll"><span class="w">        </span><span class="c1">//    - it returns `?` and</span>
-</span></span><span id="__span-2-47"><a id="__codelineno-2-47" name="__codelineno-2-47"></a><span class="hll"><span class="w">        </span><span class="c1">//    - sets the external variable `optopt` to the actual option character.</span>
-</span></span><span id="__span-2-48"><a id="__codelineno-2-48" name="__codelineno-2-48"></a><span class="hll"><span class="w">        </span><span class="c1">// If the first character of options is a colon (‘:’),</span>
-</span></span><span id="__span-2-49"><a id="__codelineno-2-49" name="__codelineno-2-49"></a><span class="hll"><span class="w">        </span><span class="c1">//    - then getopt returns ‘:’ instead of ‘?’ to indicate a missing option argument.</span>
-</span></span><span id="__span-2-50"><a id="__codelineno-2-50" name="__codelineno-2-50"></a><span class="hll"><span class="w">        </span><span class="c1">// Refs</span>
-</span></span><span id="__span-2-51"><a id="__codelineno-2-51" name="__codelineno-2-51"></a><span class="hll"><span class="w">        </span><span class="c1">// - https://www.freepascal.org/docs-html/rtl/getopts/index.html</span>
-</span></span><span id="__span-2-52"><a id="__codelineno-2-52" name="__codelineno-2-52"></a><span class="hll"><span class="w">        </span><span class="c1">// - https://www.gnu.org/software/libc/manual/html_node/Using-Getopt.html</span>
-</span></span><span id="__span-2-53"><a id="__codelineno-2-53" name="__codelineno-2-53"></a><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">optopt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;a&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
-</span></span><span id="__span-2-54"><a id="__codelineno-2-54" name="__codelineno-2-54"></a><span class="hll"><span class="w">          </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Error: Option &#39;</span><span class="o">,</span><span class="w"> </span><span class="n">optopt</span><span class="o">,</span><span class="w"> </span><span class="s">&#39; needs an argument.&#39;</span><span class="p">)</span>
-</span></span><span id="__span-2-55"><a id="__codelineno-2-55" name="__codelineno-2-55"></a><span class="hll"><span class="w">        </span><span class="k">else</span>
-</span></span><span id="__span-2-56"><a id="__codelineno-2-56" name="__codelineno-2-56"></a><span class="w">          </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Error: Unknown option: &#39;</span><span class="o">,</span><span class="w"> </span><span class="n">optopt</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-2-57"><a id="__codelineno-2-57" name="__codelineno-2-57"></a><span class="w">      </span><span class="k">end</span><span class="o">;</span>
-</span><span id="__span-2-58"><a id="__codelineno-2-58" name="__codelineno-2-58"></a><span class="w">    </span><span class="k">end</span><span class="o">;</span><span class="w"> </span><span class="c1">// case</span>
-</span><span id="__span-2-59"><a id="__codelineno-2-59" name="__codelineno-2-59"></a><span class="w">  </span><span class="k">until</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EndOfOptions</span><span class="o">;</span>
-</span><span id="__span-2-60"><a id="__codelineno-2-60" name="__codelineno-2-60"></a>
-</span><span id="__span-2-61"><a id="__codelineno-2-61" name="__codelineno-2-61"></a><span class="w">  </span><span class="c1">// The reminder, checks for non-option arguments (if any) using optind</span>
-</span><span id="__span-2-62"><a id="__codelineno-2-62" name="__codelineno-2-62"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">optind</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nb">paramcount</span><span class="w"> </span><span class="k">then</span>
-</span><span id="__span-2-63"><a id="__codelineno-2-63" name="__codelineno-2-63"></a><span class="w">  </span><span class="k">begin</span>
-</span><span id="__span-2-64"><a id="__codelineno-2-64" name="__codelineno-2-64"></a><span class="w">    </span><span class="nb">Write</span><span class="p">(</span><span class="s">&#39;Non options : &#39;</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-2-65"><a id="__codelineno-2-65" name="__codelineno-2-65"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">optind</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nb">paramcount</span><span class="w"> </span><span class="k">do</span>
-</span><span id="__span-2-66"><a id="__codelineno-2-66" name="__codelineno-2-66"></a><span class="w">    </span><span class="k">begin</span>
-</span><span id="__span-2-67"><a id="__codelineno-2-67" name="__codelineno-2-67"></a><span class="w">      </span><span class="nb">Write</span><span class="p">(</span><span class="nb">ParamStr</span><span class="p">(</span><span class="n">optind</span><span class="p">)</span><span class="o">,</span><span class="w"> </span><span class="s">&#39; &#39;</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-2-68"><a id="__codelineno-2-68" name="__codelineno-2-68"></a><span class="w">      </span><span class="nb">Inc</span><span class="p">(</span><span class="n">optind</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-2-69"><a id="__codelineno-2-69" name="__codelineno-2-69"></a><span class="w">    </span><span class="k">end</span><span class="o">;</span>
-</span><span id="__span-2-70"><a id="__codelineno-2-70" name="__codelineno-2-70"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="o">;</span>
-</span><span id="__span-2-71"><a id="__codelineno-2-71" name="__codelineno-2-71"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
-</span><span id="__span-2-72"><a id="__codelineno-2-72" name="__codelineno-2-72"></a>
-</span><span id="__span-2-73"><a id="__codelineno-2-73" name="__codelineno-2-73"></a><span class="k">end</span><span class="o">.</span>
+</div>
+<h2 id="zip-files-simple">Zip Files - Simple<a class="headerlink" href="#zip-files-simple" title="Permanent link">&para;</a></h2>
+<div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">program</span><span class="w"> </span><span class="n">ZipEx01</span><span class="o">;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="k">uses</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">  </span><span class="n">zipper</span><span class="o">;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">var</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">  </span><span class="n">zip</span><span class="o">:</span><span class="w"> </span><span class="n">TZipper</span><span class="o">;</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="k">begin</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">  </span><span class="n">zip</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">TZipper</span><span class="o">.</span><span class="n">Create</span><span class="o">;</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">  </span><span class="k">try</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">    </span><span class="n">zip</span><span class="o">.</span><span class="n">FileName</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&#39;simple.zip&#39;</span><span class="o">;</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="w">    </span><span class="n">zip</span><span class="o">.</span><span class="n">Entries</span><span class="o">.</span><span class="n">AddFileEntry</span><span class="p">(</span><span class="s">&#39;file1.txt&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="w">    </span><span class="n">zip</span><span class="o">.</span><span class="n">Entries</span><span class="o">.</span><span class="n">AddFileEntry</span><span class="p">(</span><span class="s">&#39;file2.txt&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="w">    </span><span class="n">zip</span><span class="o">.</span><span class="n">ZipAllFiles</span><span class="o">;</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="w">  </span><span class="k">finally</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="w">    </span><span class="n">zip</span><span class="o">.</span><span class="n">Free</span><span class="o">;</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;File zipped successfully.&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="k">end</span><span class="o">.</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="zip-files-command-line-input">Zip Files - Command Line Input<a class="headerlink" href="#zip-files-command-line-input" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following example was adapted from the official doc: <a href="https://wiki.lazarus.freepascal.org/paszlib">https://wiki.lazarus.freepascal.org/paszlib</a>.</p>
+</div>
+<div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span>
+<span class="normal"><a href="#__codelineno-1-21">21</a></span>
+<span class="normal"><a href="#__codelineno-1-22">22</a></span>
+<span class="normal"><a href="#__codelineno-1-23">23</a></span>
+<span class="normal"><a href="#__codelineno-1-24">24</a></span>
+<span class="normal"><a href="#__codelineno-1-25">25</a></span>
+<span class="normal"><a href="#__codelineno-1-26">26</a></span>
+<span class="normal"><a href="#__codelineno-1-27">27</a></span>
+<span class="normal"><a href="#__codelineno-1-28">28</a></span>
+<span class="normal"><a href="#__codelineno-1-29">29</a></span>
+<span class="normal"><a href="#__codelineno-1-30">30</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">program</span><span class="w"> </span><span class="n">ZipEx02</span><span class="o">;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="c1">// Usage:</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="c1">// ZipEx02 newzip.zip file1.txt file2.txt</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="k">uses</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">  </span><span class="n">Zipper</span><span class="o">;</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="k">var</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">  </span><span class="n">zip</span><span class="o">:</span><span class="w"> </span><span class="n">TZipper</span><span class="o">;</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">  </span><span class="kp">index</span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="o">;</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="k">begin</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="w">  </span><span class="n">zip</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">TZipper</span><span class="o">.</span><span class="n">Create</span><span class="o">;</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="w">  </span><span class="k">try</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="w">    </span><span class="c1">// Define the file name of the zip file to be created</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="w">    </span><span class="n">zip</span><span class="o">.</span><span class="n">FileName</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">ParamStr</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="kp">index</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nb">ParamCount</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="w">      </span><span class="c1">// First argument: the names of the files to be included in the zip</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="w">      </span><span class="c1">// Second argument: the name of the file as it appears in the zip and</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="w">      </span><span class="c1">// later in the file system after unzipping</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24"></a><span class="w">      </span><span class="n">zip</span><span class="o">.</span><span class="n">Entries</span><span class="o">.</span><span class="n">AddFileEntry</span><span class="p">(</span><span class="nb">ParamStr</span><span class="p">(</span><span class="kp">index</span><span class="p">)</span><span class="o">,</span><span class="w"> </span><span class="nb">ParamStr</span><span class="p">(</span><span class="kp">index</span><span class="p">))</span><span class="o">;</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25"></a><span class="w">    </span><span class="c1">// Execute the zipping operation and write the zip file.</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26"></a><span class="w">    </span><span class="n">zip</span><span class="o">.</span><span class="n">ZipAllFiles</span><span class="o">;</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="w">  </span><span class="k">finally</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="w">    </span><span class="n">zip</span><span class="o">.</span><span class="n">Free</span><span class="o">;</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30"></a><span class="k">end</span><span class="o">.</span>
+</span></code></pre></div></td></tr></table></div>
+<p><strong>Usage</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$<span class="w"> </span>./ZipEx02.exe<span class="w"> </span>newzip.zip<span class="w"> </span>file1.txt<span class="w"> </span>file2.txt
+</span></code></pre></div>
+<h2 id="unzip-a-zip-file">Unzip a Zip File<a class="headerlink" href="#unzip-a-zip-file" title="Permanent link">&para;</a></h2>
+<div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span>
+<span class="normal"><a href="#__codelineno-3-20">20</a></span>
+<span class="normal"><a href="#__codelineno-3-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">program</span><span class="w"> </span><span class="n">UnzipEx01</span><span class="o">;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="k">uses</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">  </span><span class="n">zipper</span><span class="o">;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="k">var</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="w">  </span><span class="n">unZip</span><span class="o">:</span><span class="w"> </span><span class="n">TUnZipper</span><span class="o">;</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="k">begin</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="w">  </span><span class="n">unZip</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">TUnZipper</span><span class="o">.</span><span class="n">Create</span><span class="o">;</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="w">  </span><span class="k">try</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="w">    </span><span class="n">unZip</span><span class="o">.</span><span class="n">FileName</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&#39;simple.zip&#39;</span><span class="o">;</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="w">    </span><span class="n">unZip</span><span class="o">.</span><span class="n">OutputPath</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&#39;output_folder&#39;</span><span class="o">;</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="w">    </span><span class="n">unZip</span><span class="o">.</span><span class="n">UnZipAllFiles</span><span class="o">;</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="w">  </span><span class="k">finally</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="w">    </span><span class="n">unZip</span><span class="o">.</span><span class="n">Free</span><span class="o">;</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;File unzipped successfully.&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></table></div>
 
 
