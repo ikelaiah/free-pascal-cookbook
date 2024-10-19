@@ -1080,6 +1080,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#collect-all-files-from-folders-and-subfolders" class="md-nav__link">
+    <span class="md-ellipsis">
+      Collect All Files from Folders and Subfolders
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1860,6 +1869,15 @@
   <a href="#find-multiple-file-types-recursively-lazutils-package-the-most-straightforward-of-all" class="md-nav__link">
     <span class="md-ellipsis">
       Find multiple file types recursively (LazUtils package - The most straightforward of all)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collect-all-files-from-folders-and-subfolders" class="md-nav__link">
+    <span class="md-ellipsis">
+      Collect All Files from Folders and Subfolders
     </span>
   </a>
   
@@ -2921,6 +2939,125 @@
 <li><a href="https://lazarus-ccr.sourceforge.io/docs/lazutils/fileutil/findallfiles.html">https://lazarus-ccr.sourceforge.io/docs/lazutils/fileutil/findallfiles.html</a></li>
 <li><a href="https://www.tweaking4all.com/forum/delphi-lazarus-free-pascal/lazarus-find-all-files-in-a-directory-and-subdirectories-matching-criteria/">https://www.tweaking4all.com/forum/delphi-lazarus-free-pascal/lazarus-find-all-files-in-a-directory-and-subdirectories-matching-criteria/</a></li>
 </ul>
+<h2 id="collect-all-files-from-folders-and-subfolders">Collect All Files from Folders and Subfolders<a class="headerlink" href="#collect-all-files-from-folders-and-subfolders" title="Permanent link">&para;</a></h2>
+<p>The follwing snippet uses the following:</p>
+<ul>
+<li><code>Generics.Collection.TList&lt;string&gt;</code> - for storing file paths.</li>
+<li><code>FindFirst</code> to search for files recursively.</li>
+<li><code>ParamStr(n)</code> as files or folder to be included in the search.</li>
+</ul>
+<div class="language-pascal highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">program</span><span class="w"> </span><span class="n">CollectFilePaths</span><span class="o">;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1">// Collects file paths from command line arguments</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="c1">// Usage: CollectFilePaths &lt;file|directory&gt; [file|directory] ...</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1">// Example: CollectFilePaths test.txt src/ libs/</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="k">uses</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">  </span><span class="n">SysUtils</span><span class="o">,</span><span class="w"> </span><span class="n">Generics</span><span class="o">.</span><span class="n">Collections</span><span class="o">;</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="k">type</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">  </span><span class="c1">// Generic list to store file paths</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">  </span><span class="n">TFilePathList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">specialize</span><span class="w"> </span><span class="n">TList</span><span class="o">&lt;</span><span class="k">string</span><span class="o">&gt;;</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="c1">// Recursively collects file paths from a directory and its subdirectories</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="c1">// @param BaseDir: Directory to scan</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="c1">// @param Files: List to store the found file paths</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">CollectFilesFromDirectory</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">BaseDir</span><span class="o">:</span><span class="w"> </span><span class="k">string</span><span class="o">;</span><span class="w"> </span><span class="n">Files</span><span class="o">:</span><span class="w"> </span><span class="n">TFilePathList</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="k">var</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="w">  </span><span class="n">searchRec</span><span class="o">:</span><span class="w"> </span><span class="n">TSearchRec</span><span class="o">;</span>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="w">  </span><span class="n">findResult</span><span class="o">:</span><span class="w"> </span><span class="kt">Integer</span><span class="o">;</span>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="w">  </span><span class="n">fullPath</span><span class="o">:</span><span class="w"> </span><span class="k">string</span><span class="o">;</span>
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="k">begin</span>
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a><span class="w">  </span><span class="c1">// Ensure directory path ends with path separator</span>
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a><span class="w">  </span><span class="n">fullPath</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">IncludeTrailingPathDelimiter</span><span class="p">(</span><span class="n">BaseDir</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a>
+</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a><span class="w">  </span><span class="c1">// Start directory scan</span>
+</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a><span class="w">  </span><span class="n">findResult</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">FindFirst</span><span class="p">(</span><span class="n">fullPath</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#39;*.*&#39;</span><span class="o">,</span><span class="w"> </span><span class="n">faAnyFile</span><span class="o">,</span><span class="w"> </span><span class="n">searchRec</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a><span class="w">  </span><span class="k">try</span>
+</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">findResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a><span class="w">    </span><span class="k">begin</span>
+</span><span id="__span-11-33"><a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a><span class="w">      </span><span class="c1">// Skip current and parent directory entries</span>
+</span><span id="__span-11-34"><a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">searchRec</span><span class="o">.</span><span class="n">Name</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="s">&#39;.&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="n">searchRec</span><span class="o">.</span><span class="n">Name</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="s">&#39;..&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-11-35"><a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a><span class="w">      </span><span class="k">begin</span>
+</span><span id="__span-11-36"><a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a><span class="w">        </span><span class="c1">// Check if current item is a directory</span>
+</span><span id="__span-11-37"><a id="__codelineno-11-37" name="__codelineno-11-37" href="#__codelineno-11-37"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">searchRec</span><span class="o">.</span><span class="n">Attr</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">faDirectory</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">faDirectory</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-11-38"><a id="__codelineno-11-38" name="__codelineno-11-38" href="#__codelineno-11-38"></a><span class="w">        </span><span class="k">begin</span>
+</span><span id="__span-11-39"><a id="__codelineno-11-39" name="__codelineno-11-39" href="#__codelineno-11-39"></a><span class="w">          </span><span class="c1">// Recursively process subdirectories</span>
+</span><span id="__span-11-40"><a id="__codelineno-11-40" name="__codelineno-11-40" href="#__codelineno-11-40"></a><span class="w">          </span><span class="n">CollectFilesFromDirectory</span><span class="p">(</span><span class="n">fullPath</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">searchRec</span><span class="o">.</span><span class="n">Name</span><span class="o">,</span><span class="w"> </span><span class="n">Files</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-11-41"><a id="__codelineno-11-41" name="__codelineno-11-41" href="#__codelineno-11-41"></a><span class="w">        </span><span class="k">end</span>
+</span><span id="__span-11-42"><a id="__codelineno-11-42" name="__codelineno-11-42" href="#__codelineno-11-42"></a><span class="w">        </span><span class="k">else</span>
+</span><span id="__span-11-43"><a id="__codelineno-11-43" name="__codelineno-11-43" href="#__codelineno-11-43"></a><span class="w">        </span><span class="k">begin</span>
+</span><span id="__span-11-44"><a id="__codelineno-11-44" name="__codelineno-11-44" href="#__codelineno-11-44"></a><span class="w">          </span><span class="c1">// Add file path to the list</span>
+</span><span id="__span-11-45"><a id="__codelineno-11-45" name="__codelineno-11-45" href="#__codelineno-11-45"></a><span class="w">          </span><span class="n">Files</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="n">fullPath</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">searchRec</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-11-46"><a id="__codelineno-11-46" name="__codelineno-11-46" href="#__codelineno-11-46"></a><span class="w">        </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-11-47"><a id="__codelineno-11-47" name="__codelineno-11-47" href="#__codelineno-11-47"></a><span class="w">      </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-11-48"><a id="__codelineno-11-48" name="__codelineno-11-48" href="#__codelineno-11-48"></a><span class="w">      </span><span class="n">findResult</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">FindNext</span><span class="p">(</span><span class="n">searchRec</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-11-49"><a id="__codelineno-11-49" name="__codelineno-11-49" href="#__codelineno-11-49"></a><span class="w">    </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-11-50"><a id="__codelineno-11-50" name="__codelineno-11-50" href="#__codelineno-11-50"></a><span class="w">  </span><span class="k">finally</span>
+</span><span id="__span-11-51"><a id="__codelineno-11-51" name="__codelineno-11-51" href="#__codelineno-11-51"></a><span class="w">    </span><span class="c1">// Always close the search handle</span>
+</span><span id="__span-11-52"><a id="__codelineno-11-52" name="__codelineno-11-52" href="#__codelineno-11-52"></a><span class="w">    </span><span class="nb">FindClose</span><span class="p">(</span><span class="n">searchRec</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-11-53"><a id="__codelineno-11-53" name="__codelineno-11-53" href="#__codelineno-11-53"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-11-54"><a id="__codelineno-11-54" name="__codelineno-11-54" href="#__codelineno-11-54"></a><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-11-55"><a id="__codelineno-11-55" name="__codelineno-11-55" href="#__codelineno-11-55"></a>
+</span><span id="__span-11-56"><a id="__codelineno-11-56" name="__codelineno-11-56" href="#__codelineno-11-56"></a><span class="k">var</span>
+</span><span id="__span-11-57"><a id="__codelineno-11-57" name="__codelineno-11-57" href="#__codelineno-11-57"></a><span class="w">  </span><span class="n">filePaths</span><span class="o">:</span><span class="w"> </span><span class="n">TFilePathList</span><span class="o">;</span>
+</span><span id="__span-11-58"><a id="__codelineno-11-58" name="__codelineno-11-58" href="#__codelineno-11-58"></a><span class="w">  </span><span class="kp">index</span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="o">;</span>
+</span><span id="__span-11-59"><a id="__codelineno-11-59" name="__codelineno-11-59" href="#__codelineno-11-59"></a><span class="w">  </span><span class="n">path</span><span class="o">:</span><span class="w"> </span><span class="k">string</span><span class="o">;</span>
+</span><span id="__span-11-60"><a id="__codelineno-11-60" name="__codelineno-11-60" href="#__codelineno-11-60"></a>
+</span><span id="__span-11-61"><a id="__codelineno-11-61" name="__codelineno-11-61" href="#__codelineno-11-61"></a><span class="c1">// Main Block</span>
+</span><span id="__span-11-62"><a id="__codelineno-11-62" name="__codelineno-11-62" href="#__codelineno-11-62"></a><span class="k">begin</span>
+</span><span id="__span-11-63"><a id="__codelineno-11-63" name="__codelineno-11-63" href="#__codelineno-11-63"></a><span class="w">  </span><span class="c1">// Create list to store all file paths</span>
+</span><span id="__span-11-64"><a id="__codelineno-11-64" name="__codelineno-11-64" href="#__codelineno-11-64"></a><span class="w">  </span><span class="n">filePaths</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">TFilePathList</span><span class="o">.</span><span class="n">Create</span><span class="o">;</span>
+</span><span id="__span-11-65"><a id="__codelineno-11-65" name="__codelineno-11-65" href="#__codelineno-11-65"></a><span class="w">  </span><span class="k">try</span>
+</span><span id="__span-11-66"><a id="__codelineno-11-66" name="__codelineno-11-66" href="#__codelineno-11-66"></a><span class="w">    </span><span class="c1">// Validate command line parameters</span>
+</span><span id="__span-11-67"><a id="__codelineno-11-67" name="__codelineno-11-67" href="#__codelineno-11-67"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nb">ParamCount</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-11-68"><a id="__codelineno-11-68" name="__codelineno-11-68" href="#__codelineno-11-68"></a><span class="w">    </span><span class="k">begin</span>
+</span><span id="__span-11-69"><a id="__codelineno-11-69" name="__codelineno-11-69" href="#__codelineno-11-69"></a><span class="w">      </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Usage: &#39;</span><span class="o">,</span><span class="w"> </span><span class="nb">ExtractFileName</span><span class="p">(</span><span class="nb">ParamStr</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="o">,</span><span class="w"> </span><span class="s">&#39; &lt;file|directory&gt; [file|directory] ...&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-11-70"><a id="__codelineno-11-70" name="__codelineno-11-70" href="#__codelineno-11-70"></a><span class="w">      </span><span class="k">Exit</span><span class="o">;</span>
+</span><span id="__span-11-71"><a id="__codelineno-11-71" name="__codelineno-11-71" href="#__codelineno-11-71"></a><span class="w">    </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-11-72"><a id="__codelineno-11-72" name="__codelineno-11-72" href="#__codelineno-11-72"></a>
+</span><span id="__span-11-73"><a id="__codelineno-11-73" name="__codelineno-11-73" href="#__codelineno-11-73"></a><span class="w">    </span><span class="c1">// Process each command line argument</span>
+</span><span id="__span-11-74"><a id="__codelineno-11-74" name="__codelineno-11-74" href="#__codelineno-11-74"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="kp">index</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nb">ParamCount</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-11-75"><a id="__codelineno-11-75" name="__codelineno-11-75" href="#__codelineno-11-75"></a><span class="w">    </span><span class="k">begin</span>
+</span><span id="__span-11-76"><a id="__codelineno-11-76" name="__codelineno-11-76" href="#__codelineno-11-76"></a><span class="w">      </span><span class="n">path</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">ParamStr</span><span class="p">(</span><span class="kp">index</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-11-77"><a id="__codelineno-11-77" name="__codelineno-11-77" href="#__codelineno-11-77"></a>
+</span><span id="__span-11-78"><a id="__codelineno-11-78" name="__codelineno-11-78" href="#__codelineno-11-78"></a><span class="w">      </span><span class="c1">// Skip invalid paths</span>
+</span><span id="__span-11-79"><a id="__codelineno-11-79" name="__codelineno-11-79" href="#__codelineno-11-79"></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nb">FileExists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nb">DirectoryExists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-11-80"><a id="__codelineno-11-80" name="__codelineno-11-80" href="#__codelineno-11-80"></a><span class="w">      </span><span class="k">begin</span>
+</span><span id="__span-11-81"><a id="__codelineno-11-81" name="__codelineno-11-81" href="#__codelineno-11-81"></a><span class="w">        </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Warning: </span><span class="se">&#39;&#39;</span><span class="s">&#39;</span><span class="o">,</span><span class="w"> </span><span class="n">path</span><span class="o">,</span><span class="w"> </span><span class="s">&#39;</span><span class="se">&#39;&#39;</span><span class="s"> does not exist. Skipping...&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-11-82"><a id="__codelineno-11-82" name="__codelineno-11-82" href="#__codelineno-11-82"></a><span class="w">        </span><span class="k">Continue</span><span class="o">;</span>
+</span><span id="__span-11-83"><a id="__codelineno-11-83" name="__codelineno-11-83" href="#__codelineno-11-83"></a><span class="w">      </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-11-84"><a id="__codelineno-11-84" name="__codelineno-11-84" href="#__codelineno-11-84"></a>
+</span><span id="__span-11-85"><a id="__codelineno-11-85" name="__codelineno-11-85" href="#__codelineno-11-85"></a><span class="w">      </span><span class="c1">// Handle directories and files differently</span>
+</span><span id="__span-11-86"><a id="__codelineno-11-86" name="__codelineno-11-86" href="#__codelineno-11-86"></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nb">DirectoryExists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-11-87"><a id="__codelineno-11-87" name="__codelineno-11-87" href="#__codelineno-11-87"></a><span class="w">      </span><span class="k">begin</span>
+</span><span id="__span-11-88"><a id="__codelineno-11-88" name="__codelineno-11-88" href="#__codelineno-11-88"></a><span class="w">        </span><span class="c1">// Recursively collect all files from directory</span>
+</span><span id="__span-11-89"><a id="__codelineno-11-89" name="__codelineno-11-89" href="#__codelineno-11-89"></a><span class="w">        </span><span class="n">CollectFilesFromDirectory</span><span class="p">(</span><span class="n">path</span><span class="o">,</span><span class="w"> </span><span class="n">filePaths</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-11-90"><a id="__codelineno-11-90" name="__codelineno-11-90" href="#__codelineno-11-90"></a><span class="w">      </span><span class="k">end</span>
+</span><span id="__span-11-91"><a id="__codelineno-11-91" name="__codelineno-11-91" href="#__codelineno-11-91"></a><span class="w">      </span><span class="k">else</span>
+</span><span id="__span-11-92"><a id="__codelineno-11-92" name="__codelineno-11-92" href="#__codelineno-11-92"></a><span class="w">      </span><span class="k">begin</span>
+</span><span id="__span-11-93"><a id="__codelineno-11-93" name="__codelineno-11-93" href="#__codelineno-11-93"></a><span class="w">        </span><span class="c1">// Add single file to list (filename only)</span>
+</span><span id="__span-11-94"><a id="__codelineno-11-94" name="__codelineno-11-94" href="#__codelineno-11-94"></a><span class="w">        </span><span class="n">filePaths</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="nb">ExtractFileName</span><span class="p">(</span><span class="n">path</span><span class="p">))</span><span class="o">;</span>
+</span><span id="__span-11-95"><a id="__codelineno-11-95" name="__codelineno-11-95" href="#__codelineno-11-95"></a><span class="w">      </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-11-96"><a id="__codelineno-11-96" name="__codelineno-11-96" href="#__codelineno-11-96"></a><span class="w">    </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-11-97"><a id="__codelineno-11-97" name="__codelineno-11-97" href="#__codelineno-11-97"></a>
+</span><span id="__span-11-98"><a id="__codelineno-11-98" name="__codelineno-11-98" href="#__codelineno-11-98"></a><span class="w">    </span><span class="c1">// Output results</span>
+</span><span id="__span-11-99"><a id="__codelineno-11-99" name="__codelineno-11-99" href="#__codelineno-11-99"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Collected paths:&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-11-100"><a id="__codelineno-11-100" name="__codelineno-11-100" href="#__codelineno-11-100"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;---------------&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-11-101"><a id="__codelineno-11-101" name="__codelineno-11-101" href="#__codelineno-11-101"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">filePaths</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-11-102"><a id="__codelineno-11-102" name="__codelineno-11-102" href="#__codelineno-11-102"></a><span class="w">      </span><span class="nb">WriteLn</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-11-103"><a id="__codelineno-11-103" name="__codelineno-11-103" href="#__codelineno-11-103"></a>
+</span><span id="__span-11-104"><a id="__codelineno-11-104" name="__codelineno-11-104" href="#__codelineno-11-104"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-11-105"><a id="__codelineno-11-105" name="__codelineno-11-105" href="#__codelineno-11-105"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Total files found: &#39;</span><span class="o">,</span><span class="w"> </span><span class="n">filePaths</span><span class="o">.</span><span class="n">Count</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-11-106"><a id="__codelineno-11-106" name="__codelineno-11-106" href="#__codelineno-11-106"></a>
+</span><span id="__span-11-107"><a id="__codelineno-11-107" name="__codelineno-11-107" href="#__codelineno-11-107"></a><span class="w">  </span><span class="k">finally</span>
+</span><span id="__span-11-108"><a id="__codelineno-11-108" name="__codelineno-11-108" href="#__codelineno-11-108"></a><span class="w">    </span><span class="c1">// Clean up</span>
+</span><span id="__span-11-109"><a id="__codelineno-11-109" name="__codelineno-11-109" href="#__codelineno-11-109"></a><span class="w">    </span><span class="n">filePaths</span><span class="o">.</span><span class="n">Free</span><span class="o">;</span>
+</span><span id="__span-11-110"><a id="__codelineno-11-110" name="__codelineno-11-110" href="#__codelineno-11-110"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-11-111"><a id="__codelineno-11-111" name="__codelineno-11-111" href="#__codelineno-11-111"></a><span class="k">end</span><span class="o">.</span>
+</span></code></pre></div>
 
 
 
