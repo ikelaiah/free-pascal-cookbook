@@ -617,3 +617,127 @@ end.
 
 - [https://lazarus-ccr.sourceforge.io/docs/lazutils/fileutil/findallfiles.html](https://lazarus-ccr.sourceforge.io/docs/lazutils/fileutil/findallfiles.html)
 - [https://www.tweaking4all.com/forum/delphi-lazarus-free-pascal/lazarus-find-all-files-in-a-directory-and-subdirectories-matching-criteria/](https://www.tweaking4all.com/forum/delphi-lazarus-free-pascal/lazarus-find-all-files-in-a-directory-and-subdirectories-matching-criteria/)
+
+
+## Collect All Files from Folders and Subfolders
+
+The follwing snippet uses the following:
+
+- `Generics.Collection.TList<string>` - for storing file paths.
+- `FindFirst` to search for files recursively.
+- `ParamStr(n)` as files or folder to be included in the search.
+
+
+```pascal
+program CollectFilePaths;
+
+{$mode objfpc}{$H+}{$J-}
+
+// Collects file paths from command line arguments
+// Usage: CollectFilePaths <file|directory> [file|directory] ...
+// Example: CollectFilePaths test.txt src/ libs/
+
+uses
+  SysUtils, Generics.Collections;
+
+type
+  // Generic list to store file paths
+  TFilePathList = specialize TList<string>;
+
+// Recursively collects file paths from a directory and its subdirectories
+// @param BaseDir: Directory to scan
+// @param Files: List to store the found file paths
+procedure CollectFilesFromDirectory(const BaseDir: string; Files: TFilePathList);
+var
+  searchRec: TSearchRec;
+  findResult: Integer;
+  fullPath: string;
+begin
+  // Ensure directory path ends with path separator
+  fullPath := IncludeTrailingPathDelimiter(BaseDir);
+
+  // Start directory scan
+  findResult := FindFirst(fullPath + '*.*', faAnyFile, searchRec);
+  try
+    while findResult = 0 do
+    begin
+      // Skip current and parent directory entries
+      if (searchRec.Name <> '.') and (searchRec.Name <> '..') then
+      begin
+        // Check if current item is a directory
+        if (searchRec.Attr and faDirectory) = faDirectory then
+        begin
+          // Recursively process subdirectories
+          CollectFilesFromDirectory(fullPath + searchRec.Name, Files);
+        end
+        else
+        begin
+          // Add file path to the list
+          Files.Add(fullPath + searchRec.Name);
+        end;
+      end;
+      findResult := FindNext(searchRec);
+    end;
+  finally
+    // Always close the search handle
+    FindClose(searchRec);
+  end;
+end;
+
+var
+  filePaths: TFilePathList;
+  index: integer;
+  path: string;
+
+// Main Block
+begin
+  // Create list to store all file paths
+  filePaths := TFilePathList.Create;
+  try
+    // Validate command line parameters
+    if ParamCount < 1 then
+    begin
+      WriteLn('Usage: ', ExtractFileName(ParamStr(0)), ' <file|directory> [file|directory] ...');
+      Exit;
+    end;
+
+    // Process each command line argument
+    for index := 1 to ParamCount do
+    begin
+      path := ParamStr(index);
+
+      // Skip invalid paths
+      if not FileExists(path) and not DirectoryExists(path) then
+      begin
+        WriteLn('Warning: ''', path, ''' does not exist. Skipping...');
+        Continue;
+      end;
+
+      // Handle directories and files differently
+      if DirectoryExists(path) then
+      begin
+        // Recursively collect all files from directory
+        CollectFilesFromDirectory(path, filePaths);
+      end
+      else
+      begin
+        // Add single file to list (filename only)
+        filePaths.Add(ExtractFileName(path));
+      end;
+    end;
+
+    // Output results
+    WriteLn('Collected paths:');
+    WriteLn('---------------');
+    for path in filePaths do
+      WriteLn(path);
+
+    WriteLn;
+    WriteLn('Total files found: ', filePaths.Count);
+
+  finally
+    // Clean up
+    filePaths.Free;
+  end;
+end.
+```
