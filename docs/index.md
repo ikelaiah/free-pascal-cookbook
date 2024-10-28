@@ -4,16 +4,63 @@
 
 Welcome to my Free Pascal Cookbook!
 
-Inside, you'll discover a collection of handy snippets and study notes for Object Pascal using the [Free Pascal programming language](https://www.freepascal.org) with [Lazarus IDE](https://www.lazarus-ide.org). Discover time-saving recipes and streamline your work in Free Pascal!
+You'll find useful snippets and study notes for Object Pascal using using the [Free Pascal Compiler (FPC)](https://www.freepascal.org) and [Lazarus IDE](https://www.lazarus-ide.org)—perfect for saving time and streamlining your work!
 
-If you're seeking tutorials and in-depth technical discussions, don't miss [Resources](docs/resources/docs-sites.md).
+If you're seeking tutorials and in-depth technical discussions, don't miss [Resources](docs/resources/docs-sites.md). 
 
-## Official Free Pascal docs
 
-!!! Note
-    I do not own these docs. The FPC devs prepared these handly information in both PDF and HTML formats.
 
-| PDF | HTML| Document |
+[Install FPC](#installation){ .md-button } [Official Documentation](#official-documentation){ .md-button .md-button--primary}
+
+
+
+
+## Why Free Pascal?
+
+<div class="container">
+        <div class="card">
+            <div class="card-content">
+                <h3 class="card-title"><b>Productive</b></h3>
+                <p class="card-description">Rapid application development with visual components and event-driven design.</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <h3 class="card-title"><b>Cross-Platform</b></h3>
+                <p class="card-description">Free Pascal and Lazarus allow development across multiple platforms.</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <h3 class="card-title"><b>Readable</b></h3>
+                <p class="card-description">Clean syntax and strong typing for easier maintenance and debugging.</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <h3 class="card-title"><b>Native</b></h3>
+                <p class="card-description">Direct compilation to machine code for optimal performance.</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <h3 class="card-title"><b>Stable</b></h3>
+                <p class="card-description">Maintains compatibility with legacy code while supporting modern features.</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <h3 class="card-title"><b>Rich Ecosystem</b></h3>
+                <p class="card-description">Extensive component library with strong database support.</p>
+            </div>
+        </div>
+    </div>
+
+## Official Documentation
+
+**Free Pascal Compiler (FPC)**
+
+| PDF | HTML| Note |
 | :-- | :-- | :-- |
 | [PDF](http://downloads.freepascal.org/fpc/docs-pdf/user.pdf) | [HTML](https://www.freepascal.org/docs-html/current/user/user.html) | User's guide |
 | [PDF](http://downloads.freepascal.org/fpc/docs-pdf/prog.pdf) | [HTML](https://www.freepascal.org/docs-html/current/prog/prog.html) | Programmer's guide |
@@ -25,13 +72,34 @@ If you're seeking tutorials and in-depth technical discussions, don't miss [Reso
 | [PDF](http://downloads.freepascal.org/fpc/docs-pdf/chart.pdf) | NA | Reference chart with all compiler options and switches (PDF only) |
 
 
+**Lazarus IDE**
+
+- [The Lazarus User Guides](https://wiki.freepascal.org/Lazarus_Documentation#The_Lazarus_User_Guides)
+- [The Lazarus Component Library](https://wiki.freepascal.org/LCL)
+- [The Lazarus FAQ](https://wiki.freepascal.org/Lazarus_FAQ)
+
+## Installation
+
+You need the **Free Pascal Compiler (FPC)** to run the snippets locally on your machine.
+
+=== "FPC and Lazarus IDE" 
+
+    - Download [the Lazarus IDE installer](https://www.lazarus-ide.org/index.php?page=downloads) for your platform to install both FPC and Lazarus IDE.
+    - Alternatively, get [the fpcupdeluxe](https://github.com/LongDirtyAnimAlf/fpcupdeluxe/releases) for your OS.
+
+=== "FPC Only"
+
+    - Download [the FPC installer](https://www.freepascal.org/download.html) for your platform.
+    - Alternatively, get [the fpcupdeluxe](https://github.com/LongDirtyAnimAlf/fpcupdeluxe/releases) for your OS, and only install the Free Pascal Compiler. 
+
+
+**Latest release**: FPC **3.3.2**, Lazarus IDE **3.6**.
+
 ## Code Repos
 
-The repo of the Free Pascal Compiler: [FPC - Gitlab](https://gitlab.com/freepascal.org/fpc)
-
-The repo of the Lazarus IDE: [Lazarus IDE - Gitlab](https://gitlab.com/freepascal.org/lazarus)
-
-The repo of the snippets: [https://github.com/ikelaiah/free-pascal-snippets](https://github.com/ikelaiah/free-pascal-snippets).
+- The repo of the Free Pascal Compiler: [FPC - Gitlab](https://gitlab.com/freepascal.org/fpc)
+- The repo of the Lazarus IDE: [Lazarus IDE - Gitlab](https://gitlab.com/freepascal.org/lazarus)
+- The repo of the snippets: [https://github.com/ikelaiah/free-pascal-snippets](https://github.com/ikelaiah/free-pascal-snippets).
 
 ## Acknowledgments
 
@@ -48,7 +116,7 @@ The repo of the snippets: [https://github.com/ikelaiah/free-pascal-snippets](htt
 
 !!! note
 
-    Code snippets on this site work with `FPC 3.2.2` and `Lazarus 3.4` on Win 11.
+    Code snippets on this site work with `FPC 3.2.2` and `Lazarus 3.6` on Win 11.
 
 !!! warning
 
