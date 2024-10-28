@@ -1,8 +1,48 @@
 
-.md-typeset {
+/*.md-typeset {
     font-size: 18px;
 }
-
+*/
 .admonition > p {
     font-size: .75rem ;
+}
+
+
+html {
+    scroll-behavior: smooth;
+  }
+
+  .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    width: 90%;
+    max-width: 1200px;
+}
+.card {
+    background-color: rgba(202, 202, 202, 0);
+    border-radius: 8px;
+    /*border: 1px solid #2094F3;*/
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+    overflow: hidden;
+    text-align: left;
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 0.75rem;
+}
+
+.card-title {
+    /*font-size: 1.2em;
+    margin: 0.25rem 0;*/
+}
+
+.card-description {
+    font-size: 0.75rem;
 }
