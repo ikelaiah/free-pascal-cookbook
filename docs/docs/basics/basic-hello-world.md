@@ -39,11 +39,11 @@ end.
 
 ```pascal
 WriteLn('Hello, World!');
-ReadLn;
+ReadLn; // Add this to pause the program and see the output
 ```
 
 - The `WriteLn` function prints text on the console.
-- The `ReadLn` in the code prevents the console from being closed automatically.
+- The `ReadLn` waits for you to press Enter, keeping the console window open so you can see the "Hello, World!" message.
 
 
 2. Add the following compiler directives after the `program` declaration. 
@@ -53,9 +53,7 @@ ReadLn;
 ```
 
 !!! Note
-    Make sure to have this line in all your Object Pascal codes.
-
-    `{$mode objfpc}{$H+}{$J-}`
+    This line `{$mode objfpc}{$H+}{$J-}` is a common setup for Free Pascal projects. It tells the compiler to use modern Object Pascal features and settings. It's good practice to include it.
 
 Your final code would look as follows.
 
@@ -74,11 +72,11 @@ end.
 
 ### Compile & Run
 
-Press ++f9++ to run the compile and run the program.
+Press ++f9++ to compile and run the program.
 
-You should be able to see a console open with `Hello World` in it.
+You should be able to see a console window open with `Hello, World!` displayed.
 
-Press the ++enter++ key to exit the progam, which also closes the console.
+Lazarus IDE: Press the ++enter++ key to exit the program, which also closes the console.
 
 
 ## Using the CLI
@@ -88,14 +86,16 @@ Press the ++enter++ key to exit the progam, which also closes the console.
 
 ### Create a `.pas` File & Add Code
 
-1. Launch your favourite text editor
+1. Launch your favourite text editor.
 2. Create a new file and put the following snippet in it.
 
 ```pascal linenums="1"
+program HelloWorldCLI; // It's good practice to name your program
 {$mode objfpc}{$H+}{$J-} 
 
 begin
     WriteLn('Hello, World!');
+    ReadLn; // Add this to pause the program and see the output
 end.
 ```
 
@@ -111,15 +111,16 @@ On Windows, compile and run as follows.
 > fpc HelloWorld.pas && HelloWorld.exe
 ```
 
+
 !!! Tip
 
-    If running `fpc` from CLI doesn't work, try one of the following options.
+    If running `fpc` from the Command Prompt (CLI) doesn't work, here are a few things to check:
 
-      1. Supply the full path to the `fpc`.
-      2. Put the `fpc/bin/<architecture>` to your `PATH` then compile and run again.
-      3. Consider using [Lazarus IDE](https://www.lazarus-ide.org) instead.
-      4. Are you a [VSCode](https://code.visualstudio.com) or [VSCodium](https://vscodium.com) user? Make sure to setup [Pascal by Allesandro Fragnani](https://marketplace.visualstudio.com/items?itemName=alefragnani.pascal) properly.
-      5. Have you considered [OmniPascal](https://www.omnipascal.com)?
+      1. **Full Path**: Try using the full path to `fpc.exe` (e.g., `C:\FPC\3.2.2\bin\i386-win32\fpc.exe HelloWorld.pas`).
+      2. **PATH Variable**: Ensure the directory containing `fpc.exe` (e.g., `C:\FPC\3.2.2\bin\i386-win32\`) is added to your system's `PATH` environment variable. You might need to restart your Command Prompt after updating PATH.
+      3. **Lazarus IDE**: If CLI is tricky, using the [Lazarus IDE](https://www.lazarus-ide.org) (as shown above) is often easier for beginners.
+      4. **VSCode/VSCodium Users**: If you're using [VSCode](https://code.visualstudio.com) or [VSCodium](https://vscodium.com), make sure the [Pascal extension by Alessandro Fragnani](https://marketplace.visualstudio.com/items?itemName=alefragnani.pascal) is set up correctly to find the compiler.
+      5. **OmniPascal**: For a more integrated VSCode experience, you might also look into [OmniPascal](https://www.omnipascal.com).
 
 #### Linux CLI
 

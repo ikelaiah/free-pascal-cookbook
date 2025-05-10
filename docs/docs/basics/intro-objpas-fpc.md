@@ -15,8 +15,13 @@ Hope you find it helpful! 🚀
 Here is a simple program that prints `Hello, World!` in Free Pascal.
 
 ```pascal linenums="1"
+program HelloWorldSimple;
+{$mode objfpc}{$H+}{$J-}
+
 begin
   WriteLn('Hello, World!');
+  // On some systems, you might need ReadLn here to see the output
+  // before the console window closes.
 end.
 ```
 
@@ -25,7 +30,10 @@ end.
     
     Use `ReadLn` to keep it open until you press the ++enter++ key.
 
-    ```pascal linenums="1" hl_lines="3"
+    ```pascal linenums="1" hl_lines="5"
+    program HelloWorldWithPause;
+    {$mode objfpc}{$H+}{$J-}
+
     begin
       WriteLn('Hello, World!');
       ReadLn; // Waits for the user to press Enter
@@ -88,7 +96,7 @@ In Free Pascal, you can create comments by using the following methods:
     You can use `(* ... *)` to prevent accidental `{ }`.
 
     ```pascal
-    (*
+    (* 
        Example of multiple lines commented.
        And immune to accidental }
     *)
@@ -97,7 +105,7 @@ In Free Pascal, you can create comments by using the following methods:
 **Examples**
 
 ```pascal linenums="1"
-(*
+(* 
  Example of multiple lines commented.
  And immune to accidental }
 *)
@@ -119,14 +127,19 @@ In Free Pascal, you can create comments by using the following methods:
 ## 4. Main Block
 
 An Object Pascal program must have a main (program) block, marked by `begin ... end.`. Note the `.` after the `end`.
+All programs should also start with a `program ProgramName;` declaration.
 
 ```pascal linenums="1"
+program MyFirstProgram;
+{$mode objfpc}{$H+}{$J-} // Basic compiler directives
+
 { This is the main block }
 begin
   { ... your code ... }
   
   // Example, print a message.
-  WriteLn('Hello, World!');
+  WriteLn('Hello, World from MyFirstProgram!');
+  ReadLn; // Pause to see output
 end.
 ```
 
@@ -134,7 +147,7 @@ end.
 
 ### Declaration
 
-Declare variables within the `var` section of your program.
+Declare variables within the `var` section of your program, between the `program` line (and any `uses` clause) and the main `begin`.
 
 **Syntax**
 
@@ -148,16 +161,24 @@ var
 Here's a simple example of declaring basic variable types in Free Pascal.
 
 ```pascal linenums="1"
+program VariableDeclarationExample;
+{$mode objfpc}{$H+}{$J-}
+
 var
   myChar: char;       // A single character, like 'A' or 'b'
   myString: string;   // A sequence of characters, like "Hello, world!"
   myInt: integer;     // A whole number, like 42 or -7
   myBool: boolean;    // A true or false value
   myReal: real;       // A number with decimals, like 3.14 or -0.5
+begin
+  // Variables are declared, but not yet initialized with specific values here.
+  // We'll assign values in the next example.
+  WriteLn('Variables declared. Program will now end.');
+  ReadLn;
+end.
 ```
 
 Check out the official documentation [Types](https://www.freepascal.org/docs-html/ref/refch3.html#refse12.html) for a full list and explanation of the types you can use.
-
 
 ### Assignment
 
@@ -182,7 +203,7 @@ variableName := value
 ```pascal linenums="1" hl_lines="14-18"
 program BasicVariableTypes;
 
-  {$mode objfpc}{$H+}{$J-}
+{$mode objfpc}{$H+}{$J-}
 
 var
   myChar: char;       // A single character, like 'A' or 'b'
@@ -221,30 +242,39 @@ In Free Pascal, `Read` and `ReadLn` are used for input, but they work a bit diff
 Use `Read` when you want to read input without moving to the next line.
 
 ```pascal linenums="1"
+program ReadExample;
 {$mode objfpc}{$H+}{$J-}
+
 var
   num1, num2: integer;
 begin
   { Using Read -- The next value read will be num 2. }
-  Write('Enter two numbers: ');
+  Write('Enter two numbers separated by a space: ');
   Read(num1);
   Read(num2);
+  WriteLn; // Move to next line for cleaner output
   WriteLn('You entered: ', num1, ' and ', num2);
+  ReadLn; // Pause before exit
+  ReadLn; // Second ReadLn to consume the Enter from the number input
 end.
 ```
 
 Use `ReadLn` when you want to read input and move to the next line afterward.
 
 ```pascal linenums="1"
+program ReadLnExample;
 {$mode objfpc}{$H+}{$J-}
+
 var
   num1, num2: integer;
 begin
   { Using ReadLn -- The next value after a new line will be num 2. }
-  Write('Enter two numbers on separate lines: ');
+  WriteLn('Enter first number: ');
   ReadLn(num1);
+  WriteLn('Enter second number: ');
   ReadLn(num2);
   WriteLn('You entered: ', num1, ' and ', num2);
+  ReadLn; // Pause before exit
 end.
 ```
 
@@ -255,6 +285,7 @@ Similarly, `Write` and `WriteLn` are used to output text, but they behave differ
 Use `Write` to output text without moving to the next line. It keeps the cursor on the same line, so subsequent output will continue from where the previous output ended.
 
 ```pascal linenums="1"
+program WriteExample;
 {$mode objfpc}{$H+}{$J-}
 
 begin
@@ -264,6 +295,7 @@ begin
 
   // A spacer
   WriteLn;
+  ReadLn; // Pause
 end.
 ```
 
@@ -271,12 +303,14 @@ Use `WriteLn` to output text and then moves the cursor to the next line. It adds
 
 
 ```pascal linenums="1"
+program WriteLnExample;
 {$mode objfpc}{$H+}{$J-}
 
 begin
   { Using WriteLn -- World! appears underneath Hello. }
   WriteLn('Hello '); // There is a new line at the end of the string.
   WriteLn('World!'); // There is a new line at the end of the string.
+  ReadLn; // Pause
 end.
 ```
 
@@ -301,8 +335,9 @@ end;
 
 **Example - Procedure without parameters**
 
-```pascal linenums="1" hl_lines="3-6"
+```pascal linenums="1" hl_lines="4-7"
 program ExampleProcedureWithoutParams;
+{$mode objfpc}{$H+}{$J-}
 
 procedure Greet;
 begin
@@ -311,13 +346,15 @@ end;
 
 begin
   Greet;  // Calling the procedure
+  ReadLn;
 end.
 ```
 
 **Example - Procedure with Parameters**
 
-```pascal linenums="1" hl_lines="3-6"
+```pascal linenums="1" hl_lines="4-7"
 program ExampleProcedureWithParams;
+{$mode objfpc}{$H+}{$J-}
 
 procedure Greet(name: string);
 begin
@@ -326,13 +363,15 @@ end;
 
 begin
   Greet('Alice'); // Calling the procedure with arguments
+  ReadLn;
 end.
 ```
 
 **Example - Procedure with `var` section**
 
-```pascal linenums="1" hl_lines="3-10"
+```pascal linenums="1" hl_lines="4-11"
 program ExampleProcedureWithVarSection;
+{$mode objfpc}{$H+}{$J-}
 
 procedure SwapNumbers(var x, y: integer);
 var
@@ -355,9 +394,9 @@ begin
   SwapNumbers(a, b);  // Call the procedure to swap the values
 
   WriteLn('After swapping: a = ', a, ', b = ', b);
+  ReadLn;
 end.
 ```
-
 
 ### Function
 
@@ -379,8 +418,9 @@ end;
 
 **Example - Function without parameters**
 
-```pascal linenums="1" hl_lines="3-6"
+```pascal linenums="1" hl_lines="4-7"
 program ExampleFunctionWithoutParams;
+{$mode objfpc}{$H+}{$J-}
 
 function GetGreeting: string;
 begin
@@ -389,13 +429,15 @@ end;
 
 begin
   WriteLn(GetGreeting);  // Calling the function and printing the result
+  ReadLn;
 end.
 ```
 
 **Example - Function with parameters**
 
-```pascal linenums="1" hl_lines="3-6"
+```pascal linenums="1" hl_lines="4-7"
 program ExampleFunctionWithParams;
+{$mode objfpc}{$H+}{$J-}
 
 function Add(a, b: integer): integer;
 begin
@@ -404,13 +446,15 @@ end;
 
 begin
   WriteLn('3 + 5 = ', Add(3, 5));
+  ReadLn;
 end.
 ```
 
 **Example - Function with `var` section**
 
-```pascal linenums="1" hl_lines="3-11"
+```pascal linenums="1" hl_lines="4-12"
 program ExampleFunctionWithVarSection;
+{$mode objfpc}{$H+}{$J-}
 
 function Factorial(n: integer): integer;
 var
@@ -424,6 +468,7 @@ end;
 
 begin
   WriteLn('Factorial of 5 is: ', Factorial(5));
+  ReadLn;
 end.
 ```
 
@@ -443,34 +488,36 @@ end;
 **Example of `for..to..do` loop**
 
 ```pascal linenums="1"
-  {$mode objfpc}{$H+}{$J-}
+program ForToLoop;
+{$mode objfpc}{$H+}{$J-}
 
 var
   i: integer;
 
-  // Main block
 begin
   for i := 1 to 10 do
   begin
     WriteLn('i = ', i);
   end;
+  ReadLn;
 end.
 ```
 
 **Example of `for..downto..do` Loop**
 
 ```pascal linenums="1"
-  {$mode objfpc}{$H+}{$J-}
+program ForDowntoLoop;
+{$mode objfpc}{$H+}{$J-}
 
 var
   i: integer;
 
-  // Main block
 begin
   for i := 10 downto 1 do
   begin
     WriteLn('i = ', i);
   end;
+  ReadLn;
 end.
 ```
 
@@ -499,7 +546,6 @@ var
   numbers: array of integer;
   num: integer;
 
-  // Main block
 begin
   // Initialize the array
   numbers := [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -534,12 +580,12 @@ end;
 **Example**
 
 ```pascal linenums="1"
-  {$mode objfpc}{$H+}{$J-}
+program WhileLoopExample;
+{$mode objfpc}{$H+}{$J-}
 
 var
   i: integer;
 
-  // Main block
 begin
   i := 1;
   while i <= 10 do
@@ -547,6 +593,7 @@ begin
     WriteLn('i = ', i);
     i := i + 1;
   end;
+  ReadLn;
 end.
 ```
 
@@ -565,18 +612,19 @@ until condition;
 **Example**
 
 ```pascal linenums="1"
-  {$mode objfpc}{$H+}{$J-}
+program RepeatUntilLoopExample;
+{$mode objfpc}{$H+}{$J-}
 
 var
   i: integer;
 
-  // Main block
 begin
   i := 1;
   repeat
     WriteLn('i = ', i);
     i := i + 1;
   until i > 10;
+  ReadLn;
 end.
 ```
 
@@ -610,12 +658,12 @@ end;
 **Example**
 
 ```pascal linenums="1"
-  {$mode objfpc}{$H+}{$J-}
+program CaseStatementExample;
+{$mode objfpc}{$H+}{$J-}
 
 var
   grade: char;
 
-  // Main block
 begin
   Write('Enter a grade (A, B, C, D or F): ');
   ReadLn(grade);
@@ -646,6 +694,7 @@ begin
         WriteLn('Invalid grade');
       end;
   end;
+  ReadLn;
 end.
 ```
 
@@ -693,12 +742,12 @@ end;
 **Example of `if..then` Statement**
 
 ```pascal linenums="1"
-  {$mode objfpc}{$H+}{$J-}
+program IfThenExample;
+{$mode objfpc}{$H+}{$J-}
 
 var
   age: integer;
 
-  // Main block
 begin
   Write('Enter your age: ');
   ReadLn(age);
@@ -707,18 +756,19 @@ begin
   begin
     WriteLn('You are an adult.');
   end;
+  ReadLn;
 end.
 ```
 
 **Example of `if..then..else` Statement**
 
 ```pascal linenums="1"
-  {$mode objfpc}{$H+}{$J-}
+program IfThenElseExample;
+{$mode objfpc}{$H+}{$J-}
 
 var
   age: integer;
 
-  // Main block
 begin
   Write('Enter your age: ');
   ReadLn(age);
@@ -731,18 +781,19 @@ begin
   begin
     WriteLn('You are a minor.');
   end;
+  ReadLn;
 end.
 ```
 
 **Example of many conditions with `else if` Statement**
 
 ```pascal linenums="1"
-  {$mode objfpc}{$H+}{$J-}
+program ElseIfExample;
+{$mode objfpc}{$H+}{$J-}
 
 var
   grade: char;
 
-  // Main block
 begin
   Write('Enter your grade (A, B, C, D, F): ');
   ReadLn(grade);
@@ -771,9 +822,9 @@ begin
   begin
     WriteLn('Invalid grade.');
   end;
+  ReadLn;
 end.
 ```
-
 
 ## 11.Math Operations
 
@@ -878,7 +929,6 @@ var
   num: real;
   rounded: integer;
 
-  // Main block
 begin
   num := 123.4567;
 
@@ -934,7 +984,6 @@ var
   rounded: real;
   n: integer;
 
-  // Main block
 begin
   num := 12345.678875;
   n := 4;  // Number of decimal places you want
@@ -948,8 +997,6 @@ begin
   ReadLn;
 end.
 ```
-
-
 
 ## 13. Bitwise Operations
 
@@ -966,9 +1013,11 @@ end.
 
 **Examples**
 
-
 ```pascal linenums="1"
 program BitwiseOperatorsDemos;
+{$mode objfpc}{$H+}{$J-}
+uses
+  SysUtils; // For BinStr
 
 var
   a, b, result: integer;
@@ -1026,7 +1075,6 @@ SHR: 5 shr 1 = 2 (0010)
 >> : 5 >> 1 = 2 (0010)
 ```
 
-
 ## 14. Boolean Operations
 
 | Operator | Operation          | Description                                                            |
@@ -1057,6 +1105,8 @@ SHR: 5 shr 1 = 2 (0010)
 **Examples**
 
 ```pascal linenums="1"
+program BooleanOperationsExample;
+{$mode objfpc}{$H+}{$J-}
 var
   a, b: boolean;
 begin
@@ -1067,6 +1117,7 @@ begin
   Writeln('a and b: ', a and b);       // Outputs: False
   Writeln('a or b: ', a or b);         // Outputs: True
   Writeln('a xor b: ', a xor b);       // Outputs: True
+  ReadLn;
 end.
 ```
 
@@ -1090,7 +1141,6 @@ Useful strings operators and functions.
 | `LowerCase`        | Converts a string to lowercase.                                             |
 
 **Examples**
-
 
 ```pascal linenums="1"
 program StringOperationsExample;
@@ -1176,7 +1226,6 @@ end.
 
 **Outputs**
 
-
 ```bash
 Concatenated string: Hello World, Welcome to Pascal
 CompareStr result: -32
@@ -1216,7 +1265,6 @@ var
   number: int64;
   formattedNumber: string;
 
-  // Main block
 begin
   // Formatting a number with commas
   number := 12345678;
@@ -1252,7 +1300,6 @@ var
   amount: currency;
   formattedAmount: string;
 
-  // Main block
 begin
   amount := 12345678.90;
   formattedAmount := CurrToStrF(amount, ffCurrency, 2);
@@ -1269,14 +1316,14 @@ end.
     - `ffCurrency`: A format specifier indicating that we want currency formatting.
     - `2`: The number of decimal places.
 
-
-
-
 ## 17. Processing Text Files
 
 ### Read a Text File
 
 Here's an example to read a file line by line using `TFileStream` and `TStreamReader`:
+
+!!! Note
+    For this example to work, create a text file named `your-file.csv` (or any name you prefer, then update the code) in the same directory as your compiled program. Add some lines of text to it.
 
 **Example**
 
@@ -1295,7 +1342,6 @@ var
   streamReader: TStreamReader;
   line: string;
 
-  // Main block
 begin
   try
     // Open the file
@@ -1322,14 +1368,13 @@ begin
     on E: Exception do
       Writeln('An error occurred: ', E.Message);
   end;
+  ReadLn; // Pause to see output or error
 end.
 ```
 
 - The `streamex` unit includes the `TStreamReader` class for handling text stream operations.
 - The `try...finally` blocks guarantee that both `streamReader` and `fileStream` are properly released, even if an error occurs during the file reading process.
-- Substitute `your-file.txt` with the name of your file.
-- The `try...except` block handles any exceptions that arise during file operations and outputs an appropriate error message.
-
+- Substitute `your-file.csv` with the name of your file.
 
 ### Write a Text File
 
@@ -1350,7 +1395,6 @@ var
   fileStream: TFileStream;
   size: longint;
 
-  // Main block
 begin
   try
     // String to be written
@@ -1376,6 +1420,7 @@ begin
     on E: Exception do
       Writeln('An error occurred: ', E.Message);
   end;
+  ReadLn; // Pause to see output or error
 end.
 ```
 
@@ -1383,7 +1428,6 @@ end.
 - Update the content of the Text variable with the string you want to write to the file.
 - Change `hello-text.txt` to the name of the file you wish to create or modify.
 - The `try...except` block captures any exceptions that might occur during file operations and displays an appropriate error message.
-
 
 ## 18. Enum Types
 
@@ -1401,7 +1445,8 @@ type
 **Example**
 
 ```pascal linenums="1"
-  {$mode objfpc}{$H+}{$J-}
+program EnumExample;
+{$mode objfpc}{$H+}{$J-}
 
 type
   TDay = (Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday);
@@ -1409,7 +1454,6 @@ type
 var
   today: TDay;
 
-  // Main block
 begin
   // Assign today var to TDay.Wednesday 
   today := Wednesday;
@@ -1422,13 +1466,15 @@ begin
   begin
     WriteLn('Today is Wednesday');
   end;
+  ReadLn;
 end.
 ```
 
 **Example of an Enum in case statement**
 
 ```pascal linenums="1"
-  {$mode objfpc}{$H+}{$J-}
+program EnumInCaseExample;
+{$mode objfpc}{$H+}{$J-}
 
 type
   TColor = (Red, Green, Blue);
@@ -1436,7 +1482,6 @@ type
 var
   color: TColor;
 
-  // Main block
 begin
   color := Green;
   case color of
@@ -1444,6 +1489,7 @@ begin
     Green: WriteLn('Green');
     Blue: WriteLn('Blue');
   end;
+  ReadLn;
 end.
 ```
 
@@ -1463,7 +1509,7 @@ type
 ```pascal linenums="1"
 program SubrangeDaysofWeek;
 
-  {$mode objfpc}{$H+}{$J-}
+{$mode objfpc}{$H+}{$J-}
 
 type
   // Define a subrange type for days of the week (1 = Sunday, 7 = Saturday)
@@ -1473,7 +1519,6 @@ var
   // Declare a variable of type TDayOfWeek
   day: TDayOfWeek;
 
-  // Main block
 begin
   // Assign a valid value within the subrange to the variable
   day := 3;  // 3 represents Tuesday
@@ -1494,8 +1539,7 @@ end.
     **Why Not Just Use Integer?**
     
     Using a subrange like `TDayOfWeek` instead of a plain integer provides type safety. It ensures that the variable `day` can only be assigned values within the defined range (`1` to `7`). 
-    
-    This (1) helps prevent errors and makes your code more robust and (2) readable. For example, if you accidentally try to assign a value outside the range, the compiler will catch the error.
+    This helps prevent errors and makes your code more robust and readable. For example, if you accidentally try to assign a value outside the range, the compiler will catch the error.
 
 ## 20. Arrays
 
@@ -1512,7 +1556,6 @@ var
 
 **2. Using the type section**
 
-
 ```pascal linenums="1"
 type
   TNumberArray = array[1..5] of Integer;
@@ -1526,14 +1569,17 @@ var
 **Example**
 
 ```pascal linenums="1"
+program WorkingWithArraysExample;
+{$mode objfpc}{$H+}{$J-}
 var
   numbers: array[1..5] of Integer;
 
-  // Main block
 begin
   numbers[1] := 10;  // Set the first element to 10
   numbers[2] := 20;  // Set the second element to 20
-  WriteLn(numbers[1]); // This will print 10
+  WriteLn('numbers[1] = ', numbers[1]); // This will print 10
+  WriteLn('numbers[2] = ', numbers[2]); // This will print 20
+  ReadLn;
 end.
 ```
 
@@ -1553,11 +1599,12 @@ var
 ```pascal linenums="1"
 program StaticArrayExample;
 
+{$mode objfpc}{$H+}{$J-}
+
 var
   numbers: array[1..5] of integer;
   i: integer;
 
-  // Main block
 begin
   // Initialising the array
   numbers[1] := 10;
@@ -1569,8 +1616,8 @@ begin
   // Accessing and printing array elements
   for i := 1 to 5 do
     WriteLn('numbers[', i, '] = ', numbers[i]);
+  ReadLn;
 end.
-
 ```
 
 ### Dynamic Arrays
@@ -1589,11 +1636,12 @@ var
 ```pascal linenums="1"
 program DynamicArrayExample;
 
+{$mode objfpc}{$H+}{$J-}
+
 var
   numbers: array of integer;
   i: integer;
 
-  // Main block
 begin
   // Setting the length of the array
   SetLength(numbers, 5);
@@ -1614,6 +1662,7 @@ begin
   // Accessing and printing array elements after resizing
   for i := 0 to High(numbers) do
     WriteLn('numbers[', i, '] = ', numbers[i]);
+  ReadLn;
 end.
 ```
 
@@ -1632,14 +1681,13 @@ This operator is available in Delphi mode, but must be enabled explicily using t
 resultArray := array1 + array2;
 ```
 
-
 **Example**
 
 ```pascal linenums="1" hl_lines="4 33"
 program DynArrayConcat;
 
-  {$mode objfpc}{$H+}{$J-}
-  {$modeswitch arrayoperators}
+{$mode objfpc}{$H+}{$J-}
+{$modeswitch arrayoperators}
 
 uses
   SysUtils;
@@ -1659,7 +1707,6 @@ end;
 var
   arr1, arr2, resultArr: TIntArray;
 
-  // Main block
 begin
   // Initialize the first array
   arr1 := [1, 2, 3, 4, 5];
@@ -1695,11 +1742,12 @@ Open arrays are typically used in procedures or functions to accept arrays of va
 procedure ProcedureName(arrayName: array of elementType);
 ```
 
-
 **Example**
 
 ```pascal linenums="1"
 program OpenArrayExample;
+
+{$mode objfpc}{$H+}{$J-}
 
 procedure PrintArray(arr: array of integer);
 var
@@ -1712,7 +1760,6 @@ end;
 var
   numbers: array[1..5] of integer;
 
-  // Main block
 begin
   // Initialising the array
   numbers[1] := 10;
@@ -1723,9 +1770,9 @@ begin
 
   // Passing the array to the procedure
   PrintArray(numbers);
+  ReadLn;
 end.
 ```
-
 
 ## 21. Records Types
 
@@ -1746,7 +1793,8 @@ type
 **Example**
 
 ```pascal linenums="1"
-  {$mode objfpc}{$H+}{$J-}
+program RecordExample;
+{$mode objfpc}{$H+}{$J-}
 
 type
   TPerson = record
@@ -1758,7 +1806,6 @@ type
 var
   person1, person2: TPerson;
 
-  // Main block
 begin
   // Assign values to the fields of Person1
   person1.Name := 'Javert';
@@ -1779,6 +1826,7 @@ begin
   WriteLn('Person2 Name: ', person2.Name);
   WriteLn('Person2 Age: ', person2.Age);
   WriteLn('Person2 Height: ', person2.Height:0:2);
+  ReadLn;
 end.
 ```
 
@@ -1814,80 +1862,6 @@ type
 Let’s create an advanced record to represent a rectangle. This record will store the width and height of the rectangle and include methods to calculate the area and display the rectangle's details.
 
 We’ll create a record called `TRectangle` that has fields for width and height. It will also include a method to calculate the area and another to display the details.
-
-```pascal linenums="1"
-type
-  TRectangle = record
-  private
-    FWidth, FHeight: Double;
-    procedure SetWidth(Value: Double);
-    procedure SetHeight(Value: Double);
-    function GetWidth: Double;
-    function GetHeight: Double;
-  public
-    constructor Create(AWidth, AHeight: Double);
-    function Area: Double;
-    procedure ShowDetails;
-    property Width: Double read GetWidth write SetWidth;
-    property Height: Double read GetHeight write SetHeight;
-  end;
-
-constructor TRectangle.Create(AWidth, AHeight: Double);
-begin
-  FWidth := AWidth;
-  FHeight := AHeight;
-end;
-
-procedure TRectangle.SetWidth(Value: Double);
-begin
-  FWidth := Value;
-end;
-
-procedure TRectangle.SetHeight(Value: Double);
-begin
-  FHeight := Value;
-end;
-
-function TRectangle.GetWidth: Double;
-begin
-  Result := FWidth;
-end;
-
-function TRectangle.GetHeight: Double;
-begin
-  Result := FHeight;
-end;
-
-function TRectangle.Area: Double;
-begin
-  Result := FWidth * FHeight;
-end;
-
-procedure TRectangle.ShowDetails;
-begin
-  WriteLn('Rectangle Width: ', FWidth:0:2);
-  WriteLn('Rectangle Height: ', FHeight:0:2);
-  WriteLn('Rectangle Area: ', Area:0:2);
-end;
-```
-
-We use the `TRectangle` like this:
-
-```pascal linenums="1"
-var
-  Rect: TRectangle;
-  
-  {Main Block}
-begin
-  // Create a rectangle with width 10 and height 5
-  Rect := TRectangle.Create(10, 5);
-  
-  // Show the details of the rectangle
-  Rect.ShowDetails;
-end.
-```
-
-**Full Example**
 
 ```pascal linenums="1"
 program AdvancedRecordDemo;
@@ -1951,19 +1925,19 @@ end;
 var
   Rect: TRectangle;
 
-  // Main block
 begin
   // Create a rectangle with width 10 and height 5
   Rect := TRectangle.Create(10, 5);
   
   // Show the details of the rectangle
   Rect.ShowDetails;
+  ReadLn;
 end.
 ```
 
 ## 23. Classes
 
-Here is a simple example of creating a class. For mroe info, visit the official documentation; [Classes](https://www.freepascal.org/docs-html/ref/refch6.html#x69-930006). 
+Here is a simple example of creating a class. For more info, visit the official documentation; [Classes](https://www.freepascal.org/docs-html/ref/refch6.html#x69-930006). 
 
 **Syntax**
 
@@ -2018,7 +1992,6 @@ end;
 var
   Person: TPerson;
 
-  // Main block
 begin
   // Create an instance of TPerson
   Person := TPerson.Create('John Doe', 28);
@@ -2071,7 +2044,6 @@ var
   resultInt: integer;
   resultReal: real;
 
-// Main block
 begin
   resultInt := specialize DoubleValue<integer>(8);
   Writeln('resultInt:  ', resultInt);         // Output: resultInt: 64
@@ -2129,7 +2101,6 @@ var
   intStrPair: TIntegerStringPair;
   realBoolPair: TRealBoolPair;
 
-// Main block
 begin
   intStrPair := TIntegerStringPair.Create(10, 'Ten');
   realBoolPair := TRealBoolPair.Create(3.14, True);
@@ -2209,7 +2180,6 @@ var
   intCalc: TIntCalculator;
   floatCalc: TRealCalculator;
 
-  // Main block
 begin
   // Create a calculator for integers
   intCalc := TIntCalculator.Create;
@@ -2232,7 +2202,6 @@ begin
   ReadLn;
 end.
 ```
-
 
 ## 25. Function References
 
@@ -2283,7 +2252,6 @@ var
   mathOp: TMathOpFuncRef;
   num1, num2: double;
 
-// Main block
 begin
   num1 := 5;
   num2 := 3;
@@ -2297,128 +2265,6 @@ begin
   WriteLn(num1:0:2, ' * ', num2:0:2, ' = ', mathOp(num1, num2):0:2);
 
   // Pause console
-  WriteLn('Press Enter to quit');
-  ReadLn;
-end.
-```
-
-**Example - A Calculator**
-
-```pascal linenums="1"
-program FuncRefCalculatorExample;
-
-{$mode objfpc}{$H+}{$J-}
-{$modeswitch functionreferences}
-
-uses
-  SysUtils;
-
-type
-  // Define a type represents a reference to a function
-  // that takes two doubles and returns a double
-  TMathOperation = reference to function(a, b: double): double;
-
-  // Define basic math operations
-  function Add(a, b: double): double;
-  begin
-    // Return the sum of a and b
-    Result := a + b;
-  end;
-
-  function Subtract(a, b: double): double;
-  begin
-    // Return the difference of a and b
-    Result := a - b;
-  end;
-
-  function Multiply(a, b: double): double;
-  begin
-    // Return the product of a and b
-    Result := a * b;
-  end;
-
-  function Divide(a, b: double): double;
-  begin
-    try
-      // Return the quotient of a and b
-      Result := a / b
-    except
-      on E: Exception do
-        WriteLn('Error: ' + E.Message);
-    end;
-  end;
-
-  // Procedure to perform a math operation
-  // Takes a math operation and two operands as arguments
-  procedure Calculate(mathOp: TMathOperation; a, b: double);
-  begin
-    WriteLn(mathOp(a, b): 0: 2);
-  end;
-
-// Main block
-begin
-  Calculate(@Add, 10, 5);      // Outputs: 15.00
-  Calculate(@Subtract, 10, 5); // Outputs: 5.00
-  Calculate(@Multiply, 10, 5); // Outputs: 50.00
-  Calculate(@Divide, 10, 5);   // Outputs: 2.00
-
-  // Pause console
-  WriteLn('Press Enter to quit');
-  ReadLn;
-end.
-```
-
-**Example - Digital Circuit Simulator**
-
-```pascal linenums="1"
-program FuncRefDigitalCircuitSimulator;
-
-{$mode objfpc}{$H+}{$J-}
-{$modeswitch functionreferences}
-
-uses
-  SysUtils;
-
-type
-  // Define a function reference type that takes booleans and return a boolean
-  TLogicGate = reference to function(A, B: boolean): boolean;
-
-  // Define the AND logic gate function
-  function ANDGate(A, B: boolean): boolean;
-  begin
-    Result := A and B;
-  end;
-
-  // Define the OR logic gate function
-  function ORGate(A, B: boolean): boolean;
-  begin
-    Result := A or B;
-  end;
-
-  // Define the XOR logic gate function
-  function XORGate(A, B: boolean): boolean;
-  begin
-    Result := A xor B;
-  end;
-
-  // Procedure to simulate a digital circuit using a given logic gate
-  procedure SimulateCircuit(Gate: TLogicGate; A, B: boolean);
-  begin
-    // Print the result of applying the logic gate to A and B
-    WriteLn(BoolToStr(Gate(A, B), True));
-  end;
-
-begin
-  // Simulate the circuit with the AND gate and inputs True and False
-  SimulateCircuit(@ANDGate, True, False);  // Outputs: FALSE
-
-  // Simulate the circuit with the OR gate and inputs True and False
-  SimulateCircuit(@ORGate, True, False);   // Outputs: TRUE
-
-  // Simulate the circuit with the XOR gate and inputs True and False
-  SimulateCircuit(@XORGate, True, False);  // Outputs: TRUE
-
-  // Pause the console to view the output
   WriteLn('Press Enter to quit');
   ReadLn;
 end.
@@ -2501,173 +2347,41 @@ begin
 end.
 ```
 
-**Example - Grade Calculator**
-
-```pascal linenums="1"
-program AnonymousFuncGradeCalculator;
-
-{$mode objfpc}{$H+}{$J-}
-{$modeswitch anonymousfunctions}  // Enable anonymous functions
-
-var
-  calculateGrade: function(score: integer): string;
-
-begin
-  // Assigning an anonymous function to the 'CalculateGrade' variable
-  calculateGrade := function(score: integer): string
-  begin
-    if score >= 85 then
-      Result := 'HD'
-    else if score >= 75 then
-      Result := 'D'
-    else if score >= 65 then
-      Result := 'C'
-    else if score >= 50 then
-      Result := 'P'
-    else
-      Result := 'F';
-  end;
-
-  // Using the anonymous function to calculate grades
-  Writeln('Grade for score 90: ', CalculateGrade(90));
-  Writeln('Grade for score 70: ', CalculateGrade(70));
-  Writeln('Grade for score 40: ', CalculateGrade(40));
-
-  // Pause the console to view the output
-  WriteLn('Press Enter to quit');
-  ReadLn;
-end.
-```
-
-
-**Example - Student Data Processor**
-
-```pascal linenums="1"
-program StudentDataProcessor;
-
-{$mode objfpc}{$H+}{$J-}
-{$modeswitch anonymousfunctions}// Enable anonymous functions
-
-type
-  TStudent = record
-    Name: string;
-    Age: integer;
-    Score: integer;
-  end;
-
-type
-  TStudentList = array of TStudent;
-  TStudentPredicate = function(student: TStudent): boolean;
-
-var
-  studentList: TStudentList;
-  student: TStudent;
-  filterStudents: function(arr: TStudentList; condition: TStudentPredicate): TStudentList;
-
-begin
-  // Initialize student data
-  SetLength(studentList, 5);
-
-  // Populate student data
-  studentList[0].Name := 'Brent';
-  studentList[0].Age := 20;
-  studentList[0].Score := 85;
-  studentList[1].Name := 'Dylan';
-  studentList[1].Age := 22;
-  studentList[1].Score := 90;
-  studentList[2].Name := 'Jared';
-  studentList[2].Age := 21;
-  studentList[2].Score := 78;
-  studentList[3].Name := 'Holly';
-  studentList[3].Age := 20;
-  studentList[3].Score := 92;
-  studentList[4].Name := 'Julie';
-  studentList[4].Age := 23;
-  studentList[4].Score := 88;
-
-  // Filters a list of students based on a given condition.
-  // Returns a new list containing only the students that satisfy the condition.
-  filterStudents := function(arr: TStudentList; condition: TStudentPredicate): TStudentList
-  var
-    resultArr: array of TStudent;
-    i: integer;
-  begin
-    SetLength(resultArr, 0);
-    for i := Low(arr) to High(arr) do if condition(arr[i]) then
-      begin
-        SetLength(resultArr, Length(resultArr) + 1);
-        resultArr[High(resultArr)] := arr[i];
-      end;
-    Result := resultArr;
-  end;
-
-
-  // Using the anonymous function to filter studentList based on conditions
-  Writeln('Students with score above 85:');
-  for student in filterStudents(studentList, function(student: TStudent): boolean
-                                             begin
-                                               Result := student.Score > 85;
-                                             end) do
-    Writeln(student.Name, ' - ', student.Score);
-
-  Writeln('Students aged 21 or below:');
-  for student in filterStudents(studentList, function(student: TStudent): boolean
-                                             begin
-                                               Result := student.Age <= 21;
-                                             end) do
-    Writeln(student.Name, ' - ', student.Age);
-
-  // Pause the console to view the output
-  WriteLn('Press Enter to quit');
-  ReadLn;
-end.
-```
-
 ## 27. Interfaces
 
 !!! Note
-    By default, Free Pascal uses the Windows COM `IUnknown` interface type.
+    By default, Free Pascal uses the Windows COM `IUnknown` interface type. This is important for compatibility with other systems, especially on Windows. For simpler, non-COM interfaces, you might see them declared without descending from `IUnknown` or `TInterfacedObject`, but this changes how memory management (like reference counting) works.
 
-    Ref: [$INTERFACES : Specify Interface type.](https://www.freepascal.org/docs-html/current/prog/progsu37.html#x44-430001.2.37)
+Think of an interface as a contract or a blueprint. It defines *what* a class should be able to do (methods it must have) but not *how* it does them. This allows different classes to promise they can perform certain actions, even if their internal workings are different.
 
-Think of an interface as a plan that outlines what actions a class should perform, without specifying how to do them. In Free Pascal, interfaces serve as an alternative to multiple inheritance, which is used in languages like C++.
-
-- Interfaces can only be used in `delphi` or `objfpc` modes. 
-- All parts of an `interface` are always `public`, so you can't hide them.
-- Properties can only have methods to get or set their values. 
-- You can't create interfaces directly. Instead, you need a `class` that uses the `interface`.
-- It is not possible for a class to implement only part of the interface: it is all or nothing.
-- You can only use calling convention modifiers in methods within an interface. You can't use special modifiers like `virtual`, `abstract`, `dynamic`, or `override` in an `interface`.
+- Interfaces are typically used in `delphi` or `objfpc` modes.
+- All methods and properties in an interface are `public`.
+- A class implementing an interface must provide code for all methods defined in that interface.
+- **GUIDs (Globally Unique Identifiers)**: You'll often see interfaces defined with a long, unique string like `['{12345678-1234-1234-1234-1234567890AB}']`. This GUID ensures the interface is uniquely identifiable worldwide, which is crucial for systems like COM (Component Object Model) where different programs need to interact reliably. For simpler applications not using COM, the GUID might be omitted, but it's good practice for broadly usable interfaces.
 
 !!! Info
     Refer to the official doc [Interfaces](https://www.freepascal.org/docs-html/ref/refch7.html#x96-1200007) for more info.
 
 **Syntax**
 
-1. Use the `interface` keyword to define an interface, specifying the methods (and properties, if any) that any implementing class must provide.
-
-2. Use the `class` keyword to define a class that implements the interface. The class **must provide concrete implementations** for all the methods and properties declared in the interface.
+1.  Define an interface using the `interface` keyword.
+2.  Define a class that implements the interface. It usually inherits from `TInterfacedObject` (which helps with memory management for COM-style interfaces) and lists the interface(s) it implements.
 
 **Example**
 
-This example defines a simple interface `IMyInterface` with one method `DoSomething`, and then implement this interface in a class `TMyClass`.
+This example defines a simple interface `IMyInterface` with one method `DoSomething`, and then implements this interface in a class `TMyClass`.
 
 **1. Define the Interface**
-
-!!! Note
-    Especially **on Windows systems**, the GUID of an interface can and **must be used** when using COM.
-
-    Source: [Interfaces - Definition](https://www.freepascal.org/docs-html/ref/refse44.html#x97-1210007.1)
 
 ```pascal linenums="1"
 type
   IMyInterface = interface
-    ['{12345678-1234-1234-1234-1234567890AB}'] // Unique identifier (GUID) for the interface
+    ['{12345678-1234-1234-1234-1234567890AB}'] // Unique identifier (GUID)
     procedure DoSomething;
   end;
 ```
 
-**Step 2: Implement the Interface in a Class**
+**2. Implement the Interface in a Class**
 
 ```pascal linenums="1"
 type
@@ -2682,42 +2396,30 @@ begin
 end;
 ```
 
-**Step 3: Use the Interface and Class**
-
+**3. Use the Interface and Class**
+The main program block would look like this:
 ```pascal linenums="1"
 var
   MyObject: IMyInterface;
 begin
-  MyObject := TMyClass.Create;
-  MyObject.DoSomething;
+  MyObject := TMyClass.Create; // Create an instance of the class
+  MyObject.DoSomething;        // Call the interface method
+  // MyObject is automatically managed if TMyClass descends from TInterfacedObject
+  // No explicit MyObject.Free is needed here due to reference counting.
 end.
 ```
-
-You don’t need to call `MyObject.Free` because COM interfaces automatically handle memory management. When no more references to the COM interface exist (when the reference count reaches zero), the object that implements the interface is automatically freed.
-
-!!! Note
-    All COM interfaces use reference counting. This means that whenever an interface is assigned to a variable, its reference count is updated. Whenever the variable goes out of scope, the reference count is automatically decreased. 
-    
-    When the reference count reaches zero, usually the instance of the class that implements the interface, is freed.
-
-    Source: [Interfaces - Reference counting](https://www.freepascal.org/docs-html/current/ref/refse51.html#x104-1280007.8)
-
-!!! Note
-    ... COM interfaces are by default reference counted, because they descend from `IUnknown`.
-
-    Source: [Interfaces - CORBA and other interfaces](https://www.freepascal.org/docs-html/ref/refse50.html)
 
 **Complete Example**
 
 ```pascal linenums="1"
-program COMInterfaceExample;
+program InterfaceExample;
 
 {$mode objfpc}{$H+}{$J-}
 
 type
   // Step 1: Define the Interface
   IMyInterface = interface
-    ['{12345678-1234-1234-1234-1234567890AB}'] // Unique identifier (GUID) for the interface
+    ['{12345678-1234-1234-1234-1234567890AB}'] // Unique identifier (GUID)
     procedure DoSomething;
   end;
 
@@ -2744,172 +2446,9 @@ begin
   ReadLn;
 end.
 ```
+- `TInterfacedObject` is a base class from the `Classes` unit (implicitly used in many FPC programs) that helps manage memory for interfaces through reference counting. When an interface variable goes out of scope or is set to `nil`, if it's the last reference to the object, the object is automatically freed.
 
-- The GUID `['{12345678-1234-1234-1234-1234567890AB}']` is required for COM compatibility but can be a unique identifier in your application.
-- `TInterfacedObject` is a base class that implements `IUnknown`, which is the ancestor of all interfaces. This ensures proper reference counting for memory management.
-
-## 26. More on Interfaces
-
-### What is a GUID?
-
-A GUID is like a super-unique name tag. Imagine you're at a huge event with thousands of people, and everyone needs to wear a name tag to avoid confusion. Each name tag has to be unique so that when someone calls out a name, only one person responds. That's what a GUID does for interfaces in programming.
-
-### Why do we need a GUID for interfaces?
-
-When we create interfaces in programming, we often have many different interfaces that might look similar. The GUID helps us keep track of each one and makes sure there's no mix-up. Here’s why this is important:
-
-1. **Uniqueness**: Just like a unique name tag, a GUID makes sure that each interface is uniquely identified. No two interfaces will have the same GUID.
-
-2. **Identification**: When your program is running, it might need to check if an object (a piece of data or a function) follows a certain set of rules (an interface). The GUID is used to ask,*"Do you follow these rules?"* and get a clear answer.
-
-3. **Compatibility**: In complex programs or systems that involve many parts working together, like different pieces of software communicating with each other, the GUID ensures that they all understand each other correctly. It's like a universal language for interfaces.
-
-### Example to Understand GUID
-
-Imagine you're organizing a science fair. Each project needs a unique ID so judges know exactly which project they're looking at. Without unique IDs, two projects could have the same name, leading to confusion. GUIDs work the same way for interfaces in programming.
-
-### Practical Example in Programming
-
-Here's a simple example in Free Pascal:
-
-1. Define the Interface with a GUID
-
-```pascal linenums="1"
-type
-  IMyInterface = interface
-    ['{12345678-1234-1234-1234-1234567890AB}'] // This is the GUID
-    procedure DoSomething;
-  end;
-```
-
-2. Implement the Interface in a Class
-
-```pascal linenums="1"
-type
-  TMyClass = class(TInterfacedObject, IMyInterface)
-  public
-    procedure DoSomething;
-  end;
-
-procedure TMyClass.DoSomething;
-begin
-  WriteLn('Doing something...');
-end;
-```
-
-3. Use the Interface and Class
-
-```pascal linenums="1"
-var
-  MyObject: IMyInterface;
-begin
-  MyObject := TMyClass.Create;
-  MyObject.DoSomething;
-end.
-```
-
-### Breaking Down the Example
-
-- **Define the Interface**: `IMyInterface` is like a rulebook that says any class that follows it must have a `DoSomething` procedure.
-- **GUID**: `{12345678-1234-1234-1234-1234567890AB}` is a unique identifier for IMyInterface. It's like saying, *"This rulebook has a unique ID so there's no confusion."*
-- **Implement the Interface**: `TMyClass` says, *"I follow the IMyInterface rulebook and provide a DoSomething procedure."*
-- **Using the Interface**: The program creates an instance of `TMyClass` and calls `DoSomething` on it, knowing exactly which rules it's following because of the GUID.
-
-### Summary
-
-- GUIDs are unique identifiers that ensure interfaces are uniquely recognized.
-- They help prevent confusion in large and complex systems.
-- They allow programs to check if objects follow specific rules (interfaces) correctly.
-- Think of a GUID as a unique fingerprint for an interface, ensuring it’s always identified correctly and uniquely in a program.
-
-
-## 28. Even More on Interfaces
-
-
-### What is a Function?
-
-Think of a function as a recipe. If you have a recipe for chocolate chip cookies, you follow those instructions every time you want cookies. You don’t need to worry about the recipe being mixed up with other recipes because you have the name of the recipe right there.
-
-### What is an Interface?
-
-An interface is like a contract or a blueprint that tells different objects (think of them as different people or tools) how they should behave. For instance, imagine you have a blueprint for different types of devices that can play music, like a smartphone, a tablet, or a speaker. Each of these devices follows the same set of instructions (the interface) for how to play music, but they might play it differently.
-
-### Why Does an Interface Need a GUID?
-
-**Unique Identification:**
-
-- **Functions**: In a program, you call functions by their names. If you want to bake cookies, you just call the "cookie recipe" function. There's no need for a special identifier because each function name is unique within its context.
-- **Interfaces**: Different interfaces might have similar methods, but they need a way to be uniquely identified. This is because many objects (devices) can follow the same interface (blueprint). The GUID acts like a unique serial number to make sure you’re dealing with the exact right blueprint.
-
-**Multiple Implementations:**
-
-- **Functions**: Each function is a specific set of instructions in your code. If you call a function, you're calling a specific set of instructions.
-- **Interfaces**: An interface can be implemented by many different classes (objects). For example, you could have a `Player` interface for different types of media players. Each player (smartphone, tablet, speaker) will follow the same `Player` interface but might have different ways of playing the music. The GUID helps ensure that when you ask for a `Player`, you get the right kind of `Player`.
-
-**Checking at Runtime:**
-
-- **Functions**: When your program runs, it directly calls functions by their names. No extra checking is needed because you know exactly what function you're calling.
-- **Interfaces**: Sometimes, you need to check if an object follows a particular interface, especially if you’re not sure what kind of object you have. The GUID helps you confirm that the object adheres to the right blueprint.
-
-### Simple Analogy
-
-Imagine you're at a huge convention where every booth has a unique ID number. Each booth might have a different type of product, but the unique ID ensures that when you ask for a specific type of product, you find the right booth.
-
-- **Functions**: Like knowing the exact name of a recipe.
-- **Interfaces**: Like having a unique ID for each type of product to make sure you get the right one.
-
-### Example in Programming
-
-Let's say you have an interface called `IDriveable` that any vehicle (like cars or bikes) should implement.
-
-Interface Definition:
-
-```pascal linenums="1"
-type
-  IDriveable = interface
-    ['{11111111-1111-1111-1111-111111111111}'] // Unique ID
-    procedure Drive;
-  end;
-```
-
-Class Implementing the Interface:
-
-```pascal linenums="1"
-type
-  TCar = class(TInterfacedObject, IDriveable)
-  public
-    procedure Drive;
-  end;
-
-procedure TCar.Drive;
-begin
-  WriteLn('Driving a car...');
-end;
-```
-
-Using the Interface:
-
-```pascal linenums="1"
-var
-  Vehicle: IDriveable;
-  MyCar: TCar;
-begin
-  MyCar := TCar.Create;
-  Vehicle := MyCar;
-  Vehicle.Drive; // Calls the Drive method from TCar
-end.
-```
-
-In this example, `IDriveable` has a unique `GUID`, so even if you have many different classes (like `TCar`, `TBike`) that implement IDriveable, the GUID ensures you’re interacting with the right interface.
-
-### Summary
-
-- **GUID for Interfaces**: Ensures each interface is uniquely identified, especially when dealing with multiple implementations.
-- **Ordinary Functions**: Are unique by their names within their code context, so they don’t need an extra unique identifier.
-
-The GUID is like a special label that makes sure you’re talking to the exact right set of instructions (interface) among many possibilities.
-
-## 29. Pointers
+## 28. Pointers
 
 > ... Avoid pointer whenever alternatives exist. If you want to learn, though, there's no silver bullet apart from: There has to be as many `Dispose` as `New`, period. 
 > 
@@ -2919,6 +2458,8 @@ The GUID is like a special label that makes sure you’re talking to the exact r
 
 ```pascal linenums="1"
 program PointerExample;
+
+{$mode objfpc}{$H+}{$J-}
 
 var
   ptr: ^integer;  // Declare a pointer to Integer
@@ -2932,6 +2473,7 @@ begin
   Writeln('Value pointed to by ptr: ', value);
 
   Dispose(ptr);       // Free the allocated memory
+  ReadLn;
 end.
 ```
 

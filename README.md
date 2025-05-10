@@ -4,21 +4,21 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/ikelaiah/free-pascal-cookbook">
+  <a href="https://github.com/ikelaiah/free-pascal-cookbook/">
     <img src="docs/assets/logo-new-rounded-min.png" alt="Logo" width="256" height="256">
   </a>
 
 <h3 align="center">Free Pascal Cookbook | Source Files</h3>
 
   <p align="center">
-    This is the source files of my Free Pascal Cookbook, a mkdocs-material-based site.
+    This repo contains the source files of my Free Pascal Cookbook, a mkdocs-material-based site.
     <br />
-    <a href="https://github.com/ikelaiah/free-pascal-cookbook"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/ikelaiah/free-pascal-cookbook/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://ikelaiah.github.io/free-pascal-cookbook">Visit Site</a>
+    <a href="https://ikelaiah.github.io/free-pascal-cookbook/">Visit Site</a>
     ·
-    <a href="https://github.com/ikelaiah/free-pascal-snippets">View Snippets Repo</a>
+    <a href="https://github.com/ikelaiah/free-pascal-snippets/">View Snippets Repo</a>
   </p>
 </div>
 
@@ -38,16 +38,12 @@ Head to [https://ikelaiah.github.io/free-pascal-cookbook](https://ikelaiah.githu
 
 Else, you may browse the `.md` files in this repo.
 
-### Prerequisites
-
-A general interest in Object Pascal, especially Free Pascal.
 
 ### Installation
 
 None.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- LICENSE -->
