@@ -1923,11 +1923,11 @@
 <li>Now insert the following lines between <code>begin</code> and <code>end.</code>.</li>
 </ol>
 <div class="language-pascal highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Hello, World!&#39;</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">ReadLn</span><span class="o">;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">ReadLn</span><span class="o">;</span><span class="w"> </span><span class="c1">// Add this to pause the program and see the output</span>
 </span></code></pre></div>
 <ul>
 <li>The <code>WriteLn</code> function prints text on the console.</li>
-<li>The <code>ReadLn</code> in the code prevents the console from being closed automatically.</li>
+<li>The <code>ReadLn</code> waits for you to press Enter, keeping the console window open so you can see the "Hello, World!" message.</li>
 </ul>
 <ol start="2">
 <li>Add the following compiler directives after the <code>program</code> declaration. </li>
@@ -1936,8 +1936,7 @@
 </span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Make sure to have this line in all your Object Pascal codes.</p>
-<p><code>{$mode objfpc}{$H+}{$J-}</code></p>
+<p>This line <code>{$mode objfpc}{$H+}{$J-}</code> is a common setup for Free Pascal projects. It tells the compiler to use modern Object Pascal features and settings. It's good practice to include it.</p>
 </div>
 <p>Your final code would look as follows.</p>
 <div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
@@ -1960,9 +1959,9 @@
 <li>Press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-s">S</kbd></span> to save the code.</li>
 </ol>
 <h3 id="compile-run">Compile &amp; Run<a class="headerlink" href="#compile-run" title="Permanent link">&para;</a></h3>
-<p>Press <span class="keys"><kbd class="key-f9">F9</kbd></span> to run the compile and run the program.</p>
-<p>You should be able to see a console open with <code>Hello World</code> in it.</p>
-<p>Press the <span class="keys"><kbd class="key-enter">Enter</kbd></span> key to exit the progam, which also closes the console.</p>
+<p>Press <span class="keys"><kbd class="key-f9">F9</kbd></span> to compile and run the program.</p>
+<p>You should be able to see a console window open with <code>Hello, World!</code> displayed.</p>
+<p>Lazarus IDE: Press the <span class="keys"><kbd class="key-enter">Enter</kbd></span> key to exit the program, which also closes the console.</p>
 <h2 id="using-the-cli">Using the CLI<a class="headerlink" href="#using-the-cli" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1970,18 +1969,22 @@
 </div>
 <h3 id="create-a-pas-file-add-code">Create a <code>.pas</code> File &amp; Add Code<a class="headerlink" href="#create-a-pas-file-add-code" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Launch your favourite text editor</li>
+<li>Launch your favourite text editor.</li>
 <li>Create a new file and put the following snippet in it.</li>
 </ol>
 <div class="language-pascal highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
 <span class="normal"><a href="#__codelineno-4-2">2</a></span>
 <span class="normal"><a href="#__codelineno-4-3">3</a></span>
 <span class="normal"><a href="#__codelineno-4-4">4</a></span>
-<span class="normal"><a href="#__codelineno-4-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span><span class="w"> </span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="k">begin</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Hello, World!&#39;</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="k">end</span><span class="o">.</span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span>
+<span class="normal"><a href="#__codelineno-4-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">program</span><span class="w"> </span><span class="n">HelloWorldCLI</span><span class="o">;</span><span class="w"> </span><span class="c1">// It&#39;s good practice to name your program</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span><span class="w"> </span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="k">begin</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Hello, World!&#39;</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">    </span><span class="nb">ReadLn</span><span class="o">;</span><span class="w"> </span><span class="c1">// Add this to pause the program and see the output</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></table></div>
 <ol start="3">
 <li>Save it as <code>HelloWorld.pas</code>.</li>
@@ -1993,13 +1996,13 @@
 </span></code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>If running <code>fpc</code> from CLI doesn't work, try one of the following options.</p>
+<p>If running <code>fpc</code> from the Command Prompt (CLI) doesn't work, here are a few things to check:</p>
 <ol>
-<li>Supply the full path to the <code>fpc</code>.</li>
-<li>Put the <code>fpc/bin/&lt;architecture&gt;</code> to your <code>PATH</code> then compile and run again.</li>
-<li>Consider using <a href="https://www.lazarus-ide.org">Lazarus IDE</a> instead.</li>
-<li>Are you a <a href="https://code.visualstudio.com">VSCode</a> or <a href="https://vscodium.com">VSCodium</a> user? Make sure to setup <a href="https://marketplace.visualstudio.com/items?itemName=alefragnani.pascal">Pascal by Allesandro Fragnani</a> properly.</li>
-<li>Have you considered <a href="https://www.omnipascal.com">OmniPascal</a>?</li>
+<li><strong>Full Path</strong>: Try using the full path to <code>fpc.exe</code> (e.g., <code>C:\FPC\3.2.2\bin\i386-win32\fpc.exe HelloWorld.pas</code>).</li>
+<li><strong>PATH Variable</strong>: Ensure the directory containing <code>fpc.exe</code> (e.g., <code>C:\FPC\3.2.2\bin\i386-win32\</code>) is added to your system's <code>PATH</code> environment variable. You might need to restart your Command Prompt after updating PATH.</li>
+<li><strong>Lazarus IDE</strong>: If CLI is tricky, using the <a href="https://www.lazarus-ide.org">Lazarus IDE</a> (as shown above) is often easier for beginners.</li>
+<li><strong>VSCode/VSCodium Users</strong>: If you're using <a href="https://code.visualstudio.com">VSCode</a> or <a href="https://vscodium.com">VSCodium</a>, make sure the <a href="https://marketplace.visualstudio.com/items?itemName=alefragnani.pascal">Pascal extension by Alessandro Fragnani</a> is set up correctly to find the compiler.</li>
+<li><strong>OmniPascal</strong>: For a more integrated VSCode experience, you might also look into <a href="https://www.omnipascal.com">OmniPascal</a>.</li>
 </ol>
 </div>
 <h4 id="linux-cli">Linux CLI<a class="headerlink" href="#linux-cli" title="Permanent link">&para;</a></h4>

@@ -649,18 +649,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#get-the-installer" class="md-nav__link">
+  <a href="#get-fpcupdeluxe" class="md-nav__link">
     <span class="md-ellipsis">
-      Get the installer
+      Get fpcupdeluxe
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-latest-fixes" class="md-nav__link">
+  <a href="#install-fpc-and-lazarus" class="md-nav__link">
     <span class="md-ellipsis">
-      Get latest fixes
+      Install FPC and Lazarus
     </span>
   </a>
   
@@ -1781,18 +1781,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#get-the-installer" class="md-nav__link">
+  <a href="#get-fpcupdeluxe" class="md-nav__link">
     <span class="md-ellipsis">
-      Get the installer
+      Get fpcupdeluxe
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-latest-fixes" class="md-nav__link">
+  <a href="#install-fpc-and-lazarus" class="md-nav__link">
     <span class="md-ellipsis">
-      Get latest fixes
+      Install FPC and Lazarus
     </span>
   </a>
   
@@ -1862,28 +1862,35 @@
 <p>Head to <a href="https://www.lazarus-ide.org">https://www.lazarus-ide.org</a>.</p>
 </li>
 <li>
-<p>Click the <strong>Download</strong> button to get an installer for your OS</p>
+<p>Click the <strong>Download</strong> button to get an installer for your OS.</p>
 </li>
 </ol>
 <p><a class="glightbox" href="../../../assets/install-lazarus-fpc.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="install-lazarus" src="../../../assets/install-lazarus-fpc.png" /></a></p>
 <h2 id="use-fpcupdeluxe-more-options">Use <code>fpcupdeluxe</code> (more options)<a class="headerlink" href="#use-fpcupdeluxe-more-options" title="Permanent link">&para;</a></h2>
+<p>For most new users, the official Lazarus IDE installer (mentioned above) is the recommended and simplest way to get started.</p>
+<p>However, if you find you need more control over specific FPC and Lazarus versions (like using the very latest development builds, older versions, or setting up for cross-compilation), <code>fpcupdeluxe</code> is a powerful alternative. It's generally more suited for users who have specific requirements or are comfortable with more advanced setup options.</p>
 <h3 id="install-on-windows">Install on Windows<a class="headerlink" href="#install-on-windows" title="Permanent link">&para;</a></h3>
-<h4 id="get-the-installer">Get the installer<a class="headerlink" href="#get-the-installer" title="Permanent link">&para;</a></h4>
+<h4 id="get-fpcupdeluxe">Get <code>fpcupdeluxe</code><a class="headerlink" href="#get-fpcupdeluxe" title="Permanent link">&para;</a></h4>
 <ol>
-<li>Head to <a href="https://github.com/LongDirtyAnimAlf/fpcupdeluxe/releases">https://github.com/LongDirtyAnimAlf/fpcupdeluxe/releases</a></li>
-<li>Download the latest <code>fpcupdeluxe</code> for your OS and architecture, and save it in a new folder.</li>
-<li>Run <code>fpcupdeluxe</code>.</li>
+<li>Head to <a href="https://github.com/LongDirtyAnimAlf/fpcupdeluxe/releases">https://github.com/LongDirtyAnimAlf/fpcupdeluxe/releases</a>.</li>
+<li>Download the latest <code>fpcupdeluxe-i386-win32.exe</code> or <code>fpcupdeluxe-x86_64-win64.exe</code> if you prefer a 64-bit Lazarus IDE.</li>
+<li>Run the downloaded <code>fpcupdeluxe</code> executable.</li>
 </ol>
-<h4 id="get-latest-fixes">Get latest fixes<a class="headerlink" href="#get-latest-fixes" title="Permanent link">&para;</a></h4>
-<p>Steps.</p>
+<h4 id="install-fpc-and-lazarus">Install FPC and Lazarus<a class="headerlink" href="#install-fpc-and-lazarus" title="Permanent link">&para;</a></h4>
+<p>Steps:</p>
 <ol>
-<li>Set installation path.</li>
-<li>Click the <strong>Fixes</strong> button.</li>
-<li>Click <strong>Yes</strong> when the confirmation box appears. </li>
+<li><strong>Set Installation Directory</strong>: In <code>fpcupdeluxe</code>, the first important step is to specify an <strong>Install dir</strong>. This is where FPC and Lazarus will be installed (e.g., <code>C:\Lazarus_fpcupdeluxe</code>). Make sure this path does not contain spaces.</li>
+<li><strong>Select Versions</strong>:<ul>
+<li>From the <strong>FPC compiler</strong> dropdown, choose a version. For stability, <code>stable</code> or the latest <code>fixes (x.x.x)</code> version is recommended.</li>
+<li>From the <strong>Lazarus IDE</strong> dropdown, choose a version. The latest <code>release (x.x.x)</code> is usually a good choice.</li>
+</ul>
+</li>
+<li><strong>Install</strong>: Click the large <strong>Install/update FPC + Lazarus</strong> button.</li>
+<li><strong>Confirm</strong>: Click <strong>Yes</strong> when the confirmation box appears.</li>
 </ol>
 <p><a class="glightbox" href="../../../assets/fcpupdeluxe-step-01.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Step1" src="../../../assets/fcpupdeluxe-step-01.png" /></a></p>
-<p>The installtion of FPC and Lazarus might take a while. Sit back and relax.</p>
-<p>Once succesfully installed, the console will let you know a shortcut to Lazarus IDE is available on the Windows desktop.</p>
+<p>The installation of FPC and Lazarus might take a while. Sit back and relax.</p>
+<p>Once successfully installed, the console will let you know a shortcut to Lazarus IDE is available on the Windows desktop.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>SUCCESS: installation by fpcupdeluxe complete !
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Fpcupdeluxe has created a desktop shortcut to start Lazarus.
@@ -1897,20 +1904,21 @@
 <li>With the <strong>Online Package Manager (OPM)</strong>, you can easily install online packages right within the Lazarus IDE.</li>
 <li>The <strong>Dock (anchordocking)</strong> module turns the Lazarus IDE into a one-window setup.</li>
 </ul>
-<p>Steps.</p>
+<p>Steps:</p>
 <ol>
 <li>Click on the <strong>Modules</strong> tab.</li>
 <li>Click on the <strong>OPM</strong> button. Click yes when the confirmation box appears. Wait until the installation is completed before moving to the last step.</li>
 <li>Click on the <strong>Dock</strong> button. Click yes when the confirmation box appears.</li>
 </ol>
 <p><a class="glightbox" href="../../../assets/fcpupdeluxe-step-02.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Step1-end" src="../../../assets/fcpupdeluxe-step-02.png" /></a></p>
-<p>Once the installation is completed succesfully, close <code>fcpupdeluxe</code>.</p>
+<p>Once the installation is completed successfully, close <code>fpcupdeluxe</code>.</p>
 <h4 id="launch-lazarus-ide">Launch Lazarus IDE<a class="headerlink" href="#launch-lazarus-ide" title="Permanent link">&para;</a></h4>
 <p>At the end of the installation, you will find <code>Lazarus_fcpupdeluxe</code> on your desktop.</p>
 <p>Double click to run it. You will see Lazarus IDE as shown below.</p>
 <p><a class="glightbox" href="../../../assets/lazarus-ide-start-01.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="LazarusIDE" src="../../../assets/lazarus-ide-start-01.png" /></a></p>
 <h3 id="install-on-linux-or-macos">Install on Linux or macOS<a class="headerlink" href="#install-on-linux-or-macos" title="Permanent link">&para;</a></h3>
-<p>Consult the <a href="https://github.com/LongDirtyAnimAlf/fpcupdeluxe"><code>fpcupdeluxe</code> github page</a>.</p>
+<p>For Linux and macOS, <code>fpcupdeluxe</code> is typically used as a command-line tool, though precompiled GUI versions might be available for some systems.</p>
+<p>Consult the official <a href="https://github.com/LongDirtyAnimAlf/fpcupdeluxe"><code>fpcupdeluxe</code> GitHub page</a> for detailed instructions. Look for sections relevant to your operating system, including how to download or build the tool and the commands for installing FPC and Lazarus.</p>
 
 
 
