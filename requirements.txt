@@ -1,0 +1,22 @@
+mkdocs>=1.4
+mkdocs-material>=9.0
+mkdocs-glightbox
+mkdocs-open-in-new-tab
+pymdown-extensions
+Pygments
+
+# All required for your markdown_extensions and plugins.
+# 'search' is built into mkdocs-material, no need to add separately.
+# If you use mermaid diagrams, you may want to add:
+# mkdocs-mermaid2-plugin
+
+# No need to add 'search' plugin separately; it's built into mkdocs-material.
+# mkdocs-literate-nav
+
+# If you use code highlighting or markdown extensions:
+# pymdown-extensions
+
+# If you use search:
+# mkdocs-material[search]
+
+# Add any other plugins you use below:
