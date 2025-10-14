@@ -58,7 +58,7 @@ Distributed under the MIT License. See `LICENSE.md` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Iwan Kelaiah - iwan.kelaiah@gmail.com
+Iwan Kelaiah - https://au.linkedin.com/in/ikelaiah
 
 Project Link: [https://github.com/ikelaiah/free-pascal-cookbook](https://github.com/ikelaiah/free-pascal-cookbook)
 
