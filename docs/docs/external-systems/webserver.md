@@ -1,4 +1,4 @@
-# Webserver
+# Web Server
 
 ## A simple REST APIs returning JSON and HTML contents
 

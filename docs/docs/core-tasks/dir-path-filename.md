@@ -1,4 +1,4 @@
-# Directories, Path and Filename
+# Directories, Paths and Filenames
 
 ## Get home directory of current user
 
