@@ -1,7 +1,4 @@
-
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
+<!DOCTYPE html><html lang="en" class="no-js"><head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,18 +15,18 @@
       
       
       <link rel="icon" href="../../../assets/logo-new-rounded-min.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.14">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
     
     
       
-        <title>FPC & Lazarus Packages - Free Pascal Cookbook</title>
+        <title>FPC &amp; Lazarus Packages - Free Pascal Cookbook</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.fad675c6.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.2a3383ac.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.356b1318.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -43,32 +40,31 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&amp;display=fallback">
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
       
     
     
       <link rel="stylesheet" href="../../../assets/extra.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
     
-   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
             .gscrollbar-fixer { padding-right: 15px; }
             .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
   
   
     
@@ -80,9 +76,6 @@
     
     <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="orange">
   
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -113,7 +106,7 @@
     </a>
     <label class="md-header__button md-icon" for="__drawer">
       
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -125,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              FPC & Lazarus Packages
+              FPC &amp; Lazarus Packages
             
           </span>
         </div>
@@ -138,20 +131,20 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="orange" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="orange" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
   
@@ -159,27 +152,32 @@
       
     
     
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
-      <label class="md-header__button md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
         
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
         
         <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
         </button>
       </nav>
       
@@ -187,7 +185,7 @@
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
@@ -198,6 +196,7 @@
     </div>
   </div>
 </div>
+      
     
     
   </nav>
@@ -212,11 +211,13 @@
   
   
   
+  
     
     
       <li class="md-tabs__item">
         <a href="../../.." class="md-tabs__link">
           
+  
   
   Home
 
@@ -230,11 +231,13 @@
   
   
   
+  
     
     
       <li class="md-tabs__item">
         <a href="../../basics/intro-objpas-fpc/" class="md-tabs__link">
           
+  
   
   Basics
 
@@ -248,11 +251,13 @@
   
   
   
+  
     
     
       <li class="md-tabs__item">
         <a href="../../core-tasks/overview/" class="md-tabs__link">
           
+  
   
   Core Tasks
 
@@ -266,11 +271,13 @@
   
   
   
+  
     
     
       <li class="md-tabs__item">
         <a href="../../advanced/overview/" class="md-tabs__link">
           
+  
   
   Advanced Topics
 
@@ -284,11 +291,13 @@
   
   
   
+  
     
     
       <li class="md-tabs__item">
         <a href="../../external-systems/overview/" class="md-tabs__link">
           
+  
   
   External Systems
 
@@ -302,9 +311,11 @@
   
   
   
+  
     <li class="md-tabs__item">
       <a href="../../../community/" class="md-tabs__link">
         
+  
   
     
   
@@ -318,6 +329,7 @@
         
   
   
+  
     
   
   
@@ -326,6 +338,7 @@
       <li class="md-tabs__item md-tabs__item--active">
         <a href="../docs-sites/" class="md-tabs__link">
           
+  
   
   Resources
 
@@ -352,7 +365,7 @@
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -383,23 +396,26 @@
     
     
     
+      
+      
+        
+      
     
-      
-      
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1">
         
           
-          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
             
+  
   
   <span class="md-ellipsis">
     Home
+    
   </span>
   
 
@@ -423,8 +439,10 @@
       <a href="../../.." class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Overview
+    
   </span>
   
 
@@ -444,8 +462,10 @@
       <a href="../../../about/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     About
+    
   </span>
   
 
@@ -465,8 +485,10 @@
       <a href="../../../LICENSE/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     License
+    
   </span>
   
 
@@ -493,23 +515,26 @@
     
     
     
+      
+      
+        
+      
     
-      
-      
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
+  
   
   <span class="md-ellipsis">
     Basics
+    
   </span>
   
 
@@ -533,8 +558,10 @@
       <a href="../../basics/intro-objpas-fpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Intro to Free Pascal
+    
   </span>
   
 
@@ -554,8 +581,10 @@
       <a href="../../basics/common-data-types/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Common Data Types
+    
   </span>
   
 
@@ -575,8 +604,10 @@
       <a href="../../basics/install/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
-    Setup FPC & Lazarus IDE
+    Setup FPC &amp; Lazarus IDE
+    
   </span>
   
 
@@ -596,8 +627,10 @@
       <a href="../../basics/basic-hello-world/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Running a 'Hello, World!'
+    
   </span>
   
 
@@ -624,23 +657,26 @@
     
     
     
+      
+      
+        
+      
     
-      
-      
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
+  
   
   <span class="md-ellipsis">
     Core Tasks
+    
   </span>
   
 
@@ -664,8 +700,10 @@
       <a href="../../core-tasks/overview/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Overview
+    
   </span>
   
 
@@ -685,8 +723,10 @@
       <a href="../../core-tasks/lazarus-ide/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Lazarus IDE
+    
   </span>
   
 
@@ -706,8 +746,10 @@
       <a href="../../core-tasks/code-structure/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Code Structure
+    
   </span>
   
 
@@ -727,8 +769,10 @@
       <a href="../../core-tasks/cmd-line-params/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Command Line Parameters
+    
   </span>
   
 
@@ -748,8 +792,10 @@
       <a href="../../core-tasks/funcs-procs/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
-    Functions & Procedures
+    Functions &amp; Procedures
+    
   </span>
   
 
@@ -769,8 +815,10 @@
       <a href="../../core-tasks/immutability/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Immutability
+    
   </span>
   
 
@@ -790,8 +838,10 @@
       <a href="../../core-tasks/loops/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Loops
+    
   </span>
   
 
@@ -811,8 +861,10 @@
       <a href="../../core-tasks/arrays/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Arrays
+    
   </span>
   
 
@@ -832,8 +884,10 @@
       <a href="../../core-tasks/lists/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Lists
+    
   </span>
   
 
@@ -853,8 +907,10 @@
       <a href="../../core-tasks/strings/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Strings
+    
   </span>
   
 
@@ -874,8 +930,10 @@
       <a href="../../core-tasks/numbers/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Numbers
+    
   </span>
   
 
@@ -895,8 +953,10 @@
       <a href="../../core-tasks/dates/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
-    Dates & Times
+    Dates &amp; Times
+    
   </span>
   
 
@@ -916,8 +976,10 @@
       <a href="../../core-tasks/regex/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Regular Expressions
+    
   </span>
   
 
@@ -937,8 +999,10 @@
       <a href="../../core-tasks/dir-path-filename/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Directories, Paths and Files
+    
   </span>
   
 
@@ -958,8 +1022,10 @@
       <a href="../../core-tasks/exception-try-blocks/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Exceptions
+    
   </span>
   
 
@@ -979,8 +1045,10 @@
       <a href="../../core-tasks/file-handling/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     File Handling I
+    
   </span>
   
 
@@ -1000,8 +1068,10 @@
       <a href="../../core-tasks/file-handling-ii/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     File Handling II
+    
   </span>
   
 
@@ -1021,8 +1091,10 @@
       <a href="../../core-tasks/zip-and-unzip/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Zip and Unzip
+    
   </span>
   
 
@@ -1049,23 +1121,26 @@
     
     
     
+      
+      
+        
+      
     
-      
-      
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
+  
   
   <span class="md-ellipsis">
     Advanced Topics
+    
   </span>
   
 
@@ -1089,8 +1164,10 @@
       <a href="../../advanced/overview/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Overview
+    
   </span>
   
 
@@ -1110,8 +1187,10 @@
       <a href="../../advanced/lmath/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Math with LMath
+    
   </span>
   
 
@@ -1131,8 +1210,10 @@
       <a href="../../advanced/numlib-summary/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Numerical - NumLib | Summary
+    
   </span>
   
 
@@ -1152,8 +1233,10 @@
       <a href="../../advanced/numlib/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Numerical - NumLib | Examples
+    
   </span>
   
 
@@ -1173,8 +1256,10 @@
       <a href="../../advanced/conditional-compilation/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Conditional Compilation
+    
   </span>
   
 
@@ -1194,8 +1279,10 @@
       <a href="../../advanced/debugging/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Debugging with Lazarus IDE
+    
   </span>
   
 
@@ -1215,8 +1302,10 @@
       <a href="../../advanced/find-heap-memory-leaks/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Find Heap Memory Leaks
+    
   </span>
   
 
@@ -1236,8 +1325,10 @@
       <a href="../../advanced/multi-threading-basics/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Multi-threading - Basics
+    
   </span>
   
 
@@ -1257,8 +1348,10 @@
       <a href="../../advanced/multi-threading-tthread-i-intro/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     TThread - Pt 1. Intro
+    
   </span>
   
 
@@ -1278,8 +1371,10 @@
       <a href="../../advanced/multi-threading-tthread-ii-cs/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     TThread - Pt 2. Critical Section
+    
   </span>
   
 
@@ -1299,8 +1394,10 @@
       <a href="../../advanced/multi-threading-tthread-iii-snippets/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     TThread - Pt 3. Snippets
+    
   </span>
   
 
@@ -1320,8 +1417,10 @@
       <a href="../../advanced/ezthreads/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Using ezthreads
+    
   </span>
   
 
@@ -1341,8 +1440,10 @@
       <a href="../../advanced/fpc-switches/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     FPC Switches
+    
   </span>
   
 
@@ -1369,23 +1470,26 @@
     
     
     
+      
+      
+        
+      
     
-      
-      
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
+  
   
   <span class="md-ellipsis">
     External Systems
+    
   </span>
   
 
@@ -1409,8 +1513,10 @@
       <a href="../../external-systems/overview/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Overview
+    
   </span>
   
 
@@ -1430,8 +1536,10 @@
       <a href="../../external-systems/parsing-json/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Parsing JSON
+    
   </span>
   
 
@@ -1451,8 +1559,10 @@
       <a href="../../external-systems/webserver/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Web Server
+    
   </span>
   
 
@@ -1479,8 +1589,10 @@
       <a href="../../../community/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Community
+    
   </span>
   
 
@@ -1501,13 +1613,17 @@
     
     
     
+      
+        
+        
+      
+      
+        
+      
     
-      
-      
     
     <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
@@ -1516,8 +1632,10 @@
           <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
             
   
+  
   <span class="md-ellipsis">
     Resources
+    
   </span>
   
 
@@ -1541,8 +1659,10 @@
       <a href="../docs-sites/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
-    Documents & Sites
+    Documents &amp; Sites
+    
   </span>
   
 
@@ -1571,8 +1691,10 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
+  
   <span class="md-ellipsis">
-    FPC & Lazarus Packages
+    FPC &amp; Lazarus Packages
+    
   </span>
   
 
@@ -1582,8 +1704,10 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
+  
   <span class="md-ellipsis">
-    FPC & Lazarus Packages
+    FPC &amp; Lazarus Packages
+    
   </span>
   
 
@@ -1638,7 +1762,7 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="FPC & Lazarus Packages">
+    <nav class="md-nav" aria-label="FPC &amp; Lazarus Packages">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1755,8 +1879,10 @@
       <a href="../videos/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Videos
+    
   </span>
   
 
@@ -1781,7 +1907,7 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -1833,7 +1959,7 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="FPC & Lazarus Packages">
+    <nav class="md-nav" aria-label="FPC &amp; Lazarus Packages">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1946,8 +2072,9 @@
                   
 
 
-<h1 id="packages">Packages<a class="headerlink" href="#packages" title="Permanent link">&para;</a></h1>
-<h2 id="what-are-packages">What are Packages?<a class="headerlink" href="#what-are-packages" title="Permanent link">&para;</a></h2>
+
+<h1 id="packages">Packages<a class="headerlink" href="#packages" title="Permanent link">¶</a></h1>
+<h2 id="what-are-packages">What are Packages?<a class="headerlink" href="#what-are-packages" title="Permanent link">¶</a></h2>
 <p>Basically, packages are add-ons you can install to add or modify functionalities of your programs or the Lazarus IDE.</p>
 <p>There are various kinds of packages for Free Pascal &amp; Lazarus IDE. The following is a summary from <a href="https://wiki.freepascal.org/packages(disambiguation)">https://wiki.freepascal.org/packages(disambiguation)</a></p>
 <blockquote>
@@ -1959,18 +2086,18 @@
 <li><a href="https://wiki.freepascal.org/Lazarus_Packages">Lazarus Designtime Packages</a> register themselves in the IDE, e.g. <strong>designtime</strong> editor components for the object inspector. These may contain runtime-only units.</li>
 </ul>
 </blockquote>
-<h2 id="package-managers">Package Managers<a class="headerlink" href="#package-managers" title="Permanent link">&para;</a></h2>
+<h2 id="package-managers">Package Managers<a class="headerlink" href="#package-managers" title="Permanent link">¶</a></h2>
 <ul>
 <li><strong>Online Package Manager</strong>(GUI) - <a href="https://wiki.freepascal.org/Online_Package_Manager">https://wiki.freepascal.org/Online_Package_Manager</a></li>
 <li><strong>fpcupdeluxe</strong>(GUI) - <a href="https://github.com/LongDirtyAnimAlf/fpcupdeluxe/releases">https://github.com/LongDirtyAnimAlf/fpcupdeluxe/releases</a></li>
 <li><strong>LazarusPackageManager</strong>(CLI) - <a href="https://github.com/Warfley/LazarusPackageManager">https://github.com/Warfley/LazarusPackageManager</a></li>
 </ul>
-<h2 id="a-lib-i-need-is-not-in-my-fav-package-manager-what-can-i-do">A lib I need is not in my fav package manager, what can I do?<a class="headerlink" href="#a-lib-i-need-is-not-in-my-fav-package-manager-what-can-i-do" title="Permanent link">&para;</a></h2>
+<h2 id="a-lib-i-need-is-not-in-my-fav-package-manager-what-can-i-do">A lib I need is not in my fav package manager, what can I do?<a class="headerlink" href="#a-lib-i-need-is-not-in-my-fav-package-manager-what-can-i-do" title="Permanent link">¶</a></h2>
 <ol>
 <li>Contact the package manager maintaners to add, or</li>
 <li>Download the lib and get FPC (via Lazarus GUI) to include the location of your downloaded lib.</li>
 </ol>
-<h2 id="fpc-lazarus-packages">FPC &amp; Lazarus Packages<a class="headerlink" href="#fpc-lazarus-packages" title="Permanent link">&para;</a></h2>
+<h2 id="fpc-lazarus-packages">FPC &amp; Lazarus Packages<a class="headerlink" href="#fpc-lazarus-packages" title="Permanent link">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>I only listed packages that are relevant for my projects and works with Free Pascal and Lazarus IDE. </p>
@@ -1985,26 +2112,26 @@
 <li>Check the forums and discord channel too.</li>
 </ul>
 </div>
-<h3 id="lgenerics-by-avk"><a href="https://github.com/avk959/LGenerics">LGenerics by avk</a><a class="headerlink" href="#lgenerics-by-avk" title="Permanent link">&para;</a></h3>
+<h3 id="lgenerics-by-avk"><a href="https://github.com/avk959/LGenerics">LGenerics by avk</a><a class="headerlink" href="#lgenerics-by-avk" title="Permanent link">¶</a></h3>
 <p><code>#generics</code></p>
 <p>A Generics library with tons of goodies by <a href="https://github.com/avk959">A.Koverdyaev(avk)</a>.</p>
-<h3 id="arrayhelper-by-willi-commer"><a href="https://github.com/WilliCommer/ArrayHelper">ArrayHelper by Willi Commer</a><a class="headerlink" href="#arrayhelper-by-willi-commer" title="Permanent link">&para;</a></h3>
+<h3 id="arrayhelper-by-willi-commer"><a href="https://github.com/WilliCommer/ArrayHelper">ArrayHelper by Willi Commer</a><a class="headerlink" href="#arrayhelper-by-willi-commer" title="Permanent link">¶</a></h3>
 <p><code>#array-helper</code></p>
 <p>Delphi class helper for TArray with functions like Add, Delete, IndexOf, Map, etc. Includes examples and testing. Extends TArray with functions similar to TList or TStrings for easier memory management. Introduces TArrayRecord to use dynamic arrays like objects without the need for a final Free call.</p>
-<h3 id="ezthreads"><a href="https://github.com/mr-highball/ezthreads">ezthreads</a><a class="headerlink" href="#ezthreads" title="Permanent link">&para;</a></h3>
+<h3 id="ezthreads"><a href="https://github.com/mr-highball/ezthreads">ezthreads</a><a class="headerlink" href="#ezthreads" title="Permanent link">¶</a></h3>
 <p>a simple and safe way to work with threads</p>
 <p>To request features or report a bug, open a github issue with details/steps to reproduce.</p>
 <p>General questions can be asked in Discussions</p>
-<h3 id="indy"><a href="https://github.com/IndySockets/Indy">Indy</a><a class="headerlink" href="#indy" title="Permanent link">&para;</a></h3>
+<h3 id="indy"><a href="https://github.com/IndySockets/Indy">Indy</a><a class="headerlink" href="#indy" title="Permanent link">¶</a></h3>
 <p><code>#network</code></p>
 <p>Indy -- Internet Direct -- is a well-known internet component suite for Delphi, C++Builder, and Free Pascal providing both low-level support (TCP, UDP, raw sockets) and over a 120 higher level protocols (SMTP, POP3, NNT, HTTP, FTP) for building both client and server applications.</p>
-<h3 id="zeoslib"><a href="https://sourceforge.net/projects/zeoslib/">ZeosLib</a><a class="headerlink" href="#zeoslib" title="Permanent link">&para;</a></h3>
+<h3 id="zeoslib"><a href="https://sourceforge.net/projects/zeoslib/">ZeosLib</a><a class="headerlink" href="#zeoslib" title="Permanent link">¶</a></h3>
 <p><code>#lazarus</code> <code>#database</code></p>
 <p>The ZeosLib is a set of database components for MySQL, MariaDB, PostgreSQL, Interbase, Firebird, MS SQL Server, SAP Adaptive Server Enterprise and Adaptive Server Anywhere (previously Sybase), Oracle and SQLite for Delphi, FreePascal/Lazarus and C++ Builder.</p>
-<h3 id="mormot2"><a href="https://github.com/synopse/mORMot2">mORMot2</a><a class="headerlink" href="#mormot2" title="Permanent link">&para;</a></h3>
+<h3 id="mormot2"><a href="https://github.com/synopse/mORMot2">mORMot2</a><a class="headerlink" href="#mormot2" title="Permanent link">¶</a></h3>
 <p><code>#database</code></p>
 <p>Synopse mORMot 2 is an Open Source Client-Server ORM SOA MVC framework for Delphi 7 up to Delphi 11 Alexandria and FPC 3.2/trunk, targeting Windows/Linux/BSD/MacOS for servers, and any platform for clients (including mobile or AJAX).</p>
-<h3 id="fundamentals-5"><a href="https://github.com/fundamentalslib/fundamentals5">Fundamentals 5</a><a class="headerlink" href="#fundamentals-5" title="Permanent link">&para;</a></h3>
+<h3 id="fundamentals-5"><a href="https://github.com/fundamentalslib/fundamentals5">Fundamentals 5</a><a class="headerlink" href="#fundamentals-5" title="Permanent link">¶</a></h3>
 <p><code>#utils</code></p>
 <p>Fundamentals 5 is a library for Delphi and Free Pascal. This library can help with the following tasks.</p>
 <ul>
@@ -2030,10 +2157,10 @@
 <li>HTML Parser</li>
 <li>XML Parser</li>
 </ul>
-<h3 id="atsynedit"><a href="https://github.com/Alexey-T/ATSynEdit">ATSynEdit</a><a class="headerlink" href="#atsynedit" title="Permanent link">&para;</a></h3>
+<h3 id="atsynedit"><a href="https://github.com/Alexey-T/ATSynEdit">ATSynEdit</a><a class="headerlink" href="#atsynedit" title="Permanent link">¶</a></h3>
 <p><code>#lazarus</code> <code>#visual-component</code></p>
 <p><strong>ATSynEdit</strong> is Multi-line editor control for Lazarus, which was made by Alexey Torgashin as an alternative to SynEdit. It is not based on SynEdit, it has totally different structure.</p>
-<h3 id="libraries-by-benjamin-rosseaux-bero1985"><a href="https://github.com/BeRo1985">Libraries by Benjamin Rosseaux (Bero1985)</a><a class="headerlink" href="#libraries-by-benjamin-rosseaux-bero1985" title="Permanent link">&para;</a></h3>
+<h3 id="libraries-by-benjamin-rosseaux-bero1985"><a href="https://github.com/BeRo1985">Libraries by Benjamin Rosseaux (Bero1985)</a><a class="headerlink" href="#libraries-by-benjamin-rosseaux-bero1985" title="Permanent link">¶</a></h3>
 <p>A collection of useful libraries in Object Pascal by <a href="https://www.rosseaux.net">Benjamin Rosseaux</a>.</p>
 <ul>
 <li><strong><a href="https://github.com/BeRo1985/pasmp">PasMP</a></strong>: A parallel-processing library to enhance performance in multi-core processor environments.</li>
@@ -2043,7 +2170,7 @@
 <li>And others.</li>
 </ul>
 <p>See the full list on <a href="https://github.com/BeRo1985?tab=repositories">BeRo1985's Github page</a>.</p>
-<h3 id="libraries-by-benito-van-der-zander-benibella">Libraries by <a href="https://github.com/benibela?tab=repositories">Benito van der Zander (benibella)</a><a class="headerlink" href="#libraries-by-benito-van-der-zander-benibella" title="Permanent link">&para;</a></h3>
+<h3 id="libraries-by-benito-van-der-zander-benibella">Libraries by <a href="https://github.com/benibela?tab=repositories">Benito van der Zander (benibella)</a><a class="headerlink" href="#libraries-by-benito-van-der-zander-benibella" title="Permanent link">¶</a></h3>
 <ul>
 <li>
 <p><strong><a href="https://github.com/benibela/internettools">Internet Tools</a></strong>: This package provides standard conformant XPath 2.0, XQuery 1.0 and XPath/XQuery 3.0 interpreters with extensions for - among others - JSONiq, pattern matching, CSS and HTML; as well as functions to perform HTTP/S requests on Windows/Linux/MacOSX/Android, an XSLT-inspired webscraping language, and an auto update class. See the <a href="http://www.benibela.de/documentation/internettools/">internettools documentation</a> or a <a href="http://www.benibela.de/sources_en.html#internettools">short overview</a>.</p>
@@ -2083,16 +2210,24 @@ This unit provides an arbitrary precision BCD float number type. The usecase is 
 
 
 
+
+
+
+
+
+
+
                 
               </article>
             </div>
           
           
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
   Back to top
 </button>
         
@@ -2124,10 +2259,12 @@ This unit provides an arbitrary precision BCD float number type. The usecase is 
       <div class="md-progress" data-md-component="progress" role="progressbar"></div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.path", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.path", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.cd18aaf1.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
         <script src="../../../javascripts/mathjax.js"></script>
       
@@ -2138,5 +2275,7 @@ This unit provides an arbitrary precision BCD float number type. The usecase is 
         <script src="../../../js/open_in_new_tab.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
-</html>
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
