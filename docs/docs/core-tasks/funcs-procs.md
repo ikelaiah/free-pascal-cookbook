@@ -1,4 +1,4 @@
-# Functions and Procedure
+# Functions and Procedures
 
 
 ## Can a routine receive a pointer to the passed variable?

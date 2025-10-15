@@ -1,4 +1,4 @@
-# Structuring Your Codes
+# Structuring Your Code
 
 ## Structure of a Pascal Program
 

@@ -3,7 +3,7 @@
 ## Change the header style of the panels
 
 1. Go to **Tool -> Options ...**.
-2. Click on **Docking/Achordocking** item on the left side and set a **Header Style** (see the screenshot below).
+2. Click on **Docking/AnchorDocking** item on the left side and set a **Header Style** (see the screenshot below).
 
 ![IDEOption-DockingHeaderStyle](../../assets/lazarus-ide-docking-header-01.png)
 

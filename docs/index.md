@@ -85,7 +85,7 @@ You need the **Free Pascal Compiler (FPC)** to run the snippets locally on your 
     - Alternatively, get [the fpcupdeluxe](https://github.com/LongDirtyAnimAlf/fpcupdeluxe/releases) for your OS, and only install the Free Pascal Compiler. 
 
 
-**Latest release**: FPC **3.3.2**, Lazarus IDE **3.6**.
+**Latest release**: FPC **3.2.2**, Lazarus IDE **3.6**.
 
 ## Code Repos
 
