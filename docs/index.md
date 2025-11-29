@@ -4,9 +4,11 @@
 
 Welcome to my Free Pascal Cookbook!
 
-You'll find useful snippets and study notes for Object Pascal using the [Free Pascal Compiler (FPC)](https://www.freepascal.org) and [Lazarus IDE](https://www.lazarus-ide.org)—perfect for saving time and making your coding journey smoother!
+This is a collection of **practical examples and tutorials** for learning Object Pascal with the [Free Pascal Compiler (FPC)](https://www.freepascal.org) and [Lazarus IDE](https://www.lazarus-ide.org). Whether you're just starting out or you're picking up a new language, you'll find clear explanations and code you can try right away.
 
-If you're seeking tutorials and in-depth technical discussions, don't miss [Resources](docs/resources/docs-sites.md). 
+**New to Free Pascal?** Start with [Hello, World!](docs/docs/basics/basic-hello-world.md) and then explore [common data types](docs/docs/basics/common-data-types.md).
+
+For more tutorials and links, check out [Resources](docs/resources/docs-sites.md).
 
 
 
@@ -18,45 +20,45 @@ If you're seeking tutorials and in-depth technical discussions, don't miss [Reso
 <div class="container">
         <div class="card">
             <div class="card-content">
-                <h3 class="card-title"><b>Productive</b></h3>
-                <p class="card-description">Build apps quickly using visual tools and straightforward event handling.</p>
+                <h3 class="card-title"><b>Quick to Build</b></h3>
+                <p class="card-description">Build working programs fast with visual tools and built-in helpers.</p>
             </div>
         </div>
         <div class="card">
             <div class="card-content">
-                <h3 class="card-title"><b>Cross-Platform</b></h3>
-                <p class="card-description">Write code once and run it on Windows, macOS, Linux, and more!</p>
+                <h3 class="card-title"><b>Works Everywhere</b></h3>
+                <p class="card-description">Write your code once, then run it on Windows, Mac, Linux, and more!</p>
             </div>
         </div>
         <div class="card">
             <div class="card-content">
-                <h3 class="card-title"><b>Readable</b></h3>
-                <p class="card-description">Easy-to-understand code that helps you find and fix mistakes quickly.</p>
+                <h3 class="card-title"><b>Easy to Read</b></h3>
+                <p class="card-description">The code reads like English, so it's easier to understand and fix mistakes.</p>
             </div>
         </div>
         <div class="card">
             <div class="card-content">
-                <h3 class="card-title"><b>Native & Fast</b></h3>
-                <p class="card-description">Programs compile directly to machine code, making them run super fast.</p>
+                <h3 class="card-title"><b>Super Fast</b></h3>
+                <p class="card-description">Your programs run really fast because they're compiled, not slowed down by interpretation.</p>
             </div>
         </div>
         <div class="card">
             <div class="card-content">
-                <h3 class="card-title"><b>Stable & Modern</b></h3>
-                <p class="card-description">Reliable for big projects and supports cool new programming features.</p>
+                <h3 class="card-title"><b>Reliable & Modern</b></h3>
+                <p class="card-description">Used by professionals for serious projects. Plus it has modern features you'll want to learn.</p>
             </div>
         </div>
         <div class="card">
             <div class="card-content">
-                <h3 class="card-title"><b>Rich Ecosystem</b></h3>
-                <p class="card-description">Lots of ready-to-use components and great for working with databases.</p>
+                <h3 class="card-title"><b>Lots of Tools</b></h3>
+                <p class="card-description">Pre-made pieces you can use and helpful libraries for building different types of programs.</p>
             </div>
         </div>
     </div>
 
 ## Official Documentation
 
-Want to dive deeper? The official documentation is a great resource. Here are some starting points:
+Once you've learned the basics here, the official guides have everything else you need. Don't worry if they look long at first—this cookbook will help you understand them!
 
 **Free Pascal Compiler (FPC)**
 
@@ -72,41 +74,41 @@ Want to dive deeper? The official documentation is a great resource. Here are so
 
 ## Installation
 
-You need the **Free Pascal Compiler (FPC)** to run the snippets locally on your machine.
+To try the code examples on your computer, you need the **Free Pascal Compiler (FPC)**.
 
-=== "FPC and Lazarus IDE" 
+**Not sure which to choose?** Most beginners should pick **FPC and Lazarus IDE** because Lazarus has a visual editor that makes coding easier.
 
-    - Download [the Lazarus IDE installer](https://www.lazarus-ide.org/index.php?page=downloads) for your platform to install both FPC and Lazarus IDE.
-    - Alternatively, get [the fpcupdeluxe](https://github.com/LongDirtyAnimAlf/fpcupdeluxe/releases) for your OS.
+=== "FPC and Lazarus IDE (Recommended)"
+
+    - Download [the Lazarus IDE installer](https://www.lazarus-ide.org/index.php?page=downloads) for your computer.
+    - This installs both FPC and Lazarus IDE together.
 
 === "FPC Only"
 
-    - Download [the FPC installer](https://www.freepascal.org/download.html) for your platform.
-    - Alternatively, get [the fpcupdeluxe](https://github.com/LongDirtyAnimAlf/fpcupdeluxe/releases) for your OS, and only install the Free Pascal Compiler. 
+    - Download [the FPC installer](https://www.freepascal.org/download.html) for your computer.
+    - Use this if you prefer to use a text editor like VS Code instead of Lazarus IDE.
 
 
-**Latest release**: FPC **3.2.2**, Lazarus IDE **3.6**.
+**We tested with**: FPC **3.2.2** and Lazarus IDE **3.6**.
 
-## Code Repos
+## Want to Explore More?
 
-Curious where the magic happens? You can explore the source code for Free Pascal and Lazarus:
+As you get more comfortable with Free Pascal, you might want to see how Free Pascal and Lazarus are actually built. Here are the main projects:
 
-- The repo of the Free Pascal Compiler: [FPC - Gitlab](https://gitlab.com/freepascal.org/fpc)
-- The repo of the Lazarus IDE: [Lazarus IDE - Gitlab](https://gitlab.com/freepascal.org/lazarus)
-- The repo of the snippets: [https://github.com/ikelaiah/free-pascal-snippets](https://github.com/ikelaiah/free-pascal-snippets).
+- **Free Pascal Compiler**: [FPC on GitLab](https://gitlab.com/freepascal.org/fpc)
+- **Lazarus IDE**: [Lazarus on GitLab](https://gitlab.com/freepascal.org/lazarus)
+- **Code snippets from this site**: [free-pascal-snippets on GitHub](https://github.com/ikelaiah/free-pascal-snippets)
 
-## Acknowledgments
+## Thanks to the Community
 
-- The FPC devs for sharing the joy of Object Pascal.
-- The Lazarus IDE devs for making such an amazing IDE.
-- The dedicated people behind various units/modules in OPM.
-- The kind and helpful individuals on various online platforms such as;
+Built with help from the amazing Free Pascal and Lazarus community. Here are some great places to ask questions and learn:
 
-    - [Unofficial Free Pascal discord server](https://discord.com/channels/570025060312547359/570091337173696513).
-    - [Free Pascal & Lazarus forum](https://forum.lazarus.freepascal.org/index.php).
-    - [Tweaking4All Delphi, Lazarus, Free Pascal forum](https://www.tweaking4all.com/forum/delphi-lazarus-free-pascal/).
-    - [Laz Planet - Blogspot](https://lazplanet.blogspot.com) / [Laz Planet - GitLab](https://lazplanet.gitlab.io).
-    - [Delphi Basics](https://www.delphibasics.co.uk/index.html).
+- [Unofficial Free Pascal Discord](https://discord.com/channels/570025060312547359/570091337173696513) - Real-time chat with the community
+- [Free Pascal & Lazarus Forum](https://forum.lazarus.freepascal.org/) - The official discussion forum
+- [Tweaking4All Forums](https://www.tweaking4all.com/forum/delphi-lazarus-free-pascal/) - Active community with lots of helpful discussions
+- [Laz Planet](https://lazplanet.blogspot.com) - Great blog with tutorials and tips
+- [Delphi Basics](https://www.delphibasics.co.uk/index.html) - Reference for Object Pascal basics
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/freepascal) - Tag your questions with `freepascal`
 
 !!! note
 
