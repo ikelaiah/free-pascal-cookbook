@@ -759,6 +759,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#macos-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      macOS CLI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#linux-cli" class="md-nav__link">
     <span class="md-ellipsis">
       Linux CLI
@@ -1973,6 +1982,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#macos-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      macOS CLI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#linux-cli" class="md-nav__link">
     <span class="md-ellipsis">
       Linux CLI
@@ -2088,15 +2106,15 @@
 <h3 id="compile-run">Compile &amp; Run<a class="headerlink" href="#compile-run" title="Permanent link">¶</a></h3>
 <p>Press <span class="keys"><kbd class="key-f9">F9</kbd></span> to compile and run the program.</p>
 <p>You should be able to see a console window open with <code>Hello, World!</code> displayed.</p>
-<p>Lazarus IDE: Press the <span class="keys"><kbd class="key-enter">Enter</kbd></span> key to exit the program, which also closes the console.</p>
+<p>Lazarus IDE: Press the <span class="keys"><kbd class="key-enter">Enter</kbd></span> key to exit the program and close the console.</p>
 <h2 id="using-the-cli">Using the CLI<a class="headerlink" href="#using-the-cli" title="Permanent link">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This section assumes you have correctly set up the Free Pascal Compiler and the <code>fpc</code> is in your <code>PATH</code>. </p>
+<p>This section assumes you have correctly set up the Free Pascal Compiler and that <code>fpc</code> is in your <code>PATH</code>.</p>
 </div>
 <h3 id="create-a-pas-file-add-code">Create a <code>.pas</code> File &amp; Add Code<a class="headerlink" href="#create-a-pas-file-add-code" title="Permanent link">¶</a></h3>
 <ol>
-<li>Launch your favourite text editor.</li>
+<li>Launch your favourite text editor (e.g., Notepad, VS Code, Sublime Text, etc.).</li>
 <li>Create a new file and put the following snippet in it.</li>
 </ol>
 <div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
@@ -2116,6 +2134,10 @@
 <ol start="3">
 <li>Save it as <code>HelloWorld.pas</code>.</li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>.pas</code> is the standard file extension for Free Pascal source code. This tells the compiler it's a Pascal program.</p>
+</div>
 <h3 id="compile-run_1">Compile &amp; Run<a class="headerlink" href="#compile-run_1" title="Permanent link">¶</a></h3>
 <h4 id="windows-cli">Windows CLI<a class="headerlink" href="#windows-cli" title="Permanent link">¶</a></h4>
 <p>On Windows, compile and run as follows.</p>
@@ -2132,9 +2154,13 @@
 <li><strong>OmniPascal</strong>: For a more integrated VSCode experience, you might also look into <a href="https://www.omnipascal.com">OmniPascal</a>.</li>
 </ol>
 </div>
+<h4 id="macos-cli">macOS CLI<a class="headerlink" href="#macos-cli" title="Permanent link">¶</a></h4>
+<p>On macOS, compile and run as follows.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$<span class="w"> </span>fpc<span class="w"> </span>HelloWorld.pas<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./HelloWorld
+</span></code></pre></div>
 <h4 id="linux-cli">Linux CLI<a class="headerlink" href="#linux-cli" title="Permanent link">¶</a></h4>
 <p>On Linux, compile and run as follows.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$<span class="w"> </span>fpc<span class="w"> </span>HelloWorld.pas<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./HelloWorld
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$<span class="w"> </span>fpc<span class="w"> </span>HelloWorld.pas<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./HelloWorld
 </span></code></pre></div>
 
 

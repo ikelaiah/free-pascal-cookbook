@@ -633,9 +633,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#understanding-data-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Data Types
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#summary-table" class="md-nav__link">
     <span class="md-ellipsis">
       Summary Table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-which-type-should-i-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Reference: Which Type Should I Use?
     </span>
   </a>
   
@@ -2055,9 +2073,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#understanding-data-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Data Types
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#summary-table" class="md-nav__link">
     <span class="md-ellipsis">
       Summary Table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-which-type-should-i-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Reference: Which Type Should I Use?
     </span>
   </a>
   
@@ -2332,7 +2368,10 @@
 
 
 <h1 id="common-data-types-in-free-pascal">Common Data Types in Free Pascal<a class="headerlink" href="#common-data-types-in-free-pascal" title="Permanent link">¶</a></h1>
-<p>Here is a list of common data types in Free Pascal, along with a simple example.</p>
+<h2 id="understanding-data-types">Understanding Data Types<a class="headerlink" href="#understanding-data-types" title="Permanent link">¶</a></h2>
+<p>Every piece of data your program handles needs a type. A data type tells the compiler what kind of value you're storing—a whole number, a decimal, text, true/false, and so on. Different types use different amounts of memory and have different limitations.</p>
+<p><strong>Why do we need different types?</strong> Different types are designed for different purposes. A <code>Byte</code> uses 1 byte of memory and can store 0-255, perfect for small counts. An <code>Integer</code> uses 4 bytes and can store much larger numbers. If you only need to count up to 255, <code>Byte</code> is more efficient. For decimal numbers, you'd use <code>Single</code> or <code>Double</code> instead of integers.</p>
+<p>Here is a reference of common data types in Free Pascal, along with simple examples you can try yourself.</p>
 <p>See the official docs for more info; <a href="https://www.freepascal.org/docs-html/ref/refch3.html#x24-230003">Types</a>.</p>
 <h2 id="summary-table">Summary Table<a class="headerlink" href="#summary-table" title="Permanent link">¶</a></h2>
 <table>
@@ -2407,7 +2446,7 @@
 <tr>
 <td>Floating-Point</td>
 <td><code>Single</code></td>
-<td>Approx. ±1.5 x 10^−45 .. ±3.4 x 10^38 (7-8 significant digits)</td>
+<td>Approx. ±1.5 x 10^−45 .. ±3.4 x 10^38 (about 7 accurate decimal places)</td>
 </tr>
 <tr>
 <td>Floating-Point</td>
@@ -2417,7 +2456,7 @@
 <tr>
 <td>Floating-Point</td>
 <td><code>Double</code></td>
-<td>Approx. ±5.0 x 10^−324 .. ±1.7 x 10^308 (15-16 significant digits)</td>
+<td>Approx. ±5.0 x 10^−324 .. ±1.7 x 10^308 (about 15 accurate decimal places)</td>
 </tr>
 <tr>
 <td>Floating-Point</td>
@@ -2457,10 +2496,62 @@
 </tbody>
 </table>
 <p>The following examples are complete programs. You can copy, paste, and run them to see the data types in action. Remember to save files with a <code>.pas</code> extension.</p>
+<h2 id="quick-reference-which-type-should-i-use">Quick Reference: Which Type Should I Use?<a class="headerlink" href="#quick-reference-which-type-should-i-use" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th><strong>What you're storing</strong></th>
+<th><strong>Use this type</strong></th>
+<th><strong>Why</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Small whole numbers (0-255)</td>
+<td><code>Byte</code></td>
+<td>Uses less memory, fast</td>
+</tr>
+<tr>
+<td>Small whole numbers (negative or positive)</td>
+<td><code>ShortInt</code></td>
+<td>Uses 1 byte</td>
+</tr>
+<tr>
+<td>Normal whole numbers</td>
+<td><code>Integer</code></td>
+<td>Good for most situations</td>
+</tr>
+<tr>
+<td>Very large whole numbers</td>
+<td><code>Int64</code></td>
+<td>Up to 9 billion and beyond</td>
+</tr>
+<tr>
+<td>Decimal numbers (like 3.14)</td>
+<td><code>Double</code></td>
+<td>More accurate than <code>Single</code></td>
+</tr>
+<tr>
+<td>Text/words</td>
+<td><code>String</code></td>
+<td>Can store any text</td>
+</tr>
+<tr>
+<td>True or false only</td>
+<td><code>Boolean</code></td>
+<td>For yes/no decisions</td>
+</tr>
+</tbody>
+</table>
+<hr>
 <h2 id="integer-types">Integer Types<a class="headerlink" href="#integer-types" title="Permanent link">¶</a></h2>
+<p><strong>What are integers?</strong> Integers are whole numbers without decimals (like 5, -10, 1000). Different integer types can store different ranges of numbers and use different amounts of memory.</p>
+<p><strong>A note about "accurate decimal places"</strong>: When we say <code>Single</code> has "7 accurate decimal places," it means if you store a number like 3.1415926, you can reliably trust the first 7 digits. The 8<sup>th</sup> digit and beyond might not be exact. <code>Double</code> is more precise—it can reliably store about 15 decimal places.</p>
 <h3 id="byte">Byte<a class="headerlink" href="#byte" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Range:</strong> 0 .. 255</li>
+<li><strong>Range:</strong> 0 .. 255 (unsigned, meaning no negative numbers)</li>
+<li><strong>When to use:</strong> Ages, test scores (0-100), array indices, or any small positive count</li>
+<li><strong>Memory:</strong> 1 byte</li>
 <li><strong>Example:</strong></li>
 </ul>
 <div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
@@ -2485,7 +2576,9 @@
 </span></code></pre></div></td></tr></tbody></table></div>
 <h3 id="shortint">ShortInt<a class="headerlink" href="#shortint" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Range:</strong> -128 .. 127</li>
+<li><strong>Range:</strong> -128 .. 127 (signed, can be negative or positive)</li>
+<li><strong>When to use:</strong> Temperature readings, altitude differences, or small numbers that might be negative</li>
+<li><strong>Memory:</strong> 1 byte</li>
 <li><strong>Example:</strong></li>
 </ul>
 <div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
@@ -2536,6 +2629,8 @@
 <h3 id="integer">Integer<a class="headerlink" href="#integer" title="Permanent link">¶</a></h3>
 <ul>
 <li><strong>Range:</strong> Typically -2,147,483,648 .. 2,147,483,647 (32-bit signed)</li>
+<li><strong>When to use:</strong> Most everyday counting (user IDs, scores, populations). This is the "default" integer type and a good choice when you're unsure</li>
+<li><strong>Memory:</strong> 4 bytes</li>
 <li><strong>Example:</strong></li>
 </ul>
 <div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
@@ -2585,7 +2680,9 @@
 </span></code></pre></div></td></tr></tbody></table></div>
 <h3 id="int64">Int64<a class="headerlink" href="#int64" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Range:</strong> -9,223,372,036,854,775,808 .. 9,223,372,036,854,775,807 (64-bit signed)</li>
+<li><strong>Range:</strong> -9,223,372,036,854,775,808 .. 9,223,372,036,854,775,807 (64-bit signed—huge numbers!)</li>
+<li><strong>When to use:</strong> Very large numbers like national populations, file sizes in bytes, or milliseconds since a date</li>
+<li><strong>Memory:</strong> 8 bytes</li>
 <li><strong>Example:</strong></li>
 </ul>
 <div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
@@ -2747,7 +2844,10 @@
 </span></code></pre></div></td></tr></tbody></table></div>
 <h2 id="string">String<a class="headerlink" href="#string" title="Permanent link">¶</a></h2>
 <ul>
-<li><strong>Description:</strong> A sequence of characters. In modern Free Pascal, <code>String</code> is typically dynamic (like <code>AnsiString</code> or <code>UnicodeString</code> depending on compiler settings), meaning its length can change. The older <code>ShortString</code> type has a fixed maximum length of 255 characters.</li>
+<li><strong>Description:</strong> A sequence of characters (text). In modern Free Pascal, <code>String</code> is dynamic, meaning it grows and shrinks as needed. You can store "Hi" or "This is a very long sentence" in the same variable.</li>
+<li><strong>ShortString (old style):</strong> You might see <code>String[50]</code> in old code—this is a ShortString with a maximum of 50 characters. Avoid this in new code; use plain <code>String</code> instead.</li>
+<li><strong>When to use:</strong> Storing names, messages, user input—basically any text data</li>
+<li><strong>Memory:</strong> Dynamic (grows as needed)</li>
 <li><strong>Example:</strong></li>
 </ul>
 <div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
@@ -2773,9 +2873,13 @@
 </span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></tbody></table></div>
 <h2 id="floating-point-types">Floating-Point Types<a class="headerlink" href="#floating-point-types" title="Permanent link">¶</a></h2>
+<p><strong>What are floating-point numbers?</strong> These are numbers with decimals (like 3.14, -0.5, or 2.718). They're called "floating-point" because the decimal point can "float" to different positions. Important note: floating-point numbers are approximations, not exact values. Don't use them for money calculations unless you know what you're doing!</p>
 <h3 id="single">Single<a class="headerlink" href="#single" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Range:</strong> Approximately ±1.5 x 10^−45 .. ±3.4 x 10^38 (about 7-8 significant decimal digits)</li>
+<li><strong>Range:</strong> Approximately ±1.5 x 10^−45 .. ±3.4 x 10^38</li>
+<li><strong>Precision:</strong> About 7 accurate decimal places (e.g., 3.141592 is reliable, but the 8<sup>th</sup> digit might be wrong)</li>
+<li><strong>When to use:</strong> Graphics, physics simulations, or when memory matters more than perfect accuracy</li>
+<li><strong>Memory:</strong> 4 bytes</li>
 <li><strong>Example:</strong></li>
 </ul>
 <div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
@@ -2825,7 +2929,10 @@
 </span></code></pre></div></td></tr></tbody></table></div>
 <h3 id="double">Double<a class="headerlink" href="#double" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Range:</strong> Approximately ±5.0 x 10^−324 .. ±1.7 x 10^308 (about 15-16 significant decimal digits)</li>
+<li><strong>Range:</strong> Approximately ±5.0 x 10^−324 .. ±1.7 x 10^308</li>
+<li><strong>Precision:</strong> About 15 accurate decimal places (much better than <code>Single</code>)</li>
+<li><strong>When to use:</strong> Science, engineering, or any calculation where accuracy matters. <code>Double</code> is usually the best choice for decimal numbers</li>
+<li><strong>Memory:</strong> 8 bytes</li>
 <li><strong>Example:</strong></li>
 </ul>
 <div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
@@ -2850,7 +2957,9 @@
 </span></code></pre></div></td></tr></tbody></table></div>
 <h3 id="extended">Extended<a class="headerlink" href="#extended" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Description:</strong> Offers higher precision than <code>Double</code>. Its exact size and precision are platform-dependent (often 80-bit on x86 systems).</li>
+<li><strong>Description:</strong> Offers higher precision than <code>Double</code>. Its exact size is platform-dependent (often 80-bit on x86 systems). Use only if you need extreme precision.</li>
+<li><strong>When to use:</strong> Advanced scientific calculations requiring extreme precision</li>
+<li><strong>Memory:</strong> Platform-dependent (typically 10 bytes)</li>
 <li><strong>Example:</strong></li>
 </ul>
 <div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
@@ -2868,14 +2977,16 @@
 </span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="k">var</span>
 </span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="w">  </span><span class="n">e</span><span class="o">:</span><span class="w"> </span><span class="kt">Extended</span><span class="o">;</span>
 </span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="k">begin</span>
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="w">  </span><span class="n">e</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mf">1.234567890123456789E+4932</span><span class="o">;</span><span class="w"> </span><span class="c1">// Example of a very large number</span>
-</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Extended value: '</span><span class="o">,</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="w">  </span><span class="n">e</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mf">1.234567890123456789E+308</span><span class="o">;</span><span class="w"> </span><span class="c1">// Example with very high precision</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Extended value: '</span><span class="o">,</span><span class="w"> </span><span class="n">e</span><span class="o">:</span><span class="mi">0</span><span class="o">:</span><span class="mi">15</span><span class="p">)</span><span class="o">;</span><span class="w">  </span><span class="c1">// Format to show 15 decimal places</span>
 </span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="w">  </span><span class="nb">ReadLn</span><span class="o">;</span>
 </span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></tbody></table></div>
 <h2 id="enumerated-types">Enumerated Types<a class="headerlink" href="#enumerated-types" title="Permanent link">¶</a></h2>
 <ul>
 <li><strong>Description:</strong> A type where you define a set of named values. Internally, these are represented by integers (0, 1, 2,...).</li>
+<li><strong>When to use:</strong> When you have a fixed list of options (like colors, days of the week, or game states). Much clearer than using magic numbers!</li>
+<li><strong>Example use case:</strong> Instead of storing day as 1, 2, 3... (confusing), use an enum with names: Monday, Tuesday, Wednesday (clear and self-documenting)</li>
 <li><strong>Example:</strong></li>
 </ul>
 <div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
@@ -2922,7 +3033,12 @@
 </span></code></pre></div></td></tr></tbody></table></div>
 <h2 id="subrange-types">Subrange Types<a class="headerlink" href="#subrange-types" title="Permanent link">¶</a></h2>
 <ul>
-<li><strong>Description:</strong> A type that represents a subset of values from another ordinal type (like Integer or Char).</li>
+<li><strong>Description:</strong> A type that represents a subset of values from another ordinal type (like Integer or Char). For example, instead of allowing any Integer (which includes negatives), you might define a type that only allows 0-100.</li>
+<li><strong>When to use:</strong> When you want to limit a variable to a specific range. The compiler can catch errors if you try to assign invalid values!</li>
+<li><strong>Example use cases:</strong></li>
+<li>Test scores: 0..100 (not negative, not over 100)</li>
+<li>Month numbers: 1..12 (only 12 months)</li>
+<li>Grade letters: 'A'..'F' (only uppercase letters A through F)</li>
 <li><strong>Example:</strong></li>
 </ul>
 <div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1"> 1</a></span>
@@ -2986,7 +3102,7 @@
 </span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3"></a>
 </span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4"></a><span class="k">type</span>
 </span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5"></a><span class="w">  </span><span class="n">TPerson</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">record</span>
-</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6"></a><span class="w">    </span><span class="n">Name</span><span class="o">:</span><span class="w"> </span><span class="k">String</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span><span class="o">;</span><span class="w"> </span><span class="c1">// ShortString for simplicity in basic record</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6"></a><span class="w">    </span><span class="n">Name</span><span class="o">:</span><span class="w"> </span><span class="k">String</span><span class="o">;</span><span class="w">  </span><span class="c1">// Use modern dynamic String, not ShortString</span>
 </span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7"></a><span class="w">    </span><span class="n">Age</span><span class="o">:</span><span class="w"> </span><span class="kt">Integer</span><span class="o">;</span>
 </span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
 </span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9"></a><span class="k">var</span>
@@ -3001,6 +3117,7 @@
 <h2 id="advanced-records-with-methods">Advanced Records (with methods)<a class="headerlink" href="#advanced-records-with-methods" title="Permanent link">¶</a></h2>
 <ul>
 <li><strong>Description:</strong> Records in modern Object Pascal can also have methods (procedures and functions) associated with them, similar to objects.</li>
+<li><strong>Note:</strong> Advanced records require a special compiler directive to work (see below).</li>
 <li><strong>Example:</strong></li>
 </ul>
 <div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1"> 1</a></span>
@@ -3026,30 +3143,32 @@
 <span class="normal"><a href="#__codelineno-19-21">21</a></span>
 <span class="normal"><a href="#__codelineno-19-22">22</a></span>
 <span class="normal"><a href="#__codelineno-19-23">23</a></span>
-<span class="normal"><a href="#__codelineno-19-24">24</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="k">program</span><span class="w"> </span><span class="n">ExampleAdvancedRecord</span><span class="o">;</span>
+<span class="normal"><a href="#__codelineno-19-24">24</a></span>
+<span class="normal"><a href="#__codelineno-19-25">25</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="k">program</span><span class="w"> </span><span class="n">ExampleAdvancedRecord</span><span class="o">;</span>
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3"></a>
-</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4"></a><span class="k">type</span>
-</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="w">  </span><span class="n">TAdvPerson</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">record</span>
-</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6"></a><span class="w">    </span><span class="n">Name</span><span class="o">:</span><span class="w"> </span><span class="k">String</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span><span class="o">;</span>
-</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7"></a><span class="w">    </span><span class="n">Age</span><span class="o">:</span><span class="w"> </span><span class="kt">Integer</span><span class="o">;</span>
-</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8"></a><span class="w">    </span><span class="k">procedure</span><span class="w"> </span><span class="nf">DisplayInfo</span><span class="o">;</span><span class="w"> </span><span class="c1">// Method declaration</span>
-</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
-</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10"></a>
-</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11"></a><span class="c1">// Implementation of the method</span>
-</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12"></a><span class="k">procedure</span><span class="w"> </span><span class="nc">TAdvPerson</span><span class="o">.</span><span class="nf">DisplayInfo</span><span class="o">;</span>
-</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13"></a><span class="k">begin</span>
-</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="n">Name</span><span class="o">,</span><span class="w"> </span><span class="s">' is '</span><span class="o">,</span><span class="w"> </span><span class="n">Age</span><span class="o">,</span><span class="w"> </span><span class="s">' years old. (From record method)'</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15"></a><span class="k">end</span><span class="o">;</span>
-</span><span id="__span-19-16"><a id="__codelineno-19-16" name="__codelineno-19-16"></a>
-</span><span id="__span-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17"></a><span class="k">var</span>
-</span><span id="__span-19-18"><a id="__codelineno-19-18" name="__codelineno-19-18"></a><span class="w">  </span><span class="n">advPerson</span><span class="o">:</span><span class="w"> </span><span class="n">TAdvPerson</span><span class="o">;</span>
-</span><span id="__span-19-19"><a id="__codelineno-19-19" name="__codelineno-19-19"></a><span class="k">begin</span>
-</span><span id="__span-19-20"><a id="__codelineno-19-20" name="__codelineno-19-20"></a><span class="w">  </span><span class="n">advPerson</span><span class="o">.</span><span class="n">Name</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">'Bob The Builder'</span><span class="o">;</span>
-</span><span id="__span-19-21"><a id="__codelineno-19-21" name="__codelineno-19-21"></a><span class="w">  </span><span class="n">advPerson</span><span class="o">.</span><span class="n">Age</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">40</span><span class="o">;</span>
-</span><span id="__span-19-22"><a id="__codelineno-19-22" name="__codelineno-19-22"></a><span class="w">  </span><span class="n">advPerson</span><span class="o">.</span><span class="n">DisplayInfo</span><span class="o">;</span><span class="w"> </span><span class="c1">// Calling the method</span>
-</span><span id="__span-19-23"><a id="__codelineno-19-23" name="__codelineno-19-23"></a><span class="w">  </span><span class="nb">ReadLn</span><span class="o">;</span>
-</span><span id="__span-19-24"><a id="__codelineno-19-24" name="__codelineno-19-24"></a><span class="k">end</span><span class="o">.</span><span class="w">    </span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3"></a><span class="cm">{$modeswitch advancedrecords}</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4"></a>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="k">type</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6"></a><span class="w">  </span><span class="n">TAdvPerson</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">record</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7"></a><span class="w">    </span><span class="n">Name</span><span class="o">:</span><span class="w"> </span><span class="k">String</span><span class="o">;</span><span class="w">  </span><span class="c1">// Modern dynamic String</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8"></a><span class="w">    </span><span class="n">Age</span><span class="o">:</span><span class="w"> </span><span class="kt">Integer</span><span class="o">;</span>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9"></a><span class="w">    </span><span class="k">procedure</span><span class="w"> </span><span class="nf">DisplayInfo</span><span class="o">;</span><span class="w"> </span><span class="c1">// Method declaration</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11"></a>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12"></a><span class="c1">// Implementation of the method</span>
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13"></a><span class="k">procedure</span><span class="w"> </span><span class="nc">TAdvPerson</span><span class="o">.</span><span class="nf">DisplayInfo</span><span class="o">;</span>
+</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14"></a><span class="k">begin</span>
+</span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="n">Name</span><span class="o">,</span><span class="w"> </span><span class="s">' is '</span><span class="o">,</span><span class="w"> </span><span class="n">Age</span><span class="o">,</span><span class="w"> </span><span class="s">' years old. (From record method)'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-19-16"><a id="__codelineno-19-16" name="__codelineno-19-16"></a><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17"></a>
+</span><span id="__span-19-18"><a id="__codelineno-19-18" name="__codelineno-19-18"></a><span class="k">var</span>
+</span><span id="__span-19-19"><a id="__codelineno-19-19" name="__codelineno-19-19"></a><span class="w">  </span><span class="n">advPerson</span><span class="o">:</span><span class="w"> </span><span class="n">TAdvPerson</span><span class="o">;</span>
+</span><span id="__span-19-20"><a id="__codelineno-19-20" name="__codelineno-19-20"></a><span class="k">begin</span>
+</span><span id="__span-19-21"><a id="__codelineno-19-21" name="__codelineno-19-21"></a><span class="w">  </span><span class="n">advPerson</span><span class="o">.</span><span class="n">Name</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">'Bob The Builder'</span><span class="o">;</span>
+</span><span id="__span-19-22"><a id="__codelineno-19-22" name="__codelineno-19-22"></a><span class="w">  </span><span class="n">advPerson</span><span class="o">.</span><span class="n">Age</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">40</span><span class="o">;</span>
+</span><span id="__span-19-23"><a id="__codelineno-19-23" name="__codelineno-19-23"></a><span class="w">  </span><span class="n">advPerson</span><span class="o">.</span><span class="n">DisplayInfo</span><span class="o">;</span><span class="w"> </span><span class="c1">// Calling the method</span>
+</span><span id="__span-19-24"><a id="__codelineno-19-24" name="__codelineno-19-24"></a><span class="w">  </span><span class="nb">ReadLn</span><span class="o">;</span>
+</span><span id="__span-19-25"><a id="__codelineno-19-25" name="__codelineno-19-25"></a><span class="k">end</span><span class="o">.</span><span class="w">    </span>
 </span></code></pre></div></td></tr></tbody></table></div>
 <h2 id="arrays">Arrays<a class="headerlink" href="#arrays" title="Permanent link">¶</a></h2>
 <h3 id="static-array">Static Array<a class="headerlink" href="#static-array" title="Permanent link">¶</a></h3>
@@ -3151,8 +3270,13 @@
 </span><span id="__span-21-26"><a id="__codelineno-21-26" name="__codelineno-21-26"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></tbody></table></div>
 <h2 id="pointers">Pointers<a class="headerlink" href="#pointers" title="Permanent link">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">⚠️ Advanced Topic</p>
+<p>Pointers are an advanced feature. If you're new to programming, skip this section for now and come back to it later. Most modern code avoids pointers when possible—use dynamic arrays and classes instead.</p>
+</div>
 <ul>
 <li><strong>Description:</strong> A pointer holds the memory address of a variable. They are used for dynamic memory allocation and low-level programming. <code>^TypeName</code> declares a pointer to <code>TypeName</code>. <code>Pointer</code> is a generic pointer type.</li>
+<li><strong>When to use:</strong> Only when you need direct memory access or working with C libraries. Beginners should avoid!</li>
 <li><strong>Example:</strong></li>
 </ul>
 <div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1"> 1</a></span>
