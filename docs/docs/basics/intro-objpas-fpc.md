@@ -1,8 +1,12 @@
 # Intro to Object Pascal using FPC
 
-This page is my go-to guide to the key basics of Object Pascal with the [Free Pascal Compiler](https://www.freepascal.org). It's not a complete guide, but it’s got all the essentials to help you dive in and discover just how powerful Free Pascal can be!
+This page is my go-to guide to the key basics of Object Pascal with the [Free Pascal Compiler](https://www.freepascal.org). It's not a complete guide, but it's got all the essentials to help you dive in and discover just how powerful Free Pascal can be!
 
 Hope you find it helpful! 🚀
+
+!!! Note
+
+    **Prerequisite Knowledge**: This guide assumes you have a basic understanding of programming concepts such as variables, data types, and control flow. If you're completely new to programming, you may want to start with a general programming tutorial first.
 
 !!! Note
 
@@ -826,7 +830,7 @@ begin
 end.
 ```
 
-## 11.Math Operations
+## 11. Math Operations
 
 | Operator/Function     | Description                                                       |
 |-----------------------|-------------------------------------------------------------------|
@@ -2014,6 +2018,8 @@ end.
 
 ## 24. Generics
 
+**Why use this?** Generics allow you to write reusable code that works with different data types without duplication. For example, instead of writing separate functions for adding two integers, two real numbers, and two strings, you can write one generic function that works for all types. This reduces code duplication and makes maintenance easier.
+
 Generics allow you to write code that can work with different data types without having to rewrite the same code for each type.
 
 ### Generic Routines
@@ -2349,6 +2355,8 @@ end.
 
 ## 27. Interfaces
 
+**Why use this?** Interfaces define a "contract" that classes must follow. They're useful when you have multiple classes that should perform similar tasks but in different ways. For example, you might have a `IAnimal` interface that guarantees any animal can eat, sleep, and make a sound. Different animal classes (Dog, Cat, Bird) can implement this interface in their own way. Interfaces promote code reusability and flexibility.
+
 !!! Note
     By default, Free Pascal uses the Windows COM `IUnknown` interface type. This is important for compatibility with other systems, especially on Windows. For simpler, non-COM interfaces, you might see them declared without descending from `IUnknown` or `TInterfacedObject`, but this changes how memory management (like reference counting) works.
 
@@ -2450,8 +2458,10 @@ end.
 
 ## 28. Pointers
 
-> ... Avoid pointer whenever alternatives exist. If you want to learn, though, there's no silver bullet apart from: There has to be as many `Dispose` as `New`, period. 
-> 
+**Why use this?** Pointers are advanced features that let you directly work with computer memory addresses. Most of the time, you don't need them—modern programming practices prefer safer alternatives like classes, dynamic arrays, and interfaces. However, pointers are essential when you need to work with external libraries, manage memory very carefully, or interface with lower-level system code. **Most beginners should avoid pointers until they're comfortable with other Free Pascal features.**
+
+> ... Avoid pointer whenever alternatives exist. If you want to learn, though, there's no silver bullet apart from: There has to be as many `Dispose` as `New`, period.
+>
 > Source: [Leledumbo's reply on 'Dispose of Pointer', 2023-08-10](https://forum.lazarus.freepascal.org/index.php/topic,64238.msg487999.html#msg487999).
  
 **Example**
@@ -2498,5 +2508,85 @@ ptr := nil;
 ```
 
 5. **Be Cautious with Pointer Arithmetic**: Although not commonly needed in high-level Pascal programming, pointer arithmetic (e.g., incrementing pointers) should be done carefully to avoid accessing invalid memory areas.
- 
+
 More info? See [Pointers](https://www.freepascal.org/docs-html/ref/refse15.html#x42-620003.4) and [Memory Management](https://wiki.freepascal.org/Memory_Management).
+
+---
+
+## Glossary
+
+### Basic Programming Terms
+
+**Variable**: A named location in memory that stores a value. You declare variables to store data that your program will use.
+
+**Data Type**: Specifies what kind of data a variable can hold (e.g., integer for whole numbers, string for text, boolean for true/false values).
+
+**Constant**: A value that doesn't change during program execution. Unlike variables, you cannot modify a constant after it's declared.
+
+**Function**: A block of code that performs a specific task and returns a value as a result. Use functions when you need a value back.
+
+**Procedure**: Similar to a function, but it doesn't return a value. Use procedures when you just need to execute a series of statements without getting a result back.
+
+### Object-Oriented Programming Terms
+
+**Class**: A blueprint for creating objects. It defines what data (fields) an object can hold and what actions (methods) it can perform. Classes are used to model real-world entities in your code.
+
+**Object/Instance**: A specific copy of a class created at runtime. If a class is a blueprint, an object is the actual building made from that blueprint.
+
+**Constructor**: A special method that runs when you create an object. It sets up the initial state of the object. In Free Pascal, it's often called `Create`.
+
+**Destructor**: A special method that runs when an object is being destroyed/freed from memory. It cleans up resources the object was using.
+
+**Property**: A controlled way to access and modify data inside an object. Properties act like variables but allow you to run custom code when reading or writing the value.
+
+**Method**: A function or procedure that belongs to a class. It's a way for objects to perform actions.
+
+**Inheritance**: When one class (called the "child" or "derived" class) inherits features from another class (called the "parent" or "base" class). The child class automatically gets all the methods and fields of the parent.
+
+**Encapsulation**: The practice of hiding internal details of an object and only exposing what's necessary. This is done using access modifiers like `private`, `protected`, and `public`.
+
+**Access Modifiers**: Keywords that control who can access fields and methods:
+
+- `private`: Only the class itself can access it.
+- `protected`: The class and its descendants can access it.
+- `public`: Anyone can access it.
+
+### Advanced Programming Terms
+
+**Interface**: A contract or blueprint that defines what methods a class must have, without specifying *how* those methods work. Different classes can implement the same interface in their own ways.
+
+**Generic**: A way to write code that works with multiple data types. Instead of writing the same function for integers, strings, and real numbers, you write one generic function that adapts to the type you use it with.
+
+**Pointer**: A variable that stores a memory address instead of a direct value. It "points to" the location where data is stored. Advanced feature—most beginners should avoid.
+
+**Memory Address**: A location in your computer's memory where data is stored. Pointers hold these addresses.
+
+**Reference Counting**: An automatic memory management system where the system tracks how many references point to an object. When the count reaches zero, the object is automatically freed.
+
+**Anonymous Function**: A function without a name that's defined inline in your code. Useful for short, simple operations.
+
+### Free Pascal Specific Terms
+
+**Mode**: Refers to different compatibility modes in Free Pascal (e.g., `objfpc` mode for Object Pascal, `delphi` mode for Delphi compatibility). The mode determines which language features are available.
+
+**Compiler Directive**: A special instruction (starting with `$`) that tells the compiler how to behave. For example, `{$mode objfpc}` sets the compiler to Object Pascal mode.
+
+**Unit**: A module of code that can be reused in other programs. Units contain procedures, functions, types, and variables that you can use via the `uses` clause.
+
+**GUID (Globally Unique Identifier)**: A long unique string of numbers that identifies something worldwide. In Free Pascal interfaces, GUIDs ensure interfaces are uniquely identifiable, especially important for COM compatibility.
+
+**Dynamic Array**: An array whose size can change at runtime using `SetLength`. Unlike static arrays, you don't need to know the size when you declare it.
+
+**Static Array**: An array whose size is fixed at compile time and cannot change.
+
+**Enum (Enumerated Type)**: A custom data type where you define a set of named values. For example, you might create a `TColor` enum with values `Red`, `Green`, and `Blue`.
+
+**Subrange Type**: A type that limits values to a specific range. For example, a `TDayOfWeek` might only allow values 1-7.
+
+**Record**: A data structure that groups different types of data together. Unlike classes, records are simpler and don't have methods (unless advanced records are used).
+
+**Modeswitch**: A compiler directive that enables specific language features. For example, `{$modeswitch advancedrecords}` enables advanced record functionality.
+
+---
+
+**Happy coding!** 🚀 If you encounter unfamiliar terms while learning, come back to this glossary. As you progress, these concepts will become second nature.
