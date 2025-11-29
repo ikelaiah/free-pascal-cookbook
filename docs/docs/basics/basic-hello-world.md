@@ -76,17 +76,17 @@ Press ++f9++ to compile and run the program.
 
 You should be able to see a console window open with `Hello, World!` displayed.
 
-Lazarus IDE: Press the ++enter++ key to exit the program, which also closes the console.
+Lazarus IDE: Press the ++enter++ key to exit the program and close the console.
 
 
 ## Using the CLI
 
 !!! Note
-    This section assumes you have correctly set up the Free Pascal Compiler and the `fpc` is in your `PATH`. 
+    This section assumes you have correctly set up the Free Pascal Compiler and that `fpc` is in your `PATH`.
 
 ### Create a `.pas` File & Add Code
 
-1. Launch your favourite text editor.
+1. Launch your favourite text editor (e.g., Notepad, VS Code, Sublime Text, etc.).
 2. Create a new file and put the following snippet in it.
 
 ```pascal linenums="1"
@@ -100,6 +100,9 @@ end.
 ```
 
 3. Save it as `HelloWorld.pas`.
+
+!!! Note
+    `.pas` is the standard file extension for Free Pascal source code. This tells the compiler it's a Pascal program.
 
 ### Compile & Run
 
@@ -121,6 +124,14 @@ On Windows, compile and run as follows.
       3. **Lazarus IDE**: If CLI is tricky, using the [Lazarus IDE](https://www.lazarus-ide.org) (as shown above) is often easier for beginners.
       4. **VSCode/VSCodium Users**: If you're using [VSCode](https://code.visualstudio.com) or [VSCodium](https://vscodium.com), make sure the [Pascal extension by Alessandro Fragnani](https://marketplace.visualstudio.com/items?itemName=alefragnani.pascal) is set up correctly to find the compiler.
       5. **OmniPascal**: For a more integrated VSCode experience, you might also look into [OmniPascal](https://www.omnipascal.com).
+
+#### macOS CLI
+
+On macOS, compile and run as follows.
+
+```bash
+$ fpc HelloWorld.pas && ./HelloWorld
+```
 
 #### Linux CLI
 
