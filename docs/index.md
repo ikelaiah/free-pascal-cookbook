@@ -6,7 +6,7 @@ Welcome to my Free Pascal Cookbook!
 
 This is a collection of **practical examples and tutorials** for learning Object Pascal with the [Free Pascal Compiler (FPC)](https://www.freepascal.org) and [Lazarus IDE](https://www.lazarus-ide.org). Whether you're just starting out or you're picking up a new language, you'll find clear explanations and code you can try right away.
 
-**New to Free Pascal?** Start with [Hello, World!](docs/docs/basics/basic-hello-world.md) and then explore [common data types](docs/docs/basics/common-data-types.md).
+**New to Free Pascal?** Start with [Hello, World!](docs/basics/basic-hello-world.md) and then explore [common data types](docs/basics/common-data-types.md).
 
 For more tutorials and links, check out [Resources](docs/resources/docs-sites.md).
 

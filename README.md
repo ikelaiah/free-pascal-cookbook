@@ -87,11 +87,11 @@ Both are free and work on Windows, macOS, and Linux.
 
 New to Free Pascal? Start with these:
 
-- [**Hello, World!**](docs/docs/basics/basic-hello-world.md) - Your first Free Pascal program (choose IDE or CLI)
-- [**Data Types**](docs/docs/basics/common-data-types.md) - Understanding numbers, text, and other data
-- [**Control Flow**](docs/docs/basics/) - Making decisions with `if` and looping with `for`/`while`
-- [**Functions & Procedures**](docs/docs/basics/) - Writing code you can reuse
-- [**Introduction to Object Pascal**](docs/docs/basics/intro-objpas-fpc.md) - Explore classes and OOP concepts
+- [**Hello, World!**](docs/basics/basic-hello-world.md) - Your first Free Pascal program (choose IDE or CLI)
+- [**Data Types**](docs/basics/common-data-types.md) - Understanding numbers, text, and other data
+- [**Control Flow**](docs/basics/) - Making decisions with `if` and looping with `for`/`while`
+- [**Functions & Procedures**](docs/basics/) - Writing code you can reuse
+- [**Introduction to Object Pascal**](docs/basics/intro-objpas-fpc.md) - Explore classes and OOP concepts
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
