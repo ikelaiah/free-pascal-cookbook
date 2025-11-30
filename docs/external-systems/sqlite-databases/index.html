@@ -5,13 +5,13 @@
       
       
       
-        <link rel="canonical" href="https://ikelaiah.github.io/free-pascal-cookbook/docs/external-systems/webserver/">
+        <link rel="canonical" href="https://ikelaiah.github.io/free-pascal-cookbook/docs/external-systems/sqlite-databases/">
       
       
-        <link rel="prev" href="../parsing-json/">
+        <link rel="prev" href="../webserver/">
       
       
-        <link rel="next" href="../sqlite-databases/">
+        <link rel="next" href="../http-requests-advanced/">
       
       
       <link rel="icon" href="../../../assets/logo-new-rounded-min.png">
@@ -19,7 +19,7 @@
     
     
       
-        <title>Web Server - Free Pascal Cookbook</title>
+        <title>SQLite Databases - Free Pascal Cookbook</title>
       
     
     
@@ -83,7 +83,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#web-server" class="md-skip">
+        <a href="#working-with-sqlite-databases" class="md-skip">
           Skip to content
         </a>
       
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Web Server
+              SQLite Databases
             
           </span>
         </div>
@@ -1558,6 +1558,29 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../webserver/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web Server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1575,7 +1598,7 @@
   
   
   <span class="md-ellipsis">
-    Web Server
+    SQLite Databases
     
   </span>
   
@@ -1588,7 +1611,7 @@
   
   
   <span class="md-ellipsis">
-    Web Server
+    SQLite Databases
     
   </span>
   
@@ -1611,9 +1634,72 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#a-simple-rest-apis-returning-json-and-html-contents" class="md-nav__link">
+  <a href="#what-is-crud" class="md-nav__link">
     <span class="md-ellipsis">
-      A simple REST APIs returning JSON and HTML contents
+      What is CRUD?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-sqlite" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting Up SQLite
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simple-database-example-student-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simple Database Example: Student Records
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How It Works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-column-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Column Values
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes-to-avoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Mistakes to Avoid
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      The File
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
     </span>
   </a>
   
@@ -1623,29 +1709,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../sqlite-databases/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    SQLite Databases
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -1964,9 +2027,72 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#a-simple-rest-apis-returning-json-and-html-contents" class="md-nav__link">
+  <a href="#what-is-crud" class="md-nav__link">
     <span class="md-ellipsis">
-      A simple REST APIs returning JSON and HTML contents
+      What is CRUD?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-sqlite" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting Up SQLite
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simple-database-example-student-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simple Database Example: Student Records
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How It Works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-column-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Column Values
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes-to-avoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Mistakes to Avoid
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      The File
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
     </span>
   </a>
   
@@ -1988,23 +2114,20 @@
 
 
 
-<h1 id="web-server">Web Server<a class="headerlink" href="#web-server" title="Permanent link">¶</a></h1>
-<h2 id="a-simple-rest-apis-returning-json-and-html-contents">A simple REST APIs returning JSON and HTML contents<a class="headerlink" href="#a-simple-rest-apis-returning-json-and-html-contents" title="Permanent link">¶</a></h2>
-<p>Have a look at the example below, based on a tutorial by <a href="https://medium.com/@marcusfernstrm/create-rest-apis-with-freepascal-441e4aa447b7">Marcus Fernström</a>.</p>
-<p>The program creates a basic REST APIs with three routes.</p>
+<h1 id="working-with-sqlite-databases">Working with SQLite Databases<a class="headerlink" href="#working-with-sqlite-databases" title="Permanent link">¶</a></h1>
+<p>SQLite is a simple database that's perfect for learning. You don't need a separate server—it's just a file on your computer. Free Pascal makes it easy to work with SQLite databases.</p>
+<h2 id="what-is-crud">What is CRUD?<a class="headerlink" href="#what-is-crud" title="Permanent link">¶</a></h2>
+<p>CRUD stands for the four basic things you can do with data:</p>
 <ul>
-<li><code>/api/timestamp</code> to give current timestamp in JSON.</li>
-<li><code>/api/greet/:name</code> to return a specified <code>name</code> in JSON.</li>
-<li><code>/404</code> for handling everything else.</li>
+<li><strong>Create</strong> - Add new records to the database</li>
+<li><strong>Read</strong> - Get data from the database</li>
+<li><strong>Update</strong> - Change existing records</li>
+<li><strong>Delete</strong> - Remove records</li>
 </ul>
-<p>Here is the breakdown.</p>
-<ol>
-<li>In the <code>unit</code>, add <code>fphttpapp</code>, <code>HTTPDefs</code>, <code>httproute</code>, <code>fpjson</code> and <code>jsonparser</code>. Line 16-20.</li>
-<li>Setup port no and enable multi-threading to process incoming http requests. Line 77-78.</li>
-<li>Register routes and set <code>/404</code> as the default route. Line 81-83.</li>
-<li>Define procedures to handle the routes. Line 23-67.</li>
-<li>Initialise and run. Line 86-88. </li>
-</ol>
+<h2 id="setting-up-sqlite">Setting Up SQLite<a class="headerlink" href="#setting-up-sqlite" title="Permanent link">¶</a></h2>
+<p>First, you need the SQLite library. Most systems already have it installed. In your Free Pascal code, you'll use the <code>sqlite3</code> unit.</p>
+<h2 id="simple-database-example-student-records">Simple Database Example: Student Records<a class="headerlink" href="#simple-database-example-student-records" title="Permanent link">¶</a></h2>
+<p>Here's a complete program that creates a database, adds students, reads them, updates one, and deletes one.</p>
 <div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
@@ -2094,109 +2217,141 @@
 <span class="normal"><a href="#__codelineno-0-87">87</a></span>
 <span class="normal"><a href="#__codelineno-0-88">88</a></span>
 <span class="normal"><a href="#__codelineno-0-89">89</a></span>
-<span class="normal"><a href="#__codelineno-0-90">90</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">program</span><span class="w"> </span><span class="n">SimpleApiWebserver</span><span class="o">;</span>
+<span class="normal"><a href="#__codelineno-0-90">90</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">program</span><span class="w"> </span><span class="n">StudentDatabase</span><span class="o">;</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="c1">// References:</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="c1">//  - https://medium.com/@marcusfernstrm/create-rest-apis-with-freepascal-441e4aa447b7</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="c1">//  - https://www.youtube.com/watch?v=9N0cxI1Hp0U</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="c1">//  - https://wiki.lazarus.freepascal.org/fpWeb_Tutorial#webserver-example</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="cm">{$mode objfpc}{$H+}</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="k">uses</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">  </span><span class="n">Classes</span><span class="o">,</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">  </span><span class="n">SysUtils</span><span class="o">,</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">  </span><span class="n">sqlite3</span><span class="o">;</span>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="k">uses</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">  </span><span class="cm">{$IFDEF UNIX}</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">  </span><span class="n">cmem</span><span class="o">,</span><span class="w"> </span><span class="n">cthreads</span><span class="o">,</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">  </span><span class="cm">{$ENDIF}</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">  </span><span class="n">Classes</span><span class="o">,</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="w">  </span><span class="n">SysUtils</span><span class="o">,</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="hll"><span class="w">  </span><span class="n">fphttpapp</span><span class="o">,</span>
-</span></span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="hll"><span class="w">  </span><span class="n">HTTPDefs</span><span class="o">,</span>
-</span></span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="hll"><span class="w">  </span><span class="n">httproute</span><span class="o">,</span>
-</span></span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="hll"><span class="w">  </span><span class="n">fpjson</span><span class="o">,</span>
-</span></span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="hll"><span class="w">  </span><span class="n">jsonparser</span><span class="o">;</span>
-</span></span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a>
-</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="w">  </span><span class="c1">// Endpoint for getting the current timestamp</span>
-</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="w">  </span><span class="k">procedure</span><span class="w"> </span><span class="nf">TimestampEndPoint</span><span class="p">(</span><span class="n">aRequest</span><span class="o">:</span><span class="w"> </span><span class="n">TRequest</span><span class="o">;</span><span class="w"> </span><span class="n">aResponse</span><span class="o">:</span><span class="w"> </span><span class="n">TResponse</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="w">  </span><span class="k">var</span>
-</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="w">    </span><span class="n">json</span><span class="o">:</span><span class="w"> </span><span class="n">TJSONObject</span><span class="o">;</span>
-</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="w">  </span><span class="k">begin</span>
-</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="w">    </span><span class="n">json</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">TJSONObject</span><span class="o">.</span><span class="n">Create</span><span class="o">;</span>
-</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="w">    </span><span class="k">try</span>
-</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="w">      </span><span class="n">json</span><span class="o">.</span><span class="n">Strings</span><span class="p">[</span><span class="s">'timestamp'</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">FormatDateTime</span><span class="p">(</span><span class="s">'yyyy-mm-dd hh:nn:ss.z'</span><span class="o">,</span><span class="w"> </span><span class="nb">Now</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="w">      </span><span class="n">aResponse</span><span class="o">.</span><span class="n">Content</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">json</span><span class="o">.</span><span class="n">AsJSON</span><span class="o">;</span>
-</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="w">      </span><span class="n">aResponse</span><span class="o">.</span><span class="n">Code</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">200</span><span class="o">;</span>
-</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="w">      </span><span class="n">aResponse</span><span class="o">.</span><span class="n">ContentType</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">'application/json'</span><span class="o">;</span>
-</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="w">      </span><span class="n">aResponse</span><span class="o">.</span><span class="n">ContentLength</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">Length</span><span class="p">(</span><span class="n">aResponse</span><span class="o">.</span><span class="n">Content</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="w">      </span><span class="n">aResponse</span><span class="o">.</span><span class="n">SendContent</span><span class="o">;</span>
-</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="w">    </span><span class="k">finally</span>
-</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="w">      </span><span class="n">json</span><span class="o">.</span><span class="n">Free</span><span class="o">;</span>
-</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="w">    </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="k">var</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">  </span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="n">PSQLite3</span><span class="o">;</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">  </span><span class="n">Stmt</span><span class="o">:</span><span class="w"> </span><span class="n">PSQLite3_Stmt</span><span class="o">;</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">  </span><span class="n">ErrMsg</span><span class="o">:</span><span class="w"> </span><span class="kt">PChar</span><span class="o">;</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">  </span><span class="n">rc</span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="o">;</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="w">  </span><span class="n">id</span><span class="o">,</span><span class="w"> </span><span class="n">age</span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="o">;</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="w">  </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="k">string</span><span class="o">;</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="k">begin</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="w">  </span><span class="cm">{ Open or create the database }</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="w">  </span><span class="n">rc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sqlite3_open</span><span class="p">(</span><span class="s">'students.db'</span><span class="o">,</span><span class="w"> </span><span class="o">@</span><span class="n">DB</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">rc</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">SQLITE_OK</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="w">  </span><span class="k">begin</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Error opening database'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="w">    </span><span class="k">Exit</span><span class="o">;</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26"></a>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="w">  </span><span class="cm">{ Create the students table }</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="w">  </span><span class="n">sqlite3_exec</span><span class="p">(</span><span class="n">DB</span><span class="o">,</span><span class="w"> </span><span class="s">'CREATE TABLE IF NOT EXISTS students ('</span><span class="w"> </span><span class="o">+</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="w">    </span><span class="s">'id INTEGER PRIMARY KEY,'</span><span class="w"> </span><span class="o">+</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="w">    </span><span class="s">'name TEXT NOT NULL,'</span><span class="w"> </span><span class="o">+</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="w">    </span><span class="s">'age INTEGER);'</span><span class="o">,</span><span class="w"> </span><span class="k">nil</span><span class="o">,</span><span class="w"> </span><span class="k">nil</span><span class="o">,</span><span class="w"> </span><span class="o">@</span><span class="n">ErrMsg</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32"></a>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'=== Adding students (CREATE) ==='</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="w">  </span><span class="n">sqlite3_exec</span><span class="p">(</span><span class="n">DB</span><span class="o">,</span><span class="w"> </span><span class="s">'INSERT INTO students (name, age) VALUES (</span><span class="se">''</span><span class="s">Alice</span><span class="se">''</span><span class="s">, 17);'</span><span class="o">,</span><span class="w"> </span><span class="k">nil</span><span class="o">,</span><span class="w"> </span><span class="k">nil</span><span class="o">,</span><span class="w"> </span><span class="o">@</span><span class="n">ErrMsg</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="w">  </span><span class="n">sqlite3_exec</span><span class="p">(</span><span class="n">DB</span><span class="o">,</span><span class="w"> </span><span class="s">'INSERT INTO students (name, age) VALUES (</span><span class="se">''</span><span class="s">Bob</span><span class="se">''</span><span class="s">, 18);'</span><span class="o">,</span><span class="w"> </span><span class="k">nil</span><span class="o">,</span><span class="w"> </span><span class="k">nil</span><span class="o">,</span><span class="w"> </span><span class="o">@</span><span class="n">ErrMsg</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="w">  </span><span class="n">sqlite3_exec</span><span class="p">(</span><span class="n">DB</span><span class="o">,</span><span class="w"> </span><span class="s">'INSERT INTO students (name, age) VALUES (</span><span class="se">''</span><span class="s">Charlie</span><span class="se">''</span><span class="s">, 16);'</span><span class="o">,</span><span class="w"> </span><span class="k">nil</span><span class="o">,</span><span class="w"> </span><span class="k">nil</span><span class="o">,</span><span class="w"> </span><span class="o">@</span><span class="n">ErrMsg</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Added 3 students'</span><span class="p">)</span><span class="o">;</span>
 </span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
-</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40"></a>
-</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="w">  </span><span class="c1">// An endpoint accepting a variable</span>
-</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="w">  </span><span class="k">procedure</span><span class="w"> </span><span class="nf">GreetEndpoint</span><span class="p">(</span><span class="n">aRequest</span><span class="o">:</span><span class="w"> </span><span class="n">TRequest</span><span class="o">;</span><span class="w"> </span><span class="n">aResponse</span><span class="o">:</span><span class="w"> </span><span class="n">TResponse</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="w">  </span><span class="k">var</span>
-</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="w">    </span><span class="n">json</span><span class="o">:</span><span class="w"> </span><span class="n">TJSONObject</span><span class="o">;</span>
-</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="w">  </span><span class="k">begin</span>
-</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="w">    </span><span class="n">json</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">TJSONObject</span><span class="o">.</span><span class="n">Create</span><span class="o">;</span>
-</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="w">    </span><span class="k">try</span>
-</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="w">      </span><span class="n">json</span><span class="o">.</span><span class="n">Strings</span><span class="p">[</span><span class="s">'message'</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">'Hello, '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">aRequest</span><span class="o">.</span><span class="n">RouteParams</span><span class="p">[</span><span class="s">'name'</span><span class="p">]</span><span class="o">;</span>
-</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="w">      </span><span class="n">aResponse</span><span class="o">.</span><span class="n">Content</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">json</span><span class="o">.</span><span class="n">AsJSON</span><span class="o">;</span>
-</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="w">      </span><span class="n">aResponse</span><span class="o">.</span><span class="n">Code</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">200</span><span class="o">;</span>
-</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="w">      </span><span class="n">aResponse</span><span class="o">.</span><span class="n">ContentType</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">'application/json'</span><span class="o">;</span>
-</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="w">      </span><span class="n">aResponse</span><span class="o">.</span><span class="n">ContentLength</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">Length</span><span class="p">(</span><span class="n">aResponse</span><span class="o">.</span><span class="n">Content</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="w">      </span><span class="n">aResponse</span><span class="o">.</span><span class="n">SendContent</span><span class="o">;</span>
-</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="w">    </span><span class="k">finally</span>
-</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="w">      </span><span class="n">json</span><span class="o">.</span><span class="n">Free</span><span class="o">;</span>
-</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="w">    </span><span class="k">end</span><span class="o">;</span>
-</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
-</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58"></a>
-</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="w">  </span><span class="c1">// An endpoint to handle unknown requests</span>
-</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="w">  </span><span class="k">procedure</span><span class="w"> </span><span class="nf">ErrorEndPoint</span><span class="p">(</span><span class="n">aRequest</span><span class="o">:</span><span class="w"> </span><span class="n">TRequest</span><span class="o">;</span><span class="w"> </span><span class="n">aResponse</span><span class="o">:</span><span class="w"> </span><span class="n">TResponse</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="w">  </span><span class="k">begin</span>
-</span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="w">    </span><span class="n">aResponse</span><span class="o">.</span><span class="n">Content</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">'&lt;h1&gt;404!&lt;/h1&gt;&lt;h3&gt;How did you get here?&lt;/h3&gt;'</span><span class="o">;</span>
-</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="w">    </span><span class="n">aResponse</span><span class="o">.</span><span class="n">Code</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">404</span><span class="o">;</span>
-</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="w">    </span><span class="n">aResponse</span><span class="o">.</span><span class="n">ContentType</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">'text/html'</span><span class="o">;</span>
-</span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="w">    </span><span class="n">aResponse</span><span class="o">.</span><span class="n">ContentLength</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">Length</span><span class="p">(</span><span class="n">aResponse</span><span class="o">.</span><span class="n">Content</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="w">    </span><span class="n">aResponse</span><span class="o">.</span><span class="n">SendContent</span><span class="o">;</span>
-</span><span id="__span-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
-</span><span id="__span-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68"></a>
-</span><span id="__span-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69"></a>
-</span><span id="__span-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="k">const</span>
-</span><span id="__span-0-71"><a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="w">  </span><span class="n">port</span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8080</span><span class="o">;</span>
-</span><span id="__span-0-72"><a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="w">  </span><span class="n">isThreaded</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">True</span><span class="o">;</span>
-</span><span id="__span-0-73"><a id="__codelineno-0-73" name="__codelineno-0-73"></a>
-</span><span id="__span-0-74"><a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="k">begin</span>
-</span><span id="__span-0-75"><a id="__codelineno-0-75" name="__codelineno-0-75"></a>
-</span><span id="__span-0-76"><a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="w">  </span><span class="c1">// Set port no &amp; enable multi-threading to handle http requests</span>
-</span><span id="__span-0-77"><a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="hll"><span class="w">  </span><span class="n">Application</span><span class="o">.</span><span class="n">Port</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">port</span><span class="o">;</span>
-</span></span><span id="__span-0-78"><a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="hll"><span class="w">  </span><span class="n">Application</span><span class="o">.</span><span class="n">Threaded</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">isThreaded</span><span class="o">;</span>
-</span></span><span id="__span-0-79"><a id="__codelineno-0-79" name="__codelineno-0-79"></a>
-</span><span id="__span-0-80"><a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="w">  </span><span class="c1">// Setup routes</span>
-</span><span id="__span-0-81"><a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="hll"><span class="w">  </span><span class="n">HTTPRouter</span><span class="o">.</span><span class="n">RegisterRoute</span><span class="p">(</span><span class="s">'/api/timestamp'</span><span class="o">,</span><span class="w"> </span><span class="n">rmGet</span><span class="o">,</span><span class="w"> </span><span class="o">@</span><span class="n">TimestampEndPoint</span><span class="p">)</span><span class="o">;</span>
-</span></span><span id="__span-0-82"><a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="hll"><span class="w">  </span><span class="n">HTTPRouter</span><span class="o">.</span><span class="n">RegisterRoute</span><span class="p">(</span><span class="s">'/api/greet/:name'</span><span class="o">,</span><span class="w"> </span><span class="n">rmGet</span><span class="o">,</span><span class="w"> </span><span class="o">@</span><span class="n">GreetEndpoint</span><span class="p">)</span><span class="o">;</span>
-</span></span><span id="__span-0-83"><a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="hll"><span class="w">  </span><span class="n">HTTPRouter</span><span class="o">.</span><span class="n">RegisterRoute</span><span class="p">(</span><span class="s">'/404'</span><span class="o">,</span><span class="w"> </span><span class="n">rmGet</span><span class="o">,</span><span class="w"> </span><span class="o">@</span><span class="n">ErrorEndPoint</span><span class="o">,</span><span class="w"> </span><span class="k">True</span><span class="p">)</span><span class="o">;</span><span class="w"> </span><span class="c1">// Set as the default endpoint</span>
-</span></span><span id="__span-0-84"><a id="__codelineno-0-84" name="__codelineno-0-84"></a>
-</span><span id="__span-0-85"><a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="w">  </span><span class="c1">// Initialise and run, with a message</span>
-</span><span id="__span-0-86"><a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="hll"><span class="w">  </span><span class="n">Application</span><span class="o">.</span><span class="n">Initialize</span><span class="o">;</span>
-</span></span><span id="__span-0-87"><a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="hll"><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'== Server is running on port '</span><span class="o">,</span><span class="w"> </span><span class="n">port</span><span class="o">,</span><span class="w"> </span><span class="s">' ==='</span><span class="p">)</span><span class="o">;</span>
-</span></span><span id="__span-0-88"><a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="hll"><span class="w">  </span><span class="n">Application</span><span class="o">.</span><span class="n">Run</span><span class="o">;</span>
-</span></span><span id="__span-0-89"><a id="__codelineno-0-89" name="__codelineno-0-89"></a>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">''</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'=== Reading all students (READ) ==='</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="w">  </span><span class="n">rc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sqlite3_prepare_v2</span><span class="p">(</span><span class="n">DB</span><span class="o">,</span><span class="w"> </span><span class="s">'SELECT id, name, age FROM students;'</span><span class="o">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="o">@</span><span class="n">Stmt</span><span class="o">,</span><span class="w"> </span><span class="k">nil</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="n">sqlite3_step</span><span class="p">(</span><span class="n">Stmt</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SQLITE_ROW</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="w">  </span><span class="k">begin</span>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sqlite3_column_int</span><span class="p">(</span><span class="n">Stmt</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">string</span><span class="p">(</span><span class="kt">PChar</span><span class="p">(</span><span class="n">sqlite3_column_text</span><span class="p">(</span><span class="n">Stmt</span><span class="o">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)))</span><span class="o">;</span>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="w">    </span><span class="n">age</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sqlite3_column_int</span><span class="p">(</span><span class="n">Stmt</span><span class="o">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'ID: '</span><span class="o">,</span><span class="w"> </span><span class="n">id</span><span class="o">,</span><span class="w"> </span><span class="s">' | Name: '</span><span class="o">,</span><span class="w"> </span><span class="n">name</span><span class="o">,</span><span class="w"> </span><span class="s">' | Age: '</span><span class="o">,</span><span class="w"> </span><span class="n">age</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="w">  </span><span class="n">sqlite3_finalize</span><span class="p">(</span><span class="n">Stmt</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50"></a>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">''</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'=== Updating Bob</span><span class="se">''</span><span class="s">s age to 19 (UPDATE) ==='</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="w">  </span><span class="n">sqlite3_exec</span><span class="p">(</span><span class="n">DB</span><span class="o">,</span><span class="w"> </span><span class="s">'UPDATE students SET age = 19 WHERE name = </span><span class="se">''</span><span class="s">Bob</span><span class="se">''</span><span class="s">;'</span><span class="o">,</span><span class="w"> </span><span class="k">nil</span><span class="o">,</span><span class="w"> </span><span class="k">nil</span><span class="o">,</span><span class="w"> </span><span class="o">@</span><span class="n">ErrMsg</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Updated Bob'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55"></a>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">''</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'=== Reading after update ==='</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="w">  </span><span class="n">rc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sqlite3_prepare_v2</span><span class="p">(</span><span class="n">DB</span><span class="o">,</span><span class="w"> </span><span class="s">'SELECT id, name, age FROM students WHERE name = </span><span class="se">''</span><span class="s">Bob</span><span class="se">''</span><span class="s">;'</span><span class="o">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="o">@</span><span class="n">Stmt</span><span class="o">,</span><span class="w"> </span><span class="k">nil</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="n">sqlite3_step</span><span class="p">(</span><span class="n">Stmt</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SQLITE_ROW</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="w">  </span><span class="k">begin</span>
+</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sqlite3_column_int</span><span class="p">(</span><span class="n">Stmt</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">string</span><span class="p">(</span><span class="kt">PChar</span><span class="p">(</span><span class="n">sqlite3_column_text</span><span class="p">(</span><span class="n">Stmt</span><span class="o">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)))</span><span class="o">;</span>
+</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="w">    </span><span class="n">age</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sqlite3_column_int</span><span class="p">(</span><span class="n">Stmt</span><span class="o">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'ID: '</span><span class="o">,</span><span class="w"> </span><span class="n">id</span><span class="o">,</span><span class="w"> </span><span class="s">' | Name: '</span><span class="o">,</span><span class="w"> </span><span class="n">name</span><span class="o">,</span><span class="w"> </span><span class="s">' | Age: '</span><span class="o">,</span><span class="w"> </span><span class="n">age</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="w">  </span><span class="n">sqlite3_finalize</span><span class="p">(</span><span class="n">Stmt</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67"></a>
+</span><span id="__span-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">''</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'=== Deleting Charlie (DELETE) ==='</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="w">  </span><span class="n">sqlite3_exec</span><span class="p">(</span><span class="n">DB</span><span class="o">,</span><span class="w"> </span><span class="s">'DELETE FROM students WHERE name = </span><span class="se">''</span><span class="s">Charlie</span><span class="se">''</span><span class="s">;'</span><span class="o">,</span><span class="w"> </span><span class="k">nil</span><span class="o">,</span><span class="w"> </span><span class="k">nil</span><span class="o">,</span><span class="w"> </span><span class="o">@</span><span class="n">ErrMsg</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-71"><a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Deleted Charlie'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-72"><a id="__codelineno-0-72" name="__codelineno-0-72"></a>
+</span><span id="__span-0-73"><a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">''</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-74"><a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'=== Reading final list ==='</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-75"><a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="w">  </span><span class="n">rc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sqlite3_prepare_v2</span><span class="p">(</span><span class="n">DB</span><span class="o">,</span><span class="w"> </span><span class="s">'SELECT id, name, age FROM students;'</span><span class="o">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="o">@</span><span class="n">Stmt</span><span class="o">,</span><span class="w"> </span><span class="k">nil</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-76"><a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="n">sqlite3_step</span><span class="p">(</span><span class="n">Stmt</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SQLITE_ROW</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-0-77"><a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="w">  </span><span class="k">begin</span>
+</span><span id="__span-0-78"><a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sqlite3_column_int</span><span class="p">(</span><span class="n">Stmt</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-79"><a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">string</span><span class="p">(</span><span class="kt">PChar</span><span class="p">(</span><span class="n">sqlite3_column_text</span><span class="p">(</span><span class="n">Stmt</span><span class="o">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)))</span><span class="o">;</span>
+</span><span id="__span-0-80"><a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="w">    </span><span class="n">age</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sqlite3_column_int</span><span class="p">(</span><span class="n">Stmt</span><span class="o">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-81"><a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'ID: '</span><span class="o">,</span><span class="w"> </span><span class="n">id</span><span class="o">,</span><span class="w"> </span><span class="s">' | Name: '</span><span class="o">,</span><span class="w"> </span><span class="n">name</span><span class="o">,</span><span class="w"> </span><span class="s">' | Age: '</span><span class="o">,</span><span class="w"> </span><span class="n">age</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-82"><a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-0-83"><a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="w">  </span><span class="n">sqlite3_finalize</span><span class="p">(</span><span class="n">Stmt</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-84"><a id="__codelineno-0-84" name="__codelineno-0-84"></a>
+</span><span id="__span-0-85"><a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="w">  </span><span class="cm">{ Close the database }</span>
+</span><span id="__span-0-86"><a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="w">  </span><span class="n">sqlite3_close</span><span class="p">(</span><span class="n">DB</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-87"><a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">''</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-88"><a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Database closed. File saved as students.db'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-89"><a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="w">  </span><span class="nb">ReadLn</span><span class="o">;</span>
 </span><span id="__span-0-90"><a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></tbody></table></div>
-<p><strong>How to use</strong></p>
+<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">¶</a></h2>
+<ol>
+<li>
+<p><strong>Open Database</strong> - <code>sqlite3_open('students.db', @DB)</code> opens the file (or creates it if it doesn't exist)</p>
+</li>
+<li>
+<p><strong>Create Table</strong> - The <code>CREATE TABLE</code> command sets up the structure. Each student has:
+   - <code>id</code> - A unique number (automatically increases)
+   - <code>name</code> - Text for the student's name
+   - <code>age</code> - A number for age</p>
+</li>
+<li>
+<p><strong>Create (INSERT)</strong> - Add new records with <code>INSERT INTO students VALUES (...)</code></p>
+</li>
+<li>
+<p><strong>Read (SELECT)</strong> - Get data with <code>SELECT</code> and loop through results with <code>sqlite3_step</code></p>
+</li>
+<li>
+<p><strong>Update</strong> - Change existing records with <code>UPDATE ... SET ... WHERE</code></p>
+</li>
+<li>
+<p><strong>Delete</strong> - Remove records with <code>DELETE FROM ... WHERE</code></p>
+</li>
+</ol>
+<h2 id="getting-column-values">Getting Column Values<a class="headerlink" href="#getting-column-values" title="Permanent link">¶</a></h2>
+<p>When you read from the database, you get back different types:</p>
+<div class="language-pascal highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cm">{ Get different data types from a result }</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">sqlite3_column_int</span><span class="p">(</span><span class="n">Stmt</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">              </span><span class="cm">{ Get an integer }</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">sqlite3_column_text</span><span class="p">(</span><span class="n">Stmt</span><span class="o">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">             </span><span class="cm">{ Get text }</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">sqlite3_column_double</span><span class="p">(</span><span class="n">Stmt</span><span class="o">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w">           </span><span class="cm">{ Get a decimal number }</span>
+</span></code></pre></div>
+<h2 id="common-mistakes-to-avoid">Common Mistakes to Avoid<a class="headerlink" href="#common-mistakes-to-avoid" title="Permanent link">¶</a></h2>
 <ul>
-<li>Run the program.</li>
-<li>To get the current timestamp, put into your browser: <code>http://127.0.0.1:8080/api/timestamp</code>.</li>
-<li>To get a greeting in json, put into your browser: <code>http://127.0.0.1:8080/api/greet/Jonathan</code>.</li>
-<li>Non-matching endpoints will get you to: <code>http://127.0.0.1:8080/404</code>.</li>
+<li>Remember to use <code>sqlite3_finalize(Stmt)</code> after reading results, so you don't waste memory</li>
+<li>Use quotes correctly: single quotes <code>'</code> inside SQL, double quotes <code>"</code> in Pascal strings</li>
+<li>Always close the database with <code>sqlite3_close(DB)</code> when done</li>
 </ul>
-<p><strong>References</strong></p>
+<h2 id="the-file">The File<a class="headerlink" href="#the-file" title="Permanent link">¶</a></h2>
+<p>The database is saved as <code>students.db</code> in the same folder as your program. You can open it with database viewer tools to see the data.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">¶</a></h2>
 <ul>
-<li><a href="https://medium.com/@marcusfernstrm/create-rest-apis-with-freepascal-441e4aa447b7">https://medium.com/@marcusfernstrm/create-rest-apis-with-freepascal-441e4aa447b7</a></li>
-<li><a href="https://www.youtube.com/watch?v=9N0cxI1Hp0U">https://www.youtube.com/watch?v=9N0cxI1Hp0U</a></li>
-<li><a href="https://wiki.lazarus.freepascal.org/fpWeb_Tutorial#webserver-example">https://wiki.lazarus.freepascal.org/fpWeb_Tutorial#webserver-example</a></li>
+<li>Try changing the table structure (add more columns like email or grade)</li>
+<li>Use <code>WHERE</code> conditions to find specific students</li>
+<li>Try using <code>ORDER BY</code> to sort results</li>
 </ul>
 
 
