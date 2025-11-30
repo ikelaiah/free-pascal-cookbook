@@ -5,6 +5,18 @@ All notable changes to the Free Pascal Cookbook will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.9] - 2025-11-30
+
+### Added
+
+- sqlite-databases.md: Complete guide to SQLite database operations (CRUD - Create, Read, Update, Delete)
+- http-requests-advanced.md: Making POST, PUT, and DELETE requests with JSON data and handling response status codes
+- working-with-xml.md: Parsing XML files, creating XML programmatically, and comparing with JSON format
+- system-calls.md: Running external programs, capturing command output, cross-platform execution, and handling exit codes
+- sending-emails.md: SMTP email functionality including plain text, HTML emails, multiple recipients, and Gmail setup with app passwords
+- api-authentication.md: Different authentication methods (API keys, Bearer tokens, Basic auth, OAuth 2.0) with error handling and security best practices
+- environment-variables-config.md: Working with environment variables, .env files, INI configuration files, and a configuration helper class
+
 ## [0.8] - 2025-11-30
 
 ### Added
