@@ -1871,6 +1871,7 @@ We’ll create a record called `TRectangle` that has fields for width and height
 program AdvancedRecordDemo;
 
 {$mode objfpc}{$H+}{$J-}
+{$modeswitch advancedrecords}
 
 type
   TRectangle = record
@@ -1965,6 +1966,8 @@ type
 program ClassExample;
 
 {$mode objfpc}{$H+}{$J-}
+{$modeswitch advancedrecords}
+
 
 type
   // Define the class
