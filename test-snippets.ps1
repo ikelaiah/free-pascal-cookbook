@@ -80,18 +80,19 @@ foreach ($file in $mdFiles) {
 
         $snippetCount++
 
-        # Determine if snippet is complete (has boilerplate)
-        # Check for: starts with program/unit, contains begin, ends with end.
-        $hasProgram = $snippetCode -match '^\s*(program|unit)\s+'
+        # Determine if snippet is compilable
+        # Only PROGRAM declarations can be compiled (not units)
+        # Check for: starts with "program" keyword, contains begin/end block
+        $hasProgram = $snippetCode -match '^\s*program\s+'
         $hasBegin = $snippetCode -match '\bbegin\b'
         $hasEnd = $snippetCode -match '\bend\s*\.\s*$'
-        $isComplete = $hasProgram -and $hasBegin -and $hasEnd
+        $isCompilable = $hasProgram -and $hasBegin -and $hasEnd
 
-        if ($isComplete) {
-            $snippetType = "Complete"
+        if ($isCompilable) {
+            $snippetType = "Program"
             $completeCount++
         } else {
-            $snippetType = "Partial"
+            $snippetType = "Other"
             $partialCount++
         }
 
@@ -99,18 +100,19 @@ foreach ($file in $mdFiles) {
         $fileName = "{0}_{1:D3}.pas" -f ($file.BaseName), $snippetIndex
         $testFile = Join-Path $OutputDir $fileName
 
-        # Write the snippet (complete snippets are compiled as-is, partial ones are not tested for compilation)
+        # Write the snippet (compilable programs are compiled, others are not)
         $content_to_write = $snippetCode
 
-        # If partial, wrap in comment to prevent compilation
-        if (-not $isComplete) {
+        # If not compilable, wrap in comment to prevent compilation
+        if (-not $isCompilable) {
             $lines = $snippetCode -split "`n" | ForEach-Object { "  $_" }
             $codeLines = $lines -join "`n"
             $content_to_write = @"
 {
-  This is a partial snippet from: $relPath (snippet $snippetIndex)
+  This is a non-compilable snippet from: $relPath (snippet $snippetIndex)
 
-  Partial snippets are not compiled by default.
+  This snippet cannot be compiled directly.
+  It may be: a unit declaration, a code fragment, or a teaching example.
   Code:
 
 $codeLines
@@ -120,11 +122,11 @@ $codeLines
 
         Set-Content -Path $testFile -Value $content_to_write
 
-        # Compile if complete
+        # Compile if this is a compilable program
         $compileResult = "SKIPPED"
         $compileError = ""
 
-        if ($isComplete) {
+        if ($isCompilable) {
             $outputExe = Join-Path $OutputDir ([System.IO.Path]::GetFileNameWithoutExtension($fileName))
             $logFile = Join-Path $OutputDir "$fileName.log"
 
@@ -157,11 +159,11 @@ $codeLines
 # Generate Report
 Write-ColorOutput "`n========== SUMMARY ==========" $colors.Info
 Write-ColorOutput "Total Snippets: $snippetCount"
-Write-ColorOutput "  Complete (should compile): $completeCount" $colors.Complete
-Write-ColorOutput "  Partial (incomplete): $partialCount" $colors.Partial
+Write-ColorOutput "  Programs (compilable): $completeCount" $colors.Complete
+Write-ColorOutput "  Other (units/fragments/partial): $partialCount" $colors.Partial
 
 if ($completeCount -gt 0) {
-    Write-ColorOutput "`nCompilation Results (Complete Snippets):"
+    Write-ColorOutput "`nCompilation Results (Programs):"
     Write-ColorOutput "  ✅ Passed: $successCount"
     Write-ColorOutput "  ❌ Failed: $failCount"
 
@@ -174,15 +176,15 @@ Write-ColorOutput "`n========== SNIPPETS BY FILE ==========" $colors.Info
 
 $fileStats = $results | Group-Object -Property File | ForEach-Object {
     $file = $_.Name
-    $completes = $_.Group | Where-Object { $_.Type -eq "Complete" } | Measure-Object | Select-Object -ExpandProperty Count
-    $partials = $_.Group | Where-Object { $_.Type -eq "Partial" } | Measure-Object | Select-Object -ExpandProperty Count
+    $programs = $_.Group | Where-Object { $_.Type -eq "Program" } | Measure-Object | Select-Object -ExpandProperty Count
+    $others = $_.Group | Where-Object { $_.Type -eq "Other" } | Measure-Object | Select-Object -ExpandProperty Count
     $successes = $_.Group | Where-Object { $_.Result -eq "SUCCESS" } | Measure-Object | Select-Object -ExpandProperty Count
     $failures = $_.Group | Where-Object { $_.Result -eq "FAILED" } | Measure-Object | Select-Object -ExpandProperty Count
 
     [PSCustomObject]@{
         File = $file
-        Complete = $completes
-        Partial = $partials
+        Programs = $programs
+        Others = $others
         Success = $successes
         Failed = $failures
     }
@@ -191,9 +193,11 @@ $fileStats = $results | Group-Object -Property File | ForEach-Object {
 foreach ($stat in $fileStats) {
     $fileColor = if ($stat.Failed -gt 0) { $colors.Warning } else { $colors.Complete }
     Write-ColorOutput "`n$($stat.File)" $fileColor
-    Write-ColorOutput "  Complete: $($stat.Complete)" $colors.Complete
-    if ($stat.Partial -gt 0) {
-        Write-ColorOutput "  Partial: $($stat.Partial)" $colors.Partial
+    if ($stat.Programs -gt 0) {
+        Write-ColorOutput "  Programs: $($stat.Programs)" $colors.Complete
+    }
+    if ($stat.Others -gt 0) {
+        Write-ColorOutput "  Other (units/fragments): $($stat.Others)" $colors.Partial
     }
     if ($stat.Success -gt 0) {
         Write-ColorOutput "  ✅ Compiled: $($stat.Success)" $colors.Success
@@ -233,9 +237,11 @@ $summaryFile = Join-Path $OutputDir "REPORT.txt"
 $fileStatsText = ""
 foreach ($stat in $fileStats) {
     $fileStatsText += "`n$($stat.File)`n"
-    $fileStatsText += "  Complete: $($stat.Complete)`n"
-    if ($stat.Partial -gt 0) {
-        $fileStatsText += "  Partial: $($stat.Partial)`n"
+    if ($stat.Programs -gt 0) {
+        $fileStatsText += "  Programs: $($stat.Programs)`n"
+    }
+    if ($stat.Others -gt 0) {
+        $fileStatsText += "  Other (units/fragments): $($stat.Others)`n"
     }
     if ($stat.Success -gt 0) {
         $fileStatsText += "  Compiled: $($stat.Success)`n"
@@ -252,8 +258,8 @@ Generated: $(Get-Date)
 SUMMARY
 -------
 Total Snippets: $snippetCount
-  Complete (with boilerplate): $completeCount
-  Partial (incomplete): $partialCount
+  Programs (compilable): $completeCount
+  Other (units/fragments/partial): $partialCount
 
 COMPILATION RESULTS
 -------------------
