@@ -120,7 +120,7 @@ uses
 
 var
   MyProcess: TProcess;
-  Command: string;
+  Command, Line: string;
   Output: TStringList;
 
 begin
@@ -146,7 +146,7 @@ begin
     Output.LoadFromStream(MyProcess.Output);
 
     WriteLn('=== Files in current directory ===');
-    for var Line in Output do
+    for Line in Output do
       WriteLn(Line);
 
   finally
