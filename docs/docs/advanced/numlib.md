@@ -2435,8 +2435,10 @@ procedure roof1r(f: rfunc1r; a, b, ae, re: ArbFloat; var x: ArbFloat; var term: 
 
 The following program uses the bisection method to find the square root of 2. The root is the value of `x` where the function \( f(x) = x^2 - 2 \) equals zero. Since \( f(1) = -1 \) and \( f(2) = 2 \), the root lies between 1 and 2.
 
-```pascal linenums="1" hl_lines="16"
+```pascal linenums="1" hl_lines="18"
 program solve_root_bisection;
+
+{$mode objfpc}{$H+}{$J-}
 
 uses
   typ, roo;

@@ -113,7 +113,7 @@ program TCSVDocumentGetSpecificCols;
  using TCSVDocument.
 }
 
-{$mode objfpc}{$H+}
+{$mode objfpc}{$H+}{$J-}
 
 uses
   {$IFDEF UNIX}

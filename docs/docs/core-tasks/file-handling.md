@@ -116,7 +116,7 @@ uses
   SysUtils;
 
   // Write or append a text to a file
-  procedure WriteTextToFile(fileName: string; stringText: string;);
+  procedure WriteTextToFile(fileName: string; stringText: string);
   var
     textFile: System.TextFile;
   begin
@@ -163,8 +163,10 @@ For writing text into a new file using Object style;
 3. write using `TFileStream.Write(stringText, Length(stringText));` Line 18.
 4. `Free` the `TFileStream` object from memory. Lines 22.
 
-```pascal linenums="1" hl_lines="14 17 19 24"
+```pascal linenums="1" hl_lines="16 19 21 26"
 program TFileStreamNewTextFile;
+
+{$mode objfpc}{$H+}{$J-}
 
 uses
   Classes, SysUtils;
@@ -199,8 +201,10 @@ end.
 
 This example is the previous snippet wrapped in a `procedure`.
 
-```pascal linenums="1" hl_lines="32"
+```pascal linenums="1" hl_lines="34"
 program TFileStreamNewTextFileOrganised;
+
+{$mode objfpc}{$H+}{$J-}
 
 uses
   Classes, SysUtils;
@@ -293,8 +297,10 @@ Here is an example.
 2. Use `Rewrite` to open file for writing (and create if doesn't exists). Line 18.
 3. Close the file with `CloseFile`. Line 21.
 
-```pascal linenums="1" hl_lines="13 18 21"
+```pascal linenums="1" hl_lines="15 20 23"
 program ClassicCreateBlankTextFile;
+
+{$mode objfpc}{$H+}{$J-}
 
 uses
   Classes,
@@ -338,8 +344,10 @@ Quite straightforward.
 2. `Free` the `TFileStream` object from memory. Lines 21.
 
 
-```pascal linenums="1" hl_lines="15 21"
+```pascal linenums="1" hl_lines="17 23"
 program TFileStreamCreateBlankTextFile;
+
+{$mode objfpc}{$H+}{$J-}
 
 uses
   Classes, SysUtils;
@@ -709,8 +717,10 @@ See the snippet below as example.
 
 To gracefully handle error during open and read operations, an outer `try..except` is in place.
 
-```pascal linenums="1" hl_lines="17 19 23-28"
+```pascal linenums="1" hl_lines="19 22 25-30"
 program TStreamReaderReadFile;
+
+{$mode objfpc}{$H+}{$J-}
 
 uses
   Classes,
@@ -848,7 +858,7 @@ There is an outer `try..except` is in place to handle error during open and read
 ```pascal linenums="1" hl_lines="11 12 29 34-41 43 46"
 program TBufferedFileStreamReadFile;
 
-{$mode objfpc}{$H+}
+{$mode objfpc}{$H+}{$J-}
 
 uses
   {$IFDEF UNIX}
@@ -914,7 +924,7 @@ Here is a snippet.
 ```pascal linenums="1" hl_lines="27 32 35 36 40"
 program TStringListReadTextFile;
 
-{$mode objfpc}{$H+}
+{$mode objfpc}{$H+}{$J-}
 
 uses
   {$IFDEF UNIX}

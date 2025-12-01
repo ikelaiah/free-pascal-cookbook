@@ -231,7 +231,7 @@ begin
 
   // Print an element from each array
   WriteLn('Last temp recorded in the array          : ', high(dailyTemp));
-  WriteLn('Second number in multipleTwo array       : ', multipleTwo[1];
+  WriteLn('Second number in multipleTwo array       : ', multipleTwo[1]);
   WriteLn('The third item in the defenceForces array: ', defenceForces[2]);
 
   WriteLn('-------------------');

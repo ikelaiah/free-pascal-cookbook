@@ -15,6 +15,8 @@ Here is an example.
 ```pascal linenums="1"
 program ParamModifierVar;
 
+{$mode objfpc}{$H+}{$J-}
+
 uses
   sysutils;
 
@@ -49,6 +51,8 @@ Here is an example.
 
 ```pascal linenums="1"
 program ParamModifierConst;
+
+{$mode objfpc}{$H+}{$J-}
 
 function CalcAreaCircle(const radius: Real): Real;
 begin
