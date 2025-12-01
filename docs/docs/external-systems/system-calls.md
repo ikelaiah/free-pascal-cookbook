@@ -67,34 +67,34 @@ uses
   Process;
 
 var
-  Process: TProcess;
+  MyProcess: TProcess;
   StringList: TStringList;
   i: integer;
 
 begin
   { Create a process to run a command }
-  Process := TProcess.Create(nil);
+  MyProcess := TProcess.Create(nil);
   StringList := TStringList.Create;
 
   try
     { Set the command to run }
-    Process.Executable := 'cmd.exe';
-    Process.Parameters.Add('/C');
-    Process.Parameters.Add('dir');  { List files (Windows) }
+    MyProcess.Executable := 'cmd.exe';
+    MyProcess.Parameters.Add('/C');
+    MyProcess.Parameters.Add('dir');  { List files (Windows) }
 
     { Capture the output }
-    Process.Options := Process.Options + [poWaitOnExit, poUsePipes];
-    Process.Execute;
+    MyProcess.Options := MyProcess.Options + [poWaitOnExit, poUsePipes];
+    MyProcess.Execute;
 
     { Read the output }
-    StringList.LoadFromStream(Process.Output);
+    StringList.LoadFromStream(MyProcess.Output);
 
     WriteLn('=== Output ===');
     for i := 0 to StringList.Count - 1 do
       WriteLn(StringList[i]);
 
   finally
-    Process.Free;
+    MyProcess.Free;
     StringList.Free;
   end;
 
@@ -119,38 +119,38 @@ uses
   Process;
 
 var
-  Process: TProcess;
+  MyProcess: TProcess;
   Command: string;
   Output: TStringList;
 
 begin
-  Process := TProcess.Create(nil);
+  MyProcess := TProcess.Create(nil);
   Output := TStringList.Create;
 
   try
     { Choose command based on OS }
     {$IFDEF WINDOWS}
     Command := 'cmd.exe';
-    Process.Parameters.Add('/C');
-    Process.Parameters.Add('dir');
+    MyProcess.Parameters.Add('/C');
+    MyProcess.Parameters.Add('dir');
     {$ENDIF}
 
     {$IFDEF UNIX}
     Command := '/bin/ls';
     {$ENDIF}
 
-    Process.Executable := Command;
-    Process.Options := Process.Options + [poWaitOnExit, poUsePipes];
-    Process.Execute;
+    MyProcess.Executable := Command;
+    MyProcess.Options := MyProcess.Options + [poWaitOnExit, poUsePipes];
+    MyProcess.Execute;
 
-    Output.LoadFromStream(Process.Output);
+    Output.LoadFromStream(MyProcess.Output);
 
     WriteLn('=== Files in current directory ===');
     for var Line in Output do
       WriteLn(Line);
 
   finally
-    Process.Free;
+    MyProcess.Free;
     Output.Free;
   end;
 
@@ -175,21 +175,21 @@ uses
   Process;
 
 var
-  Process: TProcess;
+  MyProcess: TProcess;
   ExitCode: integer;
 
 begin
-  Process := TProcess.Create(nil);
+  MyProcess := TProcess.Create(nil);
 
   try
-    Process.Executable := 'cmd.exe';
-    Process.Parameters.Add('/C');
-    Process.Parameters.Add('dir /S /B nonexistent.txt');  { This will fail }
+    MyProcess.Executable := 'cmd.exe';
+    MyProcess.Parameters.Add('/C');
+    MyProcess.Parameters.Add('dir /S /B nonexistent.txt');  { This will fail }
 
-    Process.Options := Process.Options + [poWaitOnExit];
-    Process.Execute;
+    MyProcess.Options := MyProcess.Options + [poWaitOnExit];
+    MyProcess.Execute;
 
-    ExitCode := Process.ExitCode;
+    ExitCode := MyProcess.ExitCode;
 
     WriteLn('Exit code: ', ExitCode);
 
@@ -199,7 +199,7 @@ begin
       WriteLn('Command failed with code: ', ExitCode);
 
   finally
-    Process.Free;
+    MyProcess.Free;
   end;
 
   WriteLn('');
@@ -223,31 +223,31 @@ uses
   Process;
 
 var
-  Process: TProcess;
+  MyProcess: TProcess;
 
 begin
-  Process := TProcess.Create(nil);
+  MyProcess := TProcess.Create(nil);
 
   try
     { Open a URL in the default browser }
     {$IFDEF WINDOWS}
-    Process.Executable := 'cmd.exe';
-    Process.Parameters.Add('/C');
-    Process.Parameters.Add('start https://www.google.com');
+    MyProcess.Executable := 'cmd.exe';
+    MyProcess.Parameters.Add('/C');
+    MyProcess.Parameters.Add('start https://www.google.com');
     {$ENDIF}
 
     {$IFDEF UNIX}
-    Process.Executable := 'xdg-open';
-    Process.Parameters.Add('https://www.google.com');
+    MyProcess.Executable := 'xdg-open';
+    MyProcess.Parameters.Add('https://www.google.com');
     {$ENDIF}
 
     { Don't wait for the program to finish }
-    Process.Execute;
+    MyProcess.Execute;
 
     WriteLn('Browser opened!');
 
   finally
-    Process.Free;
+    MyProcess.Free;
   end;
 
   WriteLn('Press enter to exit...');
