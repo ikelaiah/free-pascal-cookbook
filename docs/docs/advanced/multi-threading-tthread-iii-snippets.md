@@ -546,7 +546,7 @@ There are two important common variables here:
 ```pascal linenums="1"
 unit Common;
 
-{$mode ObjFPC}{$H+}
+{$mode objfpc}{$H+}{$J-}
 
 interface
 
@@ -590,12 +590,12 @@ var
   finalStudentList: TStudentList;
 
 // Custom comparison function for sorting by name - ascending
-function CompareID(const LeftItem, RightItem: TStudent): integer;
+function CompareID(constref LeftItem, RightItem: TStudent): integer;
 
 implementation
 
 // Custom comparison function for sorting by student id - ascending
-function CompareID(const LeftItem, RightItem: TStudent): integer;
+function CompareID(constref LeftItem, RightItem: TStudent): integer;
 begin
   Result := CompareValue(LeftItem.id, RightItem.id);
 end;

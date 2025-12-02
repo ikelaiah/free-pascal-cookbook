@@ -2,6 +2,19 @@
 
 Learn how to send emails from your Free Pascal programs. This is useful for notifications, alerts, or any app that needs to contact users.
 
+## Prerequisites
+
+SMTP email functionality is **not part of FPC's standard RTL**. You need the **Synapse (Ararat)** library.
+
+**Install Synapse:**
+
+1. Clone or download from [Synapse GitHub](https://github.com/geby/synapse)
+2. Extract to a folder
+3. Add the `lib` directory to your FPC library path in your IDE settings
+4. Or use compiler flag: `fpc -Fussynapse_path/lib your_program.pas`
+
+Alternatively, if your distribution provides it (like on Linux), check your package manager for the `synapse` or `libararat` package.
+
 ## What You Need
 
 To send emails, you need:
@@ -18,9 +31,24 @@ Common SMTP servers:
 - **Yahoo**: `smtp.mail.yahoo.com` (port 587)
 - **Custom server**: Ask your email provider for details
 
+## Configuration File (INI)
+
+Instead of hardcoding credentials, create a configuration file. Create a file named `email.ini`:
+
+```ini
+[SMTP]
+TargetHost=smtp.gmail.com
+TargetPort=587
+Username=your.email@gmail.com
+Password=your.app.password
+FullSSL=False
+```
+
+Free Pascal has a built-in `IniFiles` unit for reading INI files. Use `TIniFile` class to read configuration values easily.
+
 ## Simple Email Example
 
-Here's a basic example sending an email:
+Here's a basic example sending an email using configuration from an INI file:
 
 ```pascal linenums="1"
 program SendEmail;
@@ -30,18 +58,30 @@ program SendEmail;
 uses
   Classes,
   SysUtils,
+  IniFiles,
   smtpsend,
-  ssl_openssl;
+  ssl_openssl3;
 
 var
-  Mail: TSMTPSend;
   MailText: TStringList;
+  IniFile: TIniFile;
+  TargetHost, Username, Password: string;
 
 begin
+  { Load configuration from INI file }
+  IniFile := TIniFile.Create('email.ini');
+  try
+    TargetHost := IniFile.ReadString('SMTP', 'TargetHost', 'smtp.gmail.com');
+    Username := IniFile.ReadString('SMTP', 'Username', '');
+    Password := IniFile.ReadString('SMTP', 'Password', '');
+  finally
+    IniFile.Free;
+  end;
+
   { Create email content }
   MailText := TStringList.Create;
   try
-    MailText.Add('From: your.email@gmail.com');
+    MailText.Add('From: ' + Username);
     MailText.Add('To: recipient@example.com');
     MailText.Add('Subject: Hello from Free Pascal!');
     MailText.Add('');
@@ -50,27 +90,13 @@ begin
     MailText.Add('Best regards,');
     MailText.Add('Your Name');
 
-    { Create SMTP client }
-    Mail := TSMTPSend.Create;
-    try
-      { Set server details }
-      Mail.TargetHost := 'smtp.gmail.com';
-      Mail.TargetPort := '587';
-      Mail.Username := 'your.email@gmail.com';
-      Mail.Password := 'your.app.password';  { Use app password, not regular password }
-      Mail.FullSSL := False;  { Use STARTTLS }
+    WriteLn('Sending email...');
 
-      WriteLn('Connecting to email server...');
-
-      { Try to send email }
-      if Mail.SendToRaw('your.email@gmail.com', 'recipient@example.com', MailText) then
-        WriteLn('Email sent successfully!')
-      else
-        WriteLn('Error: ', Mail.EnhancedStatusCode);
-
-    finally
-      Mail.Free;
-    end;
+    { Use the standalone SendToRaw function from smtpsend module }
+    if SendToRaw(Username, 'recipient@example.com', TargetHost, MailText, Username, Password) then
+      WriteLn('Email sent successfully!')
+    else
+      WriteLn('Error sending email');
 
   finally
     MailText.Free;
@@ -93,7 +119,7 @@ If you're using Gmail, you **cannot** use your regular password. You need to:
 
 ## HTML Emails
 
-You can send formatted emails using HTML:
+You can send formatted emails using HTML. This example reads configuration from an INI file:
 
 ```pascal linenums="1"
 program SendHTMLEmail;
@@ -103,17 +129,29 @@ program SendHTMLEmail;
 uses
   Classes,
   SysUtils,
+  IniFiles,
   smtpsend,
-  ssl_openssl;
+  ssl_openssl3;
 
 var
-  Mail: TSMTPSend;
   MailText: TStringList;
+  IniFile: TIniFile;
+  TargetHost, Username, Password: string;
 
 begin
+  { Load configuration from INI file }
+  IniFile := TIniFile.Create('email.ini');
+  try
+    TargetHost := IniFile.ReadString('SMTP', 'TargetHost', 'smtp.gmail.com');
+    Username := IniFile.ReadString('SMTP', 'Username', '');
+    Password := IniFile.ReadString('SMTP', 'Password', '');
+  finally
+    IniFile.Free;
+  end;
+
   MailText := TStringList.Create;
   try
-    MailText.Add('From: your.email@gmail.com');
+    MailText.Add('From: ' + Username);
     MailText.Add('To: recipient@example.com');
     MailText.Add('Subject: Formatted Email');
     MailText.Add('Content-Type: text/html; charset=UTF-8');
@@ -126,24 +164,13 @@ begin
     MailText.Add('</body>');
     MailText.Add('</html>');
 
-    Mail := TSMTPSend.Create;
-    try
-      Mail.TargetHost := 'smtp.gmail.com';
-      Mail.TargetPort := '587';
-      Mail.Username := 'your.email@gmail.com';
-      Mail.Password := 'your.app.password';
-      Mail.FullSSL := False;
+    WriteLn('Sending HTML email...');
 
-      WriteLn('Sending HTML email...');
-
-      if Mail.SendToRaw('your.email@gmail.com', 'recipient@example.com', MailText) then
-        WriteLn('Email sent!')
-      else
-        WriteLn('Error: ', Mail.EnhancedStatusCode);
-
-    finally
-      Mail.Free;
-    end;
+    { Use the standalone SendToRaw function from smtpsend module }
+    if SendToRaw(Username, 'recipient@example.com', TargetHost, MailText, Username, Password) then
+      WriteLn('Email sent!')
+    else
+      WriteLn('Error sending email');
 
   finally
     MailText.Free;
@@ -156,7 +183,7 @@ end.
 
 ## Sending to Multiple Recipients
 
-Send one email to several people:
+Send one email to several people. This example reads configuration from an INI file:
 
 ```pascal linenums="1"
 program SendMultiple;
@@ -166,51 +193,57 @@ program SendMultiple;
 uses
   Classes,
   SysUtils,
+  IniFiles,
   smtpsend,
-  ssl_openssl;
+  ssl_openssl3;
 
 var
-  Mail: TSMTPSend;
   MailText: TStringList;
   Recipients: TStringList;
+  IniFile: TIniFile;
+  TargetHost, Username, Password: string;
+  i: Integer;
 
 begin
+  { Load configuration from INI file }
+  IniFile := TIniFile.Create('email.ini');
+  try
+    TargetHost := IniFile.ReadString('SMTP', 'TargetHost', 'smtp.gmail.com');
+    Username := IniFile.ReadString('SMTP', 'Username', '');
+    Password := IniFile.ReadString('SMTP', 'Password', '');
+  finally
+    IniFile.Free;
+  end;
+
   MailText := TStringList.Create;
   Recipients := TStringList.Create;
 
   try
     { Create email }
-    MailText.Add('From: your.email@gmail.com');
+    MailText.Add('From: ' + Username);
     MailText.Add('Subject: Team Announcement');
     MailText.Add('');
     MailText.Add('Hello team!');
     MailText.Add('This is an announcement for everyone.');
 
-    { Add recipients }
+    { Add recipients (Synapse can handle comma-separated list) }
     Recipients.Add('person1@example.com');
     Recipients.Add('person2@example.com');
     Recipients.Add('person3@example.com');
 
-    Mail := TSMTPSend.Create;
-    try
-      Mail.TargetHost := 'smtp.gmail.com';
-      Mail.TargetPort := '587';
-      Mail.Username := 'your.email@gmail.com';
-      Mail.Password := 'your.app.password';
-      Mail.FullSSL := False;
+    WriteLn('Sending emails...');
 
-      { Send to each recipient }
-      for var Recipient in Recipients do
-      begin
-        WriteLn('Sending to: ', Recipient);
-        Mail.SendToRaw('your.email@gmail.com', Recipient, MailText);
-      end;
-
-      WriteLn('All emails sent!');
-
-    finally
-      Mail.Free;
+    { Send to each recipient using the standalone SendToRaw function }
+    for i := 0 to Recipients.Count - 1 do
+    begin
+      WriteLn('Sending to: ', Recipients[i]);
+      if SendToRaw(Username, Recipients[i], TargetHost, MailText, Username, Password) then
+        WriteLn('  Success!')
+      else
+        WriteLn('  Failed to send');
     end;
+
+    WriteLn('All emails processed!');
 
   finally
     MailText.Free;
@@ -224,35 +257,74 @@ end.
 
 ## Error Handling
 
-Check for problems when sending:
+Check for problems when sending. This example reads configuration from an INI file:
 
-```pascal
+```pascal linenums="1"
+program SendEmailWithErrorHandling;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  Classes,
+  SysUtils,
+  IniFiles,
+  smtpsend,
+  ssl_openssl3;
+
 var
-  Mail: TSMTPSend;
-begin
-  Mail := TSMTPSend.Create;
-  try
-    Mail.TargetHost := 'smtp.gmail.com';
-    Mail.TargetPort := '587';
-    Mail.Username := 'your.email@gmail.com';
-    Mail.Password := 'your.app.password';
-    Mail.FullSSL := False;
+  IniFile: TIniFile;
+  TargetHost, Username, Password: string;
+  FromAddr, ToAddr: string;
+  MailText: TStringList;
 
-    if Mail.SendToRaw(FromAddr, ToAddr, MailText) then
+begin
+  { Load configuration from INI file }
+  IniFile := TIniFile.Create('email.ini');
+  try
+    TargetHost := IniFile.ReadString('SMTP', 'TargetHost', 'smtp.gmail.com');
+    Username := IniFile.ReadString('SMTP', 'Username', '');
+    Password := IniFile.ReadString('SMTP', 'Password', '');
+  finally
+    IniFile.Free;
+  end;
+
+  FromAddr := Username;
+  ToAddr := 'recipient@example.com';
+  MailText := TStringList.Create;
+  try
+    MailText.Add('From: ' + FromAddr);
+    MailText.Add('To: ' + ToAddr);
+    MailText.Add('Subject: Test Email');
+    MailText.Add('');
+    MailText.Add('Test message');
+
+    WriteLn('Attempting to send email...');
+    WriteLn('From: ', FromAddr);
+    WriteLn('To: ', ToAddr);
+    WriteLn('Server: ', TargetHost);
+
+    { Use the standalone SendToRaw function from smtpsend module }
+    if SendToRaw(FromAddr, ToAddr, TargetHost, MailText, Username, Password) then
     begin
-      WriteLn('Success!');
+      WriteLn('Success! Email was sent.');
     end
     else
     begin
-      WriteLn('Failed to send email');
-      WriteLn('Status code: ', Mail.EnhancedStatusCode);
-      WriteLn('Result: ', Mail.ResultString);
+      WriteLn('Error: Failed to send email.');
+      WriteLn('Check:');
+      WriteLn('  - SMTP server address and port');
+      WriteLn('  - Username and password');
+      WriteLn('  - Internet connection');
+      WriteLn('  - Firewall settings');
     end;
 
   finally
-    Mail.Free;
+    MailText.Free;
   end;
-end;
+
+  WriteLn('Press enter to exit...');
+  ReadLn;
+end.
 ```
 
 ## Email Format Tips

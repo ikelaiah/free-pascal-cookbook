@@ -100,55 +100,77 @@ uses
   Classes,
   SysUtils;
 
-procedure LoadEnvFile(filename: string);
+function LoadEnvFile(filename: string): TStringList;
 var
-  envFile: TStringList;
   i: integer;
   line: string;
   key, value: string;
   eqPos: integer;
 begin
-  envFile := TStringList.Create;
+  Result := TStringList.Create;
   try
-    envFile.LoadFromFile(filename);
+    { Only load if file exists }
+    if not FileExists(filename) then
+      Exit;
 
-    for i := 0 to envFile.Count - 1 do
+    Result.LoadFromFile(filename);
+
+    { Process in reverse to safely delete lines }
+    for i := Result.Count - 1 downto 0 do
     begin
-      line := envFile[i];
+      line := Result[i];
 
       { Skip empty lines and comments }
       if (line = '') or (line[1] = '#') then
-        Continue;
-
-      { Find the equals sign }
-      eqPos := Pos('=', line);
-      if eqPos > 0 then
+        Result.Delete(i)
+      else
       begin
-        key := Trim(Copy(line, 1, eqPos - 1));
-        value := Trim(Copy(line, eqPos + 1, Length(line)));
+        { Find the equals sign }
+        eqPos := Pos('=', line);
+        if eqPos > 0 then
+        begin
+          key := Trim(Copy(line, 1, eqPos - 1));
+          value := Trim(Copy(line, eqPos + 1, Length(line)));
 
-        { Set as environment variable }
-        SetEnvironmentVariable(key, value);
+          { Store in result as key=value pairs }
+          Result.Values[key] := value;
+        end
+        else
+          Result.Delete(i);
       end;
     end;
 
-  finally
-    envFile.Free;
+  except
+    Result.Free;
+    raise;
   end;
 end;
 
+var
+  Config: TStringList;
+
 begin
   { Load variables from .env file }
-  LoadEnvFile('.env');
+  Config := LoadEnvFile('.env');
+  try
+    if Config.Count = 0 then
+      WriteLn('Warning: .env file not found or is empty')
+    else
+      WriteLn('Loaded ', Config.Count, ' configuration values');
 
-  { Now you can read them }
-  WriteLn('API Key: ', GetEnvironmentVariable('API_KEY'));
-  WriteLn('DB Host: ', GetEnvironmentVariable('DB_HOST'));
-  WriteLn('DB Port: ', GetEnvironmentVariable('DB_PORT'));
+    WriteLn('');
 
-  WriteLn('');
-  WriteLn('Press enter to exit...');
-  ReadLn;
+    { Now you can read them }
+    WriteLn('API Key: ', Config.Values['API_KEY']);
+    WriteLn('DB Host: ', Config.Values['DB_HOST']);
+    WriteLn('DB Port: ', Config.Values['DB_PORT']);
+
+    WriteLn('');
+    WriteLn('Press enter to exit...');
+    ReadLn;
+  finally
+    Config.Free;
+  end;
 end.
 ```
 

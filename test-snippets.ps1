@@ -84,27 +84,38 @@ foreach ($file in $mdFiles) {
         # Only PROGRAM declarations can be compiled (not units)
         # Check for: starts with "program" keyword, contains begin/end block
         $hasProgram = $snippetCode -match '^\s*program\s+'
+        $hasUnit = $snippetCode -match '^\s*unit\s+(\w+)'
         $hasBegin = $snippetCode -match '\bbegin\b'
         $hasEnd = $snippetCode -match '\bend\s*\.\s*$'
         $isCompilable = $hasProgram -and $hasBegin -and $hasEnd
 
+        $snippetType = "Other"
+        $fileName = "{0}_{1:D3}.pas" -f ($file.BaseName), $snippetIndex
+
         if ($isCompilable) {
             $snippetType = "Program"
             $completeCount++
+        } elseif ($hasUnit) {
+            $snippetType = "Unit"
+            $partialCount++
+
+            # Extract unit name and use it as filename
+            if ($snippetCode -match '^\s*unit\s+(\w+)') {
+                $unitName = $matches[1]
+                $fileName = "$unitName.pas"
+            }
         } else {
             $snippetType = "Other"
             $partialCount++
         }
 
-        # Create test file
-        $fileName = "{0}_{1:D3}.pas" -f ($file.BaseName), $snippetIndex
         $testFile = Join-Path $OutputDir $fileName
 
-        # Write the snippet (compilable programs are compiled, others are not)
+        # Write the snippet
         $content_to_write = $snippetCode
 
-        # If not compilable, wrap in comment to prevent compilation
-        if (-not $isCompilable) {
+        # If not compilable and not a unit, wrap in comment to prevent compilation
+        if (-not $isCompilable -and $snippetType -ne "Unit") {
             $lines = $snippetCode -split "`n" | ForEach-Object { "  $_" }
             $codeLines = $lines -join "`n"
             $content_to_write = @"
@@ -112,7 +123,7 @@ foreach ($file in $mdFiles) {
   This is a non-compilable snippet from: $relPath (snippet $snippetIndex)
 
   This snippet cannot be compiled directly.
-  It may be: a unit declaration, a code fragment, or a teaching example.
+  It may be: a code fragment, or a teaching example.
   Code:
 
 $codeLines
@@ -122,7 +133,7 @@ $codeLines
 
         Set-Content -Path $testFile -Value $content_to_write
 
-        # Compile if this is a compilable program
+        # Compile if this is a compilable program (skip units)
         $compileResult = "SKIPPED"
         $compileError = ""
 
@@ -131,7 +142,7 @@ $codeLines
             $logFile = Join-Path $OutputDir "$fileName.log"
 
             # Compile
-            & $FpcBin -o"$outputExe.exe" -FuC:\Lazarus\components\lazutils -FuC:\Lazarus\lcl\units\win32 "$testFile" 2>&1 | Tee-Object -FilePath $logFile | Out-Null
+            & $FpcBin -o"$outputExe.exe" -Fu"$OutputDir\libraries" -FuC:\Lazarus\components\lazutils -FuC:\Lazarus\lcl\units\win32 "$testFile" 2>&1 | Tee-Object -FilePath $logFile | Out-Null
 
             if ($LASTEXITCODE -eq 0) {
                 $compileResult = "SUCCESS"
@@ -141,6 +152,9 @@ $codeLines
                 $failCount++
                 $compileError = Get-Content $logFile -Raw
             }
+        } elseif ($snippetType -eq "Unit") {
+            # Units are saved but not compiled - they will be used by other programs
+            $compileResult = "SAVED"
         }
 
         # Store result
@@ -171,22 +185,32 @@ if ($completeCount -gt 0) {
     Write-ColorOutput "  Pass Rate: $passRate%`n" $colors.Info
 }
 
+$savedUnits = $results | Where-Object { $_.Result -eq "SAVED" } | Measure-Object | Select-Object -ExpandProperty Count
+if ($savedUnits -gt 0) {
+    Write-ColorOutput "`nUnits Saved:"
+    Write-ColorOutput "  💾 Units: $savedUnits`n" $colors.Success
+}
+
 # Show snippets by file
 Write-ColorOutput "`n========== SNIPPETS BY FILE ==========" $colors.Info
 
 $fileStats = $results | Group-Object -Property File | ForEach-Object {
     $file = $_.Name
     $programs = $_.Group | Where-Object { $_.Type -eq "Program" } | Measure-Object | Select-Object -ExpandProperty Count
+    $units = $_.Group | Where-Object { $_.Type -eq "Unit" } | Measure-Object | Select-Object -ExpandProperty Count
     $others = $_.Group | Where-Object { $_.Type -eq "Other" } | Measure-Object | Select-Object -ExpandProperty Count
     $successes = $_.Group | Where-Object { $_.Result -eq "SUCCESS" } | Measure-Object | Select-Object -ExpandProperty Count
     $failures = $_.Group | Where-Object { $_.Result -eq "FAILED" } | Measure-Object | Select-Object -ExpandProperty Count
+    $saved = $_.Group | Where-Object { $_.Result -eq "SAVED" } | Measure-Object | Select-Object -ExpandProperty Count
 
     [PSCustomObject]@{
         File = $file
         Programs = $programs
+        Units = $units
         Others = $others
         Success = $successes
         Failed = $failures
+        Saved = $saved
     }
 }
 
@@ -196,11 +220,17 @@ foreach ($stat in $fileStats) {
     if ($stat.Programs -gt 0) {
         Write-ColorOutput "  Programs: $($stat.Programs)" $colors.Complete
     }
+    if ($stat.Units -gt 0) {
+        Write-ColorOutput "  Units: $($stat.Units)" $colors.Success
+    }
     if ($stat.Others -gt 0) {
-        Write-ColorOutput "  Other (units/fragments): $($stat.Others)" $colors.Partial
+        Write-ColorOutput "  Other (fragments): $($stat.Others)" $colors.Partial
     }
     if ($stat.Success -gt 0) {
         Write-ColorOutput "  ✅ Compiled: $($stat.Success)" $colors.Success
+    }
+    if ($stat.Saved -gt 0) {
+        Write-ColorOutput "  💾 Saved: $($stat.Saved)" $colors.Success
     }
     if ($stat.Failed -gt 0) {
         Write-ColorOutput "  ❌ Failed: $($stat.Failed)" $colors.Failed
@@ -240,15 +270,26 @@ foreach ($stat in $fileStats) {
     if ($stat.Programs -gt 0) {
         $fileStatsText += "  Programs: $($stat.Programs)`n"
     }
+    if ($stat.Units -gt 0) {
+        $fileStatsText += "  Units: $($stat.Units)`n"
+    }
     if ($stat.Others -gt 0) {
-        $fileStatsText += "  Other (units/fragments): $($stat.Others)`n"
+        $fileStatsText += "  Other (fragments): $($stat.Others)`n"
     }
     if ($stat.Success -gt 0) {
         $fileStatsText += "  Compiled: $($stat.Success)`n"
     }
+    if ($stat.Saved -gt 0) {
+        $fileStatsText += "  Saved: $($stat.Saved)`n"
+    }
     if ($stat.Failed -gt 0) {
         $fileStatsText += "  Failed: $($stat.Failed)`n"
     }
+}
+
+$savedUnitsText = @()
+$results | Where-Object { $_.Type -eq "Unit" } | ForEach-Object {
+    $savedUnitsText += "$($_.File) - $($_.TestFile)"
 }
 
 $reportContent = @"
@@ -259,13 +300,18 @@ SUMMARY
 -------
 Total Snippets: $snippetCount
   Programs (compilable): $completeCount
-  Other (units/fragments/partial): $partialCount
+  Units (for reuse): $($results | Where-Object { $_.Type -eq "Unit" } | Measure-Object | Select-Object -ExpandProperty Count)
+  Other (fragments/partial): $partialCount
 
 COMPILATION RESULTS
 -------------------
 Successful: $successCount
 Failed: $failCount
 Pass Rate: $(if ($completeCount -gt 0) { "$([math]::Round(($successCount / $completeCount) * 100, 2))%" } else { "N/A" })
+
+UNITS SAVED FOR REUSE
+---------------------
+$($savedUnitsText | Out-String)
 
 SNIPPETS BY FILE
 ----------------$fileStatsText
