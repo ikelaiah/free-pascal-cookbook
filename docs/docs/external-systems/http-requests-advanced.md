@@ -30,11 +30,12 @@ var
   url: string;
   jsonData: TJSONObject;
   jsonString: string;
-  response: string;
+  response: TStringStream;
 
 begin
   { Create a new user object }
   jsonData := TJSONObject.Create;
+  response := TStringStream.Create('');
   try
     jsonData.Strings['name'] := 'John';
     jsonData.Strings['email'] := 'john@example.com';
@@ -51,14 +52,16 @@ begin
 
       { Make the POST request }
       url := 'https://jsonplaceholder.typicode.com/users';
-      response := client.SimplePost(url, jsonString);
+      client.RequestBody := TRawByteStringStream.Create(jsonString);
+      client.Post(url, response);
 
-      WriteLn('Response: ', response);
+      WriteLn('Response: ', response.DataString);
     finally
       client.Free;
     end;
   finally
     jsonData.Free;
+    response.Free;
   end;
 
   WriteLn('');
@@ -88,11 +91,12 @@ var
   url: string;
   jsonData: TJSONObject;
   jsonString: string;
-  response: string;
+  response: TStringStream;
 
 begin
   { Create updated user data }
   jsonData := TJSONObject.Create;
+  response := TStringStream.Create('');
   try
     jsonData.Strings['name'] := 'Jane';
     jsonData.Strings['email'] := 'jane@example.com';
@@ -106,14 +110,16 @@ begin
 
       { Update user with ID 1 }
       url := 'https://jsonplaceholder.typicode.com/users/1';
-      response := client.SimplePost(url, jsonString);  { Note: Some APIs use POST for PUT }
+      client.RequestBody := TRawByteStringStream.Create(jsonString);
+      client.Put(url, response);  { Use Put() method for PUT requests }
 
-      WriteLn('Response: ', response);
+      WriteLn('Response: ', response.DataString);
     finally
       client.Free;
     end;
   finally
     jsonData.Free;
+    response.Free;
   end;
 
   WriteLn('');

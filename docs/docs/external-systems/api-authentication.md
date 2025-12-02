@@ -178,7 +178,8 @@ var
   requestString: string;
   responseData: TJSONObject;
   accessToken: string;
-  response: string;
+  response: TStringStream;
+  response2: TStringStream;
 
 begin
   { OAuth 2.0 has several steps, here's a simplified example }
@@ -187,6 +188,8 @@ begin
   client := TFPHTTPClient.Create(nil);
   requestBody := TJSONObject.Create;
   responseData := TJSONObject.Create;
+  response := TStringStream.Create('');
+  response2 := TStringStream.Create('');
 
   try
     { Create the request for getting a token }
@@ -200,25 +203,27 @@ begin
 
     client.AddHeader('Content-Type', 'application/json');
 
-    { Get the token }
-    response := client.SimplePost('https://provider.example.com/oauth/token', requestString);
+    { Get the token - use Post() with RequestBody }
+    client.RequestBody := TRawByteStringStream.Create(requestString);
+    client.Post('https://provider.example.com/oauth/token', response);
 
-    responseData := TJSONObject(GetJSON(response));
+    responseData := TJSONObject(GetJSON(response.DataString));
     accessToken := responseData.Strings['access_token'];
 
     WriteLn('Got access token: ', accessToken);
 
     { Step 2: Use the access token to access protected resources }
-    client.Clear;
     client.AddHeader('Authorization', 'Bearer ' + accessToken);
 
-    response := client.SimpleGet('https://api.example.com/user/info');
-    WriteLn('User info: ', response);
+    client.Get('https://api.example.com/user/info', response2);
+    WriteLn('User info: ', response2.DataString);
 
   finally
     client.Free;
     requestBody.Free;
     responseData.Free;
+    response.Free;
+    response2.Free;
   end;
 
   WriteLn('');
