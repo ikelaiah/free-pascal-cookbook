@@ -15,6 +15,17 @@ CRUD stands for the four basic things you can do with data:
 
 First, you need the SQLite library. Most systems already have it installed. In your Free Pascal code, you'll use the `sqlite3` unit.
 
+### Installing SQLite3 Libraries
+
+The `sqlite3` unit requires the SQLite3 libraries to be installed on your system:
+
+- **Windows**: Download the SQLite3 DLL from [https://sqlite.org/download.html](https://sqlite.org/download.html). The DLL must be in a path that can be found by your executable (such as the same directory as your program, or in your system PATH).
+- **Linux**: Use your distribution's package manager to install SQLite3 libraries:
+  - Ubuntu/Debian: `sudo apt-get install libsqlite3-0`
+  - Fedora/RHEL: `sudo dnf install sqlite-libs`
+  - Arch: `sudo pacman -S sqlite`
+- **macOS**: SQLite3 is typically pre-installed, but you can install or update it via Homebrew: `brew install sqlite`
+
 ## Simple Database Example: Student Records
 
 Here's a complete program that creates a database, adds students, reads them, updates one, and deletes one.
