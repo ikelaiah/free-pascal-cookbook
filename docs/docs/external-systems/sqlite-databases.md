@@ -33,7 +33,7 @@ Here's a complete program that creates a database, adds students, reads them, up
 ```pascal linenums="1"
 program StudentDatabase;
 
-{$mode objfpc}{$H+}
+{$mode objfpc}{$H+}{$J-}
 
 uses
   Classes,
