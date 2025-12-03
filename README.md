@@ -86,14 +86,14 @@ Both are free and work on Windows, macOS, and Linux.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-<!-- TESTING CODE SNIPPETS -->
-## Testing Code Snippets
+<!-- COMPILING CODE SNIPPETS -->
+## Compiling Code Snippets
 
-All code snippets in the cookbook are automatically extracted and tested to ensure they compile correctly.
+All code snippets in the cookbook are automatically extracted and compiled to ensure they work correctly. You can also experiment with the compiled executables.
 
 ### How It Works
 
-The `test-snippets.ps1` PowerShell script:
+The `compile-all-snippets.ps1` PowerShell script:
 
 1. **Scans** all markdown files in the `docs/` directory
 2. **Extracts** Pascal code blocks marked with `` ```pascal ``
@@ -103,33 +103,55 @@ The `test-snippets.ps1` PowerShell script:
    - **Fragments**: Code examples or partial code (learning snippets)
 4. **Auto-generates filenames** using the pattern: `{markdown_filename}_{snippet_number}.pas`
    - Example: `basic-hello-world_001.pas`, `basic-hello-world_002.pas`
-5. **Compiles** all Programs using the Free Pascal compiler
-6. **Generates reports** summarizing results:
+5. **Compiles** all Programs using the Free Pascal compiler (fpc)
+6. **Generates executables** you can run and experiment with
+7. **Generates reports** summarizing compilation results:
    - `snippet_results.csv` - Detailed per-snippet data (machine-readable)
    - `REPORT.txt` - Human-readable summary with statistics
 
-### Running Tests
+### Running Compilation
 
-To test all snippets:
+To compile all snippets:
 
 ```powershell
-# Basic usage (uses default paths: .\docs input, .\test-output output)
-.\test-snippets.ps1
+# Basic usage (uses default paths: .\docs input, .\build output)
+.\compile-all-snippets.ps1
 
 # Custom paths
-.\test-snippets.ps1 -DocsPath ".\docs" -OutputDir ".\build" -FpcBin "C:\fpc\bin\fpc.exe"
+.\compile-all-snippets.ps1 -DocsPath ".\docs" -OutputDir ".\build" -FpcBin "C:\fpc\bin\fpc.exe"
 ```
+
+### Build Directory Structure
+
+After running the script, the `build/` folder will contain:
+
+- **Extracted snippets**: `{filename}_{###}.pas` - Source files from documentation
+- **Compiled executables**: `{filename}_{###}.exe` - Runnable programs (for Programs only)
+- **Compiled units**: `*.ppu, *.o` - Object files and compiled units
+- **Logs**: `{filename}_{###}.log` - Compiler output and error messages
+- **Libraries**: `build/libraries/` - Extracted unit files for cross-snippet dependencies
+- **Reports**: `snippet_results.csv`, `REPORT.txt` - Compilation statistics
 
 ### Understanding Results
 
-The script generates:
+The script reports:
 
-- **SUCCESS**: Program compiled without errors
-- **FAILED**: Program has compilation errors (check log files)
-- **SAVED**: Unit or fragment extracted and saved for reference (not compiled)
+- **SUCCESS**: Program compiled without errors ✅
+- **FAILED**: Program has compilation errors (check .log files for details) ❌
+- **SAVED**: Unit or fragment extracted and saved for reference (not compiled) 💾
 - **SKIPPED**: Fragment or partial code (cannot be compiled standalone)
 
-Check `test-output/REPORT.txt` or `test-output/snippet_results.csv` for detailed results.
+Check `build/REPORT.txt` or `build/snippet_results.csv` for detailed results.
+
+### Cleaning Up
+
+To remove all compiled artifacts and start fresh:
+
+```cmd
+clean-build.bat
+```
+
+This removes all `.pas`, `.exe`, `.ppu`, `.o`, `.log` files and the reports.
 
 ### Skipping Compilation for Specific Snippets
 

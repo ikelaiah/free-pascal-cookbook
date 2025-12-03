@@ -19,20 +19,24 @@
     Path to the docs folder containing markdown files (default: .\docs)
 
 .PARAMETER OutputDir
-    Output directory for extracted snippets and test results (default: .\test-output)
+    Output directory for compiled snippets and test results (default: .\build)
 
 .PARAMETER FpcBin
     Path to the Free Pascal compiler executable (default: fpc)
 
 .EXAMPLE
-    PS> .\test-snippets.ps1
-    PS> .\test-snippets.ps1 -DocsPath ".\docs" -OutputDir ".\build" -FpcBin "C:\fpc\bin\fpc.exe"
+    PS> .\compile-all-snippets.ps1
+    PS> .\compile-all-snippets.ps1 -DocsPath ".\docs" -OutputDir ".\build" -FpcBin "C:\fpc\bin\fpc.exe"
 
 .NOTES
-    Output files:
+    Output files and directories:
     - {filename}_{###}.pas - Extracted snippets with auto-generated names
-    - snippet_results.csv - Detailed compilation results
-    - REPORT.txt - Summary of all test results
+    - {filename}_{###}.exe - Compiled executable programs
+    - {filename}_{###}.log - Compiler output and error messages
+    - *.ppu, *.o - Compiled units and object files
+    - libraries/ - Extracted unit files from documentation
+    - snippet_results.csv - Detailed compilation results (machine-readable)
+    - REPORT.txt - Human-readable summary of all test results
 
     Auto-generated filenames use the pattern: {markdown_base_name}_{snippet_number}.pas
     This allows easy tracking of which snippet came from which documentation file.
@@ -40,7 +44,7 @@
 
 param(
     [string]$DocsPath = ".\docs",
-    [string]$OutputDir = ".\test-output",
+    [string]$OutputDir = ".\build",
     [string]$FpcBin = "fpc"
 )
 
