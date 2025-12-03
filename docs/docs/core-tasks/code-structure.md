@@ -4,6 +4,7 @@
 
 Here is a common structure of a Pascal program.
 
+<!-- SKIP_COMPILE -->
 ```pascal linenums="1"
 program ProgramStructure;
 

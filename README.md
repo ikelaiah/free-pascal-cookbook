@@ -83,6 +83,78 @@ No installation required! Everything you need is already here or linked from the
 
 Both are free and work on Windows, macOS, and Linux.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- TESTING CODE SNIPPETS -->
+## Testing Code Snippets
+
+All code snippets in the cookbook are automatically extracted and tested to ensure they compile correctly.
+
+### How It Works
+
+The `test-snippets.ps1` PowerShell script:
+
+1. **Scans** all markdown files in the `docs/` directory
+2. **Extracts** Pascal code blocks marked with `` ```pascal ``
+3. **Classifies** snippets as:
+   - **Programs**: Complete, runnable programs (contain `program` + `begin`/`end`)
+   - **Units**: Reusable unit declarations (contain `unit` keyword)
+   - **Fragments**: Code examples or partial code (learning snippets)
+4. **Auto-generates filenames** using the pattern: `{markdown_filename}_{snippet_number}.pas`
+   - Example: `basic-hello-world_001.pas`, `basic-hello-world_002.pas`
+5. **Compiles** all Programs using the Free Pascal compiler
+6. **Generates reports** summarizing results:
+   - `snippet_results.csv` - Detailed per-snippet data (machine-readable)
+   - `REPORT.txt` - Human-readable summary with statistics
+
+### Running Tests
+
+To test all snippets:
+
+```powershell
+# Basic usage (uses default paths: .\docs input, .\test-output output)
+.\test-snippets.ps1
+
+# Custom paths
+.\test-snippets.ps1 -DocsPath ".\docs" -OutputDir ".\build" -FpcBin "C:\fpc\bin\fpc.exe"
+```
+
+### Understanding Results
+
+The script generates:
+
+- **SUCCESS**: Program compiled without errors
+- **FAILED**: Program has compilation errors (check log files)
+- **SAVED**: Unit or fragment extracted and saved for reference (not compiled)
+- **SKIPPED**: Fragment or partial code (cannot be compiled standalone)
+
+Check `test-output/REPORT.txt` or `test-output/snippet_results.csv` for detailed results.
+
+### Skipping Compilation for Specific Snippets
+
+Some code examples may intentionally contain memory leaks, unsafe patterns, or other issues suitable for educational discussion but not for automated compilation. Use the `<!-- SKIP_COMPILE -->` marker to prevent a snippet from being compiled:
+
+```
+<!-- SKIP_COMPILE -->
+```pascal
+program MemoryLeakExample;
+{ This demonstrates a memory leak for educational purposes }
+begin
+  // intentional memory leak shown here
+end.
+```
+```
+
+The script will:
+
+- Still extract and save the snippet for reference
+- Mark it as non-compilable to avoid failures
+- Include a note in the extracted file explaining why it was skipped
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
 ## Featured Topics
 
 New to Free Pascal? Start with these:
