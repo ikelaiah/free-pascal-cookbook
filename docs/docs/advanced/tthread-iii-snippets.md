@@ -840,7 +840,7 @@ begin
     // 1. Read input text file and populate input array from a text file
     if not FileExists(ParamStr(1)) then
     begin
-      WriteLn(Format('%s does not exist.', [ParamStr(1)]));
+      WriteLn(Format('Input file: %s does not exist. Did you provide the correct path?', [ParamStr(1)]));
       Exit;
     end;
 
