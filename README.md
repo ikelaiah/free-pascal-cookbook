@@ -125,12 +125,28 @@ To compile all snippets:
 
 After running the script, the `build/` folder will contain:
 
-- **Extracted snippets**: `{filename}_{###}.pas` - Source files from documentation
+- **Extracted snippets**: `{filename}_{###}.pas` - Source files and units extracted from documentation
 - **Compiled executables**: `{filename}_{###}.exe` - Runnable programs (for Programs only)
 - **Compiled units**: `*.ppu, *.o` - Object files and compiled units
 - **Logs**: `{filename}_{###}.log` - Compiler output and error messages
-- **Libraries**: `build/libraries/` - Extracted unit files for cross-snippet dependencies
 - **Reports**: `snippet_results.csv`, `REPORT.txt` - Compilation statistics
+
+All extracted units and programs are stored directly in `build/` for easy discovery and experimentation.
+
+### Support Libraries
+
+The `build_support/` folder contains third-party and supplementary units required for compilation:
+
+- **`build_support/units/`** - Third-party unit source files:
+  - `ezthreads` - Threading and concurrency units
+  - `synapse` - Network and HTTP communication units
+  - Other specialized libraries for cookbook examples
+
+- **`build_support/libs/`** - External compiled libraries:
+  - `sqlite3.dll` - SQLite database library
+  - Other platform-specific libraries
+
+These support files allow the snippets to compile with all necessary dependencies. Simply run `compile-all-snippets.ps1` and it will automatically locate and compile against these units and libraries.
 
 ### Understanding Results
 
@@ -159,13 +175,13 @@ Some code examples may intentionally contain memory leaks, unsafe patterns, or o
 
 ```
 <!-- SKIP_COMPILE -->
-```pascal
+'''pascal
 program MemoryLeakExample;
 { This demonstrates a memory leak for educational purposes }
 begin
   // intentional memory leak shown here
 end.
-```
+'''
 ```
 
 The script will:

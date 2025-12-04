@@ -38,8 +38,21 @@
     - snippet_results.csv - Detailed compilation results (machine-readable)
     - REPORT.txt - Human-readable summary of all test results
 
+    Support directories (optional):
+    - build_support/units/ - Custom or third-party unit files (SQLite, database libs, etc.)
+    - build_support/libs/ - External libraries (sqlite3.dll, etc.)
+    - build_support/config - Custom FPC configuration file (fpc.cfg)
+
     Auto-generated filenames use the pattern: {markdown_base_name}_{snippet_number}.pas
     This allows easy tracking of which snippet came from which documentation file.
+
+    Compiler includes unit search paths from:
+    1. build/libraries - units extracted from cookbook documentation
+    2. build_support/units - custom units and third-party libraries
+    3. Lazarus standard paths (lazutils, LCL units)
+
+    External libraries loaded from:
+    - build_support/libs - places like sqlite3.dll, database drivers
 #>
 
 param(
@@ -235,9 +248,25 @@ $codeLines
             $outputExe = Join-Path $OutputDir ([System.IO.Path]::GetFileNameWithoutExtension($fileName))
             $logFile = Join-Path $OutputDir "$fileName.log"
 
-            # Run Free Pascal compiler with Lazarus library paths for dependencies
+            # Run Free Pascal compiler with library and configuration paths for dependencies
+            # Unit search paths (-Fu):
+            #   - build/libraries - units extracted from documentation
+            #   - ../build_support/units - custom/third-party units (e.g., SQLite, database libraries)
+            #   - Lazarus standard paths - IDE components and LCL
+            # Library search paths (-Fl):
+            #   - ../build_support/libs - external libraries (e.g., sqlite3.dll)
+            # Configuration file (-FC):
+            #   - ../build_support/config - custom compiler configuration if needed
             # Output redirected to log file for later inspection if compilation fails
-            & $FpcBin -o"$outputExe.exe" -Fu"$OutputDir\libraries" -FuC:\Lazarus\components\lazutils -FuC:\Lazarus\lcl\units\win32 "$testFile" 2>&1 | Tee-Object -FilePath $logFile | Out-Null
+            & $FpcBin `
+                -o"$outputExe.exe" `
+                -Fu"$OutputDir\libraries" `
+                -Fu"$OutputDir\..\build_support\units" `
+                -Fl"$OutputDir\..\build_support\libs" `
+                -FC"$OutputDir\..\build_support\config" `
+                -FuC:\Lazarus\components\lazutils `
+                -FuC:\Lazarus\lcl\units\win32 `
+                "$testFile" 2>&1 | Tee-Object -FilePath $logFile | Out-Null
 
             # Check compilation result and update counters
             if ($LASTEXITCODE -eq 0) {
