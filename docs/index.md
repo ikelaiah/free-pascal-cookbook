@@ -103,7 +103,7 @@ As you get more comfortable with Free Pascal, you might want to see how Free Pas
 
 Built with help from the amazing Free Pascal and Lazarus community. Here are some great places to ask questions and learn:
 
-- [Unofficial Free Pascal Discord](https://discord.com/channels/570025060312547359/570091337173696513) - Real-time chat with the community
+- [Unofficial Free Pascal Discord](https://discord.gg/3VdxbSFyJP) - Real-time chat with the community
 - [Free Pascal & Lazarus Forum](https://forum.lazarus.freepascal.org/) - The official discussion forum
 - [Tweaking4All Forums](https://www.tweaking4all.com/forum/delphi-lazarus-free-pascal/) - Active community with lots of helpful discussions
 - [Laz Planet](https://lazplanet.blogspot.com) - Great blog with tutorials and tips
