@@ -231,7 +231,7 @@ Many services provide XML data. For example:
 
 ```pascal
 uses
-  Classes,          { For basic functionality }
+  Classes,         { For basic functionality }
   DOM,             { For XML documents and elements }
   XMLRead,         { For reading XML files }
   XMLWrite;        { For writing/saving XML files }
