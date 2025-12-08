@@ -83,6 +83,116 @@ No installation required! Everything you need is already here or linked from the
 
 Both are free and work on Windows, macOS, and Linux.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- COMPILING CODE SNIPPETS -->
+## Compiling Code Snippets
+
+All code snippets in the cookbook are automatically extracted and compiled to ensure they work correctly. You can also experiment with the compiled executables.
+
+### How It Works
+
+The `compile-all-snippets.ps1` PowerShell script:
+
+1. **Scans** all markdown files in the `docs/` directory
+2. **Extracts** Pascal code blocks marked with `` ```pascal ``
+3. **Classifies** snippets as:
+   - **Programs**: Complete, runnable programs (contain `program` + `begin`/`end`)
+   - **Units**: Reusable unit declarations (contain `unit` keyword)
+   - **Fragments**: Code examples or partial code (learning snippets)
+4. **Auto-generates filenames** using the pattern: `{markdown_filename}_{snippet_number}.pas`
+   - Example: `basic-hello-world_001.pas`, `basic-hello-world_002.pas`
+5. **Compiles** all Programs using the Free Pascal compiler (fpc)
+6. **Generates executables** you can run and experiment with
+7. **Generates reports** summarizing compilation results:
+   - `snippet_results.csv` - Detailed per-snippet data (machine-readable)
+   - `REPORT.txt` - Human-readable summary with statistics
+
+### Running Compilation
+
+To compile all snippets:
+
+```powershell
+# Basic usage (uses default paths: .\docs input, .\build output)
+.\compile-all-snippets.ps1
+
+# Custom paths
+.\compile-all-snippets.ps1 -DocsPath ".\docs" -OutputDir ".\build" -FpcBin "C:\fpc\bin\fpc.exe"
+```
+
+### Build Directory Structure
+
+After running the script, the `build/` folder will contain:
+
+- **Extracted snippets**: `{filename}_{###}.pas` - Source files and units extracted from documentation
+- **Compiled executables**: `{filename}_{###}.exe` - Runnable programs (for Programs only)
+- **Compiled units**: `*.ppu, *.o` - Object files and compiled units
+- **Logs**: `{filename}_{###}.log` - Compiler output and error messages
+- **Reports**: `snippet_results.csv`, `REPORT.txt` - Compilation statistics
+
+All extracted units and programs are stored directly in `build/` for easy discovery and experimentation.
+
+### Support Libraries
+
+The `build_support/` folder contains third-party and supplementary units required for compilation:
+
+- **`build_support/units/`** - Third-party unit source files:
+  - `ezthreads` - Threading and concurrency units
+  - `synapse` - Network and HTTP communication units
+  - Other specialized libraries for cookbook examples
+
+- **`build_support/libs/`** - External compiled libraries:
+  - `sqlite3.dll` - SQLite database library
+  - Other platform-specific libraries
+
+These support files allow the snippets to compile with all necessary dependencies. Simply run `compile-all-snippets.ps1` and it will automatically locate and compile against these units and libraries.
+
+### Understanding Results
+
+The script reports:
+
+- **SUCCESS**: Program compiled without errors ✅
+- **FAILED**: Program has compilation errors (check .log files for details) ❌
+- **SAVED**: Unit or fragment extracted and saved for reference (not compiled) 💾
+- **SKIPPED**: Fragment or partial code (cannot be compiled standalone)
+
+Check `build/REPORT.txt` or `build/snippet_results.csv` for detailed results.
+
+### Cleaning Up
+
+To remove all compiled artifacts and start fresh:
+
+```cmd
+clean-build.bat
+```
+
+This removes all `.pas`, `.exe`, `.ppu`, `.o`, `.log` files and the reports.
+
+### Skipping Compilation for Specific Snippets
+
+Some code examples may intentionally contain memory leaks, unsafe patterns, or other issues suitable for educational discussion but not for automated compilation. Use the `<!-- SKIP_COMPILE -->` marker to prevent a snippet from being compiled:
+
+```
+<!-- SKIP_COMPILE -->
+'''pascal
+program MemoryLeakExample;
+{ This demonstrates a memory leak for educational purposes }
+begin
+  // intentional memory leak shown here
+end.
+'''
+```
+
+The script will:
+
+- Still extract and save the snippet for reference
+- Mark it as non-compilable to avoid failures
+- Include a note in the extracted file explaining why it was skipped
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
 ## Featured Topics
 
 New to Free Pascal? Start with these:

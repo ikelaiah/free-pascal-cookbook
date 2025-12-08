@@ -4,6 +4,7 @@
 
 Here is a common structure of a Pascal program.
 
+<!-- SKIP_COMPILE -->
 ```pascal linenums="1"
 program ProgramStructure;
 
@@ -142,6 +143,8 @@ Here is an example of a simple unit for calculating the areas of a square and a 
 ```pascal linenums="1"
 unit Areas;
 
+{$mode objfpc}{$H+}{$J-}
+
 interface
 
 function CalcAreaSquare(side: real): real;
@@ -182,12 +185,12 @@ uses
 begin
   // Calculate area of a square
   WriteLn('Area of 2.5cm square is ',
-          CalcAreaSquare(2.5): 0: 2,
+          CalcAreaSquare(2.5):0:2,
           ' cm².');
 
   // Calculate area of a circle
   WriteLn('Area of a circle with r=2.5cm is ',
-          CalcAreaCircle(2.5):0: 2,
+          CalcAreaCircle(2.5):0:2,
           ' cm².');
 
   // The following WriteLn will not compile

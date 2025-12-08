@@ -113,7 +113,7 @@ program TCSVDocumentGetSpecificCols;
  using TCSVDocument.
 }
 
-{$mode objfpc}{$H+}
+{$mode objfpc}{$H+}{$J-}
 
 uses
   {$IFDEF UNIX}
@@ -142,8 +142,8 @@ uses
           // Assign a delimiter
           csvReader.Delimiter := delimiter;
 
-          // Assign a source stream.
-          csvReader.LoadFromStream(buffStream, 65536);
+          // Assign a source stream
+          csvReader.LoadFromStream(buffStream);
 
           // Get total lines for iteration.
           totalLines := csvReader.RowCount;

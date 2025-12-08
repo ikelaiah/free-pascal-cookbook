@@ -52,6 +52,7 @@ Use [`SetHeapTraceOutput`](https://www.freepascal.org/docs-html/rtl/heaptrc/seth
       - Remove existing heap trace file. Line 28, 29.
       - Set a file for reporting heap memory leaks. Line 30.
 
+<!-- SKIP_COMPILE -->
 ```pascal linenums="1" hl_lines="7 23-31"
 program HeapMemoryLeakLazarus;
 

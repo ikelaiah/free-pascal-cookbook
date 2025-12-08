@@ -202,8 +202,10 @@ Use [`ScanDateTime`](https://www.freepascal.org/docs-html/rtl/dateutils/scandate
 
 Take a look at this example.
 
-```pascal linenums="1" hl_lines="5 20" 
+```pascal linenums="1" hl_lines="7 22" 
 program ParseDate;
+
+{$mode objfpc}{$H+}{$J-}
 
 uses
   SysUtils,

@@ -37,16 +37,23 @@ nav:
     - Conditional Compilation: docs/advanced/conditional-compilation.md
     - Debugging with Lazarus IDE: docs/advanced/debugging.md
     - Find Heap Memory Leaks: docs/advanced/find-heap-memory-leaks.md
-    - Multi-threading - Basics: docs/advanced/multi-threading-basics.md
-    - TThread - Pt 1. Intro: docs/advanced/multi-threading-tthread-i-intro.md
-    - TThread - Pt 2. Critical Section: docs/advanced/multi-threading-tthread-ii-cs.md
-    - TThread - Pt 3. Snippets: docs/advanced/multi-threading-tthread-iii-snippets.md
+    - Multi-threading - Basics: docs/advanced/multi-threading-intro.md
+    - TThread - Pt 1. Intro: docs/advanced/tthread-i-basic.md
+    - TThread - Pt 2. Critical Section: docs/advanced/tthread-ii-cs.md
+    - TThread - Pt 3. Snippets: docs/advanced/tthread-iii-snippets.md
     - Using ezthreads: docs/advanced/ezthreads.md
     - FPC Switches: docs/advanced/fpc-switches.md
   - External Systems:
     - Overview: docs/external-systems/overview.md
     - Parsing JSON: docs/external-systems/parsing-json.md
     - Web Server: docs/external-systems/webserver.md
+    - SQLite Databases: docs/external-systems/sqlite-databases.md
+    - HTTP Requests (POST, PUT, DELETE): docs/external-systems/http-requests-advanced.md
+    - Working with XML: docs/external-systems/working-with-xml.md
+    - System Calls: docs/external-systems/system-calls.md
+    - Sending Emails: docs/external-systems/sending-emails.md
+    - API Authentication: docs/external-systems/api-authentication.md
+    - Environment Variables & Config: docs/external-systems/env-vars-config.md
   - Community: community.md
   - Resources:
     - Documents & Sites: docs/resources/docs-sites.md

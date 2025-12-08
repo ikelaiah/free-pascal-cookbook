@@ -2,6 +2,12 @@
 
 ![Cooking](assets/home-min.png)
 
+!!! warning
+
+    This document is a work in progress. 
+    
+    Contents are still being revised and added.
+
 Welcome to my Free Pascal Cookbook!
 
 This is a collection of **practical examples and tutorials** for learning Object Pascal with the [Free Pascal Compiler (FPC)](https://www.freepascal.org) and [Lazarus IDE](https://www.lazarus-ide.org). Whether you're just starting out or you're picking up a new language, you'll find clear explanations and code you can try right away.
@@ -103,7 +109,7 @@ As you get more comfortable with Free Pascal, you might want to see how Free Pas
 
 Built with help from the amazing Free Pascal and Lazarus community. Here are some great places to ask questions and learn:
 
-- [Unofficial Free Pascal Discord](https://discord.com/channels/570025060312547359/570091337173696513) - Real-time chat with the community
+- [Unofficial Free Pascal Discord](https://discord.gg/3VdxbSFyJP) - Real-time chat with the community
 - [Free Pascal & Lazarus Forum](https://forum.lazarus.freepascal.org/) - The official discussion forum
 - [Tweaking4All Forums](https://www.tweaking4all.com/forum/delphi-lazarus-free-pascal/) - Active community with lots of helpful discussions
 - [Laz Planet](https://lazplanet.blogspot.com) - Great blog with tutorials and tips
@@ -112,7 +118,8 @@ Built with help from the amazing Free Pascal and Lazarus community. Here are som
 
 !!! note
 
-    Code snippets on this site work with `FPC 3.2.2` and `Lazarus 3.6` on Win 11.
+    Code snippets on this site work with `FPC 3.2.2` and `Lazarus 4.0` on Win 11.
+    Except for the ones that require FPC trunk (anonymous methods and function references).
 
 !!! warning
 
