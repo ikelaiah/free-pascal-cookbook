@@ -36,11 +36,17 @@ begin
     { Add the API key as a header }
     client.AddHeader('X-API-Key', apiKey);
 
-    { Make the request }
-    url := 'https://api.example.com/data';
-    response := client.SimpleGet(url);
+    try
+      { Make the request - using a real free API for testing }
+      url := 'https://jsonplaceholder.typicode.com/posts/1';
+      response := client.SimpleGet(url);
 
-    WriteLn('Response: ', response);
+      WriteLn('Response: ', response);
+
+    except
+      on E: Exception do
+        WriteLn('Error: ', E.Message);
+    end;
 
   finally
     client.Free;
@@ -85,11 +91,17 @@ begin
     client.AddHeader('Authorization', 'Bearer ' + token);
     client.AddHeader('Content-Type', 'application/json');
 
-    { Make the request }
-    url := 'https://api.example.com/user/profile';
-    response := client.SimpleGet(url);
+    try
+      { Make the request - using a real free API for testing }
+      url := 'https://jsonplaceholder.typicode.com/users/1';
+      response := client.SimpleGet(url);
 
-    WriteLn('Response: ', response);
+      WriteLn('Response: ', response);
+
+    except
+      on E: Exception do
+        WriteLn('Error: ', E.Message);
+    end;
 
   finally
     client.Free;
@@ -139,11 +151,17 @@ begin
     { Add authorization header }
     client.AddHeader('Authorization', 'Basic ' + credentials);
 
-    { Make the request }
-    url := 'https://api.example.com/data';
-    response := client.SimpleGet(url);
+    try
+      { Make the request - using a real free API for testing }
+      url := 'https://jsonplaceholder.typicode.com/posts/1';
+      response := client.SimpleGet(url);
 
-    WriteLn('Response: ', response);
+      WriteLn('Response: ', response);
+
+    except
+      on E: Exception do
+        WriteLn('Error: ', E.Message);
+    end;
 
   finally
     client.Free;
@@ -180,6 +198,7 @@ var
   accessToken: string;
   response: TStringStream;
   response2: TStringStream;
+  requestBodyStream: TRawByteStringStream;
 
 begin
   { OAuth 2.0 has several steps, here's a simplified example }
@@ -187,43 +206,54 @@ begin
   { Step 1: Get an access token (after user authorization) }
   client := TFPHTTPClient.Create(nil);
   requestBody := TJSONObject.Create;
-  responseData := TJSONObject.Create;
+  responseData := nil;
   response := TStringStream.Create('');
   response2 := TStringStream.Create('');
+  requestBodyStream := nil;
 
   try
-    { Create the request for getting a token }
-    requestBody.Strings['grant_type'] := 'authorization_code';
-    requestBody.Strings['code'] := 'authorization-code-from-user';
-    requestBody.Strings['client_id'] := 'your-client-id';
-    requestBody.Strings['client_secret'] := 'your-client-secret';
-    requestBody.Strings['redirect_uri'] := 'http://localhost:8080/callback';
+    try
+      { Create the request for getting a token }
+      requestBody.Strings['grant_type'] := 'authorization_code';
+      requestBody.Strings['code'] := 'authorization-code-from-user';
+      requestBody.Strings['client_id'] := 'your-client-id';
+      requestBody.Strings['client_secret'] := 'your-client-secret';
+      requestBody.Strings['redirect_uri'] := 'http://localhost:8080/callback';
 
-    requestString := requestBody.AsJSON;
+      requestString := requestBody.AsJSON;
 
-    client.AddHeader('Content-Type', 'application/json');
+      client.AddHeader('Content-Type', 'application/json');
 
-    { Get the token - use Post() with RequestBody }
-    client.RequestBody := TRawByteStringStream.Create(requestString);
-    client.Post('https://provider.example.com/oauth/token', response);
+      { Get the token - use Post() with RequestBody }
+      requestBodyStream := TRawByteStringStream.Create(requestString);
+      client.RequestBody := requestBodyStream;
+      client.Post('https://oauth.example.com/token', response);
 
-    responseData := TJSONObject(GetJSON(response.DataString));
-    accessToken := responseData.Strings['access_token'];
+      responseData := TJSONObject(GetJSON(response.DataString));
+      accessToken := responseData.Strings['access_token'];
 
-    WriteLn('Got access token: ', accessToken);
+      WriteLn('Got access token: ', accessToken);
 
-    { Step 2: Use the access token to access protected resources }
-    client.AddHeader('Authorization', 'Bearer ' + accessToken);
+      { Step 2: Use the access token to access protected resources }
+      client.AddHeader('Authorization', 'Bearer ' + accessToken);
 
-    client.Get('https://api.example.com/user/info', response2);
-    WriteLn('User info: ', response2.DataString);
+      client.Get('https://jsonplaceholder.typicode.com/users/1', response2);
+      WriteLn('User info: ', response2.DataString);
+
+    except
+      on E: Exception do
+        WriteLn('Error: ', E.Message);
+    end;
 
   finally
-    client.Free;
-    requestBody.Free;
-    responseData.Free;
-    response.Free;
+    if Assigned(requestBodyStream) then
+      requestBodyStream.Free;
+    if Assigned(responseData) then
+      responseData.Free;
     response2.Free;
+    response.Free;
+    requestBody.Free;
+    client.Free;
   end;
 
   WriteLn('');
@@ -258,7 +288,8 @@ begin
     client.AddHeader('Authorization', 'Bearer invalid-token');
 
     try
-      response := client.SimpleGet('https://api.example.com/data');
+      { Using a real free API for testing }
+      response := client.SimpleGet('https://jsonplaceholder.typicode.com/posts/1');
       statusCode := client.ResponseStatusCode;
 
       if statusCode = 200 then
