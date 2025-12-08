@@ -214,7 +214,7 @@ New to Free Pascal? Start with these:
 - **Stuck on something in this cookbook?** Open an [issue on GitHub](https://github.com/ikelaiah/free-pascal-cookbook/issues) and I'll help!
 - **Want to learn more?** Check out the [Free Pascal Wiki](https://wiki.freepascal.org/) and [Lazarus documentation](https://wiki.lazarus.freepascal.org/)
 - **Join the community:**
-  - [Unofficial Free Pascal Discord](https://discord.com/channels/570025060312547359/570091337173696513)
+  - [Unofficial Free Pascal Discord](https://discord.gg/3VdxbSFyJP)
   - [Free Pascal & Lazarus Forum](https://forum.lazarus.freepascal.org/)
   - [Stack Overflow](https://stackoverflow.com/questions/tagged/freepascal) - Tag your questions with `freepascal`
 
