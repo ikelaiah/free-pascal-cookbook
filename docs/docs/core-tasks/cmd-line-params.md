@@ -104,7 +104,7 @@ begin
         //    - then getopt returns ‘:’ instead of ‘?’ to indicate a missing option argument.
         // Refs
         // - https://www.freepascal.org/docs-html/rtl/getopts/index.html
-        // - https://www.gnu.org/software/libc/manual/html_node/Using-Getopt.html
+        // - https://sourceware.org/glibc/manual/latest/html_mono/libc.html#Getopt
         if (optopt = 'a') then
           WriteLn('Error: Option ', optopt, ' needs an argument.')
         else
