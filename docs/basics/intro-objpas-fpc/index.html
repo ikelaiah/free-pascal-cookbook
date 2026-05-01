@@ -8,7 +8,7 @@
         <link rel="canonical" href="https://ikelaiah.github.io/free-pascal-cookbook/docs/basics/intro-objpas-fpc/">
       
       
-        <link rel="prev" href="../../../LICENSE/">
+        <link rel="prev" href="../overview/">
       
       
         <link rel="next" href="../common-data-types/">
@@ -239,7 +239,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+        <a href="../overview/" class="md-tabs__link">
           
   
   
@@ -524,6 +524,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../third-party-notices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Third-party Notices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -587,6 +615,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -7148,7 +7204,7 @@ This helps prevent errors and makes your code more robust and readable. For exam
 <h2 id="25-function-references">25. Function References<a class="headerlink" href="#25-function-references" title="Permanent link">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Function References is available for FPC versions &gt;= 3.3.1. </p>
+<p>Function references are available for FPC versions &gt;= 3.3.1.</p>
 </div>
 <p>Official doc: <a href="https://forum.lazarus.freepascal.org/index.php/topic,59468.msg443370.html#msg443370">https://forum.lazarus.freepascal.org/index.php/topic,59468.msg443370.html#msg443370</a>.</p>
 <p>Enable function references using the modeswitch FUNCTIONREFERENCES.</p>
@@ -7160,6 +7216,7 @@ This helps prevent errors and makes your code more robust and readable. For exam
 </span><span id="__span-86-2"><a id="__codelineno-86-2" name="__codelineno-86-2"></a><span class="w">  </span><span class="n">funcRef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reference</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">function</span><span class="err">|</span><span class="k">procedure</span><span class="w"> </span><span class="p">[(</span><span class="n">argumentlist</span><span class="p">)][</span><span class="o">:</span><span class="w"> </span><span class="n">resulttype</span><span class="o">;</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">directives</span><span class="o">;</span><span class="p">]</span>
 </span></code></pre></div></td></tr></tbody></table></div>
 <p><strong>Example - A simple Function Reference</strong></p>
+<!-- SKIP_COMPILE: requires FPC >= 3.3.1 -->
 <div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-87-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-87-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-87-3"> 3</a></span>
@@ -7207,7 +7264,7 @@ This helps prevent errors and makes your code more robust and readable. For exam
 </span><span id="__span-87-4"><a id="__codelineno-87-4" name="__codelineno-87-4"></a><span class="cm">{$modeswitch functionreferences}</span>
 </span><span id="__span-87-5"><a id="__codelineno-87-5" name="__codelineno-87-5"></a>
 </span><span id="__span-87-6"><a id="__codelineno-87-6" name="__codelineno-87-6"></a><span class="k">type</span>
-</span><span id="__span-87-7"><a id="__codelineno-87-7" name="__codelineno-87-7"></a><span class="w">  </span><span class="c1">// Define a type for a function reference that take two doubles and return a double</span>
+</span><span id="__span-87-7"><a id="__codelineno-87-7" name="__codelineno-87-7"></a><span class="w">  </span><span class="c1">// Define a type for a function reference that takes two doubles and returns a double</span>
 </span><span id="__span-87-8"><a id="__codelineno-87-8" name="__codelineno-87-8"></a><span class="w">  </span><span class="n">TMathOpFuncRef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reference</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">a</span><span class="o">,</span><span class="w"> </span><span class="n">b</span><span class="o">:</span><span class="w"> </span><span class="kt">double</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">double</span><span class="o">;</span>
 </span><span id="__span-87-9"><a id="__codelineno-87-9" name="__codelineno-87-9"></a>
 </span><span id="__span-87-10"><a id="__codelineno-87-10" name="__codelineno-87-10"></a><span class="w">  </span><span class="c1">// Define a function that adds two doubles</span>
@@ -7247,7 +7304,7 @@ This helps prevent errors and makes your code more robust and readable. For exam
 <h2 id="26-anonymous-functions">26. Anonymous Functions<a class="headerlink" href="#26-anonymous-functions" title="Permanent link">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Anonymous Functions is available for FPC versions &gt;= 3.3.1.</p>
+<p>Anonymous functions are available for FPC versions &gt;= 3.3.1.</p>
 </div>
 <p>Official doc: <a href="https://forum.lazarus.freepascal.org/index.php/topic,59468.msg443370.html#msg443370">https://forum.lazarus.freepascal.org/index.php/topic,59468.msg443370.html#msg443370</a>.</p>
 <p>Enable anonymous functions using the modeswitch ANONYMOUSFUNCTIONS.</p>
@@ -7265,6 +7322,7 @@ This helps prevent errors and makes your code more robust and readable. For exam
 </span><span id="__span-89-5"><a id="__codelineno-89-5" name="__codelineno-89-5"></a><span class="k">end</span>
 </span></code></pre></div></td></tr></tbody></table></div>
 <p><strong>Example</strong></p>
+<!-- SKIP_COMPILE: requires FPC >= 3.3.1 -->
 <div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-90-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-90-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-90-3"> 3</a></span>
