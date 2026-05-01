@@ -24,9 +24,13 @@
 .PARAMETER FpcBin
     Path to the Free Pascal compiler executable (default: fpc)
 
+.PARAMETER LazarusPath
+    Path to the Lazarus installation used for lazutils/LCL unit search paths (default: C:\Lazarus)
+
 .EXAMPLE
     PS> .\compile-all-snippets.ps1
     PS> .\compile-all-snippets.ps1 -DocsPath ".\docs" -OutputDir ".\build" -FpcBin "C:\fpc\bin\fpc.exe"
+    PS> .\compile-all-snippets.ps1 -FpcBin "C:\lazarus\fpc\3.2.2\bin\x86_64-win64\fpc.exe" -LazarusPath "C:\lazarus"
 
 .NOTES
     Output files and directories:
@@ -58,7 +62,8 @@
 param(
     [string]$DocsPath = ".\docs",
     [string]$OutputDir = ".\build",
-    [string]$FpcBin = "fpc"
+    [string]$FpcBin = "fpc",
+    [string]$LazarusPath = "C:\Lazarus"
 )
 
 # Define color scheme for console output
@@ -121,8 +126,10 @@ foreach ($file in $mdFiles) {
 
     # Extract all Pascal code blocks using regex pattern ```pascal...```
     # Singleline flag allows . to match newlines within code blocks
-    # Also capture preceding markdown comments for directives like <!-- SKIP_COMPILE -->
-    $pattern = '(<!--\s*SKIP_COMPILE\s*-->\s*)?```pascal\s*(.*?)```'
+    # Also capture preceding markdown comments for directives like:
+    # <!-- SKIP_COMPILE -->
+    # <!-- SKIP_COMPILE: requires FPC >= 3.3.1 -->
+    $pattern = '(?<directive><!--\s*SKIP_COMPILE(?::\s*(?<skipReason>.*?))?\s*-->\s*)?```pascal\s*(?<code>.*?)```'
     $matches = @([regex]::Matches($content, $pattern, [System.Text.RegularExpressions.RegexOptions]::Singleline))
 
     # Skip files with no Pascal code blocks
@@ -139,12 +146,17 @@ foreach ($file in $mdFiles) {
         }
 
         # Check for SKIP_COMPILE directive
-        # Group 1 captures the optional <!-- SKIP_COMPILE --> marker
-        # Group 2 captures the actual Pascal code
-        $hasSkipMarker = -not [string]::IsNullOrWhiteSpace($match.Groups[1].Value)
+        $hasSkipMarker = -not [string]::IsNullOrWhiteSpace($match.Groups["directive"].Value)
+        $skipReason = ""
+        if ($hasSkipMarker) {
+            $skipReason = $match.Groups["skipReason"].Value.Trim()
+            if ([string]::IsNullOrWhiteSpace($skipReason)) {
+                $skipReason = "Skipped by <!-- SKIP_COMPILE -->"
+            }
+        }
 
         # Extract code content from regex match and trim whitespace
-        $snippetCode = $match.Groups[2].Value.Trim()
+        $snippetCode = $match.Groups["code"].Value.Trim()
 
         # CLEANUP: Remove markdown attributes (like linenums="1") from code block
         # These are markdown-specific formatting hints that don't belong in Pascal code
@@ -215,8 +227,8 @@ foreach ($file in $mdFiles) {
             $lines = $snippetCode -split "`n" | ForEach-Object { "  $_" }
             $codeLines = $lines -join "`n"
 
-            $skipReason = if ($hasSkipMarker) {
-                "This snippet is explicitly marked with <!-- SKIP_COMPILE -->"
+            $skipReasonText = if ($hasSkipMarker) {
+                "This snippet is explicitly skipped from compilation.`n  Reason: $skipReason"
             } else {
                 "This snippet cannot be compiled directly.`n  It may be: a code fragment, or a teaching example."
             }
@@ -225,7 +237,7 @@ foreach ($file in $mdFiles) {
 {
   This is a non-compilable snippet from: $relPath (snippet $snippetIndex)
 
-  $skipReason
+  $skipReasonText
   Code:
 
 $codeLines
@@ -258,15 +270,22 @@ $codeLines
             # Configuration file (-FC):
             #   - ../build_support/config - custom compiler configuration if needed
             # Output redirected to log file for later inspection if compilation fails
-            & $FpcBin `
-                -o"$outputExe.exe" `
-                -Fu"$OutputDir\libraries" `
-                -Fu"$OutputDir\..\build_support\units" `
-                -Fl"$OutputDir\..\build_support\libs" `
-                -FC"$OutputDir\..\build_support\config" `
-                -FuC:\Lazarus\components\lazutils `
-                -FuC:\Lazarus\lcl\units\win32 `
-                "$testFile" 2>&1 | Tee-Object -FilePath $logFile | Out-Null
+            $unitSearchPaths = @(
+                (Join-Path $OutputDir "libraries"),
+                (Join-Path $OutputDir "..\build_support\units"),
+                (Join-Path $LazarusPath "components\lazutils"),
+                (Join-Path $LazarusPath "lcl\units\win32")
+            )
+
+            $compilerArgs = @("-o$outputExe.exe")
+            foreach ($unitSearchPath in $unitSearchPaths) {
+                $compilerArgs += "-Fu$unitSearchPath"
+            }
+            $compilerArgs += "-Fl$(Join-Path $OutputDir '..\build_support\libs')"
+            $compilerArgs += "-FC$(Join-Path $OutputDir '..\build_support\config')"
+            $compilerArgs += "$testFile"
+
+            & $FpcBin @compilerArgs 2>&1 | Tee-Object -FilePath $logFile | Out-Null
 
             # Check compilation result and update counters
             if ($LASTEXITCODE -eq 0) {
@@ -293,6 +312,7 @@ $codeLines
             Type = $snippetType
             Result = $compileResult
             TestFile = $fileName
+            Note = $skipReason
             Error = $compileError
         }
         $results += $result
@@ -389,6 +409,16 @@ if ($failures.Count -gt 0) {
     }
 }
 
+$skippedWithNotes = @($results | Where-Object { $_.Result -eq "SKIPPED" -and -not [string]::IsNullOrWhiteSpace($_.Note) })
+if ($skippedWithNotes.Count -gt 0) {
+    Write-ColorOutput "`n========== SKIPPED SNIPPETS WITH NOTES ==========" $colors.Info
+    foreach ($skipped in $skippedWithNotes) {
+        Write-ColorOutput "`n$($skipped.File) - Snippet $($skipped.SnippetNum)"
+        Write-ColorOutput "   Test File: $($skipped.TestFile)"
+        Write-ColorOutput "   Reason: $($skipped.Note)"
+    }
+}
+
 # FILE EXPORTS: Create permanent records of all test results for CI/CD integration
 Write-ColorOutput "`n========== GENERATING REPORTS ==========" $colors.Info
 $resultsFile = Join-Path $OutputDir "snippet_results.csv"
@@ -427,6 +457,11 @@ $results | Where-Object { $_.Type -eq "Unit" } | ForEach-Object {
     $savedUnitsText += "$($_.File) - $($_.TestFile)"
 }
 
+$skippedWithNotesText = @()
+$skippedWithNotes | ForEach-Object {
+    $skippedWithNotesText += "$($_.File) - Snippet $($_.SnippetNum) ($($_.TestFile)): $($_.Note)"
+}
+
 $reportContent = @"
 FREE PASCAL SNIPPET TEST REPORT
 Generated: $(Get-Date)
@@ -455,6 +490,10 @@ FAILED SNIPPETS
 ---------------
 $($failures | ForEach-Object { "$($_.File) - Snippet $($_.SnippetNum) ($($_.TestFile))" } | Out-String)
 
+SKIPPED SNIPPETS WITH NOTES
+---------------------------
+$($skippedWithNotesText | Out-String)
+
 TEST FILES LOCATION
 -------------------
 $OutputDir
@@ -462,3 +501,7 @@ $OutputDir
 
 Set-Content -Path $summaryFile -Value $reportContent
 Write-ColorOutput "`n✅ Summary report saved to: $summaryFile`n" $colors.Success
+
+if ($failCount -gt 0) {
+    exit 1
+}

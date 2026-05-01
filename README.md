@@ -12,7 +12,7 @@
 
   <p align="center">
     <br />
-    <a href="https://github.com/ikelaiah/free-pascal-cookbook/releases/tag/v0.8"><img src="https://img.shields.io/badge/version-0.8-blue" alt="Version 0.8"></a>
+    <a href="https://github.com/ikelaiah/free-pascal-cookbook/releases/tag/v0.9"><img src="https://img.shields.io/badge/version-0.9-blue" alt="Version 0.9"></a>
     <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-green" alt="License MIT"></a>
     <a href="https://www.freepascal.org"><img src="https://img.shields.io/badge/language-Free%20Pascal-orange" alt="Free Pascal"></a>
     <a href="https://www.lazarus-ide.org"><img src="https://img.shields.io/badge/IDE-Lazarus-blue" alt="Lazarus IDE"></a>
@@ -83,6 +83,8 @@ No installation required! Everything you need is already here or linked from the
 
 Both are free and work on Windows, macOS, and Linux.
 
+The production/tested setup for this cookbook is **FPC 3.2.2** with **Lazarus IDE 4.0**.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -148,6 +150,8 @@ The `build_support/` folder contains third-party and supplementary units require
 
 These support files allow the snippets to compile with all necessary dependencies. Simply run `compile-all-snippets.ps1` and it will automatically locate and compile against these units and libraries.
 
+Bundled third-party support files retain their original licenses. See `THIRD_PARTY_NOTICES.md` for attribution and license notes.
+
 ### Understanding Results
 
 The script reports:
@@ -158,6 +162,8 @@ The script reports:
 - **SKIPPED**: Fragment or partial code (cannot be compiled standalone)
 
 Check `build/REPORT.txt` or `build/snippet_results.csv` for detailed results.
+
+If any compilable program fails, the script exits with a non-zero status so CI can catch the regression.
 
 ### Cleaning Up
 
@@ -171,24 +177,24 @@ This removes all `.pas`, `.exe`, `.ppu`, `.o`, `.log` files and the reports.
 
 ### Skipping Compilation for Specific Snippets
 
-Some code examples may intentionally contain memory leaks, unsafe patterns, or other issues suitable for educational discussion but not for automated compilation. Use the `<!-- SKIP_COMPILE -->` marker to prevent a snippet from being compiled:
+Some code examples may intentionally contain memory leaks, unsafe patterns, require a newer FPC version, or demonstrate another case that should not be compiled by the FPC 3.2.2 validation run. Use the `<!-- SKIP_COMPILE -->` marker, optionally with a reason, to prevent a snippet from being compiled:
 
-```
-<!-- SKIP_COMPILE -->
-'''pascal
+````markdown
+<!-- SKIP_COMPILE: intentional memory leak demo -->
+```pascal
 program MemoryLeakExample;
 { This demonstrates a memory leak for educational purposes }
 begin
   // intentional memory leak shown here
 end.
-'''
 ```
+````
 
 The script will:
 
 - Still extract and save the snippet for reference
 - Mark it as non-compilable to avoid failures
-- Include a note in the extracted file explaining why it was skipped
+- Include the skip reason in the extracted file and `snippet_results.csv`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -197,11 +203,11 @@ The script will:
 
 New to Free Pascal? Start with these:
 
-- [**Hello, World!**](docs/basics/basic-hello-world.md) - Your first Free Pascal program (choose IDE or CLI)
-- [**Data Types**](docs/basics/common-data-types.md) - Understanding numbers, text, and other data
-- [**Control Flow**](docs/basics/) - Making decisions with `if` and looping with `for`/`while`
-- [**Functions & Procedures**](docs/basics/) - Writing code you can reuse
-- [**Introduction to Object Pascal**](docs/basics/intro-objpas-fpc.md) - Explore classes and OOP concepts
+- [**Hello, World!**](docs/docs/basics/basic-hello-world.md) - Your first Free Pascal program (choose IDE or CLI)
+- [**Data Types**](docs/docs/basics/common-data-types.md) - Understanding numbers, text, and other data
+- [**Control Flow**](docs/docs/core-tasks/loops.md) - Making decisions with `if` and looping with `for`/`while`
+- [**Functions & Procedures**](docs/docs/core-tasks/funcs-procs.md) - Writing code you can reuse
+- [**Introduction to Object Pascal**](docs/docs/basics/intro-objpas-fpc.md) - Explore classes and OOP concepts
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -241,6 +247,8 @@ For major changes, please open an issue first to discuss what you'd like to chan
 ## License
 
 Distributed under the MIT License. See `LICENSE.md` for more information.
+
+Bundled third-party support units keep their original licenses. See `THIRD_PARTY_NOTICES.md` for details.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

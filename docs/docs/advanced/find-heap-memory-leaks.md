@@ -1,6 +1,6 @@
 # Finding heap memory leaks
 
-Consider using the pre-defined Debug mode from [Create Debug and Release profiles in Lazarus](#create-debug-and-release-profiles-in-lazarus) before customising your own debugging environment.
+Consider using the pre-defined Debug mode from [Setup Debug and Release build profiles](debugging.md#setup-debug-and-release-build-profiles) before customising your own debugging environment.
 
 !!! Note "Official docs on Heaptrc"
 

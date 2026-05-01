@@ -95,7 +95,7 @@ To try the code examples on your computer, you need the **Free Pascal Compiler (
     - Use this if you prefer to use a text editor like VS Code instead of Lazarus IDE.
 
 
-**We tested with**: FPC **3.2.2** and Lazarus IDE **3.6**.
+**We tested with**: FPC **3.2.2** and Lazarus IDE **4.0**.
 
 ## Want to Explore More?
 
@@ -118,8 +118,8 @@ Built with help from the amazing Free Pascal and Lazarus community. Here are som
 
 !!! note
 
-    Code snippets on this site work with `FPC 3.2.2` and `Lazarus 4.0` on Win 11.
-    Except for the ones that require FPC trunk (anonymous methods and function references).
+    Code snippets on this site are tested with `FPC 3.2.2` and `Lazarus 4.0` on Win 11.
+    Examples that require `FPC >= 3.3.1`, such as anonymous functions and function references, are marked so the FPC 3.2.2 validation run skips them.
 
 !!! warning
 

@@ -5,7 +5,9 @@ nav:
     - Overview: index.md
     - About: about.md
     - License: LICENSE.md
+    - Third-party Notices: third-party-notices.md
   - Basics:
+    - Overview: docs/basics/overview.md
     - Intro to Free Pascal: docs/basics/intro-objpas-fpc.md
     - Common Data Types: docs/basics/common-data-types.md
     - Setup FPC & Lazarus IDE: docs/basics/install.md

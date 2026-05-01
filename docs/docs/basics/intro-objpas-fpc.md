@@ -2215,7 +2215,7 @@ end.
 ## 25. Function References
 
 !!! Note
-    Function References is available for FPC versions >= 3.3.1. 
+    Function references are available for FPC versions >= 3.3.1.
 
 Official doc: [https://forum.lazarus.freepascal.org/index.php/topic,59468.msg443370.html#msg443370](https://forum.lazarus.freepascal.org/index.php/topic,59468.msg443370.html#msg443370).
 
@@ -2234,6 +2234,7 @@ type
 
 **Example - A simple Function Reference**
 
+<!-- SKIP_COMPILE: requires FPC >= 3.3.1 -->
 ```pascal linenums="1"
 program FuncRefEx1;
 
@@ -2241,7 +2242,7 @@ program FuncRefEx1;
 {$modeswitch functionreferences}
 
 type
-  // Define a type for a function reference that take two doubles and return a double
+  // Define a type for a function reference that takes two doubles and returns a double
   TMathOpFuncRef = reference to function(a, b: double): double;
 
   // Define a function that adds two doubles
@@ -2282,7 +2283,7 @@ end.
 ## 26. Anonymous Functions
 
 !!! Note
-    Anonymous Functions is available for FPC versions >= 3.3.1.
+    Anonymous functions are available for FPC versions >= 3.3.1.
 
 Official doc: [https://forum.lazarus.freepascal.org/index.php/topic,59468.msg443370.html#msg443370](https://forum.lazarus.freepascal.org/index.php/topic,59468.msg443370.html#msg443370).
 
@@ -2304,6 +2305,7 @@ end
 
 **Example**
 
+<!-- SKIP_COMPILE: requires FPC >= 3.3.1 -->
 ```pascal linenums="1"
 program AnonymousFuncSimple;
 

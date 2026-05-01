@@ -840,7 +840,7 @@ end.
 
 The snippet below was adapted from one of Stephen Ball's articles, [Faster filestream with TBufferedFilestream](https://delphiaball.co.uk/2016/04/29/faster-filestream-tbufferedfilestream/).
 
-The structure is similar to [reading a text file using TFileStream](#read-a-text-file---tfilestream), but here, we use [`TBufferedFileStream`](https://www.freepascal.org/docs-html/fcl/bufstream/tbufferedfilestream.html).
+The structure is similar to [reading a text file using TFileStream](#read-a-text-file-tfilestream), but here, we use [`TBufferedFileStream`](https://www.freepascal.org/docs-html/fcl/bufstream/tbufferedfilestream.html).
 
 1. In the `uses` section, add `streamex` and `buffstream`. Line 11, 12.
 2. Create a `TBufferedFileStream` to open a text file for reading. Line 30.
