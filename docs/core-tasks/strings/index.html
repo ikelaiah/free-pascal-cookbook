@@ -2511,8 +2511,10 @@
 <code>CP_ACP</code>. It is not a reliable way to query the operating system's actual code
 page because a program can change it.</p>
 <p>On Windows, Free Pascal initializes it from the Windows ANSI code page. On Unix,
-the <code>cwstring</code> unit initializes it from locale variables such as <code>LANG</code> and
-<code>LC_CTYPE</code>. Include <code>cwstring</code> before other units that perform string conversion:</p>
+<code>cwstring</code> initializes Free Pascal's C-library-based string conversion support
+from the process locale. It uses locale settings derived from <code>LC_ALL</code>,
+<code>LC_CTYPE</code>, or <code>LANG</code> and sets <code>DefaultSystemCodePage</code>. Free Pascal recommends
+placing <code>cwstring</code> among the first units in the program's <code>uses</code> clause:</p>
 <div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
