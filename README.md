@@ -12,7 +12,7 @@
 
   <p align="center">
     <br />
-    <a href="https://github.com/ikelaiah/free-pascal-cookbook/releases/tag/v0.9"><img src="https://img.shields.io/badge/version-0.9-blue" alt="Version 0.9"></a>
+    <a href="https://github.com/ikelaiah/free-pascal-cookbook/releases/tag/v0.9.1"><img src="https://img.shields.io/badge/version-0.9.1-blue" alt="Version 0.9.1"></a>
     <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-green" alt="License MIT"></a>
     <a href="https://www.freepascal.org"><img src="https://img.shields.io/badge/language-Free%20Pascal-orange" alt="Free Pascal"></a>
     <a href="https://www.lazarus-ide.org"><img src="https://img.shields.io/badge/IDE-Lazarus-blue" alt="Lazarus IDE"></a>
@@ -83,7 +83,7 @@ No installation required! Everything you need is already here or linked from the
 
 Both are free and work on Windows, macOS, and Linux.
 
-The production/tested setup for this cookbook is **FPC 3.2.2** with **Lazarus IDE 4.0**.
+The production/tested setup for this cookbook is **FPC 3.2.2** with **Lazarus IDE 4.0**. Snippet validation runs on Windows and Linux.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -116,11 +116,14 @@ The `compile-all-snippets.ps1` PowerShell script:
 To compile all snippets:
 
 ```powershell
-# Basic usage (uses default paths: .\docs input, .\build output)
+# Windows PowerShell (uses default paths: .\docs input, .\build output)
 .\compile-all-snippets.ps1
 
 # Custom paths
 .\compile-all-snippets.ps1 -DocsPath ".\docs" -OutputDir ".\build" -FpcBin "C:\fpc\bin\fpc.exe"
+
+# Linux with PowerShell 7; FPC and Lazarus are discovered from standard locations
+pwsh ./compile-all-snippets.ps1
 ```
 
 ### Build Directory Structure
@@ -128,7 +131,7 @@ To compile all snippets:
 After running the script, the `build/` folder will contain:
 
 - **Extracted snippets**: `{filename}_{###}.pas` - Source files and units extracted from documentation
-- **Compiled executables**: `{filename}_{###}.exe` - Runnable programs (for Programs only)
+- **Compiled executables**: `{filename}_{###}.exe` on Windows or `{filename}_{###}` on Unix - Runnable programs (for Programs only)
 - **Compiled units**: `*.ppu, *.o` - Object files and compiled units
 - **Logs**: `{filename}_{###}.log` - Compiler output and error messages
 - **Reports**: `snippet_results.csv`, `REPORT.txt` - Compilation statistics

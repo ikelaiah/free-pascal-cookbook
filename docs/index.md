@@ -118,7 +118,8 @@ Built with help from the amazing Free Pascal and Lazarus community. Here are som
 
 !!! note
 
-    Code snippets on this site are tested with `FPC 3.2.2` and `Lazarus 4.0` on Win 11.
+    Code snippets on this site are tested with `FPC 3.2.2` on Windows and Linux.
+    Lazarus `4.0` is used for the Windows validation run; Linux uses the Lazarus version provided by Ubuntu 24.04.
     Examples that require `FPC >= 3.3.1`, such as anonymous functions and function references, are marked so the FPC 3.2.2 validation run skips them.
 
 !!! warning

@@ -72,17 +72,41 @@ end.
    - [https://superuser.com/a/1435645](https://superuser.com/a/1435645)
 
 
-## What is my system's default codepage?
+## What is my program's default code page?
 
-See [https://www.freepascal.org/docs-html/rtl/system/defaultsystemcodepage.html](https://www.freepascal.org/docs-html/rtl/system/defaultsystemcodepage.html)
+`DefaultSystemCodePage` is the code page that Free Pascal uses when it encounters
+`CP_ACP`. It is not a reliable way to query the operating system's actual code
+page because a program can change it.
+
+On Windows, Free Pascal initializes it from the Windows ANSI code page. On Unix,
+the `cwstring` unit initializes it from locale variables such as `LANG` and
+`LC_CTYPE`. Include `cwstring` before other units that perform string conversion:
 
 ```pascal linenums="1"
+program ShowDefaultCodePage;
+
+{$mode objfpc}{$H+}
+
+uses
+  {$IFDEF UNIX}
+  cwstring,
+  {$ENDIF}
+  SysUtils;
+
 begin
-  WriteLn(DefaultSystemCodePage); 
-end.                                 
+  WriteLn('Free Pascal default code page: ', DefaultSystemCodePage);
+end.
 ```
 
-If it says `65001`, then you should be able to see UTF-8 characters on the console.
+A value of `65001` means UTF-8. A value of `0` is the `CP_ACP` identifier; it
+means "use the program's default ANSI code page" rather than "the system uses
+ASCII". The console's input/output encoding and font support are separate, so a
+UTF-8 default code page does not by itself guarantee that every character will
+display correctly.
+
+See the Free Pascal documentation for
+[`DefaultSystemCodePage`](https://www.freepascal.org/docs-html/rtl/system/defaultsystemcodepage.html)
+and [`CP_ACP`](https://www.freepascal.org/docs-html/rtl/system/cp_acp.html).
 
 
 ## Remove trailing chars at the end of a string

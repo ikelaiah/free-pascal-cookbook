@@ -31,8 +31,8 @@ jobs:
       - name: Build MkDocs site in strict mode
         run: python -m mkdocs build --strict
 
-  snippets:
-    name: Compile Pascal snippets
+  snippets-windows:
+    name: Compile Pascal snippets (Windows)
     runs-on: windows-latest
 
     steps:
@@ -67,7 +67,44 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: snippet-reports
+          name: snippet-reports-windows
+          path: |
+            build/REPORT.txt
+            build/snippet_results.csv
+
+  snippets-linux:
+    name: Compile Pascal snippets (Linux)
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Lazarus sources and FPC
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y fpc lazarus-src
+
+      - name: Verify FPC version
+        shell: pwsh
+        run: |
+          $fpc = (Get-Command fpc -ErrorAction Stop).Source
+          $installedVersion = & $fpc -iV
+          if ($installedVersion -ne $env:FPC_VERSION) {
+            throw "Expected FPC $env:FPC_VERSION, found $installedVersion"
+          }
+
+          "FPC_BIN=$fpc" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - name: Compile snippets
+        shell: pwsh
+        run: ./compile-all-snippets.ps1 -FpcBin "$env:FPC_BIN"
+
+      - name: Upload snippet reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: snippet-reports-linux
           path: |
             build/REPORT.txt
             build/snippet_results.csv

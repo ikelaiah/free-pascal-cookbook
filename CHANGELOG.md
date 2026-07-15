@@ -5,7 +5,29 @@ All notable changes to the Free Pascal Cookbook will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.9] - 2025-11-30
+## [0.9.1] - 2026-07-16
+
+### Added
+
+- Continuous integration for strict MkDocs builds and Free Pascal snippet compilation on Windows and Linux
+- Third-party notices for the support units bundled with the cookbook
+
+### Changed
+
+- Snippet validation now reports intentional skip reasons and fails when a compilable example does not build
+- Tested-version references are consistently documented as FPC 3.2.2 and Lazarus 4.0 on Windows
+
+### Fixed
+
+- Corrected the default-system-code-page example and documented Unix `cwstring` initialization and `CP_ACP`
+- Removed Windows-specific paths and executable naming from the cross-platform snippet compiler
+- Corrected outdated Free Pascal `getopt` and community invitation links
+
+### Security
+
+- Removed the compromised `polyfill.io` JavaScript service from the generated site
+
+## [0.9.0] - 2025-11-30
 
 ### Added
 
