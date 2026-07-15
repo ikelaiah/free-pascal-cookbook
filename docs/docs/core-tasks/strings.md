@@ -79,8 +79,10 @@ end.
 page because a program can change it.
 
 On Windows, Free Pascal initializes it from the Windows ANSI code page. On Unix,
-the `cwstring` unit initializes it from locale variables such as `LANG` and
-`LC_CTYPE`. Include `cwstring` before other units that perform string conversion:
+`cwstring` initializes Free Pascal's C-library-based string conversion support
+from the process locale. It uses locale settings derived from `LC_ALL`,
+`LC_CTYPE`, or `LANG` and sets `DefaultSystemCodePage`. Free Pascal recommends
+placing `cwstring` among the first units in the program's `uses` clause:
 
 ```pascal linenums="1"
 program ShowDefaultCodePage;
