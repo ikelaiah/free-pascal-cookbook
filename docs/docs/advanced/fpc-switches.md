@@ -1,6 +1,6 @@
 ## FPC Switches
 
-The following Markdoien table was converted from the official [Reference chart with all compiler options and switches](http://downloads.freepascal.org/fpc/docs-pdf/chart.pdf).
+The following Markdown table was converted from the official [Reference chart with all compiler options and switches](https://downloads.freepascal.org/fpc/docs-pdf/chart.pdf).
 
 ## Local compiler switches
 

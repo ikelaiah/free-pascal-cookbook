@@ -2360,69 +2360,37 @@ end.
 
 ## 27. Interfaces
 
-**Why use this?** Interfaces define a "contract" that classes must follow. They're useful when you have multiple classes that should perform similar tasks but in different ways. For example, you might have a `IAnimal` interface that guarantees any animal can eat, sleep, and make a sound. Different animal classes (Dog, Cat, Bird) can implement this interface in their own way. Interfaces promote code reusability and flexibility.
+**Why use this?** An interface defines what an object can do without tying the
+caller to a particular class. Multiple classes can implement the same interface,
+so code written against that interface can work with any of them.
 
-!!! Note
-    By default, Free Pascal uses the Windows COM `IUnknown` interface type. This is important for compatibility with other systems, especially on Windows. For simpler, non-COM interfaces, you might see them declared without descending from `IUnknown` or `TInterfacedObject`, but this changes how memory management (like reference counting) works.
+Interfaces are available in `objfpc` and `delphi` modes. Their methods and
+properties are public, and a class must implement every member of each interface
+it lists.
 
-Think of an interface as a contract or a blueprint. It defines *what* a class should be able to do (methods it must have) but not *how* it does them. This allows different classes to promise they can perform certain actions, even if their internal workings are different.
+### Interface model and GUIDs
 
-- Interfaces are typically used in `delphi` or `objfpc` modes.
-- All methods and properties in an interface are `public`.
-- A class implementing an interface must provide code for all methods defined in that interface.
-- **GUIDs (Globally Unique Identifiers)**: You'll often see interfaces defined with a long, unique string like `['{12345678-1234-1234-1234-1234567890AB}']`. This GUID ensures the interface is uniquely identifiable worldwide, which is crucial for systems like COM (Component Object Model) where different programs need to interact reliably. For simpler applications not using COM, the GUID might be omitted, but it's good practice for broadly usable interfaces.
+By default, Free Pascal uses COM-style interfaces: they descend from `IUnknown`
+and are reference counted. `TInterfacedObject` provides the required
+`IUnknown` implementation, which makes it a convenient base class. The
+[`{$interfaces corba}`](https://www.freepascal.org/docs-html/current/prog/progsu37.html)
+directive selects a non-reference-counted interface model instead.
 
-!!! Info
-    Refer to the official doc [Interfaces](https://www.freepascal.org/docs-html/ref/refch7.html#x96-1200007) for more info.
+A GUID is **optional** in an ordinary interface declaration. Add one when the
+interface must be identified at runtime, such as through `QueryInterface` or
+`Supports`, or when interoperating through COM. A GUID does not itself enable
+reference counting; the chosen interface model and implementing class determine
+the lifetime behavior.
 
-**Syntax**
+See the official language reference for
+[interface definitions](https://www.freepascal.org/docs-html/current/ref/refse44.html)
+and [GUID identification](https://www.freepascal.org/docs-html/current/ref/refse45.html).
 
-1.  Define an interface using the `interface` keyword.
-2.  Define a class that implements the interface. It usually inherits from `TInterfacedObject` (which helps with memory management for COM-style interfaces) and lists the interface(s) it implements.
+### Example: interchangeable greeters
 
-**Example**
-
-This example defines a simple interface `IMyInterface` with one method `DoSomething`, and then implements this interface in a class `TMyClass`.
-
-**1. Define the Interface**
-
-```pascal linenums="1"
-type
-  IMyInterface = interface
-    ['{12345678-1234-1234-1234-1234567890AB}'] // Unique identifier (GUID)
-    procedure DoSomething;
-  end;
-```
-
-**2. Implement the Interface in a Class**
-
-```pascal linenums="1"
-type
-  TMyClass = class(TInterfacedObject, IMyInterface)
-  public
-    procedure DoSomething;
-  end;
-
-procedure TMyClass.DoSomething;
-begin
-  WriteLn('Doing something...');
-end;
-```
-
-**3. Use the Interface and Class**
-The main program block would look like this:
-```pascal linenums="1"
-var
-  MyObject: IMyInterface;
-begin
-  MyObject := TMyClass.Create; // Create an instance of the class
-  MyObject.DoSomething;        // Call the interface method
-  // MyObject is automatically managed if TMyClass descends from TInterfacedObject
-  // No explicit MyObject.Free is needed here due to reference counting.
-end.
-```
-
-**Complete Example**
+The following program deliberately omits a GUID because it only assigns objects
+directly to an `IGreeter` variable. Two classes implement the same contract, and
+`ShowGreeting` does not need to know which class it receives.
 
 ```pascal linenums="1"
 program InterfaceExample;
@@ -2430,36 +2398,71 @@ program InterfaceExample;
 {$mode objfpc}{$H+}{$J-}
 
 type
-  // Step 1: Define the Interface
-  IMyInterface = interface
-    ['{12345678-1234-1234-1234-1234567890AB}'] // Unique identifier (GUID)
-    procedure DoSomething;
+  IGreeter = interface
+    procedure Greet(const Name: String);
   end;
 
-  // Step 2: Implement the Interface in a Class
-  TMyClass = class(TInterfacedObject, IMyInterface)
+  TFormalGreeter = class(TInterfacedObject, IGreeter)
   public
-    procedure DoSomething;
+    procedure Greet(const Name: String);
   end;
 
-procedure TMyClass.DoSomething;
+  TCasualGreeter = class(TInterfacedObject, IGreeter)
+  public
+    procedure Greet(const Name: String);
+  end;
+
+procedure TFormalGreeter.Greet(const Name: String);
 begin
-  WriteLn('Doing something...');
+  WriteLn('Good morning, ', Name, '.');
+end;
+
+procedure TCasualGreeter.Greet(const Name: String);
+begin
+  WriteLn('Hi ', Name, '!');
+end;
+
+procedure ShowGreeting(const Greeter: IGreeter; const Name: String);
+begin
+  Greeter.Greet(Name);
 end;
 
 var
-  MyObject: IMyInterface;
-begin
-  // Step 3: Use the Interface and Class
-  MyObject := TMyClass.Create;
-  MyObject.DoSomething;
+  Greeter: IGreeter;
 
-  // Pause console
-  WriteLn('Press enter to quit');
-  ReadLn;
+begin
+  Greeter := TFormalGreeter.Create;
+  ShowGreeting(Greeter, 'Ada');
+
+  Greeter := TCasualGreeter.Create;
+  ShowGreeting(Greeter, 'Linus');
 end.
 ```
-- `TInterfacedObject` is a base class from the `Classes` unit (implicitly used in many FPC programs) that helps manage memory for interfaces through reference counting. When an interface variable goes out of scope or is set to `nil`, if it's the last reference to the object, the object is automatically freed.
+
+Because both classes inherit from `TInterfacedObject`, the objects are released
+automatically when their last interface reference is replaced or goes out of
+scope.
+
+!!! warning
+
+    Do not manually call `Free` on a reference-counted `TInterfacedObject`
+    while an interface reference still points to it. Releasing the last
+    interface reference destroys the object automatically; freeing it manually
+    can leave a dangling interface reference.
+
+If runtime or COM identification is later required, add a generated GUID to the
+interface without changing its methods:
+
+```pascal
+type
+  IGreeter = interface
+    ['{C5A7299B-4030-45A7-A45C-596C415F4A61}']
+    procedure Greet(const Name: String);
+  end;
+```
+
+The GUID above demonstrates the required format only. Generate a new GUID for
+each real interface instead of copying the example value.
 
 ## 28. Pointers
 
@@ -2578,7 +2581,7 @@ More info? See [Pointers](https://www.freepascal.org/docs-html/ref/refse15.html#
 
 **Unit**: A module of code that can be reused in other programs. Units contain procedures, functions, types, and variables that you can use via the `uses` clause.
 
-**GUID (Globally Unique Identifier)**: A long unique string of numbers that identifies something worldwide. In Free Pascal interfaces, GUIDs ensure interfaces are uniquely identifiable, especially important for COM compatibility.
+**GUID (Globally Unique Identifier)**: An optional 128-bit identifier for a Free Pascal interface. It is needed when identifying the interface at runtime, such as with `QueryInterface` or `Supports`, and for COM interoperability. Each real interface that needs a GUID should receive a newly generated value.
 
 **Dynamic Array**: An array whose size can change at runtime using `SetLength`. Unlike static arrays, you don't need to know the size when you declare it.
 

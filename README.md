@@ -12,7 +12,7 @@
 
   <p align="center">
     <br />
-    <a href="https://github.com/ikelaiah/free-pascal-cookbook/releases/tag/v0.9.1"><img src="https://img.shields.io/badge/version-0.9.1-blue" alt="Version 0.9.1"></a>
+    <a href="https://github.com/ikelaiah/free-pascal-cookbook/releases/tag/v0.9.2"><img src="https://img.shields.io/badge/version-0.9.2-blue" alt="Version 0.9.2"></a>
     <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-green" alt="License MIT"></a>
     <a href="https://www.freepascal.org"><img src="https://img.shields.io/badge/language-Free%20Pascal-orange" alt="Free Pascal"></a>
     <a href="https://www.lazarus-ide.org"><img src="https://img.shields.io/badge/IDE-Lazarus-blue" alt="Lazarus IDE"></a>

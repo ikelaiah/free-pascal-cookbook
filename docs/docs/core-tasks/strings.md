@@ -2,26 +2,26 @@
 
 ## What is a `String`?
 
-Depending on compiler setting, a `String` in FPC is an alias for;
+An unqualified `String` does not have one fixed underlying type. Its meaning
+depends on the compiler mode and string-related directives:
 
-- `ShortString` (fixed 255 length),
-- `AnsiString` (variable length) or
-- `UnicodeString` (UTF16).
+- With `{$H-}`, `String` is an alias for `ShortString`, whose payload is limited
+  to 255 bytes.
+- With `{$H+}` and Unicode strings disabled, `String` is an alias for the
+  variable-length `AnsiString`.
+- With `{$mode delphiunicode}` or `{$modeswitch unicodestrings}`, `String` is an
+  alias for `UnicodeString`, which uses UTF-16.
 
-When `{$H+}` is not specified, or `{$H-}`, `String` is an alias for `ShortString`.
-
-Any `ShortString` have a maximum length of 255 characters with the implicit codepage `CP_ACP`. Short strings are always assumed to use the system code page.
-
-When `{$H+}` is specified, `String` is an alias for `AnsiString`.
-
-Any `String` is essentially an `AnsiString` with the `DefaultSystemCodePage` declared in it; `AnsiString(CP_ACP)`. And if the default system code page is `65001`, then any `String` is `UTF-8`. 
-
-With `{$mode delpiunicode}` switch, `string` is an alias for `Unicodestring` string.
-
-Commonly on Windows, the system code page is `1252`. If the system code page is `1252`, then any `String` is `1252`.
+An unqualified `AnsiString` uses the dynamic code page `CP_ACP`. Free Pascal
+uses the program's `DefaultSystemCodePage` when conversions involving that code
+page are required. Do not assume that every `String` has the same encoding on
+every platform; use an explicitly encoded string type and convert at system
+boundaries when the encoding matters.
 
    Refs:
 
+   - [DelphiUnicode compiler mode](https://www.freepascal.org/docs-html/prog/progse75.html)
+   - [UnicodeStrings mode switch](https://www.freepascal.org/docs-html/prog/progsu105.html)
    - [What is a `String`?](https://wiki.freepascal.org/String)
    - [https://forum.lazarus.freepascal.org/index.php?topic=58131.0](https://forum.lazarus.freepascal.org/index.php?topic=58131.0)
 
