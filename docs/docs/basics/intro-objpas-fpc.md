@@ -2443,6 +2443,13 @@ Because both classes inherit from `TInterfacedObject`, the objects are released
 automatically when their last interface reference is replaced or goes out of
 scope.
 
+!!! warning
+
+    Do not manually call `Free` on a reference-counted `TInterfacedObject`
+    while an interface reference still points to it. Releasing the last
+    interface reference destroys the object automatically; freeing it manually
+    can leave a dangling interface reference.
+
 If runtime or COM identification is later required, add a generated GUID to the
 interface without changing its methods:
 
@@ -2453,6 +2460,9 @@ type
     procedure Greet(const Name: String);
   end;
 ```
+
+The GUID above demonstrates the required format only. Generate a new GUID for
+each real interface instead of copying the example value.
 
 ## 28. Pointers
 
@@ -2571,7 +2581,7 @@ More info? See [Pointers](https://www.freepascal.org/docs-html/ref/refse15.html#
 
 **Unit**: A module of code that can be reused in other programs. Units contain procedures, functions, types, and variables that you can use via the `uses` clause.
 
-**GUID (Globally Unique Identifier)**: A long unique string of numbers that identifies something worldwide. In Free Pascal interfaces, GUIDs ensure interfaces are uniquely identifiable, especially important for COM compatibility.
+**GUID (Globally Unique Identifier)**: An optional 128-bit identifier for a Free Pascal interface. It is needed when identifying the interface at runtime, such as with `QueryInterface` or `Supports`, and for COM interoperability. Each real interface that needs a GUID should receive a newly generated value.
 
 **Dynamic Array**: An array whose size can change at runtime using `SetLength`. Unlike static arrays, you don't need to know the size when you declare it.
 

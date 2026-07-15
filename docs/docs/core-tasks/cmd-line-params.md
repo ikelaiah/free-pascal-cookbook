@@ -2,13 +2,15 @@
 
 ## How do I capture command line arguments?
 
-Use [`ParamStr(n)`](https://www.freepascal.org/docs-html/rtl/system/paramstr.html) to get the n-th arguments.
+Use [`ParamStr(Index)`](https://www.freepascal.org/docs-html/rtl/system/paramstr.html)
+to read the nth command-line argument.
 
-Note, `ParamStr(0)` gives you the name of the program or location where the program is invoked.
+`ParamStr(0)` returns the program name or path as it was invoked.
+[`ParamCount`](https://www.freepascal.org/docs-html/rtl/system/paramcount.html)
+gives the number of arguments supplied by the user; it does not include
+`ParamStr(0)`.
 
-While [`ParamCount`](https://www.freepascal.org/docs-html/rtl/system/paramcount.html) give you the number of arguments.
-
-Here is an example.
+Here is an example:
 
 ```pascal
 program CLSimple;
@@ -19,27 +21,33 @@ var
 begin
   WriteLn('Number of command line arguments: ', ParamCount);
 
-    // Display all command line arguments
+  // Display the program path and all command-line arguments.
   for i := 0 to ParamCount do
     WriteLn('Argument ', i, ': ', ParamStr(i));
 end.
 ```
 
-When you compile and run the snippet above on a CLI followed by `a b c`, you will see the list of arguments given.
+Run it with three arguments:
+
+```powershell
+# Windows PowerShell
+.\CLSimple.exe a b c
+```
 
 ```bash
-$ ./CLSimple.exe a b c
+# Unix shell
+./CLSimple a b c
+```
+
+On Unix, the output will look like this:
+
+```text
 Number of command line arguments: 3
-Argument 0: path-to-your-program/CLSimple.exe
+Argument 0: ./CLSimple
 Argument 1: a
 Argument 2: b
 Argument 3: c
-
 ```
-
-
-
-
 
 ## How can I capture short options?
 
@@ -114,11 +122,24 @@ The array must end with an entry whose `Name` is empty. `GetLongOpts` receives a
 pointer rather than the array's length, so it uses this entry as the terminator.
 `LongOptionIndex` receives the one-based position of the matching long option.
 
-This calculator accepts either long or short operation names:
+This calculator accepts either long or short operation names. It uses `.` as
+the decimal separator regardless of the operating-system locale, so the same
+commands work everywhere:
 
-```text
-./GetOptLongCalculator --add 12.5 7.5
-./GetOptLongCalculator -m 6 7
+```console
+$ ./GetOptLongCalculator --add 12.5 7.5
+Result: 20.00
+
+$ ./GetOptLongCalculator -m 6 7
+Result: 42.00
+```
+
+A standalone `--` ends option processing. Use it before negative positional
+operands so a value such as `-2` is not mistaken for another option:
+
+```console
+$ ./GetOptLongCalculator --add -- -2 5
+Result: 3.00
 ```
 
 ```pascal linenums="1"
@@ -148,6 +169,7 @@ var
   OptionChar: Char;
   LongOptionIndex: LongInt;
   LeftValue, RightValue, ResultValue: Double;
+  NumberFormat: TFormatSettings;
 
 procedure ShowUsage;
 begin
@@ -159,6 +181,8 @@ begin
   WriteLn('  -m, --multiply');
   WriteLn('  -d, --divide');
   WriteLn('  -h, --help');
+  WriteLn('Use . as the decimal separator.');
+  WriteLn('Use -- before negative operands, for example: --add -- -2 5');
 end;
 
 procedure Fail(const MessageText: String);
@@ -178,6 +202,9 @@ end;
 begin
   Operation := opNone;
   OptErr := False;
+  NumberFormat := DefaultFormatSettings;
+  NumberFormat.DecimalSeparator := '.';
+  NumberFormat.ThousandSeparator := #0;
 
   repeat
     OptionChar := GetLongOpts('asmdh', @LongOptions[1], LongOptionIndex);
@@ -201,10 +228,10 @@ begin
   if ParamCount - OptInd + 1 <> 2 then
     Fail('Provide exactly two numbers.');
 
-  if not TryStrToFloat(ParamStr(OptInd), LeftValue) then
+  if not TryStrToFloat(ParamStr(OptInd), LeftValue, NumberFormat) then
     Fail('The first operand is not a number.');
   Inc(OptInd);
-  if not TryStrToFloat(ParamStr(OptInd), RightValue) then
+  if not TryStrToFloat(ParamStr(OptInd), RightValue, NumberFormat) then
     Fail('The second operand is not a number.');
 
   case Operation of
