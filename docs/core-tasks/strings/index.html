@@ -2444,20 +2444,25 @@
 
 <h1 id="strings">Strings<a class="headerlink" href="#strings" title="Permanent link">¶</a></h1>
 <h2 id="what-is-a-string">What is a <code>String</code>?<a class="headerlink" href="#what-is-a-string" title="Permanent link">¶</a></h2>
-<p>Depending on compiler setting, a <code>String</code> in FPC is an alias for;</p>
+<p>An unqualified <code>String</code> does not have one fixed underlying type. Its meaning
+depends on the compiler mode and string-related directives:</p>
 <ul>
-<li><code>ShortString</code> (fixed 255 length),</li>
-<li><code>AnsiString</code> (variable length) or</li>
-<li><code>UnicodeString</code> (UTF16).</li>
+<li>With <code>{$H-}</code>, <code>String</code> is an alias for <code>ShortString</code>, whose payload is limited
+  to 255 bytes.</li>
+<li>With <code>{$H+}</code> and Unicode strings disabled, <code>String</code> is an alias for the
+  variable-length <code>AnsiString</code>.</li>
+<li>With <code>{$mode delphiunicode}</code> or <code>{$modeswitch unicodestrings}</code>, <code>String</code> is an
+  alias for <code>UnicodeString</code>, which uses UTF-16.</li>
 </ul>
-<p>When <code>{$H+}</code> is not specified, or <code>{$H-}</code>, <code>String</code> is an alias for <code>ShortString</code>.</p>
-<p>Any <code>ShortString</code> have a maximum length of 255 characters with the implicit codepage <code>CP_ACP</code>. Short strings are always assumed to use the system code page.</p>
-<p>When <code>{$H+}</code> is specified, <code>String</code> is an alias for <code>AnsiString</code>.</p>
-<p>Any <code>String</code> is essentially an <code>AnsiString</code> with the <code>DefaultSystemCodePage</code> declared in it; <code>AnsiString(CP_ACP)</code>. And if the default system code page is <code>65001</code>, then any <code>String</code> is <code>UTF-8</code>. </p>
-<p>With <code>{$mode delpiunicode}</code> switch, <code>string</code> is an alias for <code>Unicodestring</code> string.</p>
-<p>Commonly on Windows, the system code page is <code>1252</code>. If the system code page is <code>1252</code>, then any <code>String</code> is <code>1252</code>.</p>
+<p>An unqualified <code>AnsiString</code> uses the dynamic code page <code>CP_ACP</code>. Free Pascal
+uses the program's <code>DefaultSystemCodePage</code> when conversions involving that code
+page are required. Do not assume that every <code>String</code> has the same encoding on
+every platform; use an explicitly encoded string type and convert at system
+boundaries when the encoding matters.</p>
 <p>Refs:</p>
 <ul>
+<li><a href="https://www.freepascal.org/docs-html/prog/progse75.html">DelphiUnicode compiler mode</a></li>
+<li><a href="https://www.freepascal.org/docs-html/prog/progsu105.html">UnicodeStrings mode switch</a></li>
 <li><a href="https://wiki.freepascal.org/String">What is a <code>String</code>?</a></li>
 <li><a href="https://forum.lazarus.freepascal.org/index.php?topic=58131.0">https://forum.lazarus.freepascal.org/index.php?topic=58131.0</a></li>
 </ul>

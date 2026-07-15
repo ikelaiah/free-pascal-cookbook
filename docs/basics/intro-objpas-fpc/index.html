@@ -1368,6 +1368,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="27. Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interface-model-and-guids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface model and GUIDs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-interchangeable-greeters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: interchangeable greeters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3737,6 +3765,34 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="27. Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interface-model-and-guids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface model and GUIDs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-interchangeable-greeters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: interchangeable greeters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -7422,147 +7478,138 @@ This helps prevent errors and makes your code more robust and readable. For exam
 </span><span id="__span-90-49"><a id="__codelineno-90-49" name="__codelineno-90-49"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></tbody></table></div>
 <h2 id="27-interfaces">27. Interfaces<a class="headerlink" href="#27-interfaces" title="Permanent link">¶</a></h2>
-<p><strong>Why use this?</strong> Interfaces define a "contract" that classes must follow. They're useful when you have multiple classes that should perform similar tasks but in different ways. For example, you might have a <code>IAnimal</code> interface that guarantees any animal can eat, sleep, and make a sound. Different animal classes (Dog, Cat, Bird) can implement this interface in their own way. Interfaces promote code reusability and flexibility.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>By default, Free Pascal uses the Windows COM <code>IUnknown</code> interface type. This is important for compatibility with other systems, especially on Windows. For simpler, non-COM interfaces, you might see them declared without descending from <code>IUnknown</code> or <code>TInterfacedObject</code>, but this changes how memory management (like reference counting) works.</p>
+<p><strong>Why use this?</strong> An interface defines what an object can do without tying the
+caller to a particular class. Multiple classes can implement the same interface,
+so code written against that interface can work with any of them.</p>
+<p>Interfaces are available in <code>objfpc</code> and <code>delphi</code> modes. Their methods and
+properties are public, and a class must implement every member of each interface
+it lists.</p>
+<h3 id="interface-model-and-guids">Interface model and GUIDs<a class="headerlink" href="#interface-model-and-guids" title="Permanent link">¶</a></h3>
+<p>By default, Free Pascal uses COM-style interfaces: they descend from <code>IUnknown</code>
+and are reference counted. <code>TInterfacedObject</code> provides the required
+<code>IUnknown</code> implementation, which makes it a convenient base class. The
+<a href="https://www.freepascal.org/docs-html/current/prog/progsu37.html"><code>{$interfaces corba}</code></a>
+directive selects a non-reference-counted interface model instead.</p>
+<p>A GUID is <strong>optional</strong> in an ordinary interface declaration. Add one when the
+interface must be identified at runtime, such as through <code>QueryInterface</code> or
+<code>Supports</code>, or when interoperating through COM. A GUID does not itself enable
+reference counting; the chosen interface model and implementing class determine
+the lifetime behavior.</p>
+<p>See the official language reference for
+<a href="https://www.freepascal.org/docs-html/current/ref/refse44.html">interface definitions</a>
+and <a href="https://www.freepascal.org/docs-html/current/ref/refse45.html">GUID identification</a>.</p>
+<h3 id="example-interchangeable-greeters">Example: interchangeable greeters<a class="headerlink" href="#example-interchangeable-greeters" title="Permanent link">¶</a></h3>
+<p>The following program deliberately omits a GUID because it only assigns objects
+directly to an <code>IGreeter</code> variable. Two classes implement the same contract, and
+<code>ShowGreeting</code> does not need to know which class it receives.</p>
+<div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-91-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-91-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-91-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-91-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-91-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-91-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-91-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-91-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-91-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-91-10">10</a></span>
+<span class="normal"><a href="#__codelineno-91-11">11</a></span>
+<span class="normal"><a href="#__codelineno-91-12">12</a></span>
+<span class="normal"><a href="#__codelineno-91-13">13</a></span>
+<span class="normal"><a href="#__codelineno-91-14">14</a></span>
+<span class="normal"><a href="#__codelineno-91-15">15</a></span>
+<span class="normal"><a href="#__codelineno-91-16">16</a></span>
+<span class="normal"><a href="#__codelineno-91-17">17</a></span>
+<span class="normal"><a href="#__codelineno-91-18">18</a></span>
+<span class="normal"><a href="#__codelineno-91-19">19</a></span>
+<span class="normal"><a href="#__codelineno-91-20">20</a></span>
+<span class="normal"><a href="#__codelineno-91-21">21</a></span>
+<span class="normal"><a href="#__codelineno-91-22">22</a></span>
+<span class="normal"><a href="#__codelineno-91-23">23</a></span>
+<span class="normal"><a href="#__codelineno-91-24">24</a></span>
+<span class="normal"><a href="#__codelineno-91-25">25</a></span>
+<span class="normal"><a href="#__codelineno-91-26">26</a></span>
+<span class="normal"><a href="#__codelineno-91-27">27</a></span>
+<span class="normal"><a href="#__codelineno-91-28">28</a></span>
+<span class="normal"><a href="#__codelineno-91-29">29</a></span>
+<span class="normal"><a href="#__codelineno-91-30">30</a></span>
+<span class="normal"><a href="#__codelineno-91-31">31</a></span>
+<span class="normal"><a href="#__codelineno-91-32">32</a></span>
+<span class="normal"><a href="#__codelineno-91-33">33</a></span>
+<span class="normal"><a href="#__codelineno-91-34">34</a></span>
+<span class="normal"><a href="#__codelineno-91-35">35</a></span>
+<span class="normal"><a href="#__codelineno-91-36">36</a></span>
+<span class="normal"><a href="#__codelineno-91-37">37</a></span>
+<span class="normal"><a href="#__codelineno-91-38">38</a></span>
+<span class="normal"><a href="#__codelineno-91-39">39</a></span>
+<span class="normal"><a href="#__codelineno-91-40">40</a></span>
+<span class="normal"><a href="#__codelineno-91-41">41</a></span>
+<span class="normal"><a href="#__codelineno-91-42">42</a></span>
+<span class="normal"><a href="#__codelineno-91-43">43</a></span>
+<span class="normal"><a href="#__codelineno-91-44">44</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-91-1"><a id="__codelineno-91-1" name="__codelineno-91-1"></a><span class="k">program</span><span class="w"> </span><span class="n">InterfaceExample</span><span class="o">;</span>
+</span><span id="__span-91-2"><a id="__codelineno-91-2" name="__codelineno-91-2"></a>
+</span><span id="__span-91-3"><a id="__codelineno-91-3" name="__codelineno-91-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
+</span><span id="__span-91-4"><a id="__codelineno-91-4" name="__codelineno-91-4"></a>
+</span><span id="__span-91-5"><a id="__codelineno-91-5" name="__codelineno-91-5"></a><span class="k">type</span>
+</span><span id="__span-91-6"><a id="__codelineno-91-6" name="__codelineno-91-6"></a><span class="w">  </span><span class="n">IGreeter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">interface</span>
+</span><span id="__span-91-7"><a id="__codelineno-91-7" name="__codelineno-91-7"></a><span class="w">    </span><span class="k">procedure</span><span class="w"> </span><span class="nf">Greet</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kp">Name</span><span class="o">:</span><span class="w"> </span><span class="k">String</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-91-8"><a id="__codelineno-91-8" name="__codelineno-91-8"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-91-9"><a id="__codelineno-91-9" name="__codelineno-91-9"></a>
+</span><span id="__span-91-10"><a id="__codelineno-91-10" name="__codelineno-91-10"></a><span class="w">  </span><span class="n">TFormalGreeter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">class</span><span class="p">(</span><span class="n">TInterfacedObject</span><span class="o">,</span><span class="w"> </span><span class="n">IGreeter</span><span class="p">)</span>
+</span><span id="__span-91-11"><a id="__codelineno-91-11" name="__codelineno-91-11"></a><span class="w">  </span><span class="kp">public</span>
+</span><span id="__span-91-12"><a id="__codelineno-91-12" name="__codelineno-91-12"></a><span class="w">    </span><span class="k">procedure</span><span class="w"> </span><span class="nf">Greet</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kp">Name</span><span class="o">:</span><span class="w"> </span><span class="k">String</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-91-13"><a id="__codelineno-91-13" name="__codelineno-91-13"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-91-14"><a id="__codelineno-91-14" name="__codelineno-91-14"></a>
+</span><span id="__span-91-15"><a id="__codelineno-91-15" name="__codelineno-91-15"></a><span class="w">  </span><span class="n">TCasualGreeter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">class</span><span class="p">(</span><span class="n">TInterfacedObject</span><span class="o">,</span><span class="w"> </span><span class="n">IGreeter</span><span class="p">)</span>
+</span><span id="__span-91-16"><a id="__codelineno-91-16" name="__codelineno-91-16"></a><span class="w">  </span><span class="kp">public</span>
+</span><span id="__span-91-17"><a id="__codelineno-91-17" name="__codelineno-91-17"></a><span class="w">    </span><span class="k">procedure</span><span class="w"> </span><span class="nf">Greet</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kp">Name</span><span class="o">:</span><span class="w"> </span><span class="k">String</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-91-18"><a id="__codelineno-91-18" name="__codelineno-91-18"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-91-19"><a id="__codelineno-91-19" name="__codelineno-91-19"></a>
+</span><span id="__span-91-20"><a id="__codelineno-91-20" name="__codelineno-91-20"></a><span class="k">procedure</span><span class="w"> </span><span class="nc">TFormalGreeter</span><span class="o">.</span><span class="nf">Greet</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kp">Name</span><span class="o">:</span><span class="w"> </span><span class="k">String</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-91-21"><a id="__codelineno-91-21" name="__codelineno-91-21"></a><span class="k">begin</span>
+</span><span id="__span-91-22"><a id="__codelineno-91-22" name="__codelineno-91-22"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Good morning, '</span><span class="o">,</span><span class="w"> </span><span class="n">Name</span><span class="o">,</span><span class="w"> </span><span class="s">'.'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-91-23"><a id="__codelineno-91-23" name="__codelineno-91-23"></a><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-91-24"><a id="__codelineno-91-24" name="__codelineno-91-24"></a>
+</span><span id="__span-91-25"><a id="__codelineno-91-25" name="__codelineno-91-25"></a><span class="k">procedure</span><span class="w"> </span><span class="nc">TCasualGreeter</span><span class="o">.</span><span class="nf">Greet</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kp">Name</span><span class="o">:</span><span class="w"> </span><span class="k">String</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-91-26"><a id="__codelineno-91-26" name="__codelineno-91-26"></a><span class="k">begin</span>
+</span><span id="__span-91-27"><a id="__codelineno-91-27" name="__codelineno-91-27"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Hi '</span><span class="o">,</span><span class="w"> </span><span class="n">Name</span><span class="o">,</span><span class="w"> </span><span class="s">'!'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-91-28"><a id="__codelineno-91-28" name="__codelineno-91-28"></a><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-91-29"><a id="__codelineno-91-29" name="__codelineno-91-29"></a>
+</span><span id="__span-91-30"><a id="__codelineno-91-30" name="__codelineno-91-30"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">ShowGreeting</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Greeter</span><span class="o">:</span><span class="w"> </span><span class="n">IGreeter</span><span class="o">;</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kp">Name</span><span class="o">:</span><span class="w"> </span><span class="k">String</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-91-31"><a id="__codelineno-91-31" name="__codelineno-91-31"></a><span class="k">begin</span>
+</span><span id="__span-91-32"><a id="__codelineno-91-32" name="__codelineno-91-32"></a><span class="w">  </span><span class="n">Greeter</span><span class="o">.</span><span class="n">Greet</span><span class="p">(</span><span class="n">Name</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-91-33"><a id="__codelineno-91-33" name="__codelineno-91-33"></a><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-91-34"><a id="__codelineno-91-34" name="__codelineno-91-34"></a>
+</span><span id="__span-91-35"><a id="__codelineno-91-35" name="__codelineno-91-35"></a><span class="k">var</span>
+</span><span id="__span-91-36"><a id="__codelineno-91-36" name="__codelineno-91-36"></a><span class="w">  </span><span class="n">Greeter</span><span class="o">:</span><span class="w"> </span><span class="n">IGreeter</span><span class="o">;</span>
+</span><span id="__span-91-37"><a id="__codelineno-91-37" name="__codelineno-91-37"></a>
+</span><span id="__span-91-38"><a id="__codelineno-91-38" name="__codelineno-91-38"></a><span class="k">begin</span>
+</span><span id="__span-91-39"><a id="__codelineno-91-39" name="__codelineno-91-39"></a><span class="w">  </span><span class="n">Greeter</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">TFormalGreeter</span><span class="o">.</span><span class="n">Create</span><span class="o">;</span>
+</span><span id="__span-91-40"><a id="__codelineno-91-40" name="__codelineno-91-40"></a><span class="w">  </span><span class="n">ShowGreeting</span><span class="p">(</span><span class="n">Greeter</span><span class="o">,</span><span class="w"> </span><span class="s">'Ada'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-91-41"><a id="__codelineno-91-41" name="__codelineno-91-41"></a>
+</span><span id="__span-91-42"><a id="__codelineno-91-42" name="__codelineno-91-42"></a><span class="w">  </span><span class="n">Greeter</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">TCasualGreeter</span><span class="o">.</span><span class="n">Create</span><span class="o">;</span>
+</span><span id="__span-91-43"><a id="__codelineno-91-43" name="__codelineno-91-43"></a><span class="w">  </span><span class="n">ShowGreeting</span><span class="p">(</span><span class="n">Greeter</span><span class="o">,</span><span class="w"> </span><span class="s">'Linus'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-91-44"><a id="__codelineno-91-44" name="__codelineno-91-44"></a><span class="k">end</span><span class="o">.</span>
+</span></code></pre></div></td></tr></tbody></table></div>
+<p>Because both classes inherit from <code>TInterfacedObject</code>, the objects are released
+automatically when their last interface reference is replaced or goes out of
+scope.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not manually call <code>Free</code> on a reference-counted <code>TInterfacedObject</code>
+while an interface reference still points to it. Releasing the last
+interface reference destroys the object automatically; freeing it manually
+can leave a dangling interface reference.</p>
 </div>
-<p>Think of an interface as a contract or a blueprint. It defines <em>what</em> a class should be able to do (methods it must have) but not <em>how</em> it does them. This allows different classes to promise they can perform certain actions, even if their internal workings are different.</p>
-<ul>
-<li>Interfaces are typically used in <code>delphi</code> or <code>objfpc</code> modes.</li>
-<li>All methods and properties in an interface are <code>public</code>.</li>
-<li>A class implementing an interface must provide code for all methods defined in that interface.</li>
-<li><strong>GUIDs (Globally Unique Identifiers)</strong>: You'll often see interfaces defined with a long, unique string like <code>['{12345678-1234-1234-1234-1234567890AB}']</code>. This GUID ensures the interface is uniquely identifiable worldwide, which is crucial for systems like COM (Component Object Model) where different programs need to interact reliably. For simpler applications not using COM, the GUID might be omitted, but it's good practice for broadly usable interfaces.</li>
-</ul>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>Refer to the official doc <a href="https://www.freepascal.org/docs-html/ref/refch7.html#x96-1200007">Interfaces</a> for more info.</p>
-</div>
-<p><strong>Syntax</strong></p>
-<ol>
-<li>Define an interface using the <code>interface</code> keyword.</li>
-<li>Define a class that implements the interface. It usually inherits from <code>TInterfacedObject</code> (which helps with memory management for COM-style interfaces) and lists the interface(s) it implements.</li>
-</ol>
-<p><strong>Example</strong></p>
-<p>This example defines a simple interface <code>IMyInterface</code> with one method <code>DoSomething</code>, and then implements this interface in a class <code>TMyClass</code>.</p>
-<p><strong>1. Define the Interface</strong></p>
-<div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-91-1">1</a></span>
-<span class="normal"><a href="#__codelineno-91-2">2</a></span>
-<span class="normal"><a href="#__codelineno-91-3">3</a></span>
-<span class="normal"><a href="#__codelineno-91-4">4</a></span>
-<span class="normal"><a href="#__codelineno-91-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-91-1"><a id="__codelineno-91-1" name="__codelineno-91-1"></a><span class="k">type</span>
-</span><span id="__span-91-2"><a id="__codelineno-91-2" name="__codelineno-91-2"></a><span class="w">  </span><span class="n">IMyInterface</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">interface</span>
-</span><span id="__span-91-3"><a id="__codelineno-91-3" name="__codelineno-91-3"></a><span class="w">    </span><span class="p">[</span><span class="s">'{12345678-1234-1234-1234-1234567890AB}'</span><span class="p">]</span><span class="w"> </span><span class="c1">// Unique identifier (GUID)</span>
-</span><span id="__span-91-4"><a id="__codelineno-91-4" name="__codelineno-91-4"></a><span class="w">    </span><span class="k">procedure</span><span class="w"> </span><span class="nf">DoSomething</span><span class="o">;</span>
-</span><span id="__span-91-5"><a id="__codelineno-91-5" name="__codelineno-91-5"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
-</span></code></pre></div></td></tr></tbody></table></div>
-<p><strong>2. Implement the Interface in a Class</strong></p>
-<div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-92-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-92-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-92-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-92-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-92-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-92-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-92-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-92-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-92-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-92-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-92-1"><a id="__codelineno-92-1" name="__codelineno-92-1"></a><span class="k">type</span>
-</span><span id="__span-92-2"><a id="__codelineno-92-2" name="__codelineno-92-2"></a><span class="w">  </span><span class="n">TMyClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">class</span><span class="p">(</span><span class="n">TInterfacedObject</span><span class="o">,</span><span class="w"> </span><span class="n">IMyInterface</span><span class="p">)</span>
-</span><span id="__span-92-3"><a id="__codelineno-92-3" name="__codelineno-92-3"></a><span class="w">  </span><span class="kp">public</span>
-</span><span id="__span-92-4"><a id="__codelineno-92-4" name="__codelineno-92-4"></a><span class="w">    </span><span class="k">procedure</span><span class="w"> </span><span class="nf">DoSomething</span><span class="o">;</span>
-</span><span id="__span-92-5"><a id="__codelineno-92-5" name="__codelineno-92-5"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
-</span><span id="__span-92-6"><a id="__codelineno-92-6" name="__codelineno-92-6"></a>
-</span><span id="__span-92-7"><a id="__codelineno-92-7" name="__codelineno-92-7"></a><span class="k">procedure</span><span class="w"> </span><span class="nc">TMyClass</span><span class="o">.</span><span class="nf">DoSomething</span><span class="o">;</span>
-</span><span id="__span-92-8"><a id="__codelineno-92-8" name="__codelineno-92-8"></a><span class="k">begin</span>
-</span><span id="__span-92-9"><a id="__codelineno-92-9" name="__codelineno-92-9"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Doing something...'</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-92-10"><a id="__codelineno-92-10" name="__codelineno-92-10"></a><span class="k">end</span><span class="o">;</span>
-</span></code></pre></div></td></tr></tbody></table></div>
-<p><strong>3. Use the Interface and Class</strong>
-The main program block would look like this:
-</p><div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-93-1">1</a></span>
-<span class="normal"><a href="#__codelineno-93-2">2</a></span>
-<span class="normal"><a href="#__codelineno-93-3">3</a></span>
-<span class="normal"><a href="#__codelineno-93-4">4</a></span>
-<span class="normal"><a href="#__codelineno-93-5">5</a></span>
-<span class="normal"><a href="#__codelineno-93-6">6</a></span>
-<span class="normal"><a href="#__codelineno-93-7">7</a></span>
-<span class="normal"><a href="#__codelineno-93-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-93-1"><a id="__codelineno-93-1" name="__codelineno-93-1"></a><span class="k">var</span>
-</span><span id="__span-93-2"><a id="__codelineno-93-2" name="__codelineno-93-2"></a><span class="w">  </span><span class="n">MyObject</span><span class="o">:</span><span class="w"> </span><span class="n">IMyInterface</span><span class="o">;</span>
-</span><span id="__span-93-3"><a id="__codelineno-93-3" name="__codelineno-93-3"></a><span class="k">begin</span>
-</span><span id="__span-93-4"><a id="__codelineno-93-4" name="__codelineno-93-4"></a><span class="w">  </span><span class="n">MyObject</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">TMyClass</span><span class="o">.</span><span class="n">Create</span><span class="o">;</span><span class="w"> </span><span class="c1">// Create an instance of the class</span>
-</span><span id="__span-93-5"><a id="__codelineno-93-5" name="__codelineno-93-5"></a><span class="w">  </span><span class="n">MyObject</span><span class="o">.</span><span class="n">DoSomething</span><span class="o">;</span><span class="w">        </span><span class="c1">// Call the interface method</span>
-</span><span id="__span-93-6"><a id="__codelineno-93-6" name="__codelineno-93-6"></a><span class="w">  </span><span class="c1">// MyObject is automatically managed if TMyClass descends from TInterfacedObject</span>
-</span><span id="__span-93-7"><a id="__codelineno-93-7" name="__codelineno-93-7"></a><span class="w">  </span><span class="c1">// No explicit MyObject.Free is needed here due to reference counting.</span>
-</span><span id="__span-93-8"><a id="__codelineno-93-8" name="__codelineno-93-8"></a><span class="k">end</span><span class="o">.</span>
-</span></code></pre></div></td></tr></tbody></table></div><p></p>
-<p><strong>Complete Example</strong></p>
-<p></p><div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-94-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-94-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-94-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-94-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-94-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-94-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-94-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-94-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-94-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-94-10">10</a></span>
-<span class="normal"><a href="#__codelineno-94-11">11</a></span>
-<span class="normal"><a href="#__codelineno-94-12">12</a></span>
-<span class="normal"><a href="#__codelineno-94-13">13</a></span>
-<span class="normal"><a href="#__codelineno-94-14">14</a></span>
-<span class="normal"><a href="#__codelineno-94-15">15</a></span>
-<span class="normal"><a href="#__codelineno-94-16">16</a></span>
-<span class="normal"><a href="#__codelineno-94-17">17</a></span>
-<span class="normal"><a href="#__codelineno-94-18">18</a></span>
-<span class="normal"><a href="#__codelineno-94-19">19</a></span>
-<span class="normal"><a href="#__codelineno-94-20">20</a></span>
-<span class="normal"><a href="#__codelineno-94-21">21</a></span>
-<span class="normal"><a href="#__codelineno-94-22">22</a></span>
-<span class="normal"><a href="#__codelineno-94-23">23</a></span>
-<span class="normal"><a href="#__codelineno-94-24">24</a></span>
-<span class="normal"><a href="#__codelineno-94-25">25</a></span>
-<span class="normal"><a href="#__codelineno-94-26">26</a></span>
-<span class="normal"><a href="#__codelineno-94-27">27</a></span>
-<span class="normal"><a href="#__codelineno-94-28">28</a></span>
-<span class="normal"><a href="#__codelineno-94-29">29</a></span>
-<span class="normal"><a href="#__codelineno-94-30">30</a></span>
-<span class="normal"><a href="#__codelineno-94-31">31</a></span>
-<span class="normal"><a href="#__codelineno-94-32">32</a></span>
-<span class="normal"><a href="#__codelineno-94-33">33</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-94-1"><a id="__codelineno-94-1" name="__codelineno-94-1"></a><span class="k">program</span><span class="w"> </span><span class="n">InterfaceExample</span><span class="o">;</span>
-</span><span id="__span-94-2"><a id="__codelineno-94-2" name="__codelineno-94-2"></a>
-</span><span id="__span-94-3"><a id="__codelineno-94-3" name="__codelineno-94-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
-</span><span id="__span-94-4"><a id="__codelineno-94-4" name="__codelineno-94-4"></a>
-</span><span id="__span-94-5"><a id="__codelineno-94-5" name="__codelineno-94-5"></a><span class="k">type</span>
-</span><span id="__span-94-6"><a id="__codelineno-94-6" name="__codelineno-94-6"></a><span class="w">  </span><span class="c1">// Step 1: Define the Interface</span>
-</span><span id="__span-94-7"><a id="__codelineno-94-7" name="__codelineno-94-7"></a><span class="w">  </span><span class="n">IMyInterface</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">interface</span>
-</span><span id="__span-94-8"><a id="__codelineno-94-8" name="__codelineno-94-8"></a><span class="w">    </span><span class="p">[</span><span class="s">'{12345678-1234-1234-1234-1234567890AB}'</span><span class="p">]</span><span class="w"> </span><span class="c1">// Unique identifier (GUID)</span>
-</span><span id="__span-94-9"><a id="__codelineno-94-9" name="__codelineno-94-9"></a><span class="w">    </span><span class="k">procedure</span><span class="w"> </span><span class="nf">DoSomething</span><span class="o">;</span>
-</span><span id="__span-94-10"><a id="__codelineno-94-10" name="__codelineno-94-10"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
-</span><span id="__span-94-11"><a id="__codelineno-94-11" name="__codelineno-94-11"></a>
-</span><span id="__span-94-12"><a id="__codelineno-94-12" name="__codelineno-94-12"></a><span class="w">  </span><span class="c1">// Step 2: Implement the Interface in a Class</span>
-</span><span id="__span-94-13"><a id="__codelineno-94-13" name="__codelineno-94-13"></a><span class="w">  </span><span class="n">TMyClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">class</span><span class="p">(</span><span class="n">TInterfacedObject</span><span class="o">,</span><span class="w"> </span><span class="n">IMyInterface</span><span class="p">)</span>
-</span><span id="__span-94-14"><a id="__codelineno-94-14" name="__codelineno-94-14"></a><span class="w">  </span><span class="kp">public</span>
-</span><span id="__span-94-15"><a id="__codelineno-94-15" name="__codelineno-94-15"></a><span class="w">    </span><span class="k">procedure</span><span class="w"> </span><span class="nf">DoSomething</span><span class="o">;</span>
-</span><span id="__span-94-16"><a id="__codelineno-94-16" name="__codelineno-94-16"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
-</span><span id="__span-94-17"><a id="__codelineno-94-17" name="__codelineno-94-17"></a>
-</span><span id="__span-94-18"><a id="__codelineno-94-18" name="__codelineno-94-18"></a><span class="k">procedure</span><span class="w"> </span><span class="nc">TMyClass</span><span class="o">.</span><span class="nf">DoSomething</span><span class="o">;</span>
-</span><span id="__span-94-19"><a id="__codelineno-94-19" name="__codelineno-94-19"></a><span class="k">begin</span>
-</span><span id="__span-94-20"><a id="__codelineno-94-20" name="__codelineno-94-20"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Doing something...'</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-94-21"><a id="__codelineno-94-21" name="__codelineno-94-21"></a><span class="k">end</span><span class="o">;</span>
-</span><span id="__span-94-22"><a id="__codelineno-94-22" name="__codelineno-94-22"></a>
-</span><span id="__span-94-23"><a id="__codelineno-94-23" name="__codelineno-94-23"></a><span class="k">var</span>
-</span><span id="__span-94-24"><a id="__codelineno-94-24" name="__codelineno-94-24"></a><span class="w">  </span><span class="n">MyObject</span><span class="o">:</span><span class="w"> </span><span class="n">IMyInterface</span><span class="o">;</span>
-</span><span id="__span-94-25"><a id="__codelineno-94-25" name="__codelineno-94-25"></a><span class="k">begin</span>
-</span><span id="__span-94-26"><a id="__codelineno-94-26" name="__codelineno-94-26"></a><span class="w">  </span><span class="c1">// Step 3: Use the Interface and Class</span>
-</span><span id="__span-94-27"><a id="__codelineno-94-27" name="__codelineno-94-27"></a><span class="w">  </span><span class="n">MyObject</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">TMyClass</span><span class="o">.</span><span class="n">Create</span><span class="o">;</span>
-</span><span id="__span-94-28"><a id="__codelineno-94-28" name="__codelineno-94-28"></a><span class="w">  </span><span class="n">MyObject</span><span class="o">.</span><span class="n">DoSomething</span><span class="o">;</span>
-</span><span id="__span-94-29"><a id="__codelineno-94-29" name="__codelineno-94-29"></a>
-</span><span id="__span-94-30"><a id="__codelineno-94-30" name="__codelineno-94-30"></a><span class="w">  </span><span class="c1">// Pause console</span>
-</span><span id="__span-94-31"><a id="__codelineno-94-31" name="__codelineno-94-31"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Press enter to quit'</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-94-32"><a id="__codelineno-94-32" name="__codelineno-94-32"></a><span class="w">  </span><span class="nb">ReadLn</span><span class="o">;</span>
-</span><span id="__span-94-33"><a id="__codelineno-94-33" name="__codelineno-94-33"></a><span class="k">end</span><span class="o">.</span>
-</span></code></pre></div></td></tr></tbody></table></div>
-- <code>TInterfacedObject</code> is a base class from the <code>Classes</code> unit (implicitly used in many FPC programs) that helps manage memory for interfaces through reference counting. When an interface variable goes out of scope or is set to <code>nil</code>, if it's the last reference to the object, the object is automatically freed.<p></p>
+<p>If runtime or COM identification is later required, add a generated GUID to the
+interface without changing its methods:</p>
+<div class="language-pascal highlight"><pre><span></span><code><span id="__span-92-1"><a id="__codelineno-92-1" name="__codelineno-92-1" href="#__codelineno-92-1"></a><span class="k">type</span>
+</span><span id="__span-92-2"><a id="__codelineno-92-2" name="__codelineno-92-2" href="#__codelineno-92-2"></a><span class="w">  </span><span class="n">IGreeter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">interface</span>
+</span><span id="__span-92-3"><a id="__codelineno-92-3" name="__codelineno-92-3" href="#__codelineno-92-3"></a><span class="w">    </span><span class="p">[</span><span class="s">'{C5A7299B-4030-45A7-A45C-596C415F4A61}'</span><span class="p">]</span>
+</span><span id="__span-92-4"><a id="__codelineno-92-4" name="__codelineno-92-4" href="#__codelineno-92-4"></a><span class="w">    </span><span class="k">procedure</span><span class="w"> </span><span class="nf">Greet</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kp">Name</span><span class="o">:</span><span class="w"> </span><span class="k">String</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-92-5"><a id="__codelineno-92-5" name="__codelineno-92-5" href="#__codelineno-92-5"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span></code></pre></div>
+<p>The GUID above demonstrates the required format only. Generate a new GUID for
+each real interface instead of copying the example value.</p>
 <h2 id="28-pointers">28. Pointers<a class="headerlink" href="#28-pointers" title="Permanent link">¶</a></h2>
 <p><strong>Why use this?</strong> Pointers are advanced features that let you directly work with computer memory addresses. Most of the time, you don't need them—modern programming practices prefer safer alternatives like classes, dynamic arrays, and interfaces. However, pointers are essential when you need to work with external libraries, manage memory very carefully, or interface with lower-level system code. <strong>Most beginners should avoid pointers until they're comfortable with other Free Pascal features.</strong></p>
 <blockquote>
@@ -7570,41 +7617,41 @@ The main program block would look like this:
 <p>Source: <a href="https://forum.lazarus.freepascal.org/index.php/topic,64238.msg487999.html#msg487999">Leledumbo's reply on 'Dispose of Pointer', 2023-08-10</a>.</p>
 </blockquote>
 <p><strong>Example</strong></p>
-<div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-95-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-95-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-95-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-95-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-95-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-95-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-95-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-95-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-95-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-95-10">10</a></span>
-<span class="normal"><a href="#__codelineno-95-11">11</a></span>
-<span class="normal"><a href="#__codelineno-95-12">12</a></span>
-<span class="normal"><a href="#__codelineno-95-13">13</a></span>
-<span class="normal"><a href="#__codelineno-95-14">14</a></span>
-<span class="normal"><a href="#__codelineno-95-15">15</a></span>
-<span class="normal"><a href="#__codelineno-95-16">16</a></span>
-<span class="normal"><a href="#__codelineno-95-17">17</a></span>
-<span class="normal"><a href="#__codelineno-95-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-95-1"><a id="__codelineno-95-1" name="__codelineno-95-1"></a><span class="k">program</span><span class="w"> </span><span class="n">PointerExample</span><span class="o">;</span>
-</span><span id="__span-95-2"><a id="__codelineno-95-2" name="__codelineno-95-2"></a>
-</span><span id="__span-95-3"><a id="__codelineno-95-3" name="__codelineno-95-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
-</span><span id="__span-95-4"><a id="__codelineno-95-4" name="__codelineno-95-4"></a>
-</span><span id="__span-95-5"><a id="__codelineno-95-5" name="__codelineno-95-5"></a><span class="k">var</span>
-</span><span id="__span-95-6"><a id="__codelineno-95-6" name="__codelineno-95-6"></a><span class="w">  </span><span class="nb">ptr</span><span class="o">:</span><span class="w"> </span><span class="o">^</span><span class="kt">integer</span><span class="o">;</span><span class="w">  </span><span class="c1">// Declare a pointer to Integer</span>
-</span><span id="__span-95-7"><a id="__codelineno-95-7" name="__codelineno-95-7"></a><span class="w">  </span><span class="n">value</span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="o">;</span>
-</span><span id="__span-95-8"><a id="__codelineno-95-8" name="__codelineno-95-8"></a>
-</span><span id="__span-95-9"><a id="__codelineno-95-9" name="__codelineno-95-9"></a><span class="k">begin</span>
-</span><span id="__span-95-10"><a id="__codelineno-95-10" name="__codelineno-95-10"></a><span class="w">  </span><span class="k">New</span><span class="p">(</span><span class="nb">ptr</span><span class="p">)</span><span class="o">;</span><span class="w">           </span><span class="c1">// Allocate memory for an Integer</span>
-</span><span id="__span-95-11"><a id="__codelineno-95-11" name="__codelineno-95-11"></a><span class="w">  </span><span class="nb">ptr</span><span class="o">^</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">42</span><span class="o">;</span><span class="w">         </span><span class="c1">// Assign value 42 to the memory location</span>
-</span><span id="__span-95-12"><a id="__codelineno-95-12" name="__codelineno-95-12"></a><span class="w">  </span><span class="n">value</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">ptr</span><span class="o">^;</span><span class="w">      </span><span class="c1">// Access the value through the pointer</span>
-</span><span id="__span-95-13"><a id="__codelineno-95-13" name="__codelineno-95-13"></a>
-</span><span id="__span-95-14"><a id="__codelineno-95-14" name="__codelineno-95-14"></a><span class="w">  </span><span class="nb">Writeln</span><span class="p">(</span><span class="s">'Value pointed to by ptr: '</span><span class="o">,</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-95-15"><a id="__codelineno-95-15" name="__codelineno-95-15"></a>
-</span><span id="__span-95-16"><a id="__codelineno-95-16" name="__codelineno-95-16"></a><span class="w">  </span><span class="k">Dispose</span><span class="p">(</span><span class="nb">ptr</span><span class="p">)</span><span class="o">;</span><span class="w">       </span><span class="c1">// Free the allocated memory</span>
-</span><span id="__span-95-17"><a id="__codelineno-95-17" name="__codelineno-95-17"></a><span class="w">  </span><span class="nb">ReadLn</span><span class="o">;</span>
-</span><span id="__span-95-18"><a id="__codelineno-95-18" name="__codelineno-95-18"></a><span class="k">end</span><span class="o">.</span>
+<div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-93-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-93-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-93-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-93-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-93-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-93-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-93-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-93-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-93-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-93-10">10</a></span>
+<span class="normal"><a href="#__codelineno-93-11">11</a></span>
+<span class="normal"><a href="#__codelineno-93-12">12</a></span>
+<span class="normal"><a href="#__codelineno-93-13">13</a></span>
+<span class="normal"><a href="#__codelineno-93-14">14</a></span>
+<span class="normal"><a href="#__codelineno-93-15">15</a></span>
+<span class="normal"><a href="#__codelineno-93-16">16</a></span>
+<span class="normal"><a href="#__codelineno-93-17">17</a></span>
+<span class="normal"><a href="#__codelineno-93-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-93-1"><a id="__codelineno-93-1" name="__codelineno-93-1"></a><span class="k">program</span><span class="w"> </span><span class="n">PointerExample</span><span class="o">;</span>
+</span><span id="__span-93-2"><a id="__codelineno-93-2" name="__codelineno-93-2"></a>
+</span><span id="__span-93-3"><a id="__codelineno-93-3" name="__codelineno-93-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
+</span><span id="__span-93-4"><a id="__codelineno-93-4" name="__codelineno-93-4"></a>
+</span><span id="__span-93-5"><a id="__codelineno-93-5" name="__codelineno-93-5"></a><span class="k">var</span>
+</span><span id="__span-93-6"><a id="__codelineno-93-6" name="__codelineno-93-6"></a><span class="w">  </span><span class="nb">ptr</span><span class="o">:</span><span class="w"> </span><span class="o">^</span><span class="kt">integer</span><span class="o">;</span><span class="w">  </span><span class="c1">// Declare a pointer to Integer</span>
+</span><span id="__span-93-7"><a id="__codelineno-93-7" name="__codelineno-93-7"></a><span class="w">  </span><span class="n">value</span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="o">;</span>
+</span><span id="__span-93-8"><a id="__codelineno-93-8" name="__codelineno-93-8"></a>
+</span><span id="__span-93-9"><a id="__codelineno-93-9" name="__codelineno-93-9"></a><span class="k">begin</span>
+</span><span id="__span-93-10"><a id="__codelineno-93-10" name="__codelineno-93-10"></a><span class="w">  </span><span class="k">New</span><span class="p">(</span><span class="nb">ptr</span><span class="p">)</span><span class="o">;</span><span class="w">           </span><span class="c1">// Allocate memory for an Integer</span>
+</span><span id="__span-93-11"><a id="__codelineno-93-11" name="__codelineno-93-11"></a><span class="w">  </span><span class="nb">ptr</span><span class="o">^</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">42</span><span class="o">;</span><span class="w">         </span><span class="c1">// Assign value 42 to the memory location</span>
+</span><span id="__span-93-12"><a id="__codelineno-93-12" name="__codelineno-93-12"></a><span class="w">  </span><span class="n">value</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">ptr</span><span class="o">^;</span><span class="w">      </span><span class="c1">// Access the value through the pointer</span>
+</span><span id="__span-93-13"><a id="__codelineno-93-13" name="__codelineno-93-13"></a>
+</span><span id="__span-93-14"><a id="__codelineno-93-14" name="__codelineno-93-14"></a><span class="w">  </span><span class="nb">Writeln</span><span class="p">(</span><span class="s">'Value pointed to by ptr: '</span><span class="o">,</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-93-15"><a id="__codelineno-93-15" name="__codelineno-93-15"></a>
+</span><span id="__span-93-16"><a id="__codelineno-93-16" name="__codelineno-93-16"></a><span class="w">  </span><span class="k">Dispose</span><span class="p">(</span><span class="nb">ptr</span><span class="p">)</span><span class="o">;</span><span class="w">       </span><span class="c1">// Free the allocated memory</span>
+</span><span id="__span-93-17"><a id="__codelineno-93-17" name="__codelineno-93-17"></a><span class="w">  </span><span class="nb">ReadLn</span><span class="o">;</span>
+</span><span id="__span-93-18"><a id="__codelineno-93-18" name="__codelineno-93-18"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></tbody></table></div>
 <h3 id="safe-usage-tips">Safe Usage Tips<a class="headerlink" href="#safe-usage-tips" title="Permanent link">¶</a></h3>
 <ol>
@@ -7615,9 +7662,9 @@ The main program block would look like this:
 <p><strong>Check for nil</strong>: It’s good practice to check if a pointer is nil (i.e., not pointing to any memory) before using it:</p>
 </li>
 </ol>
-<div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-96-1">1</a></span>
-<span class="normal"><a href="#__codelineno-96-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-96-1"><a id="__codelineno-96-1" name="__codelineno-96-1"></a><span class="k">if</span><span class="w"> </span><span class="nb">ptr</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="k">nil</span><span class="w"> </span><span class="k">then</span>
-</span><span id="__span-96-2"><a id="__codelineno-96-2" name="__codelineno-96-2"></a><span class="w">  </span><span class="nb">Writeln</span><span class="p">(</span><span class="nb">ptr</span><span class="o">^</span><span class="p">)</span><span class="o">;</span>
+<div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-94-1">1</a></span>
+<span class="normal"><a href="#__codelineno-94-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-94-1"><a id="__codelineno-94-1" name="__codelineno-94-1"></a><span class="k">if</span><span class="w"> </span><span class="nb">ptr</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="k">nil</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-94-2"><a id="__codelineno-94-2" name="__codelineno-94-2"></a><span class="w">  </span><span class="nb">Writeln</span><span class="p">(</span><span class="nb">ptr</span><span class="o">^</span><span class="p">)</span><span class="o">;</span>
 </span></code></pre></div></td></tr></tbody></table></div>
 <ol start="3">
 <li>
@@ -7627,9 +7674,9 @@ The main program block would look like this:
 <p><strong>Don’t Use Freed Pointers</strong>: After calling <code>Dispose</code>, the pointer still holds the address of the freed memory. Set it to <code>nil</code> to avoid accidental use:</p>
 </li>
 </ol>
-<div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-97-1">1</a></span>
-<span class="normal"><a href="#__codelineno-97-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-97-1"><a id="__codelineno-97-1" name="__codelineno-97-1"></a><span class="k">Dispose</span><span class="p">(</span><span class="nb">ptr</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-97-2"><a id="__codelineno-97-2" name="__codelineno-97-2"></a><span class="nb">ptr</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">nil</span><span class="o">;</span>
+<div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-95-1">1</a></span>
+<span class="normal"><a href="#__codelineno-95-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-95-1"><a id="__codelineno-95-1" name="__codelineno-95-1"></a><span class="k">Dispose</span><span class="p">(</span><span class="nb">ptr</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-95-2"><a id="__codelineno-95-2" name="__codelineno-95-2"></a><span class="nb">ptr</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">nil</span><span class="o">;</span>
 </span></code></pre></div></td></tr></tbody></table></div>
 <ol start="5">
 <li><strong>Be Cautious with Pointer Arithmetic</strong>: Although not commonly needed in high-level Pascal programming, pointer arithmetic (e.g., incrementing pointers) should be done carefully to avoid accessing invalid memory areas.</li>
@@ -7669,7 +7716,7 @@ The main program block would look like this:
 <p><strong>Mode</strong>: Refers to different compatibility modes in Free Pascal (e.g., <code>objfpc</code> mode for Object Pascal, <code>delphi</code> mode for Delphi compatibility). The mode determines which language features are available.</p>
 <p><strong>Compiler Directive</strong>: A special instruction (starting with <code>$</code>) that tells the compiler how to behave. For example, <code>{$mode objfpc}</code> sets the compiler to Object Pascal mode.</p>
 <p><strong>Unit</strong>: A module of code that can be reused in other programs. Units contain procedures, functions, types, and variables that you can use via the <code>uses</code> clause.</p>
-<p><strong>GUID (Globally Unique Identifier)</strong>: A long unique string of numbers that identifies something worldwide. In Free Pascal interfaces, GUIDs ensure interfaces are uniquely identifiable, especially important for COM compatibility.</p>
+<p><strong>GUID (Globally Unique Identifier)</strong>: An optional 128-bit identifier for a Free Pascal interface. It is needed when identifying the interface at runtime, such as with <code>QueryInterface</code> or <code>Supports</code>, and for COM interoperability. Each real interface that needs a GUID should receive a newly generated value.</p>
 <p><strong>Dynamic Array</strong>: An array whose size can change at runtime using <code>SetLength</code>. Unlike static arrays, you don't need to know the size when you declare it.</p>
 <p><strong>Static Array</strong>: An array whose size is fixed at compile time and cannot change.</p>
 <p><strong>Enum (Enumerated Type)</strong>: A custom data type where you define a set of named values. For example, you might create a <code>TColor</code> enum with values <code>Red</code>, <code>Green</code>, and <code>Blue</code>.</p>

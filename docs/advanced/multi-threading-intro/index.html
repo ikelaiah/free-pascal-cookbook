@@ -1698,10 +1698,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#linux-macos-freebsd" class="md-nav__link">
+  <a href="#linux-macos-and-freebsd" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Linux macOS FreeBSD
+        Linux, macOS, and FreeBSD
       
     </span>
   </a>
@@ -2467,10 +2467,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#linux-macos-freebsd" class="md-nav__link">
+  <a href="#linux-macos-and-freebsd" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Linux macOS FreeBSD
+        Linux, macOS, and FreeBSD
       
     </span>
   </a>
@@ -2526,63 +2526,59 @@
 <li>Using multiple processors to process different parts of an image simultaneously, improving efficiency and speed.</li>
 <li>Etc.</li>
 </ul>
-<p>Before using multi-threading to speed up tasks using many processors, make sure of the following items. </p>
+<p>Before using multiple threads to speed up CPU-bound work:</p>
 <ol>
-<li>Your program is already using all resources well on one CPU core. </li>
-<li>Check if your program is optimized at the highest level (level 3) for the best performance, as higher optimization can make your program faster.</li>
+<li>Measure the program first and identify the actual bottleneck.</li>
+<li>Check that the work can be divided into independent parts.</li>
+<li>Consider the cost of creating threads, synchronising shared state, and
+   combining the results.</li>
 </ol>
 <h3 id="multi-threaded-apps-are-complex-and-harder-to-debug">Multi-threaded apps are complex and harder to debug<a class="headerlink" href="#multi-threaded-apps-are-complex-and-harder-to-debug" title="Permanent link">¶</a></h3>
-<p>For simpler tasks, one thread may be enough. </p>
-<p>Instead of many threads, you can split long tasks into smaller parts or use <code>Application.ProcessMessages</code> to handle user actions during long tasks.</p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>What is <code>Application.ProcessMessages</code>?</p>
-<p><code>Application.ProcessMessages</code> signals that the app can execute events from its event queue. Let's say that you have 2 buttons on a form with to <code>onclick</code> procedures assigned. The first procedure is a lengthly process (eg. <code>repeat..until true</code>). The second button has only <code>ShowMessage('haha')</code>.</p>
-<p>Now, without <code>Appllication.ProcessMessages</code> inserted in the first procedure in the repeat statement, if you press the first button then you will not be able to press the seccond button (or anything else) until the repeat statement finishes. So the user interface is frozen.</p>
-<p>With the <code>application.processmessages</code> inserted as follows</p>
-<div class="language-pascal highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">repeat</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="n">Application</span><span class="o">.</span><span class="n">ProcessMessages</span><span class="o">;</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="o">...</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">until</span><span class="w"> </span><span class="k">true</span><span class="o">;</span>
-</span></code></pre></div>
-<p>If you press the first button and then the second button the <code>ShowMessage</code> will happen! So, it is a way to fake a multithread app :-))</p>
-<p>Source: <a href="https://stackoverflow.com/a/24789033/1179312">Lazarus: The effect of Application.ProcessMessages</a></p>
-</div>
+<p>For simpler tasks, one thread may be enough. In a GUI application, small jobs
+can sometimes be split into short timer or queued-event steps. Blocking I/O and
+CPU-intensive work should normally run in a worker <code>TThread</code>, with UI updates
+synchronised back to the main thread.</p>
+<p><code>Application.ProcessMessages</code> only processes the current thread's event queue;
+it does not create parallel execution. Calling it from inside a long event
+handler can also let other handlers run while the application state is only
+partly updated. It is therefore not a general substitute for a worker thread.</p>
 <h3 id="units-needed-for-a-multi-threaded-application">Units needed for a multi-threaded application<a class="headerlink" href="#units-needed-for-a-multi-threaded-application" title="Permanent link">¶</a></h3>
 <h4 id="windows">Windows<a class="headerlink" href="#windows" title="Permanent link">¶</a></h4>
-<p>You don´t need any special unit for this to work with Windows. </p>
-<h4 id="linux-macos-freebsd">Linux macOS FreeBSD<a class="headerlink" href="#linux-macos-freebsd" title="Permanent link">¶</a></h4>
-<p>With Linux, macOS and FreeBSD, you need the <code>cthreads</code> unit and it must be the first used unit of the project (the program source, usually the <code>.lpr</code> file)! </p>
-<p>In cases where you need  units like <code>cmem</code>, <code>cthreads</code>, and <code>cwstrings</code>; </p>
-<ol>
-<li>Place them first in the <code>uses</code> section, </li>
-<li>Due to how these units work, a sensible order is <code>cmem</code>, <code>cthreads</code> and <code>cwstrings</code>.</li>
-</ol>
-<p>So, your FPC/Lazarus application code should begin as the following snippet.</p>
-<div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-1-10">10</a></span>
-<span class="normal"><a href="#__codelineno-1-11">11</a></span>
-<span class="normal"><a href="#__codelineno-1-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">program</span><span class="w"> </span><span class="n">AMultiThreadedProgram</span><span class="o">;</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="k">uses</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="cm">{$ifdef unix}</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">  </span><span class="n">cmem</span><span class="o">,</span><span class="w"> </span><span class="c1">// the c memory manager is faster for multi-threading</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">        </span><span class="c1">// on some systems</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">  </span><span class="n">cthreads</span><span class="o">,</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="cm">{$endif}</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">  </span><span class="cm">{ you can add units here }</span><span class="o">;</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">  </span><span class="c1">// ... the rest of your code</span>
+<p>Windows does not require an additional thread-manager unit.</p>
+<h4 id="linux-macos-and-freebsd">Linux, macOS, and FreeBSD<a class="headerlink" href="#linux-macos-and-freebsd" title="Permanent link">¶</a></h4>
+<p>On Unix-like systems, include <code>cthreads</code> first in the program's <code>uses</code> section,
+or second when <code>cmem</code> is deliberately listed first. If the application needs
+wide-string locale support, include <code>cwstring</code> near the beginning too.</p>
+<p><code>cmem</code> is optional: use it only when you intentionally want the C memory
+manager, not merely because the application is multi-threaded. A minimal
+cross-platform program can begin as follows.</p>
+<div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">program</span><span class="w"> </span><span class="n">AMultiThreadedProgram</span><span class="o">;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="k">uses</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="cm">{$IFDEF UNIX}</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">  </span><span class="n">cthreads</span><span class="o">,</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="cm">{$ENDIF}</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">  </span><span class="n">Classes</span><span class="o">;</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="k">begin</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Thread support initialized.'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></tbody></table></div>
+<p>See the Free Pascal documentation for the <a href="https://www.freepascal.org/daily/doc/user/userse50.html"><code>cthreads</code> startup
+requirements</a> and the
+<a href="https://www.freepascal.org/docs-html/rtl/cwstring/index.html"><code>cwstring</code> unit</a>.</p>
 
 
 

@@ -987,6 +987,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#how-can-i-capture-long-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How can I capture long options?
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2375,6 +2386,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#how-can-i-capture-long-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How can I capture long options?
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2400,10 +2422,13 @@
 
 <h1 id="command-line-parameters">Command Line Parameters<a class="headerlink" href="#command-line-parameters" title="Permanent link">¶</a></h1>
 <h2 id="how-do-i-capture-command-line-arguments">How do I capture command line arguments?<a class="headerlink" href="#how-do-i-capture-command-line-arguments" title="Permanent link">¶</a></h2>
-<p>Use <a href="https://www.freepascal.org/docs-html/rtl/system/paramstr.html"><code>ParamStr(n)</code></a> to get the n-th arguments.</p>
-<p>Note, <code>ParamStr(0)</code> gives you the name of the program or location where the program is invoked.</p>
-<p>While <a href="https://www.freepascal.org/docs-html/rtl/system/paramcount.html"><code>ParamCount</code></a> give you the number of arguments.</p>
-<p>Here is an example.</p>
+<p>Use <a href="https://www.freepascal.org/docs-html/rtl/system/paramstr.html"><code>ParamStr(Index)</code></a>
+to read the nth command-line argument.</p>
+<p><code>ParamStr(0)</code> returns the program name or path as it was invoked.
+<a href="https://www.freepascal.org/docs-html/rtl/system/paramcount.html"><code>ParamCount</code></a>
+gives the number of arguments supplied by the user; it does not include
+<code>ParamStr(0)</code>.</p>
+<p>Here is an example:</p>
 <div class="language-pascal highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">program</span><span class="w"> </span><span class="n">CLSimple</span><span class="o">;</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">var</span>
@@ -2412,177 +2437,368 @@
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">begin</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Number of command line arguments: '</span><span class="o">,</span><span class="w"> </span><span class="nb">ParamCount</span><span class="p">)</span><span class="o">;</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="c1">// Display all command line arguments</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="c1">// Display the program path and all command-line arguments.</span>
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nb">ParamCount</span><span class="w"> </span><span class="k">do</span>
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Argument '</span><span class="o">,</span><span class="w"> </span><span class="n">i</span><span class="o">,</span><span class="w"> </span><span class="s">': '</span><span class="o">,</span><span class="w"> </span><span class="nb">ParamStr</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">;</span>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div>
-<p>When you compile and run the snippet above on a CLI followed by <code>a b c</code>, you will see the list of arguments given.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$<span class="w"> </span>./CLSimple.exe<span class="w"> </span>a<span class="w"> </span>b<span class="w"> </span>c
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Number<span class="w"> </span>of<span class="w"> </span><span class="nb">command</span><span class="w"> </span>line<span class="w"> </span>arguments:<span class="w"> </span><span class="m">3</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Argument<span class="w"> </span><span class="m">0</span>:<span class="w"> </span>path-to-your-program/CLSimple.exe
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Argument<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>a
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Argument<span class="w"> </span><span class="m">2</span>:<span class="w"> </span>b
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>Argument<span class="w"> </span><span class="m">3</span>:<span class="w"> </span>c
+<p>Run it with three arguments:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c"># Windows PowerShell</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">.\</span><span class="n">CLSimple</span><span class="p">.</span><span class="n">exe</span> <span class="n">a</span> <span class="n">b</span> <span class="n">c</span>
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Unix shell</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>./CLSimple<span class="w"> </span>a<span class="w"> </span>b<span class="w"> </span>c
+</span></code></pre></div>
+<p>On Unix, the output will look like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Number of command line arguments: 3
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Argument 0: ./CLSimple
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Argument 1: a
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>Argument 2: b
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>Argument 3: c
 </span></code></pre></div>
 <h2 id="how-can-i-capture-short-options">How can I capture short options?<a class="headerlink" href="#how-can-i-capture-short-options" title="Permanent link">¶</a></h2>
-<p>Use <a href="https://www.freepascal.org/daily/doc/rtl/getopts/getopt.html"><code>getopt</code></a>. See an example below.</p>
+<p>Use <a href="https://www.freepascal.org/docs-html/current/rtl/getopts/getopt.html"><code>GetOpt</code></a>
+from the <code>GetOpts</code> unit:</p>
 <ol>
-<li>In <code>uses</code> section add <code>getopt</code>. Line 17.</li>
-<li>Create a short option string, in our example, <code>a:bcd</code>. Line 24.</li>
-<li>Call <code>getopt(shortOpts)</code> in a loop<ul>
-<li>capture and action each option</li>
-<li>deal with <code>?</code> and <code>:</code> (for invalid option and missing argument)</li>
-<li>until it returns <code>EndOfOptions</code>. Line 36-55.</li>
-</ul>
-</li>
+<li>Define the accepted one-character options in a string.</li>
+<li>Add <code>:</code> after an option that requires an argument.</li>
+<li>Call <code>GetOpt</code> until it returns <code>EndOfOptions</code>.</li>
+<li>Read an option's argument from <code>OptArg</code> and the first non-option argument
+   from <code>OptInd</code>.</li>
 </ol>
-<div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-2-10">10</a></span>
-<span class="normal"><a href="#__codelineno-2-11">11</a></span>
-<span class="normal"><a href="#__codelineno-2-12">12</a></span>
-<span class="normal"><a href="#__codelineno-2-13">13</a></span>
-<span class="normal"><a href="#__codelineno-2-14">14</a></span>
-<span class="normal"><a href="#__codelineno-2-15">15</a></span>
-<span class="normal"><a href="#__codelineno-2-16">16</a></span>
-<span class="normal"><a href="#__codelineno-2-17">17</a></span>
-<span class="normal"><a href="#__codelineno-2-18">18</a></span>
-<span class="normal"><a href="#__codelineno-2-19">19</a></span>
-<span class="normal"><a href="#__codelineno-2-20">20</a></span>
-<span class="normal"><a href="#__codelineno-2-21">21</a></span>
-<span class="normal"><a href="#__codelineno-2-22">22</a></span>
-<span class="normal"><a href="#__codelineno-2-23">23</a></span>
-<span class="normal"><a href="#__codelineno-2-24">24</a></span>
-<span class="normal"><a href="#__codelineno-2-25">25</a></span>
-<span class="normal"><a href="#__codelineno-2-26">26</a></span>
-<span class="normal"><a href="#__codelineno-2-27">27</a></span>
-<span class="normal"><a href="#__codelineno-2-28">28</a></span>
-<span class="normal"><a href="#__codelineno-2-29">29</a></span>
-<span class="normal"><a href="#__codelineno-2-30">30</a></span>
-<span class="normal"><a href="#__codelineno-2-31">31</a></span>
-<span class="normal"><a href="#__codelineno-2-32">32</a></span>
-<span class="normal"><a href="#__codelineno-2-33">33</a></span>
-<span class="normal"><a href="#__codelineno-2-34">34</a></span>
-<span class="normal"><a href="#__codelineno-2-35">35</a></span>
-<span class="normal"><a href="#__codelineno-2-36">36</a></span>
-<span class="normal"><a href="#__codelineno-2-37">37</a></span>
-<span class="normal"><a href="#__codelineno-2-38">38</a></span>
-<span class="normal"><a href="#__codelineno-2-39">39</a></span>
-<span class="normal"><a href="#__codelineno-2-40">40</a></span>
-<span class="normal"><a href="#__codelineno-2-41">41</a></span>
-<span class="normal"><a href="#__codelineno-2-42">42</a></span>
-<span class="normal"><a href="#__codelineno-2-43">43</a></span>
-<span class="normal"><a href="#__codelineno-2-44">44</a></span>
-<span class="normal"><a href="#__codelineno-2-45">45</a></span>
-<span class="normal"><a href="#__codelineno-2-46">46</a></span>
-<span class="normal"><a href="#__codelineno-2-47">47</a></span>
-<span class="normal"><a href="#__codelineno-2-48">48</a></span>
-<span class="normal"><a href="#__codelineno-2-49">49</a></span>
-<span class="normal"><a href="#__codelineno-2-50">50</a></span>
-<span class="normal"><a href="#__codelineno-2-51">51</a></span>
-<span class="normal"><a href="#__codelineno-2-52">52</a></span>
-<span class="normal"><a href="#__codelineno-2-53">53</a></span>
-<span class="normal"><a href="#__codelineno-2-54">54</a></span>
-<span class="normal"><a href="#__codelineno-2-55">55</a></span>
-<span class="normal"><a href="#__codelineno-2-56">56</a></span>
-<span class="normal"><a href="#__codelineno-2-57">57</a></span>
-<span class="normal"><a href="#__codelineno-2-58">58</a></span>
-<span class="normal"><a href="#__codelineno-2-59">59</a></span>
-<span class="normal"><a href="#__codelineno-2-60">60</a></span>
-<span class="normal"><a href="#__codelineno-2-61">61</a></span>
-<span class="normal"><a href="#__codelineno-2-62">62</a></span>
-<span class="normal"><a href="#__codelineno-2-63">63</a></span>
-<span class="normal"><a href="#__codelineno-2-64">64</a></span>
-<span class="normal"><a href="#__codelineno-2-65">65</a></span>
-<span class="normal"><a href="#__codelineno-2-66">66</a></span>
-<span class="normal"><a href="#__codelineno-2-67">67</a></span>
-<span class="normal"><a href="#__codelineno-2-68">68</a></span>
-<span class="normal"><a href="#__codelineno-2-69">69</a></span>
-<span class="normal"><a href="#__codelineno-2-70">70</a></span>
-<span class="normal"><a href="#__codelineno-2-71">71</a></span>
-<span class="normal"><a href="#__codelineno-2-72">72</a></span>
-<span class="normal"><a href="#__codelineno-2-73">73</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="k">program</span><span class="w"> </span><span class="n">GetOptSimple</span><span class="o">;</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="c1">// Example usage (git bash):</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="c1">// $ ./GetOptSimple -a "Hello" -b -c -d</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="c1">// $ ./GetOptSimple -a "Hello" -bc -d</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="c1">// $ ./GetOptSimple -a "Hello" -bcd</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="c1">// $ ./GetOptSimple -dcb -a "Hello"</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="k">uses</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="w">  </span><span class="cm">{$IFDEF UNIX}</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="w">  </span><span class="n">cmem</span><span class="o">,</span><span class="w"> </span><span class="n">cthreads</span><span class="o">,</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="w">  </span><span class="cm">{$ENDIF}</span>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="w">  </span><span class="n">Classes</span><span class="o">,</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="hll"><span class="w">  </span><span class="n">getopts</span><span class="o">;</span>
-</span></span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18"></a>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="k">var</span>
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="w">  </span><span class="n">c</span><span class="o">:</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kp">DEFAULT</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="w">  </span><span class="n">shortOpts</span><span class="o">:</span><span class="w"> </span><span class="k">string</span><span class="o">;</span>
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22"></a>
-</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="k">begin</span>
-</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24"></a>
-</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25"></a><span class="w">  </span><span class="c1">// If the external variable opterr is True (which is the default),</span>
-</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="w">  </span><span class="c1">// getopt prints an error message.</span>
-</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27"></a><span class="w">  </span><span class="c1">// Ref: https://www.gnu.org/software/libc/manual/html_node/Using-Getopt.html</span>
-</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28"></a><span class="w">  </span><span class="c1">//      https://www.freepascal.org/daily/doc/rtl/getopts/getopt.html</span>
-</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29"></a><span class="w">  </span><span class="n">OptErr</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">False</span><span class="o">;</span>
-</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30"></a>
-</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31"></a><span class="w">  </span><span class="c1">// Defining valid short options</span>
-</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32"></a><span class="w">  </span><span class="c1">// For example; -a requires an argument,</span>
-</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33"></a><span class="w">  </span><span class="c1">//              -b, -c and -d don't.</span>
-</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34"></a><span class="hll"><span class="w">  </span><span class="n">shortOpts</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">'a:bcd'</span><span class="o">;</span>
-</span></span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35"></a>
-</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36"></a><span class="hll"><span class="w">  </span><span class="k">repeat</span>
-</span></span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37"></a><span class="hll"><span class="w">    </span><span class="n">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">getopt</span><span class="p">(</span><span class="n">shortOpts</span><span class="p">)</span><span class="o">;</span>
-</span></span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38"></a><span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="k">of</span>
-</span></span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39"></a><span class="hll"><span class="w">      </span><span class="s">'a'</span><span class="o">:</span><span class="w"> </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Option a was set with value '</span><span class="o">,</span><span class="w"> </span><span class="n">optarg</span><span class="p">)</span><span class="o">;</span>
-</span></span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40"></a><span class="hll"><span class="w">      </span><span class="s">'b'</span><span class="o">:</span><span class="w"> </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Option b was set'</span><span class="p">)</span><span class="o">;</span>
-</span></span><span id="__span-2-41"><a id="__codelineno-2-41" name="__codelineno-2-41"></a><span class="hll"><span class="w">      </span><span class="s">'c'</span><span class="o">:</span><span class="w"> </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Option c was set'</span><span class="p">)</span><span class="o">;</span>
-</span></span><span id="__span-2-42"><a id="__codelineno-2-42" name="__codelineno-2-42"></a><span class="hll"><span class="w">      </span><span class="s">'d'</span><span class="o">:</span><span class="w"> </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Option d was set'</span><span class="p">)</span><span class="o">;</span>
-</span></span><span id="__span-2-43"><a id="__codelineno-2-43" name="__codelineno-2-43"></a><span class="hll"><span class="w">      </span><span class="s">'?'</span><span class="o">,</span><span class="w"> </span><span class="s">':'</span><span class="o">:</span><span class="w"> </span><span class="k">begin</span>
-</span></span><span id="__span-2-44"><a id="__codelineno-2-44" name="__codelineno-2-44"></a><span class="hll"><span class="w">        </span><span class="c1">// If getopt finds an option character in argv that was not included</span>
-</span></span><span id="__span-2-45"><a id="__codelineno-2-45" name="__codelineno-2-45"></a><span class="hll"><span class="w">        </span><span class="c1">// in options, or a missing option argument,</span>
-</span></span><span id="__span-2-46"><a id="__codelineno-2-46" name="__codelineno-2-46"></a><span class="hll"><span class="w">        </span><span class="c1">//    - it returns `?` and</span>
-</span></span><span id="__span-2-47"><a id="__codelineno-2-47" name="__codelineno-2-47"></a><span class="hll"><span class="w">        </span><span class="c1">//    - sets the external variable `optopt` to the actual option character.</span>
-</span></span><span id="__span-2-48"><a id="__codelineno-2-48" name="__codelineno-2-48"></a><span class="hll"><span class="w">        </span><span class="c1">// If the first character of options is a colon (‘:’),</span>
-</span></span><span id="__span-2-49"><a id="__codelineno-2-49" name="__codelineno-2-49"></a><span class="hll"><span class="w">        </span><span class="c1">//    - then getopt returns ‘:’ instead of ‘?’ to indicate a missing option argument.</span>
-</span></span><span id="__span-2-50"><a id="__codelineno-2-50" name="__codelineno-2-50"></a><span class="hll"><span class="w">        </span><span class="c1">// Refs</span>
-</span></span><span id="__span-2-51"><a id="__codelineno-2-51" name="__codelineno-2-51"></a><span class="hll"><span class="w">        </span><span class="c1">// - https://www.freepascal.org/docs-html/rtl/getopts/index.html</span>
-</span></span><span id="__span-2-52"><a id="__codelineno-2-52" name="__codelineno-2-52"></a><span class="hll"><span class="w">        </span><span class="c1">// - https://sourceware.org/glibc/manual/latest/html_mono/libc.html#Getopt</span>
-</span></span><span id="__span-2-53"><a id="__codelineno-2-53" name="__codelineno-2-53"></a><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">optopt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">'a'</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
-</span></span><span id="__span-2-54"><a id="__codelineno-2-54" name="__codelineno-2-54"></a><span class="hll"><span class="w">          </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Error: Option '</span><span class="o">,</span><span class="w"> </span><span class="n">optopt</span><span class="o">,</span><span class="w"> </span><span class="s">' needs an argument.'</span><span class="p">)</span>
-</span></span><span id="__span-2-55"><a id="__codelineno-2-55" name="__codelineno-2-55"></a><span class="hll"><span class="w">        </span><span class="k">else</span>
-</span></span><span id="__span-2-56"><a id="__codelineno-2-56" name="__codelineno-2-56"></a><span class="w">          </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Error: Unknown option: '</span><span class="o">,</span><span class="w"> </span><span class="n">optopt</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-2-57"><a id="__codelineno-2-57" name="__codelineno-2-57"></a><span class="w">      </span><span class="k">end</span><span class="o">;</span>
-</span><span id="__span-2-58"><a id="__codelineno-2-58" name="__codelineno-2-58"></a><span class="w">    </span><span class="k">end</span><span class="o">;</span><span class="w"> </span><span class="c1">// case</span>
-</span><span id="__span-2-59"><a id="__codelineno-2-59" name="__codelineno-2-59"></a><span class="w">  </span><span class="k">until</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EndOfOptions</span><span class="o">;</span>
-</span><span id="__span-2-60"><a id="__codelineno-2-60" name="__codelineno-2-60"></a>
-</span><span id="__span-2-61"><a id="__codelineno-2-61" name="__codelineno-2-61"></a><span class="w">  </span><span class="c1">// The reminder, checks for non-option arguments (if any) using optind</span>
-</span><span id="__span-2-62"><a id="__codelineno-2-62" name="__codelineno-2-62"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">optind</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nb">paramcount</span><span class="w"> </span><span class="k">then</span>
-</span><span id="__span-2-63"><a id="__codelineno-2-63" name="__codelineno-2-63"></a><span class="w">  </span><span class="k">begin</span>
-</span><span id="__span-2-64"><a id="__codelineno-2-64" name="__codelineno-2-64"></a><span class="w">    </span><span class="nb">Write</span><span class="p">(</span><span class="s">'Non options : '</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-2-65"><a id="__codelineno-2-65" name="__codelineno-2-65"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">optind</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nb">paramcount</span><span class="w"> </span><span class="k">do</span>
-</span><span id="__span-2-66"><a id="__codelineno-2-66" name="__codelineno-2-66"></a><span class="w">    </span><span class="k">begin</span>
-</span><span id="__span-2-67"><a id="__codelineno-2-67" name="__codelineno-2-67"></a><span class="w">      </span><span class="nb">Write</span><span class="p">(</span><span class="nb">ParamStr</span><span class="p">(</span><span class="n">optind</span><span class="p">)</span><span class="o">,</span><span class="w"> </span><span class="s">' '</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-2-68"><a id="__codelineno-2-68" name="__codelineno-2-68"></a><span class="w">      </span><span class="nb">Inc</span><span class="p">(</span><span class="n">optind</span><span class="p">)</span><span class="o">;</span>
-</span><span id="__span-2-69"><a id="__codelineno-2-69" name="__codelineno-2-69"></a><span class="w">    </span><span class="k">end</span><span class="o">;</span>
-</span><span id="__span-2-70"><a id="__codelineno-2-70" name="__codelineno-2-70"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="o">;</span>
-</span><span id="__span-2-71"><a id="__codelineno-2-71" name="__codelineno-2-71"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
-</span><span id="__span-2-72"><a id="__codelineno-2-72" name="__codelineno-2-72"></a>
-</span><span id="__span-2-73"><a id="__codelineno-2-73" name="__codelineno-2-73"></a><span class="k">end</span><span class="o">.</span>
+<p>The leading <code>:</code> in <code>ShortOptions</code> makes <code>GetOpt</code> return <code>:</code> for a missing
+argument and <code>?</code> for an unknown option.</p>
+<div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span>
+<span class="normal"><a href="#__codelineno-4-22">22</a></span>
+<span class="normal"><a href="#__codelineno-4-23">23</a></span>
+<span class="normal"><a href="#__codelineno-4-24">24</a></span>
+<span class="normal"><a href="#__codelineno-4-25">25</a></span>
+<span class="normal"><a href="#__codelineno-4-26">26</a></span>
+<span class="normal"><a href="#__codelineno-4-27">27</a></span>
+<span class="normal"><a href="#__codelineno-4-28">28</a></span>
+<span class="normal"><a href="#__codelineno-4-29">29</a></span>
+<span class="normal"><a href="#__codelineno-4-30">30</a></span>
+<span class="normal"><a href="#__codelineno-4-31">31</a></span>
+<span class="normal"><a href="#__codelineno-4-32">32</a></span>
+<span class="normal"><a href="#__codelineno-4-33">33</a></span>
+<span class="normal"><a href="#__codelineno-4-34">34</a></span>
+<span class="normal"><a href="#__codelineno-4-35">35</a></span>
+<span class="normal"><a href="#__codelineno-4-36">36</a></span>
+<span class="normal"><a href="#__codelineno-4-37">37</a></span>
+<span class="normal"><a href="#__codelineno-4-38">38</a></span>
+<span class="normal"><a href="#__codelineno-4-39">39</a></span>
+<span class="normal"><a href="#__codelineno-4-40">40</a></span>
+<span class="normal"><a href="#__codelineno-4-41">41</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">program</span><span class="w"> </span><span class="n">GetOptSimple</span><span class="o">;</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="c1">// Example: ./GetOptSimple -a "Hello" -bcd input.txt</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="k">uses</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">  </span><span class="n">GetOpts</span><span class="o">;</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="k">const</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="w">  </span><span class="n">ShortOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">':a:bcd'</span><span class="o">;</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12"></a>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="k">var</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="w">  </span><span class="n">OptionChar</span><span class="o">:</span><span class="w"> </span><span class="kt">Char</span><span class="o">;</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15"></a>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="k">begin</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="w">  </span><span class="n">OptErr</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">False</span><span class="o">;</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18"></a>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="w">  </span><span class="k">repeat</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="w">    </span><span class="n">OptionChar</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">GetOpt</span><span class="p">(</span><span class="n">ShortOptions</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">OptionChar</span><span class="w"> </span><span class="k">of</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22"></a><span class="w">      </span><span class="s">'a'</span><span class="o">:</span><span class="w"> </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Option a was set with value '</span><span class="o">,</span><span class="w"> </span><span class="n">OptArg</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23"></a><span class="w">      </span><span class="s">'b'</span><span class="o">:</span><span class="w"> </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Option b was set'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24"></a><span class="w">      </span><span class="s">'c'</span><span class="o">:</span><span class="w"> </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Option c was set'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25"></a><span class="w">      </span><span class="s">'d'</span><span class="o">:</span><span class="w"> </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Option d was set'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26"></a><span class="w">      </span><span class="s">'?'</span><span class="o">:</span><span class="w"> </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Error: Unknown option: '</span><span class="o">,</span><span class="w"> </span><span class="n">OptOpt</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27"></a><span class="w">      </span><span class="s">':'</span><span class="o">:</span><span class="w"> </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Error: Option '</span><span class="o">,</span><span class="w"> </span><span class="n">OptOpt</span><span class="o">,</span><span class="w"> </span><span class="s">' needs an argument.'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28"></a><span class="w">    </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29"></a><span class="w">  </span><span class="k">until</span><span class="w"> </span><span class="n">OptionChar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EndOfOptions</span><span class="o">;</span>
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30"></a>
+</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">OptInd</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nb">ParamCount</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32"></a><span class="w">  </span><span class="k">begin</span>
+</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33"></a><span class="w">    </span><span class="nb">Write</span><span class="p">(</span><span class="s">'Non-option arguments: '</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">OptInd</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nb">ParamCount</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35"></a><span class="w">    </span><span class="k">begin</span>
+</span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36"></a><span class="w">      </span><span class="nb">Write</span><span class="p">(</span><span class="nb">ParamStr</span><span class="p">(</span><span class="n">OptInd</span><span class="p">)</span><span class="o">,</span><span class="w"> </span><span class="s">' '</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37"></a><span class="w">      </span><span class="nb">Inc</span><span class="p">(</span><span class="n">OptInd</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38"></a><span class="w">    </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39"></a><span class="w">    </span><span class="nb">WriteLn</span><span class="o">;</span>
+</span><span id="__span-4-40"><a id="__codelineno-4-40" name="__codelineno-4-40"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-4-41"><a id="__codelineno-4-41" name="__codelineno-4-41"></a><span class="k">end</span><span class="o">.</span>
 </span></code></pre></div></td></tr></tbody></table></div>
+<h2 id="how-can-i-capture-long-options">How can I capture long options?<a class="headerlink" href="#how-can-i-capture-long-options" title="Permanent link">¶</a></h2>
+<p>Use <a href="https://www.freepascal.org/docs-html/current/rtl/getopts/getlongopts.html"><code>GetLongOpts</code></a>
+with an array of <code>TOption</code> records. Each record specifies:</p>
+<ul>
+<li><code>Name</code>: the option name without the leading <code>--</code>.</li>
+<li><code>Has_Arg</code>: <code>No_Argument</code>, <code>Required_Argument</code>, or <code>Optional_Argument</code>.</li>
+<li><code>Flag</code>: when <code>nil</code>, <code>GetLongOpts</code> returns <code>Value</code>.</li>
+<li><code>Value</code>: the character used to handle the option. Reusing the short-option
+  character lets <code>--add</code> and <code>-a</code> share one branch.</li>
+</ul>
+<p>The array must end with an entry whose <code>Name</code> is empty. <code>GetLongOpts</code> receives a
+pointer rather than the array's length, so it uses this entry as the terminator.
+<code>LongOptionIndex</code> receives the one-based position of the matching long option.</p>
+<p>This calculator accepts either long or short operation names. It uses <code>.</code> as
+the decimal separator regardless of the operating-system locale, so the same
+commands work everywhere:</p>
+<div class="language-console highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gp">$ </span>./GetOptLongCalculator<span class="w"> </span>--add<span class="w"> </span><span class="m">12</span>.5<span class="w"> </span><span class="m">7</span>.5
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="go">Result: 20.00</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="gp">$ </span>./GetOptLongCalculator<span class="w"> </span>-m<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">7</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="go">Result: 42.00</span>
+</span></code></pre></div>
+<p>A standalone <code>--</code> ends option processing. Use it before negative positional
+operands so a value such as <code>-2</code> is not mistaken for another option:</p>
+<div class="language-console highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gp">$ </span>./GetOptLongCalculator<span class="w"> </span>--add<span class="w"> </span>--<span class="w"> </span>-2<span class="w"> </span><span class="m">5</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="go">Result: 3.00</span>
+</span></code></pre></div>
+<div class="language-pascal highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">  1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">  2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">  3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">  4</a></span>
+<span class="normal"><a href="#__codelineno-7-5">  5</a></span>
+<span class="normal"><a href="#__codelineno-7-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-7-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-7-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-7-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-7-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-7-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-7-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-7-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-7-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-7-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-7-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-7-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-7-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-7-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-7-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-7-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-7-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-7-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-7-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-7-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-7-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-7-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-7-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-7-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-7-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-7-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-7-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-7-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-7-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-7-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-7-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-7-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-7-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-7-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-7-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-7-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-7-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-7-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-7-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-7-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-7-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-7-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-7-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-7-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-7-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-7-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-7-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-7-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-7-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-7-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-7-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-7-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-7-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-7-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-7-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-7-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-7-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-7-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-7-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-7-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-7-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-7-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-7-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-7-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-7-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-7-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-7-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-7-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-7-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-7-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-7-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-7-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-7-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-7-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-7-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-7-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-7-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-7-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-7-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-7-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-7-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-7-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-7-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-7-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-7-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-7-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-7-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-7-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-7-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-7-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-7-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-7-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-7-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-7-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-7-100">100</a></span>
+<span class="normal"><a href="#__codelineno-7-101">101</a></span>
+<span class="normal"><a href="#__codelineno-7-102">102</a></span>
+<span class="normal"><a href="#__codelineno-7-103">103</a></span>
+<span class="normal"><a href="#__codelineno-7-104">104</a></span>
+<span class="normal"><a href="#__codelineno-7-105">105</a></span>
+<span class="normal"><a href="#__codelineno-7-106">106</a></span>
+<span class="normal"><a href="#__codelineno-7-107">107</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="k">program</span><span class="w"> </span><span class="n">GetOptLongCalculator</span><span class="o">;</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="k">uses</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">  </span><span class="n">GetOpts</span><span class="o">,</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="w">  </span><span class="n">SysUtils</span><span class="o">;</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="k">type</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="w">  </span><span class="n">TOperation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">opNone</span><span class="o">,</span><span class="w"> </span><span class="n">opAdd</span><span class="o">,</span><span class="w"> </span><span class="n">opSubtract</span><span class="o">,</span><span class="w"> </span><span class="n">opMultiply</span><span class="o">,</span><span class="w"> </span><span class="n">opDivide</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11"></a>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12"></a><span class="k">const</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="w">  </span><span class="n">LongOptions</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">6</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">TOption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="w">    </span><span class="p">(</span><span class="n">Name</span><span class="o">:</span><span class="w"> </span><span class="s">'add'</span><span class="o">;</span><span class="w">      </span><span class="n">Has_Arg</span><span class="o">:</span><span class="w"> </span><span class="n">No_Argument</span><span class="o">;</span><span class="w"> </span><span class="n">Flag</span><span class="o">:</span><span class="w"> </span><span class="k">nil</span><span class="o">;</span><span class="w"> </span><span class="n">Value</span><span class="o">:</span><span class="w"> </span><span class="s">'a'</span><span class="p">)</span><span class="o">,</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15"></a><span class="w">    </span><span class="p">(</span><span class="n">Name</span><span class="o">:</span><span class="w"> </span><span class="s">'subtract'</span><span class="o">;</span><span class="w"> </span><span class="n">Has_Arg</span><span class="o">:</span><span class="w"> </span><span class="n">No_Argument</span><span class="o">;</span><span class="w"> </span><span class="n">Flag</span><span class="o">:</span><span class="w"> </span><span class="k">nil</span><span class="o">;</span><span class="w"> </span><span class="n">Value</span><span class="o">:</span><span class="w"> </span><span class="s">'s'</span><span class="p">)</span><span class="o">,</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16"></a><span class="w">    </span><span class="p">(</span><span class="n">Name</span><span class="o">:</span><span class="w"> </span><span class="s">'multiply'</span><span class="o">;</span><span class="w"> </span><span class="n">Has_Arg</span><span class="o">:</span><span class="w"> </span><span class="n">No_Argument</span><span class="o">;</span><span class="w"> </span><span class="n">Flag</span><span class="o">:</span><span class="w"> </span><span class="k">nil</span><span class="o">;</span><span class="w"> </span><span class="n">Value</span><span class="o">:</span><span class="w"> </span><span class="s">'m'</span><span class="p">)</span><span class="o">,</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17"></a><span class="w">    </span><span class="p">(</span><span class="n">Name</span><span class="o">:</span><span class="w"> </span><span class="s">'divide'</span><span class="o">;</span><span class="w">   </span><span class="n">Has_Arg</span><span class="o">:</span><span class="w"> </span><span class="n">No_Argument</span><span class="o">;</span><span class="w"> </span><span class="n">Flag</span><span class="o">:</span><span class="w"> </span><span class="k">nil</span><span class="o">;</span><span class="w"> </span><span class="n">Value</span><span class="o">:</span><span class="w"> </span><span class="s">'d'</span><span class="p">)</span><span class="o">,</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18"></a><span class="w">    </span><span class="p">(</span><span class="n">Name</span><span class="o">:</span><span class="w"> </span><span class="s">'help'</span><span class="o">;</span><span class="w">     </span><span class="n">Has_Arg</span><span class="o">:</span><span class="w"> </span><span class="n">No_Argument</span><span class="o">;</span><span class="w"> </span><span class="n">Flag</span><span class="o">:</span><span class="w"> </span><span class="k">nil</span><span class="o">;</span><span class="w"> </span><span class="n">Value</span><span class="o">:</span><span class="w"> </span><span class="s">'h'</span><span class="p">)</span><span class="o">,</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19"></a><span class="w">    </span><span class="p">(</span><span class="n">Name</span><span class="o">:</span><span class="w"> </span><span class="s">''</span><span class="o">;</span><span class="w">         </span><span class="n">Has_Arg</span><span class="o">:</span><span class="w"> </span><span class="n">No_Argument</span><span class="o">;</span><span class="w"> </span><span class="n">Flag</span><span class="o">:</span><span class="w"> </span><span class="k">nil</span><span class="o">;</span><span class="w"> </span><span class="n">Value</span><span class="o">:</span><span class="w"> </span><span class="sc">#0</span><span class="p">)</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20"></a><span class="w">  </span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21"></a>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22"></a><span class="k">var</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23"></a><span class="w">  </span><span class="n">Operation</span><span class="o">:</span><span class="w"> </span><span class="n">TOperation</span><span class="o">;</span>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24"></a><span class="w">  </span><span class="n">OptionChar</span><span class="o">:</span><span class="w"> </span><span class="kt">Char</span><span class="o">;</span>
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25"></a><span class="w">  </span><span class="n">LongOptionIndex</span><span class="o">:</span><span class="w"> </span><span class="kt">LongInt</span><span class="o">;</span>
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26"></a><span class="w">  </span><span class="n">LeftValue</span><span class="o">,</span><span class="w"> </span><span class="n">RightValue</span><span class="o">,</span><span class="w"> </span><span class="n">ResultValue</span><span class="o">:</span><span class="w"> </span><span class="kt">Double</span><span class="o">;</span>
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27"></a><span class="w">  </span><span class="n">NumberFormat</span><span class="o">:</span><span class="w"> </span><span class="n">TFormatSettings</span><span class="o">;</span>
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28"></a>
+</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">ShowUsage</span><span class="o">;</span>
+</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30"></a><span class="k">begin</span>
+</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Usage: '</span><span class="o">,</span><span class="w"> </span><span class="nb">ExtractFileName</span><span class="p">(</span><span class="nb">ParamStr</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="o">,</span>
+</span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32"></a><span class="w">    </span><span class="s">' OPTION NUMBER NUMBER'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-33"><a id="__codelineno-7-33" name="__codelineno-7-33"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Options:'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'  -a, --add'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-35"><a id="__codelineno-7-35" name="__codelineno-7-35"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'  -s, --subtract'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-36"><a id="__codelineno-7-36" name="__codelineno-7-36"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'  -m, --multiply'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-37"><a id="__codelineno-7-37" name="__codelineno-7-37"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'  -d, --divide'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-38"><a id="__codelineno-7-38" name="__codelineno-7-38"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'  -h, --help'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-39"><a id="__codelineno-7-39" name="__codelineno-7-39"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Use . as the decimal separator.'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-40"><a id="__codelineno-7-40" name="__codelineno-7-40"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Use -- before negative operands, for example: --add -- -2 5'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-41"><a id="__codelineno-7-41" name="__codelineno-7-41"></a><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-7-42"><a id="__codelineno-7-42" name="__codelineno-7-42"></a>
+</span><span id="__span-7-43"><a id="__codelineno-7-43" name="__codelineno-7-43"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">Fail</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">MessageText</span><span class="o">:</span><span class="w"> </span><span class="k">String</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-44"><a id="__codelineno-7-44" name="__codelineno-7-44"></a><span class="k">begin</span>
+</span><span id="__span-7-45"><a id="__codelineno-7-45" name="__codelineno-7-45"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Error: '</span><span class="o">,</span><span class="w"> </span><span class="n">MessageText</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-46"><a id="__codelineno-7-46" name="__codelineno-7-46"></a><span class="w">  </span><span class="n">ShowUsage</span><span class="o">;</span>
+</span><span id="__span-7-47"><a id="__codelineno-7-47" name="__codelineno-7-47"></a><span class="w">  </span><span class="nb">Halt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-48"><a id="__codelineno-7-48" name="__codelineno-7-48"></a><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-7-49"><a id="__codelineno-7-49" name="__codelineno-7-49"></a>
+</span><span id="__span-7-50"><a id="__codelineno-7-50" name="__codelineno-7-50"></a><span class="k">procedure</span><span class="w"> </span><span class="nf">SelectOperation</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">NewOperation</span><span class="o">:</span><span class="w"> </span><span class="n">TOperation</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-51"><a id="__codelineno-7-51" name="__codelineno-7-51"></a><span class="k">begin</span>
+</span><span id="__span-7-52"><a id="__codelineno-7-52" name="__codelineno-7-52"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">Operation</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">opNone</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-7-53"><a id="__codelineno-7-53" name="__codelineno-7-53"></a><span class="w">    </span><span class="n">Fail</span><span class="p">(</span><span class="s">'Choose exactly one operation.'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-54"><a id="__codelineno-7-54" name="__codelineno-7-54"></a><span class="w">  </span><span class="n">Operation</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">NewOperation</span><span class="o">;</span>
+</span><span id="__span-7-55"><a id="__codelineno-7-55" name="__codelineno-7-55"></a><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-7-56"><a id="__codelineno-7-56" name="__codelineno-7-56"></a>
+</span><span id="__span-7-57"><a id="__codelineno-7-57" name="__codelineno-7-57"></a><span class="k">begin</span>
+</span><span id="__span-7-58"><a id="__codelineno-7-58" name="__codelineno-7-58"></a><span class="w">  </span><span class="n">Operation</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">opNone</span><span class="o">;</span>
+</span><span id="__span-7-59"><a id="__codelineno-7-59" name="__codelineno-7-59"></a><span class="w">  </span><span class="n">OptErr</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">False</span><span class="o">;</span>
+</span><span id="__span-7-60"><a id="__codelineno-7-60" name="__codelineno-7-60"></a><span class="w">  </span><span class="n">NumberFormat</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">DefaultFormatSettings</span><span class="o">;</span>
+</span><span id="__span-7-61"><a id="__codelineno-7-61" name="__codelineno-7-61"></a><span class="w">  </span><span class="n">NumberFormat</span><span class="o">.</span><span class="n">DecimalSeparator</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">'.'</span><span class="o">;</span>
+</span><span id="__span-7-62"><a id="__codelineno-7-62" name="__codelineno-7-62"></a><span class="w">  </span><span class="n">NumberFormat</span><span class="o">.</span><span class="n">ThousandSeparator</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="sc">#0</span><span class="o">;</span>
+</span><span id="__span-7-63"><a id="__codelineno-7-63" name="__codelineno-7-63"></a>
+</span><span id="__span-7-64"><a id="__codelineno-7-64" name="__codelineno-7-64"></a><span class="w">  </span><span class="k">repeat</span>
+</span><span id="__span-7-65"><a id="__codelineno-7-65" name="__codelineno-7-65"></a><span class="w">    </span><span class="n">OptionChar</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">GetLongOpts</span><span class="p">(</span><span class="s">'asmdh'</span><span class="o">,</span><span class="w"> </span><span class="o">@</span><span class="n">LongOptions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="n">LongOptionIndex</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-66"><a id="__codelineno-7-66" name="__codelineno-7-66"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">OptionChar</span><span class="w"> </span><span class="k">of</span>
+</span><span id="__span-7-67"><a id="__codelineno-7-67" name="__codelineno-7-67"></a><span class="w">      </span><span class="s">'a'</span><span class="o">:</span><span class="w"> </span><span class="n">SelectOperation</span><span class="p">(</span><span class="n">opAdd</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-68"><a id="__codelineno-7-68" name="__codelineno-7-68"></a><span class="w">      </span><span class="s">'s'</span><span class="o">:</span><span class="w"> </span><span class="n">SelectOperation</span><span class="p">(</span><span class="n">opSubtract</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-69"><a id="__codelineno-7-69" name="__codelineno-7-69"></a><span class="w">      </span><span class="s">'m'</span><span class="o">:</span><span class="w"> </span><span class="n">SelectOperation</span><span class="p">(</span><span class="n">opMultiply</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-70"><a id="__codelineno-7-70" name="__codelineno-7-70"></a><span class="w">      </span><span class="s">'d'</span><span class="o">:</span><span class="w"> </span><span class="n">SelectOperation</span><span class="p">(</span><span class="n">opDivide</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-71"><a id="__codelineno-7-71" name="__codelineno-7-71"></a><span class="w">      </span><span class="s">'h'</span><span class="o">:</span>
+</span><span id="__span-7-72"><a id="__codelineno-7-72" name="__codelineno-7-72"></a><span class="w">        </span><span class="k">begin</span>
+</span><span id="__span-7-73"><a id="__codelineno-7-73" name="__codelineno-7-73"></a><span class="w">          </span><span class="n">ShowUsage</span><span class="o">;</span>
+</span><span id="__span-7-74"><a id="__codelineno-7-74" name="__codelineno-7-74"></a><span class="w">          </span><span class="nb">Halt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-75"><a id="__codelineno-7-75" name="__codelineno-7-75"></a><span class="w">        </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-7-76"><a id="__codelineno-7-76" name="__codelineno-7-76"></a><span class="w">      </span><span class="s">'?'</span><span class="o">,</span><span class="w"> </span><span class="s">':'</span><span class="o">:</span><span class="w"> </span><span class="n">Fail</span><span class="p">(</span><span class="s">'Unknown or malformed option.'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-77"><a id="__codelineno-7-77" name="__codelineno-7-77"></a><span class="w">    </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-7-78"><a id="__codelineno-7-78" name="__codelineno-7-78"></a><span class="w">  </span><span class="k">until</span><span class="w"> </span><span class="n">OptionChar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EndOfOptions</span><span class="o">;</span>
+</span><span id="__span-7-79"><a id="__codelineno-7-79" name="__codelineno-7-79"></a>
+</span><span id="__span-7-80"><a id="__codelineno-7-80" name="__codelineno-7-80"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">Operation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">opNone</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-7-81"><a id="__codelineno-7-81" name="__codelineno-7-81"></a><span class="w">    </span><span class="n">Fail</span><span class="p">(</span><span class="s">'Choose an operation.'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-82"><a id="__codelineno-7-82" name="__codelineno-7-82"></a>
+</span><span id="__span-7-83"><a id="__codelineno-7-83" name="__codelineno-7-83"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="nb">ParamCount</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">OptInd</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-7-84"><a id="__codelineno-7-84" name="__codelineno-7-84"></a><span class="w">    </span><span class="n">Fail</span><span class="p">(</span><span class="s">'Provide exactly two numbers.'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-85"><a id="__codelineno-7-85" name="__codelineno-7-85"></a>
+</span><span id="__span-7-86"><a id="__codelineno-7-86" name="__codelineno-7-86"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nb">TryStrToFloat</span><span class="p">(</span><span class="nb">ParamStr</span><span class="p">(</span><span class="n">OptInd</span><span class="p">)</span><span class="o">,</span><span class="w"> </span><span class="n">LeftValue</span><span class="o">,</span><span class="w"> </span><span class="n">NumberFormat</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-7-87"><a id="__codelineno-7-87" name="__codelineno-7-87"></a><span class="w">    </span><span class="n">Fail</span><span class="p">(</span><span class="s">'The first operand is not a number.'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-88"><a id="__codelineno-7-88" name="__codelineno-7-88"></a><span class="w">  </span><span class="nb">Inc</span><span class="p">(</span><span class="n">OptInd</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-89"><a id="__codelineno-7-89" name="__codelineno-7-89"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nb">TryStrToFloat</span><span class="p">(</span><span class="nb">ParamStr</span><span class="p">(</span><span class="n">OptInd</span><span class="p">)</span><span class="o">,</span><span class="w"> </span><span class="n">RightValue</span><span class="o">,</span><span class="w"> </span><span class="n">NumberFormat</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-7-90"><a id="__codelineno-7-90" name="__codelineno-7-90"></a><span class="w">    </span><span class="n">Fail</span><span class="p">(</span><span class="s">'The second operand is not a number.'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-91"><a id="__codelineno-7-91" name="__codelineno-7-91"></a>
+</span><span id="__span-7-92"><a id="__codelineno-7-92" name="__codelineno-7-92"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">Operation</span><span class="w"> </span><span class="k">of</span>
+</span><span id="__span-7-93"><a id="__codelineno-7-93" name="__codelineno-7-93"></a><span class="w">    </span><span class="n">opAdd</span><span class="o">:</span><span class="w"> </span><span class="n">ResultValue</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">LeftValue</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">RightValue</span><span class="o">;</span>
+</span><span id="__span-7-94"><a id="__codelineno-7-94" name="__codelineno-7-94"></a><span class="w">    </span><span class="n">opSubtract</span><span class="o">:</span><span class="w"> </span><span class="n">ResultValue</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">LeftValue</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">RightValue</span><span class="o">;</span>
+</span><span id="__span-7-95"><a id="__codelineno-7-95" name="__codelineno-7-95"></a><span class="w">    </span><span class="n">opMultiply</span><span class="o">:</span><span class="w"> </span><span class="n">ResultValue</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">LeftValue</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">RightValue</span><span class="o">;</span>
+</span><span id="__span-7-96"><a id="__codelineno-7-96" name="__codelineno-7-96"></a><span class="w">    </span><span class="n">opDivide</span><span class="o">:</span>
+</span><span id="__span-7-97"><a id="__codelineno-7-97" name="__codelineno-7-97"></a><span class="w">      </span><span class="k">begin</span>
+</span><span id="__span-7-98"><a id="__codelineno-7-98" name="__codelineno-7-98"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">RightValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-7-99"><a id="__codelineno-7-99" name="__codelineno-7-99"></a><span class="w">          </span><span class="n">Fail</span><span class="p">(</span><span class="s">'Cannot divide by zero.'</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-100"><a id="__codelineno-7-100" name="__codelineno-7-100"></a><span class="w">        </span><span class="n">ResultValue</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">LeftValue</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">RightValue</span><span class="o">;</span>
+</span><span id="__span-7-101"><a id="__codelineno-7-101" name="__codelineno-7-101"></a><span class="w">      </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-7-102"><a id="__codelineno-7-102" name="__codelineno-7-102"></a><span class="w">    </span><span class="k">else</span>
+</span><span id="__span-7-103"><a id="__codelineno-7-103" name="__codelineno-7-103"></a><span class="w">      </span><span class="n">ResultValue</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="o">;</span>
+</span><span id="__span-7-104"><a id="__codelineno-7-104" name="__codelineno-7-104"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</span><span id="__span-7-105"><a id="__codelineno-7-105" name="__codelineno-7-105"></a>
+</span><span id="__span-7-106"><a id="__codelineno-7-106" name="__codelineno-7-106"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">'Result: '</span><span class="o">,</span><span class="w"> </span><span class="n">ResultValue</span><span class="o">:</span><span class="mi">0</span><span class="o">:</span><span class="mi">2</span><span class="p">)</span><span class="o">;</span>
+</span><span id="__span-7-107"><a id="__codelineno-7-107" name="__codelineno-7-107"></a><span class="k">end</span><span class="o">.</span>
+</span></code></pre></div></td></tr></tbody></table></div>
+<div class="admonition contribution">
+<p class="admonition-title">Contribution</p>
+<p>This example was inspired by
+<a href="https://github.com/zargex/dumb_calculator">zargex's <code>dumb_calculator</code></a>,
+shared in <a href="https://github.com/ikelaiah/free-pascal-cookbook/issues/6">issue #6</a>.
+The cookbook version adds a terminating option entry, named argument
+constants, validation, and error handling.</p>
+</div>
 
 
 

@@ -3995,7 +3995,7 @@ b = \begin{pmatrix} 3 \\ -1 \\ -2 \\ 2 \\ -1 \end{pmatrix}
 <p><strong>Parameters</strong></p>
 <p><code>slegen</code> is the General-purpose for any square matrix (Gaussian elimination with partial pivoting).</p>
 <p><code>slegsy</code> is specialised for symmetric matrices (more stable reduction to tridiagonal form).</p>
-<p><code>slegpd</code> is optimisedfor symmetric positive definite matrices (Cholesky decomposition).</p>
+<p><code>slegpd</code> is optimised for symmetric positive definite matrices (Cholesky decomposition).</p>
 <ul>
 <li><code>n</code> is the matrix size.</li>
 <li><code>rwidth</code> is the number of allocated columns (must be <code>n &lt;= rwidth</code>). </li>
@@ -4128,14 +4128,14 @@ b = \begin{pmatrix} 3 \\ -1 \\ -2 \\ 2 \\ -1 \end{pmatrix}
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="cm">{$mode objfpc}{$H+}{$J-}</span>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a>
 </span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="cm">{</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="cm">  This is an example for solving linear equations; A x = b, using slgen in numlib.</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="cm">  This is an example for solving linear equations; A x = b, using slegen in numlib.</span>
 </span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a>
 </span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="cm">  5 x_1 +  7 x_2 +  6 x_3 +  5 x_4 = 57         |5  7 6 5|      |57|</span>
 </span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="cm">  7 x_1 + 10 x_2 +  8 x_3 +  7 x_4 = 79  =&gt; A = |7 10 8 7|, b = |79|</span>
 </span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="cm">  6 x_1 +  8 x_2 + 10 x_3 +  9 x_4 = 88         |6 8 10 9|      |88|</span>
 </span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="cm">  5 x_1 +  7 x_2 +  9 x_3 + 10 x_4 = 86         |5 7 9 10|      |86|</span>
 </span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12"></a>
-</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="cm">  Lastly, it tests the result, x, by multiplying A x (from slgen's output) and</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="cm">  Lastly, it tests the result, x, by multiplying A x (from slegen's output) and</span>
 </span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="cm">  the result must be equal to b.</span>
 </span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="cm">  }</span>
 </span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16"></a>
@@ -4145,7 +4145,7 @@ b = \begin{pmatrix} 3 \\ -1 \\ -2 \\ 2 \\ -1 \end{pmatrix}
 </span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20"></a><span class="w">  </span><span class="n">omv</span><span class="o">;</span>
 </span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21"></a>
 </span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22"></a><span class="k">const</span>
-</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23"></a><span class="w">  </span><span class="n">n_col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="o">;</span><span class="w"> </span><span class="c1">// n (col) = m (row) for square matrice</span>
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23"></a><span class="w">  </span><span class="n">n_col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="o">;</span><span class="w"> </span><span class="c1">// n (column) = m (row) for a square matrix</span>
 </span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24"></a>
 </span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25"></a><span class="k">var</span>
 </span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26"></a><span class="w">  </span><span class="n">mat_A</span><span class="o">:</span><span class="w"> </span><span class="k">array</span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">n_col</span><span class="o">,</span><span class="w"> </span><span class="mi">1</span><span class="o">..</span><span class="n">n_col</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">ArbFloat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
