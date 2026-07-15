@@ -43,87 +43,192 @@ Argument 3: c
 
 ## How can I capture short options?
 
-Use [`getopt`](https://www.freepascal.org/daily/doc/rtl/getopts/getopt.html). See an example below.
+Use [`GetOpt`](https://www.freepascal.org/docs-html/current/rtl/getopts/getopt.html)
+from the `GetOpts` unit:
 
-1. In `uses` section add `getopt`. Line 17.
-2. Create a short option string, in our example, `a:bcd`. Line 24.
-3. Call `getopt(shortOpts)` in a loop
-      - capture and action each option
-      - deal with `?` and `:` (for invalid option and missing argument)
-      - until it returns `EndOfOptions`. Line 36-55.
+1. Define the accepted one-character options in a string.
+2. Add `:` after an option that requires an argument.
+3. Call `GetOpt` until it returns `EndOfOptions`.
+4. Read an option's argument from `OptArg` and the first non-option argument
+   from `OptInd`.
 
-```pascal linenums="1" hl_lines="17 34 36-55"
+The leading `:` in `ShortOptions` makes `GetOpt` return `:` for a missing
+argument and `?` for an unknown option.
+
+```pascal linenums="1"
 program GetOptSimple;
 
-// Example usage (git bash):
-
-// $ ./GetOptSimple -a "Hello" -b -c -d
-// $ ./GetOptSimple -a "Hello" -bc -d
-// $ ./GetOptSimple -a "Hello" -bcd
-// $ ./GetOptSimple -dcb -a "Hello"
+// Example: ./GetOptSimple -a "Hello" -bcd input.txt
 
 {$mode objfpc}{$H+}{$J-}
 
 uses
-  {$IFDEF UNIX}
-  cmem, cthreads,
-  {$ENDIF}
-  Classes,
-  getopts;
+  GetOpts;
+
+const
+  ShortOptions = ':a:bcd';
 
 var
-  c: char = DEFAULT(char);
-  shortOpts: string;
+  OptionChar: Char;
 
 begin
-
-  // If the external variable opterr is True (which is the default),
-  // getopt prints an error message.
-  // Ref: https://www.gnu.org/software/libc/manual/html_node/Using-Getopt.html
-  //      https://www.freepascal.org/daily/doc/rtl/getopts/getopt.html
   OptErr := False;
 
-  // Defining valid short options
-  // For example; -a requires an argument,
-  //              -b, -c and -d don't.
-  shortOpts := 'a:bcd';
-
   repeat
-    c := getopt(shortOpts);
-    case c of
-      'a': WriteLn('Option a was set with value ', optarg);
+    OptionChar := GetOpt(ShortOptions);
+    case OptionChar of
+      'a': WriteLn('Option a was set with value ', OptArg);
       'b': WriteLn('Option b was set');
       'c': WriteLn('Option c was set');
       'd': WriteLn('Option d was set');
-      '?', ':': begin
-        // If getopt finds an option character in argv that was not included
-        // in options, or a missing option argument,
-        //    - it returns `?` and
-        //    - sets the external variable `optopt` to the actual option character.
-        // If the first character of options is a colon (‘:’),
-        //    - then getopt returns ‘:’ instead of ‘?’ to indicate a missing option argument.
-        // Refs
-        // - https://www.freepascal.org/docs-html/rtl/getopts/index.html
-        // - https://sourceware.org/glibc/manual/latest/html_mono/libc.html#Getopt
-        if (optopt = 'a') then
-          WriteLn('Error: Option ', optopt, ' needs an argument.')
-        else
-          WriteLn('Error: Unknown option: ', optopt);
-      end;
-    end; // case
-  until c = EndOfOptions;
+      '?': WriteLn('Error: Unknown option: ', OptOpt);
+      ':': WriteLn('Error: Option ', OptOpt, ' needs an argument.');
+    end;
+  until OptionChar = EndOfOptions;
 
-  // The reminder, checks for non-option arguments (if any) using optind
-  if optind <= paramcount then
+  if OptInd <= ParamCount then
   begin
-    Write('Non options : ');
-    while optind <= paramcount do
+    Write('Non-option arguments: ');
+    while OptInd <= ParamCount do
     begin
-      Write(ParamStr(optind), ' ');
-      Inc(optind);
+      Write(ParamStr(OptInd), ' ');
+      Inc(OptInd);
     end;
     WriteLn;
   end;
-
 end.
 ```
+
+## How can I capture long options?
+
+Use [`GetLongOpts`](https://www.freepascal.org/docs-html/current/rtl/getopts/getlongopts.html)
+with an array of `TOption` records. Each record specifies:
+
+- `Name`: the option name without the leading `--`.
+- `Has_Arg`: `No_Argument`, `Required_Argument`, or `Optional_Argument`.
+- `Flag`: when `nil`, `GetLongOpts` returns `Value`.
+- `Value`: the character used to handle the option. Reusing the short-option
+  character lets `--add` and `-a` share one branch.
+
+The array must end with an entry whose `Name` is empty. `GetLongOpts` receives a
+pointer rather than the array's length, so it uses this entry as the terminator.
+`LongOptionIndex` receives the one-based position of the matching long option.
+
+This calculator accepts either long or short operation names:
+
+```text
+./GetOptLongCalculator --add 12.5 7.5
+./GetOptLongCalculator -m 6 7
+```
+
+```pascal linenums="1"
+program GetOptLongCalculator;
+
+{$mode objfpc}{$H+}{$J-}
+
+uses
+  GetOpts,
+  SysUtils;
+
+type
+  TOperation = (opNone, opAdd, opSubtract, opMultiply, opDivide);
+
+const
+  LongOptions: array[1..6] of TOption = (
+    (Name: 'add';      Has_Arg: No_Argument; Flag: nil; Value: 'a'),
+    (Name: 'subtract'; Has_Arg: No_Argument; Flag: nil; Value: 's'),
+    (Name: 'multiply'; Has_Arg: No_Argument; Flag: nil; Value: 'm'),
+    (Name: 'divide';   Has_Arg: No_Argument; Flag: nil; Value: 'd'),
+    (Name: 'help';     Has_Arg: No_Argument; Flag: nil; Value: 'h'),
+    (Name: '';         Has_Arg: No_Argument; Flag: nil; Value: #0)
+  );
+
+var
+  Operation: TOperation;
+  OptionChar: Char;
+  LongOptionIndex: LongInt;
+  LeftValue, RightValue, ResultValue: Double;
+
+procedure ShowUsage;
+begin
+  WriteLn('Usage: ', ExtractFileName(ParamStr(0)),
+    ' OPTION NUMBER NUMBER');
+  WriteLn('Options:');
+  WriteLn('  -a, --add');
+  WriteLn('  -s, --subtract');
+  WriteLn('  -m, --multiply');
+  WriteLn('  -d, --divide');
+  WriteLn('  -h, --help');
+end;
+
+procedure Fail(const MessageText: String);
+begin
+  WriteLn('Error: ', MessageText);
+  ShowUsage;
+  Halt(1);
+end;
+
+procedure SelectOperation(const NewOperation: TOperation);
+begin
+  if Operation <> opNone then
+    Fail('Choose exactly one operation.');
+  Operation := NewOperation;
+end;
+
+begin
+  Operation := opNone;
+  OptErr := False;
+
+  repeat
+    OptionChar := GetLongOpts('asmdh', @LongOptions[1], LongOptionIndex);
+    case OptionChar of
+      'a': SelectOperation(opAdd);
+      's': SelectOperation(opSubtract);
+      'm': SelectOperation(opMultiply);
+      'd': SelectOperation(opDivide);
+      'h':
+        begin
+          ShowUsage;
+          Halt(0);
+        end;
+      '?', ':': Fail('Unknown or malformed option.');
+    end;
+  until OptionChar = EndOfOptions;
+
+  if Operation = opNone then
+    Fail('Choose an operation.');
+
+  if ParamCount - OptInd + 1 <> 2 then
+    Fail('Provide exactly two numbers.');
+
+  if not TryStrToFloat(ParamStr(OptInd), LeftValue) then
+    Fail('The first operand is not a number.');
+  Inc(OptInd);
+  if not TryStrToFloat(ParamStr(OptInd), RightValue) then
+    Fail('The second operand is not a number.');
+
+  case Operation of
+    opAdd: ResultValue := LeftValue + RightValue;
+    opSubtract: ResultValue := LeftValue - RightValue;
+    opMultiply: ResultValue := LeftValue * RightValue;
+    opDivide:
+      begin
+        if RightValue = 0 then
+          Fail('Cannot divide by zero.');
+        ResultValue := LeftValue / RightValue;
+      end;
+    else
+      ResultValue := 0;
+  end;
+
+  WriteLn('Result: ', ResultValue:0:2);
+end.
+```
+
+!!! contribution
+
+    This example was inspired by
+    [zargex's `dumb_calculator`](https://github.com/zargex/dumb_calculator),
+    shared in [issue #6](https://github.com/ikelaiah/free-pascal-cookbook/issues/6).
+    The cookbook version adds a terminating option entry, named argument
+    constants, validation, and error handling.
