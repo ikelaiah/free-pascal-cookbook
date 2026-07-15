@@ -1394,6 +1394,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1410,6 +1428,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#choose-your-next-challenge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose Your Next Challenge
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2288,6 +2336,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#choose-your-next-challenge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose Your Next Challenge
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2310,12 +2377,27 @@
 
 
 <h1 id="advanced-topics">Advanced Topics<a class="headerlink" href="#advanced-topics" title="Permanent link">¶</a></h1>
-<p>This section covers more difficult topics (beyond the core tasks) using Free Pascal and Lazarus.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>This section assumes you have correctly set up the Free Pascal Compiler and the Lazarus IDE for your OS.</p>
+<p>Ready to look under the hood? Advanced does not mean off-limits. These recipes
+help you investigate bugs, tune builds, spot memory leaks, tackle numerical
+work, and let programs handle more than one task at a time.</p>
+<h2 id="choose-your-next-challenge">Choose Your Next Challenge<a class="headerlink" href="#choose-your-next-challenge" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Make the compiler work for you:</strong> Explore <a href="../conditional-compilation/">conditional compilation</a>
+  and useful <a href="../fpc-switches/">FPC switches</a>.</li>
+<li><strong>Track down troublesome bugs:</strong> <a href="../debugging/">Debug with Lazarus</a> and
+  <a href="../find-heap-memory-leaks/">find heap memory leaks</a>.</li>
+<li><strong>Crunch some numbers:</strong> Meet <a href="../lmath/">LMath</a> or explore the
+  <a href="../numlib/">NumLib examples</a>.</li>
+<li><strong>Do more at once:</strong> Decide whether you <a href="../multi-threading-intro/">need multithreading</a>,
+  then meet <a href="../tthread-i-basic/"><code>TThread</code></a> or try <a href="../ezthreads/">ezthreads</a>.</li>
+</ul>
+<p>Pick the challenge that sounds useful today; you do not need to master the
+whole section before trying one recipe.</p>
+<div class="admonition tip">
+<p class="admonition-title">Need the tools first?</p>
+<p><a href="../../basics/install/">Set up the Free Pascal Compiler and Lazarus IDE</a>, then
+return when you are ready to go deeper.</p>
 </div>
-<p>Choose a topic from the left sidebar.</p>
 
 
 

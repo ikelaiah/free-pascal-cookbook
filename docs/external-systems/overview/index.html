@@ -1817,6 +1817,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1833,6 +1851,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pick-a-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pick a Connection
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2288,6 +2336,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pick-a-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pick a Connection
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2310,12 +2377,28 @@
 
 
 <h1 id="external-systems">External Systems<a class="headerlink" href="#external-systems" title="Permanent link">¶</a></h1>
-<p>This section has recipes on interacting with outside worlds using Free Pascal and Lazarus.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>This section assumes you have correctly set up the Free Pascal Compiler and the Lazarus IDE for your OS.</p>
+<p>Your Pascal program does not have to live on an island. This section shows you
+how to exchange data, call web services, store information, run system commands,
+and serve content of your own.</p>
+<h2 id="pick-a-connection">Pick a Connection<a class="headerlink" href="#pick-a-connection" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Exchange structured data:</strong> Read <a href="../parsing-json/">JSON</a> and
+  <a href="../working-with-xml/">XML</a>.</li>
+<li><strong>Talk to the web:</strong> Make <a href="../http-requests-advanced/">HTTP requests</a>, add
+  <a href="../api-authentication/">API authentication</a>, or launch a small
+  <a href="../webserver/">web server</a>.</li>
+<li><strong>Keep useful information:</strong> Work with <a href="../sqlite-databases/">SQLite databases</a>
+  and <a href="../env-vars-config/">environment-based configuration</a>.</li>
+<li><strong>Reach the operating system and beyond:</strong> Run <a href="../system-calls/">system calls</a>
+  or <a href="../sending-emails/">send an email</a>.</li>
+</ul>
+<p>Choose the connection your project needs and build outward from there. The
+recipes are independent, so there is no required reading order.</p>
+<div class="admonition tip">
+<p class="admonition-title">Need the tools first?</p>
+<p><a href="../../basics/install/">Set up the Free Pascal Compiler and Lazarus IDE</a>, then
+come back and connect your first program to the outside world.</p>
 </div>
-<p>Choose a topic from the left sidebar.</p>
 
 
 
