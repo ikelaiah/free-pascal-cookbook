@@ -687,7 +687,6 @@ program solve_linear_eq;
   }
 
 uses
-  NumLib,
   typ,
   sle,
   omv;

@@ -344,16 +344,19 @@ $codeLines
             }
             $compilerArgs += "$testFile"
 
-            & $FpcBin @compilerArgs 2>&1 | Tee-Object -FilePath $logFile | Out-Null
+            $compilerOutput = @(& $FpcBin @compilerArgs 2>&1)
+            $compilerExitCode = $LASTEXITCODE
+            $compilerLog = $compilerOutput -join [System.Environment]::NewLine
+            Set-Content -Path $logFile -Value $compilerLog
 
             # Check compilation result and update counters
-            if ($LASTEXITCODE -eq 0) {
+            if ($compilerExitCode -eq 0) {
                 $compileResult = "SUCCESS"
                 $successCount++
             } else {
                 $compileResult = "FAILED"
                 $failCount++
-                $compileError = Get-Content $logFile -Raw
+                $compileError = "Compiler exit code: $compilerExitCode$([System.Environment]::NewLine)$compilerLog"
             }
         } elseif ($snippetType -eq "Unit") {
             # Units are extracted and saved but not compiled
