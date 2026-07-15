@@ -25,7 +25,8 @@
     Path to the Free Pascal compiler executable (default: fpc)
 
 .PARAMETER LazarusPath
-    Path to the Lazarus installation used for lazutils/LCL unit search paths (default: C:\Lazarus)
+    Path to the Lazarus installation used for the lazutils unit search path.
+    When omitted, common Windows and Unix installation locations are searched.
 
 .EXAMPLE
     PS> .\compile-all-snippets.ps1
@@ -35,7 +36,7 @@
 .NOTES
     Output files and directories:
     - {filename}_{###}.pas - Extracted snippets with auto-generated names
-    - {filename}_{###}.exe - Compiled executable programs
+    - {filename}_{###}.exe on Windows, or {filename}_{###} on Unix - Compiled programs
     - {filename}_{###}.log - Compiler output and error messages
     - *.ppu, *.o - Compiled units and object files
     - libraries/ - Extracted unit files from documentation
@@ -51,7 +52,7 @@
     This allows easy tracking of which snippet came from which documentation file.
 
     Compiler includes unit search paths from:
-    1. build/libraries - units extracted from cookbook documentation
+    1. build/ - units extracted from cookbook documentation
     2. build_support/units - custom units and third-party libraries
     3. Lazarus standard paths (lazutils, LCL units)
 
@@ -63,7 +64,7 @@ param(
     [string]$DocsPath = ".\docs",
     [string]$OutputDir = ".\build",
     [string]$FpcBin = "fpc",
-    [string]$LazarusPath = "C:\Lazarus"
+    [string]$LazarusPath = ""
 )
 
 # Define color scheme for console output
@@ -91,6 +92,44 @@ function Write-ColorOutput {
     Write-Host $Message -ForegroundColor $Color
 }
 
+function Find-LazarusRoot {
+    param([string]$RequestedPath)
+
+    $candidates = @()
+    if (-not [string]::IsNullOrWhiteSpace($RequestedPath)) {
+        $candidates += $RequestedPath
+    }
+
+    $candidates += @(
+        "C:\Lazarus",
+        "C:\lazarus",
+        "/usr/lib/lazarus",
+        "/usr/share/lazarus",
+        "/usr/local/share/lazarus"
+    )
+
+    foreach ($candidate in ($candidates | Select-Object -Unique)) {
+        if (-not (Test-Path -LiteralPath $candidate -PathType Container)) {
+            continue
+        }
+
+        if (Test-Path -LiteralPath (Join-Path $candidate "components/lazutils") -PathType Container) {
+            return (Resolve-Path -LiteralPath $candidate).Path
+        }
+
+        $versionedRoot = Get-ChildItem -LiteralPath $candidate -Directory -ErrorAction SilentlyContinue |
+            Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName "components/lazutils") -PathType Container } |
+            Sort-Object Name -Descending |
+            Select-Object -First 1
+
+        if ($versionedRoot) {
+            return $versionedRoot.FullName
+        }
+    }
+
+    return $null
+}
+
 # INITIALIZATION
 # ==============================================================================
 
@@ -99,8 +138,31 @@ if (-not (Test-Path $OutputDir)) {
     New-Item -ItemType Directory -Path $OutputDir | Out-Null
 }
 
+$buildSupportPath = Join-Path $PSScriptRoot "build_support"
+$isWindowsPlatform = [System.Environment]::OSVersion.Platform -eq [System.PlatformID]::Win32NT
+$executableSuffix = if ($isWindowsPlatform) { ".exe" } else { "" }
+$resolvedLazarusPath = Find-LazarusRoot -RequestedPath $LazarusPath
+
+$unitSearchPaths = @(
+    $OutputDir,
+    (Join-Path $buildSupportPath "units")
+)
+
+if ($resolvedLazarusPath) {
+    $unitSearchPaths += Join-Path $resolvedLazarusPath "components/lazutils"
+}
+
+$unitSearchPaths = @($unitSearchPaths | Where-Object { Test-Path -LiteralPath $_ -PathType Container })
+$librarySearchPath = Join-Path $buildSupportPath "libs"
+$configSearchPath = Join-Path $buildSupportPath "config"
+
 Write-ColorOutput "`n========== Free Pascal Snippet Tester ==========" $colors.Info
 Write-ColorOutput "Docs Path: $DocsPath`n" $colors.Info
+if ($resolvedLazarusPath) {
+    Write-ColorOutput "Lazarus Path: $resolvedLazarusPath`n" $colors.Info
+} else {
+    Write-ColorOutput "Lazarus Path: not found; Lazarus-dependent snippets may fail`n" $colors.Warning
+}
 
 # Find all markdown files that contain Pascal code
 $mdFiles = Get-ChildItem -Path $DocsPath -Filter "*.md" -Recurse
@@ -262,27 +324,24 @@ $codeLines
 
             # Run Free Pascal compiler with library and configuration paths for dependencies
             # Unit search paths (-Fu):
-            #   - build/libraries - units extracted from documentation
-            #   - ../build_support/units - custom/third-party units (e.g., SQLite, database libraries)
-            #   - Lazarus standard paths - IDE components and LCL
+            #   - build - units extracted from documentation
+            #   - build_support/units - custom/third-party units (e.g., SQLite, database libraries)
+            #   - Lazarus lazutils sources, when Lazarus is installed
             # Library search paths (-Fl):
-            #   - ../build_support/libs - external libraries (e.g., sqlite3.dll)
+            #   - build_support/libs - external libraries (e.g., sqlite3.dll)
             # Configuration file (-FC):
-            #   - ../build_support/config - custom compiler configuration if needed
+            #   - build_support/config - custom compiler configuration if needed
             # Output redirected to log file for later inspection if compilation fails
-            $unitSearchPaths = @(
-                (Join-Path $OutputDir "libraries"),
-                (Join-Path $OutputDir "..\build_support\units"),
-                (Join-Path $LazarusPath "components\lazutils"),
-                (Join-Path $LazarusPath "lcl\units\win32")
-            )
-
-            $compilerArgs = @("-o$outputExe.exe")
+            $compilerArgs = @("-o$outputExe$executableSuffix")
             foreach ($unitSearchPath in $unitSearchPaths) {
                 $compilerArgs += "-Fu$unitSearchPath"
             }
-            $compilerArgs += "-Fl$(Join-Path $OutputDir '..\build_support\libs')"
-            $compilerArgs += "-FC$(Join-Path $OutputDir '..\build_support\config')"
+            if (Test-Path -LiteralPath $librarySearchPath -PathType Container) {
+                $compilerArgs += "-Fl$librarySearchPath"
+            }
+            if (Test-Path -LiteralPath $configSearchPath -PathType Container) {
+                $compilerArgs += "-FC$configSearchPath"
+            }
             $compilerArgs += "$testFile"
 
             & $FpcBin @compilerArgs 2>&1 | Tee-Object -FilePath $logFile | Out-Null
