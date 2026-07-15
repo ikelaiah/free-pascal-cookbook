@@ -20,7 +20,7 @@
 - `#fpc` [Pascal cheat sheet](https://learnxinyminutes.com/docs/pascal/) from [learnxinyminutes.com](https://learnxinyminutes.com).
 - `#fpc` [Pascal Programming idioms](https://programming-idioms.org/cheatsheet/Pascal) from [programming-idioms.org](https://programming-idioms.org).
 - `#fpc` `#lazarus` 5-part SQLdb tutorial
-    - [0 - Database set-up](ttps://wiki.freepascal.org/SQLdb_Tutorial0)
+    - [0 - Database set-up](https://wiki.freepascal.org/SQLdb_Tutorial0)
     - [1 - Getting started](https://wiki.freepascal.org/SQLdb_Tutorial1)
     - [2 - Editing](https://wiki.freepascal.org/SQLdb_Tutorial2)
     - [3 - Queries](https://wiki.freepascal.org/SQLdb_Tutorial3)
@@ -29,18 +29,18 @@
 
 ## The Official Free Pascal Resources
 
-The latest documents are available from [Free Pascal](https://www.freepascal.org/docs.html) site and [GitLab FPC Documentation](https://gitlab.com/freepascal.org/fpc/documentation) repo.
+The latest documents are available from the [Free Pascal documentation site](https://www.freepascal.org/docs.var) and the [GitLab FPC Documentation](https://gitlab.com/freepascal.org/fpc/documentation) repository.
 
-- [FPC User's guide (PDF)](http://downloads.freepascal.org/fpc/docs-pdf/user.pdf)
-- [FPC Programmer's guide (PDF)](http://downloads.freepascal.org/fpc/docs-pdf/prog.pdf)  
-- [FPC Language reference guide (PDF)](http://downloads.freepascal.org/fpc/docs-pdf/ref.pdf) 
-- [Run-Time Library (RTL) units reference manual (PDF)](http://downloads.freepascal.org/fpc/docs-pdf/rtl.pdf) 
-- [Free Component Library (FCL) units reference manual (PDF)](http://downloads.freepascal.org/fpc/docs-pdf/fcl.pdf) 
-- [Free Component Library (FCL) Resource units reference manual (PDF)](http://downloads.freepascal.org/fpc/docs-pdf/fclres.pdf) 
-- [fpdoc documentation tool reference manual (PDF)](http://downloads.freepascal.org/fpc/docs-pdf/fpdoc.pdf) 
-- [Reference chart with all compiler options and switches (PDF)](http://downloads.freepascal.org/fpc/docs-pdf/chart.pdf) 
+- [FPC User's guide (PDF)](https://downloads.freepascal.org/fpc/docs-pdf/user.pdf)
+- [FPC Programmer's guide (PDF)](https://downloads.freepascal.org/fpc/docs-pdf/prog.pdf)
+- [FPC Language reference guide (PDF)](https://downloads.freepascal.org/fpc/docs-pdf/ref.pdf)
+- [Run-Time Library (RTL) units reference manual (PDF)](https://downloads.freepascal.org/fpc/docs-pdf/rtl.pdf)
+- [Free Component Library (FCL) units reference manual (PDF)](https://downloads.freepascal.org/fpc/docs-pdf/fcl.pdf)
+- [Free Component Library (FCL) Resource units reference manual (PDF)](https://downloads.freepascal.org/fpc/docs-pdf/fclres.pdf)
+- [fpdoc documentation tool reference manual (PDF)](https://downloads.freepascal.org/fpc/docs-pdf/fpdoc.pdf)
+- [Reference chart with all compiler options and switches (PDF)](https://downloads.freepascal.org/fpc/docs-pdf/chart.pdf)
 
-These were prepared and written by experienced folks. Hence, it might be a bit too technicals for some readers. Do make efforts and you will find gems in them.
+These guides were written by experienced contributors and can feel technical at first, but they contain valuable detail.
 
 ## The Official Lazarus IDE Resources
 

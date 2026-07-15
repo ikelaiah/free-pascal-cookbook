@@ -622,7 +622,7 @@ procedure slegpd(n, rwidth: ArbInt; var a, b, x, ca: ArbFloat; var term: ArbInt)
 
 `slegsy` is specialised for symmetric matrices (more stable reduction to tridiagonal form).
 
-`slegpd` is optimisedfor symmetric positive definite matrices (Cholesky decomposition).
+`slegpd` is optimised for symmetric positive definite matrices (Cholesky decomposition).
 
 - `n` is the matrix size.
 - `rwidth` is the number of allocated columns (must be `n <= rwidth`). 
@@ -675,14 +675,14 @@ program solve_linear_eq;
 {$mode objfpc}{$H+}{$J-}
 
 {
-  This is an example for solving linear equations; A x = b, using slgen in numlib.
+  This is an example for solving linear equations; A x = b, using slegen in numlib.
 
   5 x_1 +  7 x_2 +  6 x_3 +  5 x_4 = 57         |5  7 6 5|      |57|
   7 x_1 + 10 x_2 +  8 x_3 +  7 x_4 = 79  => A = |7 10 8 7|, b = |79|
   6 x_1 +  8 x_2 + 10 x_3 +  9 x_4 = 88         |6 8 10 9|      |88|
   5 x_1 +  7 x_2 +  9 x_3 + 10 x_4 = 86         |5 7 9 10|      |86|
 
-  Lastly, it tests the result, x, by multiplying A x (from slgen's output) and
+  Lastly, it tests the result, x, by multiplying A x (from slegen's output) and
   the result must be equal to b.
   }
 
@@ -692,7 +692,7 @@ uses
   omv;
 
 const
-  n_col = 4; // n (col) = m (row) for square matrice
+  n_col = 4; // n (column) = m (row) for a square matrix
 
 var
   mat_A: array[1..n_col, 1..n_col] of ArbFloat = (

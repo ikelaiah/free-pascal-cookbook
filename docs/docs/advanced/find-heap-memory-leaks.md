@@ -116,7 +116,7 @@ end.
 The program prints the following on the screen.
 
 ```bash
-$ ./HeapMemoryLeak.exe
+$ ./HeapMemoryLeak
 Adding items
 --------------------
 Counting 0
@@ -130,8 +130,8 @@ You will get a heap trace report file containing a report similar to the one bel
 
 ```bash
 $ cat heap.trc
-/a-long-path/HeapMemoryLeak.exe
-Heap dump by heaptrc unit of /a-long-path/HeapMemoryLeak.exe
+/a-long-path/HeapMemoryLeak
+Heap dump by heaptrc unit of /a-long-path/HeapMemoryLeak
 134 memory blocks allocated : 5089/5480
 128 memory blocks freed     : 4741/5112
 6 unfreed memory blocks : 348
