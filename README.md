@@ -5,7 +5,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/ikelaiah/free-pascal-cookbook/">
-    <img src="docs/assets/logo-new-rounded-min.png" alt="Logo" width="256" height="256">
+    <img src="docs/assets/free-pascal-cookbook-banner.svg" alt="Free Pascal Cookbook banner" width="100%">
   </a>
 
 <h3 align="center">Free Pascal Cookbook | Source Files</h3>

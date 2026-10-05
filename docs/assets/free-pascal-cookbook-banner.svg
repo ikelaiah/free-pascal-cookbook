@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="500" viewBox="0 0 1500 500" role="img" aria-labelledby="title desc">
+  <title id="title">Free Pascal Cookbook — practical recipes for Object Pascal</title>
+  <desc id="desc">A closed Free Pascal cookbook sits beside a cooking pot, representing practical, tested recipes for learning Object Pascal.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#17140f"/><stop offset=".55" stop-color="#222019"/><stop offset="1" stop-color="#171c2a"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#a56832" stop-opacity=".28"/><stop offset="1" stop-color="#a56832" stop-opacity="0"/></radialGradient>
+    <linearGradient id="gold" x2="1"><stop stop-color="#f1cd83"/><stop offset="1" stop-color="#eca968"/></linearGradient>
+    <linearGradient id="page" x2="1" y2="1"><stop stop-color="#fff6df"/><stop offset="1" stop-color="#e9dfc8"/></linearGradient>
+    <pattern id="grain" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M0 31L31 0" stroke="#eacb8c" stroke-opacity=".035"/></pattern>
+    <clipPath id="frame"><rect x="1" y="1" width="1498" height="498" rx="24"/></clipPath>
+  </defs>
+  <g clip-path="url(#frame)"><path fill="url(#bg)" d="M0 0H1500V500H0z"/><ellipse cx="1120" cy="260" rx="500" ry="360" fill="url(#glow)"/><path d="M720 0H1500V500H720z" fill="url(#grain)"/></g>
+  <rect x="1" y="1" width="1498" height="498" rx="24" fill="none" stroke="#544635"/>
+  <g font-family="Segoe UI, Helvetica, Arial, sans-serif">
+    <g transform="translate(78 68)"><path d="M0 6Q38 -2 74 9V50Q38 39 0 49Z" fill="none" stroke="#d3aa68" stroke-width="2.5"/><path d="M74 9Q111 -2 148 6V49Q111 39 74 50Z" fill="none" stroke="#d3aa68" stroke-width="2.5"/><path d="M74 10V50" stroke="#d3aa68" stroke-width="2"/><path d="M12 17Q38 11 59 18M12 28Q38 22 59 29M90 18Q112 11 136 17M90 29Q112 22 136 28" stroke="#886c45" stroke-width="2" fill="none"/><text x="173" y="31" fill="#cabb9d" font-size="16" font-weight="600" letter-spacing="3">A FIELD GUIDE TO OBJECT PASCAL</text></g>
+    <text x="75" y="211" fill="#faf4e8" font-size="68" font-weight="700" letter-spacing="-1.5">Free Pascal<tspan dx="14" fill="url(#gold)">Cookbook</tspan></text>
+    <text x="80" y="271" fill="#edc882" font-size="28" font-weight="600">Practical recipes. Tested examples.</text>
+    <text x="80" y="313" fill="#c4bba9" font-size="20">Go from your first program to confident, capable Pascal.</text>
+    <g transform="translate(80 372)" font-size="16" font-weight="600">
+      <rect width="146" height="36" rx="18" fill="#32291c" stroke="#685337"/><text x="73" y="24" text-anchor="middle" fill="#efcf91">Learn by doing</text>
+      <rect x="158" width="155" height="36" rx="18" fill="#29271f" stroke="#63533a"/><text x="235" y="24" text-anchor="middle" fill="#e9d4a6">Ready-to-run code</text>
+      <rect x="325" width="143" height="36" rx="18" fill="#242733" stroke="#4e4a40"/><text x="396" y="24" text-anchor="middle" fill="#cdc7b8" font-size="13">Beginner to advanced</text>
+    </g>
+  </g>
+  <!-- A closed field guide, chef hat, and pot give the cookbook a warm, compact emblem. -->
+  <g transform="translate(810 117) rotate(-5 105 135)">
+    <rect x="17" y="17" width="212" height="270" rx="13" fill="#080b14" opacity=".38"/>
+    <path d="M24 11Q123 3 217 19V277Q122 262 24 276Z" fill="url(#page)" stroke="#bd9a65" stroke-width="2"/>
+    <path d="M43 1Q135 -7 215 11V268Q134 251 43 265Z" fill="#49311e" stroke="#e3bc76" stroke-width="3"/>
+    <path d="M44 3V264" stroke="#b9884b" stroke-width="8"/>
+    <path d="M58 17Q134 9 199 23V249Q134 236 58 246Z" fill="none" stroke="#c79e5f" stroke-opacity=".72" stroke-width="1.5"/>
+    <path d="M91 69C91 58 100 51 111 53C115 41 127 38 137 45C148 38 162 46 162 58C174 60 178 72 171 81H94C87 78 86 73 91 69Z" fill="none" stroke="#edcf91" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M96 83H167" stroke="#edcf91" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="132" y="123" text-anchor="middle" fill="#f5e5c2" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="1.3">FREE PASCAL</text>
+    <text x="132" y="149" text-anchor="middle" fill="#edc782" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="1.5">COOKBOOK</text>
+    <path d="M83 171H181M83 183H169M83 195H177" stroke="#bb9660" stroke-opacity=".8" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="132" cy="222" r="3" fill="#edc782"/><path d="M111 222H123M141 222H153" stroke="#edc782" stroke-width="1.5"/>
+  </g>
+
+  <!-- Lidded cooking pot with gentle steam -->
+  <g transform="translate(1084 276)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M74 0C64 -13 82 -19 72 -33M121 0C111 -13 129 -19 119 -33M168 0C158 -13 176 -19 166 -33" fill="none" stroke="#edc782" stroke-width="3" opacity=".85"/>
+    <path d="M47 32V21Q47 15 55 15H189Q197 15 197 21V32" fill="#8b6640" stroke="#e4bc77" stroke-width="2.5"/>
+    <path d="M105 14Q105 3 122 3Q139 3 139 14" fill="#bd9256" stroke="#f0d08e" stroke-width="2.5"/>
+    <path d="M37 35H207L194 126Q191 145 173 149H71Q53 145 50 126Z" fill="#443629" stroke="#e0b976" stroke-width="3"/>
+    <path d="M49 48Q121 57 196 48" fill="none" stroke="#866540" stroke-width="2"/>
+    <path d="M37 55H20Q9 55 9 68V91Q9 103 22 103H48M207 55H224Q235 55 235 68V91Q235 103 222 103H196" fill="none" stroke="#d5aa68" stroke-width="8"/>
+    <path d="M68 119Q121 130 176 119" fill="none" stroke="#bd9256" stroke-width="2" opacity=".8"/>
+    <path d="M79 149V158M165 149V158M69 158H175" fill="none" stroke="#bd9256" stroke-width="4"/>
+    <path d="M34 180H210" fill="none" stroke="#c58d4b" stroke-width="1.5" opacity=".65"/>
+  </g>
+  <g fill="#edc782"><circle cx="1070" cy="145" r="3"/><circle cx="1375" cy="213" r="3"/><path d="M1390 151L1394 160L1403 164L1394 168L1390 177L1386 168L1377 164L1386 160Z" opacity=".75"/></g>
+</svg>
