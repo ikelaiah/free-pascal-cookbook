@@ -11,15 +11,9 @@
   </defs>
   <g clip-path="url(#frame)"><path fill="url(#bg)" d="M0 0H1500V500H0z"/><ellipse cx="1120" cy="260" rx="500" ry="360" fill="url(#glow)"/><path d="M720 0H1500V500H720z" fill="url(#grain)"/></g>
   <rect x="1" y="1" width="1498" height="498" rx="24" fill="none" stroke="#544635"/>
-  <g transform="translate(0 -28)" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <g transform="translate(0 38)" font-family="Segoe UI, Helvetica, Arial, sans-serif">
     <text x="75" y="211" fill="#faf4e8" font-size="68" font-weight="700" letter-spacing="-1.5">Free Pascal<tspan dx="14" fill="url(#gold)">Cookbook</tspan></text>
     <text x="80" y="271" fill="#edc882" font-size="28" font-weight="600">Practical recipes. Tested examples.</text>
-    <text x="80" y="313" fill="#c4bba9" font-size="20">Go from your first program to confident, capable Pascal.</text>
-    <g transform="translate(80 372)" font-size="16" font-weight="600">
-      <rect width="146" height="36" rx="18" fill="#32291c" stroke="#685337"/><text x="73" y="24" text-anchor="middle" fill="#efcf91">Learn by doing</text>
-      <rect x="158" width="155" height="36" rx="18" fill="#29271f" stroke="#63533a"/><text x="235" y="24" text-anchor="middle" fill="#e9d4a6">Ready-to-run code</text>
-      <rect x="325" width="143" height="36" rx="18" fill="#242733" stroke="#4e4a40"/><text x="396" y="24" text-anchor="middle" fill="#cdc7b8" font-size="13">Beginner to advanced</text>
-    </g>
   </g>
   <!-- A closed cookbook and pot give the banner a warm, compact emblem. -->
   <g transform="translate(810 117) rotate(-5 105 135)">
@@ -28,8 +22,7 @@
     <path d="M43 1Q135 -7 215 11V268Q134 251 43 265Z" fill="#49311e" stroke="#e3bc76" stroke-width="3"/>
     <path d="M44 3V264" stroke="#b9884b" stroke-width="8"/>
     <path d="M58 17Q134 9 199 23V249Q134 236 58 246Z" fill="none" stroke="#c79e5f" stroke-opacity=".72" stroke-width="1.5"/>
-    <path d="M91 69C91 58 100 51 111 53C115 41 127 38 137 45C148 38 162 46 162 58C174 60 178 72 171 81H94C87 78 86 73 91 69Z" fill="none" stroke="#edcf91" stroke-width="2.5" stroke-linejoin="round"/>
-    <path d="M96 83H167" stroke="#edcf91" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="132" y="86" text-anchor="middle" fill="#edcf91" font-family="Cascadia Code, Consolas, monospace" font-size="43" font-weight="700">{ }</text>
     <text x="132" y="123" text-anchor="middle" fill="#f5e5c2" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="1.3">FREE PASCAL</text>
     <text x="132" y="149" text-anchor="middle" fill="#edc782" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="1.5">COOKBOOK</text>
     <path d="M83 171H181M83 183H169M83 195H177" stroke="#bb9660" stroke-opacity=".8" stroke-width="2" stroke-linecap="round"/>
