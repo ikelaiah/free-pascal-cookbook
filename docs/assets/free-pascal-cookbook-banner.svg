@@ -34,7 +34,7 @@
   </g>
 
   <!-- Lidded cooking pot with gentle steam -->
-  <g transform="translate(1084 276)" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(1110 240) scale(1.24)" stroke-linecap="round" stroke-linejoin="round">
     <path d="M74 0C64 -13 82 -19 72 -33M121 0C111 -13 129 -19 119 -33M168 0C158 -13 176 -19 166 -33" fill="none" stroke="#edc782" stroke-width="3" opacity=".85"/>
     <path d="M48 61H31Q20 61 20 72V88Q20 99 31 99H52M196 61H213Q224 61 224 72V88Q224 99 213 99H192" fill="none" stroke="#d5aa68" stroke-width="6"/>
     <path d="M43 38H201L191 126Q189 145 170 149H74Q55 145 53 126Z" fill="url(#potBody)" stroke="#e0b976" stroke-width="3"/>
