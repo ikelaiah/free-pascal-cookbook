@@ -6,6 +6,7 @@
     <radialGradient id="glow"><stop stop-color="#a56832" stop-opacity=".28"/><stop offset="1" stop-color="#a56832" stop-opacity="0"/></radialGradient>
     <linearGradient id="gold" x2="1"><stop stop-color="#f1cd83"/><stop offset="1" stop-color="#eca968"/></linearGradient>
     <linearGradient id="page" x2="1" y2="1"><stop stop-color="#fff6df"/><stop offset="1" stop-color="#e9dfc8"/></linearGradient>
+    <linearGradient id="potBody" x2="0" y2="1"><stop stop-color="#675039"/><stop offset=".55" stop-color="#47382c"/><stop offset="1" stop-color="#2f2927"/></linearGradient>
     <pattern id="grain" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M0 31L31 0" stroke="#eacb8c" stroke-opacity=".035"/></pattern>
     <clipPath id="frame"><rect x="1" y="1" width="1498" height="498" rx="24"/></clipPath>
   </defs>
@@ -32,12 +33,13 @@
   <!-- Lidded cooking pot with gentle steam -->
   <g transform="translate(1084 276)" stroke-linecap="round" stroke-linejoin="round">
     <path d="M74 0C64 -13 82 -19 72 -33M121 0C111 -13 129 -19 119 -33M168 0C158 -13 176 -19 166 -33" fill="none" stroke="#edc782" stroke-width="3" opacity=".85"/>
-    <path d="M47 32V21Q47 15 55 15H189Q197 15 197 21V32" fill="#8b6640" stroke="#e4bc77" stroke-width="2.5"/>
-    <path d="M105 14Q105 3 122 3Q139 3 139 14" fill="#bd9256" stroke="#f0d08e" stroke-width="2.5"/>
-    <path d="M37 35H207L194 126Q191 145 173 149H71Q53 145 50 126Z" fill="#443629" stroke="#e0b976" stroke-width="3"/>
-    <path d="M49 48Q121 57 196 48" fill="none" stroke="#866540" stroke-width="2"/>
-    <path d="M37 55H20Q9 55 9 68V91Q9 103 22 103H48M207 55H224Q235 55 235 68V91Q235 103 222 103H196" fill="none" stroke="#d5aa68" stroke-width="8"/>
-    <path d="M68 119Q121 130 176 119" fill="none" stroke="#bd9256" stroke-width="2" opacity=".8"/>
+    <path d="M48 61H31Q20 61 20 72V88Q20 99 31 99H52M196 61H213Q224 61 224 72V88Q224 99 213 99H192" fill="none" stroke="#d5aa68" stroke-width="6"/>
+    <path d="M43 38H201L191 126Q189 145 170 149H74Q55 145 53 126Z" fill="url(#potBody)" stroke="#e0b976" stroke-width="3"/>
+    <path d="M51 36Q122 -2 193 36Z" fill="#745637" stroke="#e4bc77" stroke-width="2.5"/>
+    <path d="M111 17Q111 9 122 9Q133 9 133 17" fill="#bd9256" stroke="#f0d08e" stroke-width="2.5"/>
+    <path d="M43 39H201" fill="none" stroke="#edc782" stroke-width="3"/>
+    <path d="M63 64Q78 60 93 62L84 113Q73 109 69 96Z" fill="#e4bd80" opacity=".11"/>
+    <path d="M74 123Q122 133 170 123" fill="none" stroke="#bd9256" stroke-width="2" opacity=".65"/>
     <path d="M79 149V158M165 149V158M69 158H175" fill="none" stroke="#bd9256" stroke-width="4"/>
     <path d="M34 180H210" fill="none" stroke="#c58d4b" stroke-width="1.5" opacity=".65"/>
   </g>
