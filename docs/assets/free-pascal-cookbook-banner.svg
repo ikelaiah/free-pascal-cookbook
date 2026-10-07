@@ -11,8 +11,7 @@
   </defs>
   <g clip-path="url(#frame)"><path fill="url(#bg)" d="M0 0H1500V500H0z"/><ellipse cx="1120" cy="260" rx="500" ry="360" fill="url(#glow)"/><path d="M720 0H1500V500H720z" fill="url(#grain)"/></g>
   <rect x="1" y="1" width="1498" height="498" rx="24" fill="none" stroke="#544635"/>
-  <g font-family="Segoe UI, Helvetica, Arial, sans-serif">
-    <g transform="translate(78 68)"><path d="M0 6Q38 -2 74 9V50Q38 39 0 49Z" fill="none" stroke="#d3aa68" stroke-width="2.5"/><path d="M74 9Q111 -2 148 6V49Q111 39 74 50Z" fill="none" stroke="#d3aa68" stroke-width="2.5"/><path d="M74 10V50" stroke="#d3aa68" stroke-width="2"/><path d="M12 17Q38 11 59 18M12 28Q38 22 59 29M90 18Q112 11 136 17M90 29Q112 22 136 28" stroke="#886c45" stroke-width="2" fill="none"/><text x="173" y="31" fill="#cabb9d" font-size="16" font-weight="600" letter-spacing="3">A FIELD GUIDE TO OBJECT PASCAL</text></g>
+  <g transform="translate(0 -28)" font-family="Segoe UI, Helvetica, Arial, sans-serif">
     <text x="75" y="211" fill="#faf4e8" font-size="68" font-weight="700" letter-spacing="-1.5">Free Pascal<tspan dx="14" fill="url(#gold)">Cookbook</tspan></text>
     <text x="80" y="271" fill="#edc882" font-size="28" font-weight="600">Practical recipes. Tested examples.</text>
     <text x="80" y="313" fill="#c4bba9" font-size="20">Go from your first program to confident, capable Pascal.</text>
@@ -22,7 +21,7 @@
       <rect x="325" width="143" height="36" rx="18" fill="#242733" stroke="#4e4a40"/><text x="396" y="24" text-anchor="middle" fill="#cdc7b8" font-size="13">Beginner to advanced</text>
     </g>
   </g>
-  <!-- A closed field guide, chef hat, and pot give the cookbook a warm, compact emblem. -->
+  <!-- A closed cookbook and pot give the banner a warm, compact emblem. -->
   <g transform="translate(810 117) rotate(-5 105 135)">
     <rect x="17" y="17" width="212" height="270" rx="13" fill="#080b14" opacity=".38"/>
     <path d="M24 11Q123 3 217 19V277Q122 262 24 276Z" fill="url(#page)" stroke="#bd9a65" stroke-width="2"/>
