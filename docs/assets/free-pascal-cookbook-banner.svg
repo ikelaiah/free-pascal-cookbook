@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1500" height="380" viewBox="0 0 1500 380" role="img" aria-labelledby="title desc">
   <title id="title">Free Pascal Cookbook — practical recipes for Object Pascal</title>
-  <desc id="desc">A bound hardcover Free Pascal cookbook sits beside a cooking pot, representing practical, tested recipes for learning Object Pascal.</desc>
+  <desc id="desc">Free Pascal Cookbook. Practical recipes. Tested examples. A bound hardcover book sits to the left of a steaming cooking pot.</desc>
   <defs>
     <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#17140f"/><stop offset=".55" stop-color="#222019"/><stop offset="1" stop-color="#171c2a"/></linearGradient>
     <radialGradient id="glow"><stop stop-color="#a56832" stop-opacity=".28"/><stop offset="1" stop-color="#a56832" stop-opacity="0"/></radialGradient>
@@ -16,7 +16,7 @@
   <g font-family="Segoe UI, Helvetica, Arial, sans-serif">
     <text x="80" y="132" fill="#faf4e8" font-size="80" font-weight="700" letter-spacing="-1.5">Free Pascal</text>
     <text x="76" y="236" fill="url(#gold)" font-size="104" font-weight="700" letter-spacing="-2">Cookbook</text>
-    <text x="82" y="296" fill="#edc882" font-size="30" font-weight="600">Practical recipes. Tested examples.</text>
+    <text x="80" y="296" fill="#e8ddc7" font-size="32" font-weight="600">Practical recipes. Tested examples.</text>
   </g>
   <!-- Three-quarter view: the front and spine are flat planes sharing one hinge.
        Both planes use the same downward vector (0.26, 1); book thickness is (-26, 18). -->
@@ -39,7 +39,7 @@
       <rect x="16" y="16" width="168" height="238" fill="none" stroke="#c79e5f" stroke-opacity=".72" stroke-width="1.5"/>
       <g text-anchor="middle" fill="#edcf91" font-family="Cascadia Code, Consolas, monospace" font-size="22" font-weight="700">
         <text x="100" y="65">begin</text>
-        <text x="100" y="93">end</text>
+        <text x="100" y="93">end.</text>
       </g>
       <text x="100" y="131" text-anchor="middle" fill="#f5e5c2" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="1">FREE PASCAL</text>
       <text x="100" y="158" text-anchor="middle" fill="#edc782" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="1">COOKBOOK</text>
