@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="500" viewBox="0 0 1500 500" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="380" viewBox="0 0 1500 380" role="img" aria-labelledby="title desc">
   <title id="title">Free Pascal Cookbook — practical recipes for Object Pascal</title>
   <desc id="desc">A closed Free Pascal cookbook sits beside a cooking pot, representing practical, tested recipes for learning Object Pascal.</desc>
   <defs>
@@ -8,16 +8,17 @@
     <linearGradient id="page" x2="1" y2="1"><stop stop-color="#fff6df"/><stop offset="1" stop-color="#e9dfc8"/></linearGradient>
     <linearGradient id="potBody" x2="0" y2="1"><stop stop-color="#675039"/><stop offset=".55" stop-color="#47382c"/><stop offset="1" stop-color="#2f2927"/></linearGradient>
     <pattern id="grain" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M0 31L31 0" stroke="#eacb8c" stroke-opacity=".035"/></pattern>
-    <clipPath id="frame"><rect x="1" y="1" width="1498" height="498" rx="24"/></clipPath>
+    <clipPath id="frame"><rect x="1" y="1" width="1498" height="378" rx="24"/></clipPath>
   </defs>
-  <g clip-path="url(#frame)"><path fill="url(#bg)" d="M0 0H1500V500H0z"/><ellipse cx="1120" cy="260" rx="500" ry="360" fill="url(#glow)"/><path d="M720 0H1500V500H720z" fill="url(#grain)"/></g>
-  <rect x="1" y="1" width="1498" height="498" rx="24" fill="none" stroke="#544635"/>
-  <g transform="translate(0 38)" font-family="Segoe UI, Helvetica, Arial, sans-serif">
-    <text x="75" y="211" fill="#faf4e8" font-size="68" font-weight="700" letter-spacing="-1.5">Free Pascal<tspan dx="14" fill="url(#gold)">Cookbook</tspan></text>
-    <text x="80" y="271" fill="#edc882" font-size="28" font-weight="600">Practical recipes. Tested examples.</text>
+  <g clip-path="url(#frame)"><path fill="url(#bg)" d="M0 0H1500V380H0z"/><ellipse cx="1120" cy="190" rx="360" ry="250" fill="url(#glow)"/><path d="M720 0H1500V380H720z" fill="url(#grain)"/></g>
+  <rect x="1" y="1" width="1498" height="378" rx="24" fill="none" stroke="#544635"/>
+  <g font-family="Segoe UI, Helvetica, Arial, sans-serif">
+    <text x="80" y="132" fill="#faf4e8" font-size="80" font-weight="700" letter-spacing="-1.5">Free Pascal</text>
+    <text x="76" y="236" fill="url(#gold)" font-size="104" font-weight="700" letter-spacing="-2">Cookbook</text>
+    <text x="82" y="296" fill="#edc882" font-size="30" font-weight="600">Practical recipes. Tested examples.</text>
   </g>
-  <!-- A closed cookbook and pot give the banner a warm, compact emblem. -->
-  <g transform="translate(810 117) rotate(-5 105 135)">
+  <!-- The enlarged book and overlapping pot share a common baseline. -->
+  <g transform="translate(870 30) scale(1.08) rotate(-5 105 135)">
     <rect x="17" y="17" width="212" height="270" rx="13" fill="#080b14" opacity=".38"/>
     <path d="M24 11Q123 3 217 19V277Q122 262 24 276Z" fill="url(#page)" stroke="#bd9a65" stroke-width="2"/>
     <path d="M43 1Q135 -7 215 11V268Q134 251 43 265Z" fill="#49311e" stroke="#e3bc76" stroke-width="3"/>
@@ -34,7 +35,7 @@
   </g>
 
   <!-- Lidded cooking pot with gentle steam -->
-  <g transform="translate(1110 240) scale(1.24)" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(1080 146) scale(1.24)" stroke-linecap="round" stroke-linejoin="round">
     <path d="M74 0C64 -13 82 -19 72 -33M121 0C111 -13 129 -19 119 -33M168 0C158 -13 176 -19 166 -33" fill="none" stroke="#edc782" stroke-width="3" opacity=".85"/>
     <path d="M48 61H31Q20 61 20 72V88Q20 99 31 99H52M196 61H213Q224 61 224 72V88Q224 99 213 99H192" fill="none" stroke="#d5aa68" stroke-width="6"/>
     <path d="M43 38H201L191 126Q189 145 170 149H74Q55 145 53 126Z" fill="url(#potBody)" stroke="#e0b976" stroke-width="3"/>
@@ -44,7 +45,6 @@
     <path d="M63 64Q78 60 93 62L84 113Q73 109 69 96Z" fill="#e4bd80" opacity=".11"/>
     <path d="M74 123Q122 133 170 123" fill="none" stroke="#bd9256" stroke-width="2" opacity=".65"/>
     <path d="M79 149V158M165 149V158M69 158H175" fill="none" stroke="#bd9256" stroke-width="4"/>
-    <path d="M34 180H210" fill="none" stroke="#c58d4b" stroke-width="1.5" opacity=".65"/>
+
   </g>
-  <g fill="#edc782"><circle cx="1070" cy="145" r="3"/><circle cx="1375" cy="213" r="3"/><path d="M1390 151L1394 160L1403 164L1394 168L1390 177L1386 168L1377 164L1386 160Z" opacity=".75"/></g>
 </svg>
