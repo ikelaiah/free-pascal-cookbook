@@ -1,11 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1500" height="380" viewBox="0 0 1500 380" role="img" aria-labelledby="title desc">
   <title id="title">Free Pascal Cookbook — practical recipes for Object Pascal</title>
-  <desc id="desc">A closed Free Pascal cookbook sits beside a cooking pot, representing practical, tested recipes for learning Object Pascal.</desc>
+  <desc id="desc">A bound hardcover Free Pascal cookbook sits beside a cooking pot, representing practical, tested recipes for learning Object Pascal.</desc>
   <defs>
     <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#17140f"/><stop offset=".55" stop-color="#222019"/><stop offset="1" stop-color="#171c2a"/></linearGradient>
     <radialGradient id="glow"><stop stop-color="#a56832" stop-opacity=".28"/><stop offset="1" stop-color="#a56832" stop-opacity="0"/></radialGradient>
     <linearGradient id="gold" x2="1"><stop stop-color="#f1cd83"/><stop offset="1" stop-color="#eca968"/></linearGradient>
     <linearGradient id="page" x2="1" y2="1"><stop stop-color="#fff6df"/><stop offset="1" stop-color="#e9dfc8"/></linearGradient>
+    <linearGradient id="spine" x2="1"><stop stop-color="#382619"/><stop offset=".65" stop-color="#594027"/><stop offset="1" stop-color="#49311e"/></linearGradient>
     <linearGradient id="potBody" x2="0" y2="1"><stop stop-color="#675039"/><stop offset=".55" stop-color="#47382c"/><stop offset="1" stop-color="#2f2927"/></linearGradient>
     <pattern id="grain" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M0 31L31 0" stroke="#eacb8c" stroke-opacity=".035"/></pattern>
     <clipPath id="frame"><rect x="1" y="1" width="1498" height="378" rx="24"/></clipPath>
@@ -17,21 +18,34 @@
     <text x="76" y="236" fill="url(#gold)" font-size="104" font-weight="700" letter-spacing="-2">Cookbook</text>
     <text x="82" y="296" fill="#edc882" font-size="30" font-weight="600">Practical recipes. Tested examples.</text>
   </g>
-  <!-- The enlarged book and overlapping pot share a common baseline. -->
-  <g transform="translate(870 30) scale(1.08) rotate(-5 105 135)">
-    <rect x="17" y="17" width="212" height="270" rx="13" fill="#080b14" opacity=".38"/>
-    <path d="M24 11Q123 3 217 19V277Q122 262 24 276Z" fill="url(#page)" stroke="#bd9a65" stroke-width="2"/>
-    <path d="M43 1Q135 -7 215 11V268Q134 251 43 265Z" fill="#49311e" stroke="#e3bc76" stroke-width="3"/>
-    <path d="M44 3V264" stroke="#b9884b" stroke-width="8"/>
-    <path d="M58 17Q134 9 199 23V249Q134 236 58 246Z" fill="none" stroke="#c79e5f" stroke-opacity=".72" stroke-width="1.5"/>
-    <g text-anchor="middle" fill="#edcf91" font-family="Cascadia Code, Consolas, monospace" font-size="21" font-weight="700">
-      <text x="132" y="62">begin</text>
-      <text x="132" y="88">end</text>
+  <!-- Three-quarter view: the front and spine are flat planes sharing one hinge.
+       Both planes use the same downward vector (0.26, 1); book thickness is (-26, 18). -->
+  <g id="cookbook" transform="translate(800 52) scale(.92)" stroke-linejoin="round">
+    <path d="M24 30L230 28L302 300L280 326L94 308Z" fill="#080b14" opacity=".38"/>
+    <!-- Back board and inset pages follow the same thickness direction as the spine. -->
+    <path d="M18 22L198 38L268.2 308L88.2 292Z" fill="#382619" stroke="#bd9a65" stroke-width="2"/>
+    <path d="M115.2 273L292.2 288.8L269.8 304.3L92.8 288.5Z" fill="url(#page)" stroke="#bd9a65" stroke-width="1"/>
+    <path d="M108.6 278.6L285.6 294.4M101.6 283.4L278.6 299.2" fill="none" stroke="#c4ad83" stroke-width=".8"/>
+    <!-- A planar leather spine, with straight bands and lettering on its own face. -->
+    <g transform="matrix(1 -.6923076923 .26 1 18 22)">
+      <path d="M0 0H26V270H0Z" fill="url(#spine)" stroke="#bd9a65" stroke-width="1.5"/>
+      <path d="M3 34H23M3 236H23" fill="none" stroke="#e3bc76" stroke-width="2"/>
+      <text x="13" y="135" transform="rotate(90 13 135)" text-anchor="middle" fill="#edc782" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" letter-spacing="1">FREE PASCAL COOKBOOK</text>
     </g>
-    <text x="132" y="123" text-anchor="middle" fill="#f5e5c2" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="1.3">FREE PASCAL</text>
-    <text x="132" y="149" text-anchor="middle" fill="#edc782" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="1.5">COOKBOOK</text>
-    <path d="M83 171H181M83 183H169M83 195H177" stroke="#bb9660" stroke-opacity=".8" stroke-width="2" stroke-linecap="round"/>
-    <circle cx="132" cy="222" r="3" fill="#edc782"/><path d="M111 222H123M141 222H153" stroke="#edc782" stroke-width="1.5"/>
+    <!-- The cover artwork shares the cover's oblique projection, including all lettering. -->
+    <g transform="matrix(.9 .08 .26 1 44 4)">
+      <path d="M0 0H200V270H0Z" fill="#49311e" stroke="#e3bc76" stroke-width="2"/>
+      <path d="M4 3V267" fill="none" stroke="#241a13" stroke-width="3"/>
+      <rect x="16" y="16" width="168" height="238" fill="none" stroke="#c79e5f" stroke-opacity=".72" stroke-width="1.5"/>
+      <g text-anchor="middle" fill="#edcf91" font-family="Cascadia Code, Consolas, monospace" font-size="22" font-weight="700">
+        <text x="100" y="65">begin</text>
+        <text x="100" y="93">end</text>
+      </g>
+      <text x="100" y="131" text-anchor="middle" fill="#f5e5c2" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="1">FREE PASCAL</text>
+      <text x="100" y="158" text-anchor="middle" fill="#edc782" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="1">COOKBOOK</text>
+      <path d="M51 181H149M51 193H137M51 205H145" stroke="#bb9660" stroke-opacity=".8" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="100" cy="231" r="3" fill="#edc782"/><path d="M79 231H91M109 231H121" stroke="#edc782" stroke-width="1.5"/>
+    </g>
   </g>
 
   <!-- Lidded cooking pot with gentle steam -->
